@@ -1,0 +1,239 @@
+package com.hmd.client;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
+import com.hmd.enums.ErrorCode;
+import com.hmd.exception.ServiceErrorException;
+import com.hmd.model.ProfileModel;
+import com.hmd.model.SchoolModel;
+import com.hmd.model.TimelineModel;
+import com.hmd.util.ImageUtil;
+
+public class ParseResponseData {
+	
+	public static Object parse(String type, JSONObject jsonObject) throws ServiceErrorException {
+		int errorCode = jsonObject.optInt("ec", ErrorCode.UNKNOWN);
+		
+		if (errorCode != ErrorCode.SUCCESS){
+			throw new ServiceErrorException(getErrorMsg(errorCode)+"[ERROR_CODE:"+errorCode+"]");
+		}
+		
+		if (type.equalsIgnoreCase(HttpRequestType.HTTP_LOGIN)){
+			return login(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_LOGOUT)) {
+			return logout(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_BASIC)) {
+			return getProfileBasic(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_ALL)) {
+			return getProfileAll(jsonObject);
+
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_UPDATE)) {
+			return profileUpdate(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_TIMELINE_LIST)) {
+			return getTimelineList(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_TIMELINE_NODE_CREATE)) {
+			return timelineNodeCreate(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_TIMELINE_NODE_UPDATE)) {
+			return timelineNodeUpdate(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_TIMELINE_NODE_DELETE)) {
+			return timelineNodeDelete(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_INTRODUCT)) {
+			return getCollegeInfo(jsonObject);
+		}
+		
+		return null;
+	}
+	
+	/*
+	 * 登录
+	 */
+	private static Object login(JSONObject jsonObject){
+		
+		return JSONObject2Map(jsonObject);
+	}
+	
+	/*
+	 * 登出
+	 */
+	private static Object logout(JSONObject jsonObject){
+		
+		return JSONObject2Map(jsonObject);
+	}
+		
+	/*
+	 * 查看个人基本信息
+	 * 
+	 * {"basic":{"adYear":2000,"colg":"首都师范大学","name":"刘斌","gender":0,"dept":"未知","gradYear":2004,"major":"小学教育"},"rc":1,"ec":1}
+	 */
+	private static Object getProfileBasic(JSONObject jsonObject){
+		try{
+			JSONTokener parse = new JSONTokener(jsonObject.optString("basic"));
+			JSONObject basicObj = (JSONObject) parse.nextValue();
+			
+			if (null != basicObj){
+				ProfileModel model = new ProfileModel();
+				model.setName(basicObj.optString("name", ""));
+				model.setGender(basicObj.optInt("gender"));
+				model.setSchool(basicObj.optString("colg", ""));
+				model.setDept(basicObj.optString("dept", ""));
+				model.setMajor(basicObj.optString("major", ""));
+				model.setAdYear(basicObj.optString("adyear", ""));
+				model.setGradYear(basicObj.optString("gradYear", ""));
+				
+				return model;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	private static Object getProfileAll(JSONObject jsonObject){
+		try{
+			JSONTokener parse = new JSONTokener(jsonObject.optString("basic"));
+			JSONObject basicObj = (JSONObject) parse.nextValue();
+			
+			if (null != basicObj){
+				// TODO 因为返回的数据不全，有些字段不能够多确定，待完善
+				ProfileModel model = new ProfileModel();
+				model.setName(basicObj.optString("name", null));
+				model.setGender(basicObj.optInt("gender"));
+				model.setSchool(basicObj.optString("colg", null));
+				model.setDept(basicObj.optString("dept", null));
+				model.setMajor(basicObj.optString("major", null));
+				model.setAdYear(basicObj.optString("adyear", null));
+				model.setGradYear(basicObj.optString("gradYear", null));
+
+				model.setBirthday(basicObj.optString("birthday", null));
+				model.setBirthplace(basicObj.optString("birthplace", null));
+				model.setNation(basicObj.optString("nation", null));
+				model.setDesc(basicObj.optString("desc", null));
+				
+				return model;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private static Object profileUpdate(JSONObject jsonObject){
+		
+		return null;
+	}
+	
+	private static Object getTimelineList(JSONObject jsonObject){
+		ArrayList<TimelineModel> modelList = new ArrayList<TimelineModel>();
+		
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0){
+			for (int i=0; i<jsonArray.length(); i++){
+				TimelineModel timeline = new TimelineModel();
+				
+				JSONObject tiemlineObj = (JSONObject) jsonArray.opt(i);
+				timeline.setId(tiemlineObj.optString("id", ""));
+				timeline.setTitle(tiemlineObj.optString("title", ""));
+				timeline.setDescription(tiemlineObj.optString("desc", ""));
+				timeline.setStartTime(tiemlineObj.optString("stime", ""));
+				timeline.setEndTime(tiemlineObj.optString("etime", ""));
+				timeline.setProvince(tiemlineObj.optString("province", ""));
+				timeline.setCity(tiemlineObj.optString("city", ""));
+				timeline.setDistrict(tiemlineObj.optString("district", ""));
+				timeline.setSchool(tiemlineObj.optString("org", ""));
+				timeline.setImgUrl(ImageUtil.getTestImageURL());
+				
+				modelList.add(timeline);
+			}
+			
+			return modelList;
+			
+		}
+		
+		return null;
+	}
+	
+	private static Object timelineNodeCreate(JSONObject jsonObject){
+		
+		return null;
+	}
+	
+	private static Object timelineNodeUpdate(JSONObject jsonObject){
+		
+		return null;
+	}
+	
+	private static Object timelineNodeDelete(JSONObject jsonObject){
+		
+		return null;
+	}
+	
+	// 获取母校信息
+	private static Object getCollegeInfo(JSONObject jsonObject){
+		SchoolModel school = new SchoolModel();
+		school.setmId(jsonObject.optString("id", ""));
+		school.setmLogoUrl(jsonObject.optString("logoURL", ""));
+		school.setmName(jsonObject.optString("name", ""));
+		school.setmDesc(jsonObject.optString("introduct", ""));
+		
+		return school;
+	}
+	
+	//////////////////////////////////////////////////////////////////////////////
+	
+	private static HashMap<String, String> JSONObject2Map(JSONObject jsonObject){
+		HashMap<String, String> responseMap = new HashMap<String, String>();
+		
+		try{
+			@SuppressWarnings("unchecked")
+			Iterator<String> keys = jsonObject.keys();
+			while (keys.hasNext()){
+				String key = (String)keys.next();
+				responseMap.put(key, jsonObject.getString(key));
+			}
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return responseMap;
+	}
+	
+	private static String getErrorMsg(int errorCode){
+		if (errorCode == ErrorCode.SYSTEM_MAINTENANCE){
+			return "服务器维护中，请稍候再试。";
+		} else if(errorCode == ErrorCode.PARAM_ERROR){
+			return "参数异常，请重试。";
+		} else if(errorCode == ErrorCode.SESSIONID_ERROR) {
+			return "会话超时，请重新登录。";
+		} else if(errorCode == ErrorCode.CLIENTID_ERROR) {
+			return "无效的终端类型。";
+		} else if (errorCode == ErrorCode.VERSION_ERROR) {
+			return "协议版本异常，请重试。";
+		} else if (errorCode == ErrorCode.CACHE_ERROR) {
+			return "服务器缓存异常，请重试。";
+		} else if (errorCode == ErrorCode.DATABASE_ERROR) {
+			return "服务器数据库异常，请重试。";
+		} else if (errorCode == ErrorCode.UNKNOWN) {
+			return "未知错误。";
+		} else {
+			return "未定义错误";
+		}
+	}
+	
+}

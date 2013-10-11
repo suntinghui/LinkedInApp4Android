@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="EditTextWithClearView">
+        <attr name="hint" format="string"></attr>
+        <attr name="inputType" format="integer">
+            <enum name="text" value="0"/>
+            <enum name="password" value="1"/>
+        </attr>
+    </declare-styleable>
+
+</resources>

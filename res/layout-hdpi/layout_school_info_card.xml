@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" 
+    android:background="@drawable/img_weibo_con_border"
+    android:layout_margin="5dp"
+    >
+    
+    <ImageView
+        android:id="@+id/img_school_logo"
+        android:layout_width="120dip"
+        android:layout_height="120dip"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/img_weibo_item_pic_loading"
+        />
+    
+    <ImageButton
+        android:id="@+id/btn_school_info_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/img_btn_profile_arrow"
+        />
+    
+    <RelativeLayout
+        android:id="@+id/rl_school_info_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_school_logo"
+        android:layout_toLeftOf="@id/btn_school_info_more"
+        >
+        <TextView 
+            android:id="@+id/tv_school_info_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txtUnkownSchoolDesc"
+            android:textColor="@color/titleGreen"
+            android:typeface ="sans"
+            android:textSize="20sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+			android:layout_marginLeft="5dp"
+            />
+        <TextView
+            android:id="@+id/tv_school_info_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txtUnkownSchoolDesc"
+            android:typeface ="sans"
+            android:maxLines="7"
+            android:ellipsize="end"
+            android:textSize="12sp"
+			android:layout_marginLeft="5dp"
+			android:layout_below="@id/tv_school_info_name"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>

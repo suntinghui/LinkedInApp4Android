@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/img_weibo_con_border" >
+
+    <RelativeLayout
+        android:id="@+id/rl_weibo_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/img_weibo_con_bottom_border" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/txtWeibo"
+            android:textColor="@color/topbarBg"
+            android:textSize="15sp"
+            android:typeface="sans" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" >
+
+            <ImageButton
+                android:id="@+id/rl_school_weibo_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/img_btn_school_notice" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/txtMore"
+                android:textColor="@color/cardMainBg"
+                android:textSize="13sp"
+                android:typeface="sans" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/loginSinaWeiboBtn"
+        style="@style/txt_gray_14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_weibo_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dip"
+        android:background="@drawable/img_login_btn"
+        android:text="@string/txtLoginSinaWeibo"
+        android:visibility="gone" />
+
+    <ListView
+        android:id="@+id/lv_timeline"
+        android:scrollbars="none"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/rl_weibo_title"
+        android:layout_centerHorizontal="true"
+        android:cacheColorHint="#00000000"
+        android:divider="#eee"
+        android:dividerHeight="1dp" >
+    </ListView>
+
+</RelativeLayout>

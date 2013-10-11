@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">校友网</string>
+    
+    <string name="txtPrompt">提示</string>
+    <string name="txtWait">请稍候</string>
+    <string name="txtOK">确定</string>
+    <string name="txtCancel">取消</string>
+    <string name="txtBack">返回</string>
+    <string name="txtLogin">登  录</string>
+    <string name="txtRegistr">注  册</string>
+    <string name="txtLoginNameHint">邮箱/手机号/用户名</string>
+    <string name="txtLoginPasswordHint">密码</string>
+    <string name="txtRegistrPasswordConfirmHint">密码</string>
+    <string name="txtTo">至</string>
+    <string name="txtNotice">官方公告</string>
+    <string name="txtEvent">官方活动</string>
+    <string name="txtTimeline">个人履历</string>
+    <string name="txtFriend">个人关注</string>
+    <string name="txtWeibo">官方微博</string>
+    <string name="txtCard">校友卡</string>
+    <string name="txtApply">我要申请</string>
+    
+    <string name="txtUnkownSchoolName">大学名称</string>
+    <string name="txtUnkownSchoolDesc">大学简介</string>
+    
+	<string name="txtMore">查看更多</string>
+	
+	<string name="txtLoginSinaWeibo">&#160;&#160;&#160;&#160;登录新浪微博&#160;&#160;&#160;&#160;</string>
+    
+    <string name="noNetTips">请您确认已开通手机上网功能，并在手机上设置正确的上网方式</string>
+
+</resources>

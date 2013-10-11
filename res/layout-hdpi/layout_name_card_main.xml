@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:layout_margin="5dp"
+    android:background="@drawable/img_weibo_con_border"
+    >
+    
+    <RelativeLayout 
+        android:id="@+id/rl_name_card_main_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        >
+        <ImageView
+            android:id="@+id/iv_name_card_main_photo"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_card_head_portrait"
+            />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/rl_name_card_main_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/rl_name_card_main_photo"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/img_weibo_con_bottom_border"
+        >
+        <RelativeLayout 
+            android:id="@+id/rl_name_card_main_name"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_alignParentTop="true"
+        	>
+            <TextView
+                android:id="@+id/tv_name_card_main_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/topbarBg"
+                android:typeface ="sans"
+                android:textSize="17sp"
+                android:text="@string/app_name"
+                />
+        </RelativeLayout>
+        <RelativeLayout 
+            android:id="@+id/rl_name_card_main_location"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_below="@id/rl_name_card_main_name"
+        	>
+            <TextView
+                android:id="@+id/tv_name_card_main_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/fontGrey"
+                android:typeface ="sans"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:id="@+id/tv_name_card_main_district"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/fontGrey"
+                android:typeface ="sans"
+                android:textSize="15sp"
+                />
+        </RelativeLayout>
+        <RelativeLayout 
+            android:id="@+id/rl_name_card_main_brief"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:layout_below="@id/rl_name_card_main_location"
+        	>
+            <TextView
+                android:id="@+id/tv_name_card_main_brief1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/fontGrey"
+                android:typeface ="sans"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:id="@+id/tv_name_card_main_brief2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+				android:layout_below="@id/tv_name_card_main_brief1"
+                android:textColor="@color/fontGrey"
+                android:typeface ="sans"
+                android:textSize="15sp"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

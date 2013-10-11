@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="topbarBg">#2b5be2</color>
+    <color name="mainBg">#ddddde</color>
+    <color name="cardMainBg">#ffffff</color>
+    <color name="borderColor">#a4a4a4</color>
+    <color name="fontGrey">#4b4b4b</color>
+    <color name="middleBlue">#4976f0</color>
+    <color name="dateBlue">#344fa1</color>
+    <color name="titleGreen">#008ccf</color>
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/img_weibo_con_grey" >
+
+    <RelativeLayout
+        android:id="@+id/rl_school_notice_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
+
+        <ImageView
+            android:id="@+id/img_school_notice_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/img_card_announcement" />
+
+        <TextView
+            android:id="@+id/tv_school_notice_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/img_school_notice_logo"
+            android:text="@string/txtNotice"
+            android:textColor="@color/cardMainBg"
+            android:textSize="15sp"
+            android:typeface="sans" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_school_notice_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_school_notice_top" >
+
+        <TextView
+            android:id="@+id/tv_school_notice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_school_notice_more"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_school_notice_content"
+        android:layout_marginTop="5dp"
+        android:gravity="right" >
+
+        <ImageButton
+            android:id="@+id/btn_school_notice_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/img_btn_school_notice" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="@string/txtMore"
+            android:textColor="@color/cardMainBg"
+            android:textSize="13sp"
+            android:typeface="sans" />
+    </RelativeLayout>
+
+</RelativeLayout>

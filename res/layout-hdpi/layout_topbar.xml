@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:background="@color/topbarBg"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:focusable="true" 
+	android:focusableInTouchMode="true" 
+    >
+    <ImageButton 
+        android:id="@+id/btn_topbar_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="10dp"
+        />
+  
+    <ImageButton
+        android:id="@+id/btn_topbar_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/img_btn_topbar_search"
+ 		android:layout_marginLeft="5dp"
+        />
+    
+    <EditText
+        android:id="@+id/et_topbar_search_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/btn_topbar_category"
+        android:layout_toLeftOf="@id/btn_topbar_search"
+        android:background="@drawable/img_topbar_searchbox"
+        />
+
+</RelativeLayout>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- requestId的值务必与 HttpRequestType 中的相关值保持一致 -->
+
+<root>
+    
+    <!-- 登录 -->
+    <request>
+        <requestId>LOGIN</requestId>
+        <url>/login</url>
+        <method>POST</method>
+    </request>
+    
+    <!-- 登出 -->
+    <request>
+        <requestId>LOGOUT</requestId>
+        <url>/logout</url>
+        <method>POST</method>
+    </request>
+    
+    <!-- 查看个人基本信息 -->
+    <request>
+        <requestId>PROFILE_BASIC</requestId>
+        <url>/profile/${id}/basic</url>
+        <method>GET</method>
+    </request>
+    
+    <!-- 查看全部个人信息 -->
+    <request>
+        <requestId>PROFILE_ALL</requestId>
+        <url>/profile/${id}/all</url>
+        <method>GET</method>
+    </request>
+    
+    <!-- 更新个人信息 -->
+    <request>
+        <requestId>PROFILE_UPDATE</requestId>
+        <url>/profile/me/update</url>
+        <method>POST</method>
+    </request>
+    
+    <!-- 查看时间轴 -->
+    <request>
+        <requestId>TIMELINE_LIST</requestId>
+        <url>/timeline/${id}/list</url>
+        <method>GET</method>
+    </request>
+    
+    <!-- 添加时间轴结点 -->
+    <request>
+        <requestId>TIMELINE_NODE_CREATE</requestId>
+        <url>/timeline/me/node/create</url>
+        <method>POST</method>
+    </request>
+    
+    <!-- 更新时间轴结点 -->
+    <request>
+        <requestId>TIMELINE_NODE_UPDATE</requestId>
+        <url>/timeline/me/node/update</url>
+        <method>POST</method>
+    </request>
+    
+    <!-- 删除时间轴结点 -->
+    <request>
+        <requestId>TIMELINE_NODE_DELETE</requestId>
+        <url>/timeline/me/node/delete</url>
+        <method>POST</method>
+    </request>
+    
+    <!-- 获取母校介绍 -->
+    <request>
+        <requestId>COLLEGE_INTRODUCT</requestId>
+        <url>/college/info</url>
+        <method>GET</method>
+    </request>
+    
+    <!-- 获取公告标题列表 -->
+    <request>
+        <requestId>COLLEGE_BROADCAST_LIST</requestId>
+        <url>/college/broadcast/list</url>
+        <method>GET</method>
+    </request>
+    
+    <!-- 获取公告详情 -->
+    <request>
+        <requestId>COLLEGE_BROADCAST_DETAIL</requestId>
+        <url>/college/broadcast/${id}/detail</url>
+        <method>GET</method>
+    </request>
+    
+    <!-- 获取活动列表 -->
+    <request>
+        <requestId>COLLEGE_EVENT_LIST</requestId>
+        <url>/college/event/list</url>
+        <method>GET</method>
+    </request>
+    
+    <!-- 获取活动详情 -->
+    <request>
+        <requestId>COLLEGE_EVENT_DETAIL</requestId>
+        <url>/college/event/${id}/detail</url>
+        <method>GET</method>
+    </request>
+    
+    <!-- 获取活动成员列表 -->
+    <request>
+        <requestId>COLLEGE_EVENT_PARTICIPANT_LIST</requestId>
+        <url>/college/event/${id}/participant/list</url>
+        <method>GET</method>
+    </request>
+    
+    <!-- 关注活动 -->
+    <request>
+        <requestId>COLLEGE_EVENT_FOLLOW</requestId>
+        <url>/college/event/${id}/follow</url>
+        <method>POST</method>
+    </request>
+    
+    <!-- 取消关注活动 -->
+    <request>
+        <requestId>COLLEGE_EVENT_UNFOLLOW</requestId>
+        <url>/college/event/${id}/unfollow</url>
+        <method>POST</method>
+    </request>
+    
+    <!-- 参加活动 -->
+    <request>
+        <requestId>COLLEGE_EVENT_JOIN</requestId>
+        <url>/college/event/${id}/join</url>
+        <method>POST</method>
+    </request>
+    
+    <!-- 取消参加活动 -->
+    <request>
+        <requestId>COLLEGE_EVENT_QUIT</requestId>
+        <url>/college/event/${id}/quit</url>
+        <method>POST</method>
+    </request>
+    
+    <!-- 回馈母校记录列表 -->
+    <request>
+        <requestId>COLLEGE_FEEDBACK_LIST</requestId>
+        <url>/college/feedback/list</url>
+        <method>GET</method>
+    </request>
+    
+    <!-- 记录回馈母校行为 -->
+    <request>
+        <requestId>COLLEGE_FEEDBACK_CREATE</requestId>
+        <url>/college/feedback/me/create</url>
+        <method>POST</method>
+    </request>
+    
+    <!-- 申请校友卡 -->
+    <request>
+        <requestId>COLLEGE_ALUCARD_APPLY</requestId>
+        <url>/college/alucard/apply</url>
+        <method>POST</method>
+    </request>
+    
+    <!-- 查看校友卡申请进度 -->
+    <request>
+        <requestId>COLLEGE_ALUCARD_STATUS</requestId>
+        <url>/college/alucard/status</url>
+        <method>GET</method>
+    </request>
+    
+</root>
