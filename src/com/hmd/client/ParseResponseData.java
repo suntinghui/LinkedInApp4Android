@@ -53,6 +53,8 @@ public class ParseResponseData {
 			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_INTRODUCT)) {
 			return getCollegeInfo(jsonObject);
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_SUGGESTPEOPLE_LIST)) {
+			return getSuggestPeopleList(jsonObject);
 		}
 		
 		return null;
@@ -135,6 +137,30 @@ public class ParseResponseData {
 	}
 	
 	private static Object profileUpdate(JSONObject jsonObject){
+		
+		return null;
+	}
+	
+	//根据选中履历推荐好友列表
+	private static Object getSuggestPeopleList(JSONObject jsonObject){
+		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
+		
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0){
+			for (int i=0; i<jsonArray.length(); i++){
+				ProfileModel model = new ProfileModel();
+				
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				model.setId(obj.optString("id", ""));
+				model.setName(obj.optString("name", ""));
+				model.setGender(obj.optInt("gender", 1));
+				
+				modelList.add(model);
+			}
+			
+			return modelList;
+			
+		}
 		
 		return null;
 	}

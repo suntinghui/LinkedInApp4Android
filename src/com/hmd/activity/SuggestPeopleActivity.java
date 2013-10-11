@@ -2,6 +2,7 @@ package com.hmd.activity;
 
 import java.util.ArrayList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -25,7 +26,11 @@ public class SuggestPeopleActivity extends BaseActivity{
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	private void init(){
+		
+		Intent intent = this.getIntent();
+		entries = (ArrayList<ProfileModel>) intent.getSerializableExtra("PROFILEMODELLIST");
 		this.prepareSampleData();
 		
 		SwitchableScrollViewer svSuggestList = new SwitchableScrollViewer(this, this.entries, "相关推荐");
@@ -63,6 +68,6 @@ public class SuggestPeopleActivity extends BaseActivity{
 		nc3.setPosition("总监");
 		friends.add(nc3);
 		
-		this.entries = friends;
+//		this.entries = friends;
 	}
 }

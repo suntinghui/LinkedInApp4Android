@@ -33,18 +33,18 @@ public class NameCardRelativeLayout extends RelativeLayout {
 		TextView tvBrief2 = (TextView)this.findViewById(R.id.tv_name_card_brief2);
 		ImageView photoImageView = (ImageView) this.findViewById(R.id.iv_name_card_photo);
 		
-		tvName.setText(this.data.getName());
-		tvCity.setText(this.data.getCity());
-		tvDistrict.setText(this.data.getDistrict());
+		tvName.setText(this.data.getName()!=null ? this.data.getName():"name");
+		tvCity.setText(this.data.getCity()!=null ? this.data.getCity():"getCity");
+		tvDistrict.setText(this.data.getDistrict()!=null ? this.data.getDistrict():"getDistrict");
 		
 		if(this.data.isSchool()){
-			tvBrief1.setText(this.data.getSchool());
-			tvBrief2.setText(this.data.getMajor());
+			tvBrief1.setText(this.data.getSchool()!=null ? this.data.getSchool():"getSchool");
+			tvBrief2.setText(this.data.getMajor()!=null ? this.data.getMajor():"getMajor");
 		}else{
-			tvBrief1.setText(this.data.getCompany());
-			tvBrief2.setText(this.data.getPosition());
+			tvBrief1.setText(this.data.getCompany()!=null ? this.data.getCompany():"getCompany");
+			tvBrief2.setText(this.data.getPosition()!=null ? this.data.getPosition():"getPosition");
 		}
 		
-		ImageUtil.loadImage(R.drawable.img_card_head_portrait_small, ImageUtil.getTestImageURL(), photoImageView);
+//		ImageUtil.loadImage(R.drawable.img_card_head_portrait_small, ImageUtil.getTestImageURL(), photoImageView);
 	}
 }

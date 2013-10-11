@@ -1,7 +1,12 @@
 package com.hmd.activity.component;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -10,8 +15,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.activity.ProfileActivity;
+import com.hmd.activity.SchoolActivity;
 import com.hmd.activity.SuggestPeopleActivity;
+import com.hmd.client.HttpRequestType;
 import com.hmd.model.TimelineModel;
+import com.hmd.network.LKAsyncHttpResponseHandler;
+import com.hmd.network.LKHttpRequest;
+import com.hmd.network.LKHttpRequestQueue;
+import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.ImageUtil;
 
 
@@ -91,7 +103,33 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 	};
 	
 	private void findRelatedProfile(){
-		Intent intent = new Intent(this.mContext, SuggestPeopleActivity.class);  
-		this.mContext.startActivity(intent);  
+		getSuggestPeopleList();  
+	}
+	
+	private void getSuggestPeopleList(){
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getSuggestPeopleRequest());
+		queue.executeQueue("正在查询推荐好友...", new LKHttpRequestQueueDone());
+		
+	}
+	
+	// 查看推荐好友
+	private LKHttpRequest getSuggestPeopleRequest(){
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("page", "1");
+		paramMap.put("num", "49");
+		
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_SUGGESTPEOPLE_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				Log.i("---", obj.toString());
+				Intent intent = new Intent(ProfileCardRelativeLayout.this.mContext, SuggestPeopleActivity.class);  
+				intent.putExtra("PROFILEMODELLIST", (Serializable)obj);
+				ProfileCardRelativeLayout.this.mContext.startActivity(intent);
+			}
+		}, data.getid());
+		
+		return request;
 	}
 }
