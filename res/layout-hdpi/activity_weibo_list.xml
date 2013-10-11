@@ -17,7 +17,7 @@
 
         <Button
             android:id="@+id/btn_back"
-            android:layout_width="67dp"
+            android:layout_width="67dip"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"

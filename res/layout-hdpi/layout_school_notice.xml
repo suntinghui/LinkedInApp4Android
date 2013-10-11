@@ -3,71 +3,103 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/img_weibo_con_grey" >
+    android:background="@drawable/img_weibo_con_border" >
 
     <RelativeLayout
         android:id="@+id/rl_school_notice_top"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true"
+        android:background="@drawable/img_weibo_con_bottom_border" >
 
-        <ImageView
-            android:id="@+id/img_school_notice_logo"
-            android:layout_width="wrap_content"
+        <!-- 官方公告标题 -->
+
+        <RelativeLayout
+            android:id="@+id/rl_school_notice_title"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/img_card_announcement" />
+            android:layout_centerVertical="true" >
 
-        <TextView
-            android:id="@+id/tv_school_notice_title"
+            <ImageView
+                android:id="@+id/img_school_notice_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/img_card_announcement"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_school_notice_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="5dp"
+                android:layout_toRightOf="@id/img_school_notice_logo"
+                android:text="@string/txtNotice"
+                android:textColor="@color/topbarBg"
+                android:textSize="15sp"
+                android:typeface="sans" />
+        </RelativeLayout>
+
+        <!-- 查看更多 -->
+
+        <RelativeLayout
+            android:id="@+id/rl_school_notice_more"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="5dp"
-            android:layout_toRightOf="@id/img_school_notice_logo"
-            android:text="@string/txtNotice"
-            android:textColor="@color/cardMainBg"
-            android:textSize="15sp"
-            android:typeface="sans" />
+            android:gravity="right" >
+
+            <ImageButton
+                android:id="@+id/btn_school_notice_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/img_btn_school_notice" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="@string/txtMore"
+                android:textColor="@color/cardMainBg"
+                android:textSize="13sp"
+                android:typeface="sans" />
+        </RelativeLayout>
     </RelativeLayout>
 
-    <RelativeLayout
+    <!-- 公告内容 -->
+
+    <LinearLayout
         android:id="@+id/rl_school_notice_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_school_notice_top" >
+        android:layout_below="@id/rl_school_notice_top"
+        android:layout_marginTop="5dip"
+        android:background="@drawable/img_weibo_con_grey"
+        android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/tv_school_notice"
+            android:id="@+id/tv_notice_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_school_notice_more"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rl_school_notice_content"
-        android:layout_marginTop="5dp"
-        android:gravity="right" >
-
-        <ImageButton
-            android:id="@+id/btn_school_notice_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/img_btn_school_notice" />
+            android:textStyle="bold" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_notice_preview"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:text="@string/txtMore"
-            android:textColor="@color/cardMainBg"
-            android:textSize="13sp"
-            android:typeface="sans" />
-    </RelativeLayout>
+            android:ellipsize="end"
+            android:maxLines="6" />
+
+        <TextView
+            android:id="@+id/tv_notice_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="@string/app_name" />
+    </LinearLayout>
 
 </RelativeLayout>

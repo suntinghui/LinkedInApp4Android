@@ -1,5 +1,6 @@
 package com.hmd.util;
 
+import android.util.Log;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class ListViewUtil {
 
 		ViewGroup.LayoutParams params = listView.getLayoutParams();
 		params.height = totalHeight
-				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1)) + 20;
+				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
 		// listView.getDividerHeight()获取子项间分隔符占用的高度
 		// params.height最后得到整个ListView完整显示需要的高度
 		listView.setLayoutParams(params);

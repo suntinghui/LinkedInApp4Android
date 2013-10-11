@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">校友网</string>
+    <string name="app_name">校友会</string>
     
     <string name="txtPrompt">提示</string>
     <string name="txtWait">请稍候</string>

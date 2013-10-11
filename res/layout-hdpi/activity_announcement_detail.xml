@@ -19,11 +19,11 @@
 
             <Button
                 android:id="@+id/backButton"
-                android:layout_width="wrap_content"
+                android:layout_width="70dip"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dip"
-                android:layout_marginTop="13dip"
+                android:text="@string/txtBack"
                 android:background="@drawable/img_weibo_title_btn_back" >
             </Button>
 

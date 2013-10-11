@@ -10,6 +10,7 @@ import org.json.JSONTokener;
 
 import com.hmd.enums.ErrorCode;
 import com.hmd.exception.ServiceErrorException;
+import com.hmd.model.AnnouncementModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.SchoolModel;
 import com.hmd.model.TimelineModel;
@@ -39,6 +40,12 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_UPDATE)) {
 			return profileUpdate(jsonObject);
 			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_BROADCAST_LIST)) {
+			return getBroadcastList(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_BROADCAST_DETAIL)) {
+			return getBroadcastDetail(jsonObject);
+					
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_TIMELINE_LIST)) {
 			return getTimelineList(jsonObject);
 			
@@ -53,6 +60,7 @@ public class ParseResponseData {
 			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_INTRODUCT)) {
 			return getCollegeInfo(jsonObject);
+			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_SUGGESTPEOPLE_LIST)) {
 			return getSuggestPeopleList(jsonObject);
 		}
@@ -141,6 +149,43 @@ public class ParseResponseData {
 		return null;
 	}
 	
+	// 取得公告列表
+	private static Object getBroadcastList(JSONObject jsonObject){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<AnnouncementModel> modelList = new ArrayList<AnnouncementModel>();
+		
+		int total = jsonObject.optInt("total", 0);
+		map.put("total", total);
+		
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0){
+			for (int i=0; i<jsonArray.length(); i++){
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				
+				AnnouncementModel model = new AnnouncementModel();
+				model.setId(obj.optString("id", ""));
+				model.setTitle(obj.optString("title", ""));
+				model.setTime(obj.optString("time", ""));
+				model.setPreview(obj.optString("preview", ""));
+				
+				modelList.add(model);
+			}
+		}
+		
+		map.put("list", modelList);
+		
+		return map;
+	}
+	
+	public static Object getBroadcastDetail(JSONObject jsonObject){
+		AnnouncementModel model = new AnnouncementModel();
+		model.setTitle(jsonObject.optString("title", ""));
+		model.setContent(jsonObject.optString("content", ""));
+		model.setTime(jsonObject.optString("time", ""));
+		
+		return model;
+	}
+	
 	//根据选中履历推荐好友列表
 	private static Object getSuggestPeopleList(JSONObject jsonObject){
 		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
@@ -148,9 +193,9 @@ public class ParseResponseData {
 		JSONArray jsonArray = jsonObject.optJSONArray("list");
 		if (jsonArray != null && jsonArray.length() > 0){
 			for (int i=0; i<jsonArray.length(); i++){
-				ProfileModel model = new ProfileModel();
-				
 				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				
+				ProfileModel model = new ProfileModel();
 				model.setId(obj.optString("id", ""));
 				model.setName(obj.optString("name", ""));
 				model.setGender(obj.optInt("gender", 1));
@@ -245,6 +290,8 @@ public class ParseResponseData {
 			return "服务器维护中，请稍候再试。";
 		} else if(errorCode == ErrorCode.PARAM_ERROR){
 			return "参数异常，请重试。";
+		} else if(errorCode == ErrorCode.PERMISSION_ERROR){
+			return "权限不足，请与管理员联系。";
 		} else if(errorCode == ErrorCode.SESSIONID_ERROR) {
 			return "会话超时，请重新登录。";
 		} else if(errorCode == ErrorCode.CLIENTID_ERROR) {
