@@ -36,6 +36,13 @@ import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.WeiboUtil;
 
+/**
+ * Test Github
+ * 
+ * @author liaojia
+ *
+ */
+
 public class SchoolActivity extends BaseActivity implements OnTouchListener {
 
 	private TopbarRelativeLayout topbar 				= null; // 搜索栏
