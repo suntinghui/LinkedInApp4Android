@@ -165,4 +165,11 @@
         <method>GET</method>
     </request>
     
+    <!-- 查看履历推荐好友 -->
+    <request>
+        <requestId>SUGGESTPEOPLE_LIST</requestId>
+        <url>/timeline/me/node/${nodeID}/newfriends/list</url>
+        <method>GET</method>
+    </request>
+    
 </root>

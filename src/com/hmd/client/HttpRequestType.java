@@ -29,5 +29,6 @@ public interface HttpRequestType {
 	public static final String HTTP_COLLEGE_FEEDBACK_CREATE				= "COLLEGE_FEEDBACK_CREATE";
 	public static final String HTTP_COLLEGE_ALUCARD_APPLY				= "COLLEGE_ALUCARD_APPLY";
 	public static final String HTTP_COLLEGE_ALUCARD_STATUS				= "COLLEGE_ALUCARD_STATUS";
+	public static final String HTTP_SUGGESTPEOPLE_LIST					= "SUGGESTPEOPLE_LIST";
 	
 }
