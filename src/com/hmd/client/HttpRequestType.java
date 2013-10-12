@@ -30,5 +30,10 @@ public interface HttpRequestType {
 	public static final String HTTP_COLLEGE_ALUCARD_APPLY				= "COLLEGE_ALUCARD_APPLY";
 	public static final String HTTP_COLLEGE_ALUCARD_STATUS				= "COLLEGE_ALUCARD_STATUS";
 	public static final String HTTP_SUGGESTPEOPLE_LIST					= "SUGGESTPEOPLE_LIST";
+	public static final String HTTP_MYATTENTIONS_LIST					= "MYATTENTIONS_LIST";
+	public static final String HTTP_FANS_LIST							= "FANS_LIST";
+	public static final String HTTP_ADDATTENTION						= "ADD_ATTENTION";
+	public static final String HTTP_CANCELATTENTION						= "CANCELATTENTION";
+	
 	
 }

@@ -172,4 +172,33 @@
         <method>GET</method>
     </request>
     
+    <!-- 查看我关注的好友列表 -->
+    <request>
+        <requestId>MYATTENTIONS_LIST</requestId>
+        <url>/friends/me/list</url>
+        <method>GET</method>
+    </request>
+    
+    <!-- 查看我关注的好友列表 -->
+    <request>
+        <requestId>FANS_LIST</requestId>
+        <url>/friends/me/funs/list</url>
+        <method>GET</method>
+    </request>
+    
+    <!-- 加关注 -->
+    <request>
+        <requestId>ADD_ATTENTION</requestId>
+        <url>/friends/${id}/follow</url>
+        <method>POST</method>
+    </request>
+    
+    <!-- 取消关注 -->
+    <request>
+        <requestId>CANCELATTENTION</requestId>
+        <url>/friends/${id}/unfollow</url>
+        <method>POST</method>
+    </request>
+     
+    
 </root>

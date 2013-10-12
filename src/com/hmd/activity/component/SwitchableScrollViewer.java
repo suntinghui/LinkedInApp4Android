@@ -141,6 +141,15 @@ public class SwitchableScrollViewer extends ScrollView {
 		nc3.setPosition("总监");
 		friends.add(nc3);
 		
+		ProfileModel nc4 = new ProfileModel();
+		nc.setName("石清华");
+		nc.setCity("北京");
+		nc.setDistrict("海淀区");
+		nc.setCompany("高德软件公司");
+		nc.setPosition("项目总监");
+		friends.add(nc4);
+		friends.add(nc4);
+		
 		return friends;
 	}
 		
