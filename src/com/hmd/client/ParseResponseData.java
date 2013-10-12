@@ -63,6 +63,14 @@ public class ParseResponseData {
 			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_SUGGESTPEOPLE_LIST)) {
 			return getSuggestPeopleList(jsonObject);
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_MYATTENTIONS_LIST)) {
+			return getMyAttentionsList(jsonObject);
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_FANS_LIST)) {
+			return getFansList(jsonObject);
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_ADDATTENTION)) {
+			return getAddAttention(jsonObject);
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_CANCELATTENTION)) {
+			return getCancelAttention(jsonObject);
 		}
 		
 		return null;
@@ -208,6 +216,71 @@ public class ParseResponseData {
 		}
 		
 		return null;
+	}
+	
+	//我关注的好友列表
+	private static Object getMyAttentionsList(JSONObject jsonObject){
+		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
+		
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0){
+			for (int i=0; i<jsonArray.length(); i++){
+				ProfileModel model = new ProfileModel();
+				
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				model.setFlag("1");
+				model.setId(obj.optString("id", ""));
+				model.setTime(obj.optString("time", ""));
+				model.setName(obj.optString("name", ""));
+				model.setGender(obj.optInt("gender", 1));
+				
+				modelList.add(model);
+			}
+			
+			return modelList;
+			
+		}
+		
+		return null;
+	}
+	//关注我人列表
+	private static Object getFansList(JSONObject jsonObject){
+		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
+		
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0){
+			for (int i=0; i<jsonArray.length(); i++){
+				ProfileModel model = new ProfileModel();
+				
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				model.setFlag("0");
+				model.setId(obj.optString("id", ""));
+				model.setTime(obj.optString("time", ""));
+				model.setName(obj.optString("name", ""));
+				model.setGender(obj.optInt("gender", 1));
+				
+				modelList.add(model);
+			}
+			
+			return modelList;
+			
+		}
+		
+		return null;
+	}
+	
+	// 加关注
+	private static int getAddAttention(JSONObject jsonObject){
+		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
+		
+		return errorCode;
+	}
+	
+	// 取消关注
+	private static int getCancelAttention(JSONObject jsonObject){
+		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
+		
+		return errorCode;
 	}
 	
 	private static Object getTimelineList(JSONObject jsonObject){

@@ -19,6 +19,7 @@ import com.hmd.activity.ProfileActivity;
 import com.hmd.activity.SchoolActivity;
 import com.hmd.activity.SuggestPeopleActivity;
 import com.hmd.client.HttpRequestType;
+import com.hmd.model.ProfileModel;
 import com.hmd.model.TimelineModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
@@ -117,16 +118,21 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 	private LKHttpRequest getSuggestPeopleRequest(){
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("page", "1");
-		paramMap.put("num", "49");
+		paramMap.put("num", "20");
 		
 		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_SUGGESTPEOPLE_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-				Log.i("---", obj.toString());
-				Intent intent = new Intent(ProfileCardRelativeLayout.this.mContext, SuggestPeopleActivity.class);  
-				intent.putExtra("PROFILEMODELLIST", (Serializable)obj);
-				ProfileCardRelativeLayout.this.mContext.startActivity(intent);
+				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)obj;
+				if(list == null || list.size() == 0){
+					
+				}else{
+					Intent intent = new Intent(ProfileCardRelativeLayout.this.mContext, SuggestPeopleActivity.class);  
+					intent.putExtra("PROFILEMODELLIST", (Serializable)obj);
+					ProfileCardRelativeLayout.this.mContext.startActivity(intent);
+				}
+				
 			}
 		}, data.getid());
 		

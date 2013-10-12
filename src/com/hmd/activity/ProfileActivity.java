@@ -1,9 +1,11 @@
 package com.hmd.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -30,6 +32,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 	private NameCardMainRelativeLayout profileInfoLayout = null;
 	private ProfileTimelineLinearLayout timelineLayout = null;
 	private SwitchableScrollViewer friendLayout = null;
+	private SwitchableScrollViewer fansLayout = null;
 	
 	private GestureDetector mDector = null;
 	private ProfileModel profileModel = null;
@@ -62,6 +65,8 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 		timelineLayout = (ProfileTimelineLinearLayout) this.findViewById(R.id.profileTimelineLayout);
 		friendLayout = (SwitchableScrollViewer) this.findViewById(R.id.profileFirendLayout);
 		friendLayout.setTitle("个人关注");
+		fansLayout = (SwitchableScrollViewer) this.findViewById(R.id.profileFansLayout);
+		fansLayout.setTitle("关注我的人");
 		
 		this.refreshData();
 	}
@@ -69,6 +74,8 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 	private void refreshData(){
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getProfileTimelineRequest());
+		queue.addHttpRequest(getMyAttentionsRequest());
+		queue.addHttpRequest(getFansRequest());
 		queue.executeQueue("正在查询履历...", new LKHttpRequestQueueDone());
 		
 		profileInfoLayout.refresh(profileModel);
@@ -81,9 +88,53 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 			@Override
 			public void successAction(Object obj) {
 				timelineLayout.refresh((ArrayList<TimelineModel>) obj);
-				friendLayout.refresh(friendLayout.getTestData());
 			}
 		}, "me");
+		
+		return request;
+	}
+	
+	// 查看我关注的人
+	private LKHttpRequest getMyAttentionsRequest(){
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("page", "1");
+		paramMap.put("num", "5");
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_MYATTENTIONS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				Log.i("myattentions: %@", obj.toString());
+				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)obj;
+				if(list == null || list.size() == 0){
+					
+				}else{
+					friendLayout.refresh(list);
+				}
+				
+			}
+		});
+		
+		return request;
+	}
+	
+	// 查看关注我的人
+	private LKHttpRequest getFansRequest(){
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("page", "1");
+		paramMap.put("num", "5");
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FANS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)obj;
+				if(list == null || list.size() == 0){
+					
+				}else{
+					fansLayout.refresh(list);
+				}
+				
+			}
+		});
 		
 		return request;
 	}

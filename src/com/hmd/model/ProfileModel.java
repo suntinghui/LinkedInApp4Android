@@ -10,6 +10,8 @@ public class ProfileModel implements Serializable{
 	private static final long serialVersionUID = -4122236788754937349L;
 
 	/* 个人基本信息 */
+	
+	private String mFlag = "2";// 0,关注我的人 1,我关注的人  2,与关注无关
 	private String mId = null; // id
 	
 	private String mName = null;
@@ -33,7 +35,24 @@ public class ProfileModel implements Serializable{
 	private String mBirthplace = null; // 籍贯
 	private String mNation = null; // 民族
 	private String mDesc = null; // 个人描述
+	private String mTime = null; // 关注时间
 	
+	public String getFlag() {
+		return mFlag;
+	}
+
+	public void setFlag(String mFlag) {
+		this.mFlag = mFlag;
+	}
+
+	public String getTime() {
+		return mTime;
+	}
+
+	public void setTime(String mTime) {
+		this.mTime = mTime;
+	}
+
 	public String getId(){
 		return this.mId;
 	}

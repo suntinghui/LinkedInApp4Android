@@ -51,15 +51,16 @@
         	android:layout_below="@id/rl_name_card_name"
         	>
             <TextView
-                android:id="@+id/tv_name_card_city"
+                android:id="@+id/tv_name_card_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 />
-            <TextView
-                android:id="@+id/tv_name_card_district"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <Button
+                android:id="@+id/btn_name_card_attention"
+                android:layout_width="80dip"
+                android:layout_height="40dip"
+                android:text="@string/cancelAttention"
                 android:layout_alignParentRight="true"
                 />
         </RelativeLayout>
@@ -70,16 +71,10 @@
         	android:layout_below="@id/rl_name_card_location"
         	>
             <TextView
-                android:id="@+id/tv_name_card_brief1"
+                android:id="@+id/tv_name_card_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                />
-            <TextView
-                android:id="@+id/tv_name_card_brief2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-				android:layout_below="@id/tv_name_card_brief1"
                 />
         </RelativeLayout>
     </RelativeLayout>
