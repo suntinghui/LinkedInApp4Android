@@ -32,7 +32,7 @@ public class BaseActivity extends Activity {
 	// 要命的static
 	private static LKProgressDialog progressDialog = null;
 	private LKAlertDialog alertDialog = null;
-	private ProgressHUD progressHUd = null;
+	private ProgressHUD progressHUD = null;
 	
 	private String message = null;
 	
@@ -214,7 +214,7 @@ public class BaseActivity extends Activity {
 	public void showProgressHUD(){
 		this.hideDialog(ALL_DIALOG);
 		
-		progressHUd = ProgressHUD.show(this,(null==message?"":message), true, false, null);
+		progressHUD = ProgressHUD.show(this,(null==message?"":message), true, false, null);
 	}
 	
 	public void hideDialog(int type){
@@ -232,8 +232,8 @@ public class BaseActivity extends Activity {
 			break;
 			
 		case PROGRESS_HUD:
-			if (null != progressHUd) {
-				progressHUd.dismiss();
+			if (null != progressHUD) {
+				progressHUD.dismiss();
 			}
 			
 		default:
@@ -242,8 +242,8 @@ public class BaseActivity extends Activity {
 			}
 			if (null != alertDialog && alertDialog.isShowing()){
 				alertDialog.dismiss();
-			} else if (null != progressHUd) {
-				progressHUd.dismiss();
+			} else if (null != progressHUD) {
+				progressHUD.dismiss();
 			}
 			break;
 		}
