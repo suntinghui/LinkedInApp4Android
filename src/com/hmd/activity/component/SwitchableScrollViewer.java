@@ -1,17 +1,30 @@
 package com.hmd.activity.component;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.activity.MyAttentionsActivity;
+import com.hmd.activity.SuggestPeopleActivity;
+import com.hmd.client.Constants;
+import com.hmd.client.HttpRequestType;
 import com.hmd.model.ProfileModel;
+import com.hmd.network.LKAsyncHttpResponseHandler;
+import com.hmd.network.LKHttpRequest;
+import com.hmd.network.LKHttpRequestQueue;
+import com.hmd.network.LKHttpRequestQueueDone;
 
 public class SwitchableScrollViewer extends ScrollView {
 
@@ -21,11 +34,25 @@ public class SwitchableScrollViewer extends ScrollView {
 	private Context mContext = null;
 	private boolean isList = true;
 	private ImageButton btnList = null;
+	private Button btnMore = null;
 	private String mTitle = null;
+	private Boolean mHasMoreButton = true;
+	private Boolean mHasSwitchButton = true;
+	private String mPage = "1";
+	private String mNum = Constants.PAGESIZE + "";
+	private int totalPage = 0;
+	private int currentPage = 0;
+	private ArrayList<ProfileModel> list = new ArrayList<ProfileModel>();
 	
 	public SwitchableScrollViewer(Context context){
 		super(context);
 		this.mContext = context;
+	}
+	
+	public void hiddenMoreButton(){
+		if(this.btnMore != null){
+			this.btnMore.setVisibility(View.GONE);
+		}
 	}
 	
 	public SwitchableScrollViewer(Context context, AttributeSet attrs) {
@@ -44,6 +71,17 @@ public class SwitchableScrollViewer extends ScrollView {
 		
 		this.init();
 	}
+	
+	public SwitchableScrollViewer(Context context, ArrayList<ProfileModel> e, String title, Boolean hasMore, Boolean hasSwitch) {
+		super(context);
+
+		this.mContext = context;
+		this.entries = e;
+		this.mTitle = title;
+		this.mHasMoreButton = hasMore;
+		this.mHasSwitchButton = hasSwitch;
+		this.init();
+	}
 
 	private void init(){
 		LayoutInflater.from(this.mContext).inflate(R.layout.layout_switchable_scrollview, this, true);
@@ -53,10 +91,14 @@ public class SwitchableScrollViewer extends ScrollView {
 			tvTitle.setText(this.mTitle);
 		}
 		
+		btnMore = (Button)this.findViewById(R.id.btn_layout_more);
+		btnMore.setOnClickListener(this.onSwitchView);
+		btnMore.setVisibility(mHasMoreButton ? View.VISIBLE:View.GONE);
+		
 		this.btnList = (ImageButton)this.findViewById(R.id.btn_layout_switch);
 		
 		btnList.setOnClickListener(this.onSwitchView);
-		
+		btnList.setVisibility(mHasSwitchButton ? View.VISIBLE:View.GONE);
 		if(this.entries == null){
 			if(this.isList){
 				this.btnList.setBackgroundResource(R.drawable.img_card_list_two);
@@ -101,11 +143,99 @@ public class SwitchableScrollViewer extends ScrollView {
 
 		@Override
 		public void onClick(View v) {
-			isList = !isList;
-			refreshContent();
+			switch (v.getId()) {
+			case R.id.btn_layout_switch:
+				isList = !isList;
+				refreshContent();
+				break;
+			case R.id.btn_layout_more:
+				if(mTitle.equals("个人关注")){
+					getMoreMyAttentionData();
+				}else{
+					getMoreFansData();
+				}
+				break;
+			default:
+				break;
+			}
+			
 		}
 	};
 	
+	private void getMoreMyAttentionData(){
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getMyAttentionsRequest());
+		
+		queue.executeQueue("正在获取更多...", new LKHttpRequestQueueDone());
+		
+	}
+	
+	private void getMoreFansData(){
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getFansRequest());
+		
+		queue.executeQueue("正在获取更多...", new LKHttpRequestQueueDone());
+		
+	}
+	// 查看我关注的人
+	private LKHttpRequest getMyAttentionsRequest(){
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("page", mPage);
+		paramMap.put("num", mNum);
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_MYATTENTIONS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				ArrayList<ProfileModel> tmpList = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
+				list = tmpList;
+				
+				if(list == null || list.size() == 0){
+					
+				}else{
+					int count = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+					totalPage = (count + Integer.parseInt(mNum) - 1) / Integer.parseInt(mNum);
+					currentPage = 0;
+					Intent intent = new Intent(SwitchableScrollViewer.this.mContext, MyAttentionsActivity.class);  
+					intent.putExtra("PROFILEMODELLIST", list);
+					intent.putExtra("TITLE", "个人关注");
+					
+					intent.putExtra("BOTTOMBUTTON_SHOW", currentPage + 1 < totalPage ? true:false);
+					SwitchableScrollViewer.this.mContext.startActivity(intent);
+					
+				}
+				
+			}
+		});
+		
+		return request;
+	}
+	
+	// 查看关注我的人
+	private LKHttpRequest getFansRequest(){
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("page", mPage);
+		paramMap.put("num", mNum);
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FANS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
+				Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+				if(list == null || list.size() == 0){
+					
+				}else{
+					Intent intent = new Intent(SwitchableScrollViewer.this.mContext, MyAttentionsActivity.class);  
+					intent.putExtra("PROFILEMODELLIST", list);
+					intent.putExtra("TITLE", "关注我的人");
+					SwitchableScrollViewer.this.mContext.startActivity(intent);
+				}
+				
+			}
+		});
+		
+		return request;
+	}
+		
 	public void refresh(ArrayList<ProfileModel> entries) {
 		this.setVisibility(View.VISIBLE);
 		
@@ -114,43 +244,4 @@ public class SwitchableScrollViewer extends ScrollView {
 		this.refreshContent();
 	}
 	
-	public ArrayList<ProfileModel> getTestData(){
-		ArrayList<ProfileModel> friends = new ArrayList<ProfileModel>();
-		
-		ProfileModel nc = new ProfileModel();
-		nc.setName("石清华");
-		nc.setCity("北京");
-		nc.setDistrict("海淀区");
-		nc.setCompany("高德软件公司");
-		nc.setPosition("项目总监");
-		friends.add(nc);
-		
-		ProfileModel nc2 = new ProfileModel();
-		nc2.setName("薛健");
-		nc2.setCity("北京");
-		nc2.setDistrict("朝阳区");
-		nc2.setCompany("清远华程技术有限公司");
-		nc2.setPosition("总裁");
-		friends.add(nc2);
-		
-		ProfileModel nc3 = new ProfileModel();
-		nc3.setName("张韵");
-		nc3.setCity("北京");
-		nc3.setDistrict("朝阳区");
-		nc3.setCompany("高德软件公司");
-		nc3.setPosition("总监");
-		friends.add(nc3);
-		
-		ProfileModel nc4 = new ProfileModel();
-		nc.setName("石清华");
-		nc.setCity("北京");
-		nc.setDistrict("海淀区");
-		nc.setCompany("高德软件公司");
-		nc.setPosition("项目总监");
-		friends.add(nc4);
-		friends.add(nc4);
-		
-		return friends;
-	}
-		
 }

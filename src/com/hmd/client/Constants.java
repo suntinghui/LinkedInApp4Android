@@ -14,7 +14,7 @@ public class Constants {
 	public static final String WEIBO_TIMELINE_SCREENNAME		= "首都师范大学招生";
 	public static final String URL_CNU_EDU 						= "http://www.cnu.edu.cn/pages/info_details.jsp?seq=2379&classcode=70101&boardid=70101";
 	
-	public static final int PAGESIZE							= 20;
+	public static int PAGESIZE							= 20;
 	
 	
 	// Sina Weibo

@@ -9,12 +9,14 @@ import android.widget.LinearLayout;
 
 import com.hmd.R;
 import com.hmd.activity.component.SwitchableScrollViewer;
+import com.hmd.client.Constants;
 import com.hmd.model.ProfileModel;
 
-public class SuggestPeopleActivity extends BaseActivity{
+public class MyAttentionsActivity extends BaseActivity{
 	
 	private ArrayList<ProfileModel> entries = null;
-	
+	private String mTitle = null;
+	private Boolean mBottomButtonShow = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -31,17 +33,15 @@ public class SuggestPeopleActivity extends BaseActivity{
 		
 		Intent intent = this.getIntent();
 		entries = (ArrayList<ProfileModel>) intent.getSerializableExtra("PROFILEMODELLIST");
-		this.prepareSampleData();
+		mTitle = (String) intent.getStringExtra("TITLE");
+		mBottomButtonShow = (Boolean) intent.getBooleanExtra("BOTTOMBUTTON_SHOW", false);
 		
-		SwitchableScrollViewer svSuggestList = new SwitchableScrollViewer(this, this.entries, "相关推荐", false, true);
-		
+		Constants.PAGESIZE = 20;
+		SwitchableScrollViewer svSuggestList = new SwitchableScrollViewer(this, this.entries, mTitle!=null ? mTitle:"相关推荐", false, false);
 		LinearLayout llListContainer = (LinearLayout)this.findViewById(R.id.ll_suggest_people);
 		llListContainer.removeAllViews();
 		
 		llListContainer.addView(svSuggestList);
 	}
 	
-	private void prepareSampleData(){
-
-	}
 }

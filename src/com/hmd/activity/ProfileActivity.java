@@ -19,6 +19,7 @@ import com.hmd.activity.component.NameCardMainRelativeLayout;
 import com.hmd.activity.component.ProfileTimelineLinearLayout;
 import com.hmd.activity.component.SwitchableScrollViewer;
 import com.hmd.activity.component.TopbarRelativeLayout;
+import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.TimelineModel;
@@ -37,6 +38,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 	private GestureDetector mDector = null;
 	private ProfileModel profileModel = null;
 	private LinearLayout mLlContainer = null;
+	private String mIdentity = "me";// 个人还是他人
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 		
 		Intent intent = this.getIntent();
 		profileModel = (ProfileModel) intent.getSerializableExtra("PROFILE");
+		mIdentity = intent.getStringExtra("IDENTITY");
 
 		this.init();
 	}
@@ -67,15 +70,23 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 		friendLayout.setTitle("个人关注");
 		fansLayout = (SwitchableScrollViewer) this.findViewById(R.id.profileFansLayout);
 		fansLayout.setTitle("关注我的人");
+		if(!mIdentity.equals("me")){
+			friendLayout.setVisibility(View.GONE);
+			fansLayout.setVisibility(View.GONE);
+		}
 		
 		this.refreshData();
 	}
 	
 	private void refreshData(){
+		Constants.PAGESIZE = 5;
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getProfileTimelineRequest());
-		queue.addHttpRequest(getMyAttentionsRequest());
-		queue.addHttpRequest(getFansRequest());
+		if(mIdentity.equals("me")){
+			queue.addHttpRequest(getMyAttentionsRequest());
+			queue.addHttpRequest(getFansRequest());
+		}
+		
 		queue.executeQueue("正在查询履历...", new LKHttpRequestQueueDone());
 		
 		profileInfoLayout.refresh(profileModel);
@@ -89,7 +100,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 			public void successAction(Object obj) {
 				timelineLayout.refresh((ArrayList<TimelineModel>) obj);
 			}
-		}, "me");
+		}, mIdentity.equals("me") ? "me":profileModel.getId());
 		
 		return request;
 	}
@@ -103,8 +114,11 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-				Log.i("myattentions: %@", obj.toString());
-				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)obj;
+				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
+				Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+				if(total < 5){
+					friendLayout.hiddenMoreButton();
+				}
 				if(list == null || list.size() == 0){
 					
 				}else{
@@ -126,7 +140,11 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)obj;
+				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
+				Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+				if(total < 5){
+					fansLayout.hiddenMoreButton();
+				}
 				if(list == null || list.size() == 0){
 					
 				}else{
