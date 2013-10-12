@@ -71,7 +71,7 @@ public class WeiboListActivity extends BaseActivity implements OnItemClickListen
 		
 		@Override
 		protected void onPreExecute() {
-			WeiboListActivity.this.showDialog(BaseActivity.PROGRESS_DIALOG, "正在加载微博...");
+			WeiboListActivity.this.showDialog(BaseActivity.PROGRESS_HUD, "正在加载微博...");
 			
 			super.onPreExecute();
 		}
@@ -93,7 +93,7 @@ public class WeiboListActivity extends BaseActivity implements OnItemClickListen
 			
 			ListViewUtil.setListViewHeightBasedOnChildren(timelineListView);
 			
-			WeiboListActivity.this.hideDialog(BaseActivity.PROGRESS_DIALOG);
+			WeiboListActivity.this.hideDialog(BaseActivity.PROGRESS_HUD);
 		}
 
 	}

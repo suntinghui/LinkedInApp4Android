@@ -47,7 +47,7 @@ public class LKHttpRequestQueueDone {
 		
 		try{
 			// 不能关闭alert
-			BaseActivity.getTopActivity().hideDialog(BaseActivity.PROGRESS_DIALOG);
+			BaseActivity.getTopActivity().hideDialog(BaseActivity.PROGRESS_HUD);
 			//LKMagicToast.hideToast();
 		} catch(Exception e){
 			e.printStackTrace();

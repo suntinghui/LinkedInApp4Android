@@ -55,13 +55,13 @@ public class ShowWebViewActivity extends BaseActivity implements OnClickListener
             	@Override
     			public void onPageStarted(WebView view, String url, Bitmap favicon) {
     				super.onPageStarted(view, url, favicon);
-    				ShowWebViewActivity.this.showDialog(BaseActivity.PROGRESS_DIALOG, "正在加载，请稍候...");
+    				ShowWebViewActivity.this.showDialog(BaseActivity.PROGRESS_HUD, "正在加载，请稍候...");
     			}
 
     			@Override
     			public void onPageFinished(WebView view, String url) {
     				super.onPageFinished(view, url);
-    				ShowWebViewActivity.this.hideDialog(BaseActivity.PROGRESS_DIALOG);
+    				ShowWebViewActivity.this.hideDialog(BaseActivity.PROGRESS_HUD);
     			}
 
     			// 重写此方法返回true表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边。

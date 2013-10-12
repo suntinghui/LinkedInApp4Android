@@ -34,7 +34,7 @@ public class SinaOAuthActivity extends BaseActivity {
 			
 			@Override
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
-				SinaOAuthActivity.this.showDialog(BaseActivity.PROGRESS_DIALOG, "正在加载...");
+				SinaOAuthActivity.this.showDialog(BaseActivity.PROGRESS_HUD, "正在加载...");
 				
 				if (url.startsWith(Constants.SINA_WEIBO_CALLBACK_URL)) {
 					// 取消授权后的界面
@@ -79,7 +79,7 @@ public class SinaOAuthActivity extends BaseActivity {
 			public void onPageFinished(WebView view, String url) {
 				super.onPageFinished(view, url);
 				
-				SinaOAuthActivity.this.hideDialog(BaseActivity.PROGRESS_DIALOG);
+				SinaOAuthActivity.this.hideDialog(BaseActivity.PROGRESS_HUD);
 			}
 
 			@Override

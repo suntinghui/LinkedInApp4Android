@@ -8,7 +8,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -18,6 +17,7 @@ import com.hmd.client.ApplicationEnvironment;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.view.LKAlertDialog;
 import com.hmd.view.LKProgressDialog;
+import com.hmd.view.ProgressHUD;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class BaseActivity extends Activity {
@@ -26,11 +26,13 @@ public class BaseActivity extends Activity {
 	
 	public static final int PROGRESS_DIALOG 	= 0; // 带滚动条的提示框 
 	public static final int MODAL_DIALOG		= 1; // 带确定按纽的提示框，需要用户干预才能消失
+	public static final int PROGRESS_HUD 		= 2;
 	public static final int ALL_DIALOG			= 3; 
 	
 	// 要命的static
 	private static LKProgressDialog progressDialog = null;
 	private LKAlertDialog alertDialog = null;
+	private ProgressHUD progressHUd = null;
 	
 	private String message = null;
 	
@@ -158,6 +160,9 @@ public class BaseActivity extends Activity {
 		case MODAL_DIALOG:
 			this.showAlertDialog();
 			break;
+			
+		case PROGRESS_HUD:
+			this.showProgressHUD();
 		}
 		
 		return super.onCreateDialog(id);
@@ -206,6 +211,12 @@ public class BaseActivity extends Activity {
 		}
 	}
 	
+	public void showProgressHUD(){
+		this.hideDialog(ALL_DIALOG);
+		
+		progressHUd = ProgressHUD.show(this,(null==message?"":message), true, false, null);
+	}
+	
 	public void hideDialog(int type){
 		switch(type){
 		case PROGRESS_DIALOG:
@@ -220,12 +231,19 @@ public class BaseActivity extends Activity {
 			}
 			break;
 			
+		case PROGRESS_HUD:
+			if (null != progressHUd) {
+				progressHUd.dismiss();
+			}
+			
 		default:
 			if (null != progressDialog && progressDialog.isShowing()){
 				progressDialog.dismiss();
 			}
 			if (null != alertDialog && alertDialog.isShowing()){
 				alertDialog.dismiss();
+			} else if (null != progressHUd) {
+				progressHUd.dismiss();
 			}
 			break;
 		}
