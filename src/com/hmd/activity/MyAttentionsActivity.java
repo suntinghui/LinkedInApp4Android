@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.hmd.R;
@@ -12,11 +15,11 @@ import com.hmd.activity.component.SwitchableScrollViewer;
 import com.hmd.client.Constants;
 import com.hmd.model.ProfileModel;
 
-public class MyAttentionsActivity extends BaseActivity{
+public class MyAttentionsActivity extends BaseActivity implements OnClickListener{
 	
 	private ArrayList<ProfileModel> entries = null;
 	private String mTitle = null;
-	private Boolean mBottomButtonShow = false;
+	private Button backButton = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -24,6 +27,8 @@ public class MyAttentionsActivity extends BaseActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_suggest_people);
 
+		backButton = (Button) this.findViewById(R.id.backButton);
+		backButton.setOnClickListener(this);
 		this.init();
 		
 	}
@@ -34,7 +39,6 @@ public class MyAttentionsActivity extends BaseActivity{
 		Intent intent = this.getIntent();
 		entries = (ArrayList<ProfileModel>) intent.getSerializableExtra("PROFILEMODELLIST");
 		mTitle = (String) intent.getStringExtra("TITLE");
-		mBottomButtonShow = (Boolean) intent.getBooleanExtra("BOTTOMBUTTON_SHOW", false);
 		
 		Constants.PAGESIZE = 20;
 		SwitchableScrollViewer svSuggestList = new SwitchableScrollViewer(this, this.entries, mTitle!=null ? mTitle:"相关推荐", false, false);
@@ -42,6 +46,16 @@ public class MyAttentionsActivity extends BaseActivity{
 		llListContainer.removeAllViews();
 		
 		llListContainer.addView(svSuggestList);
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		switch(arg0.getId()){
+		case R.id.backButton:
+			this.finish();
+			break;
+		}
+		
 	}
 	
 }
