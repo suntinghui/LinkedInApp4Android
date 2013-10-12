@@ -283,6 +283,7 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		
 		Intent intent = new Intent(SchoolActivity.this, ProfileActivity.class);  
 		intent.putExtra("PROFILE", profileModel);
+		intent.putExtra("IDENTITY", "me");
 		startActivity(intent);  
 	}
 	

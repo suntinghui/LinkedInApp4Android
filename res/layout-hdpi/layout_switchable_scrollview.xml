@@ -1,46 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" 
-    android:background="@drawable/img_weibo_con_border"
+    android:layout_height="fill_parent"
+    android:layout_marginBottom="5dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
-    android:layout_marginBottom="5dp"
-    >
+    android:background="@drawable/img_weibo_con_border" >
 
-   	<RelativeLayout
-        android:id="@+id/rl_layout_btns"        
+    <RelativeLayout
+        android:id="@+id/rl_layout_btns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        >
+        android:layout_alignParentTop="true" >
+
         <TextView
-	        android:id="@+id/tv_friend_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_centerVertical="true"
-	        android:textColor="@color/topbarBg"
-            android:typeface ="sans"
-            android:textSize="15sp"
-	        />
-        
-        <ImageButton
-            android:id="@+id/btn_layout_switch"
+            android:id="@+id/tv_friend_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            />  
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/topbarBg"
+            android:textSize="15sp"
+            android:typeface="sans" />
+
+        <RelativeLayout
+            android:layout_width="100dip"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" >
+
+            <Button
+                android:id="@+id/btn_layout_more"
+                android:layout_width="60dip"
+                android:layout_height="30dip"
+                android:background="@color/middleBlue"
+                android:text="查看更多"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:layout_marginRight="10dip"/>
+
+            <ImageButton
+                android:id="@+id/btn_layout_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+
     </RelativeLayout>
-    
+
     <ScrollView
         android:id="@+id/sv_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_layout_btns"
         android:layout_centerInParent="true" >
-
     </ScrollView>
-    
-
+	
 </RelativeLayout>

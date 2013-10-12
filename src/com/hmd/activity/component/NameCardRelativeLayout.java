@@ -3,6 +3,7 @@ package com.hmd.activity.component;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.activity.ProfileActivity;
+import com.hmd.activity.SchoolActivity;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.TimelineModel;
@@ -25,8 +28,12 @@ public class NameCardRelativeLayout extends RelativeLayout {
 
 	private ProfileModel data = null;
 	private Button	 btnAttention = null;
+	private Context context;
+	private ProfileModel detailModel = null;
+	
 	public NameCardRelativeLayout(Context context, ProfileModel d) {
 		super(context);
+		this.context = context;
 		this.data = d;
 		
         LayoutInflater.from(context).inflate(R.layout.layout_name_card, this, true); 
@@ -62,7 +69,9 @@ public class NameCardRelativeLayout extends RelativeLayout {
 		public void onClick(View arg0) {
 			switch (arg0.getId()) {
 			case R.id.iv_name_card_photo:
-				
+				LKHttpRequestQueue queue = new LKHttpRequestQueue();
+				queue.addHttpRequest(getProfileRequest());
+				queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());
 				break;
 			case R.id.btn_name_card_attention:
 				if(NameCardRelativeLayout.this.data.getFlag().equals("0")){
@@ -80,6 +89,29 @@ public class NameCardRelativeLayout extends RelativeLayout {
 		}
 	};
 	
+	// 查看个人基本信息
+	private LKHttpRequest getProfileRequest(){
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_PROFILE_BASIC, null, new LKAsyncHttpResponseHandler() {
+			@Override
+			public void successAction(Object obj) {
+				detailModel = (ProfileModel) obj;
+				detailModel.setId(data.getId());
+				TransformToProfileScreen();
+			}
+		}, data.getId());
+		
+		return request;
+	}
+	
+	// 显示个人信息
+	private void TransformToProfileScreen(){
+		
+		Intent intent = new Intent(this.context, ProfileActivity.class);  
+		intent.putExtra("PROFILE", detailModel);
+		intent.putExtra("IDENTITY", "he");
+		this.context.startActivity(intent);  
+	}
+		
 	//加关注
 	private void refreshAddAttentionData(){
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();

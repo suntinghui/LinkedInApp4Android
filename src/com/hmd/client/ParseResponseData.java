@@ -334,6 +334,9 @@ public class ParseResponseData {
 	private static Object getMyAttentionsList(JSONObject jsonObject){
 		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
 		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String total = jsonObject.optString("total", "0");
+		map.put("total", total);
 		JSONArray jsonArray = jsonObject.optJSONArray("list");
 		if (jsonArray != null && jsonArray.length() > 0){
 			for (int i=0; i<jsonArray.length(); i++){
@@ -348,8 +351,8 @@ public class ParseResponseData {
 				
 				modelList.add(model);
 			}
-			
-			return modelList;
+			map.put("list", modelList);
+			return map;
 			
 		}
 		
@@ -359,6 +362,9 @@ public class ParseResponseData {
 	private static Object getFansList(JSONObject jsonObject){
 		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
 		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String total = jsonObject.optString("total", "0");
+		map.put("total", total);
 		JSONArray jsonArray = jsonObject.optJSONArray("list");
 		if (jsonArray != null && jsonArray.length() > 0){
 			for (int i=0; i<jsonArray.length(); i++){
@@ -373,8 +379,8 @@ public class ParseResponseData {
 				
 				modelList.add(model);
 			}
-			
-			return modelList;
+			map.put("list", modelList);
+			return map;
 			
 		}
 		
