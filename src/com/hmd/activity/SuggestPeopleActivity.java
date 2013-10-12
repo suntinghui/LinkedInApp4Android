@@ -4,16 +4,21 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.hmd.R;
 import com.hmd.activity.component.SwitchableScrollViewer;
 import com.hmd.model.ProfileModel;
 
-public class SuggestPeopleActivity extends BaseActivity{
+public class SuggestPeopleActivity extends BaseActivity implements OnClickListener{
 	
 	private ArrayList<ProfileModel> entries = null;
+	
+	private Button backButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +26,9 @@ public class SuggestPeopleActivity extends BaseActivity{
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_suggest_people);
+		
+		backButton = (Button) this.findViewById(R.id.backButton);
+		backButton.setOnClickListener(this);
 
 		this.init();
 		
@@ -69,5 +77,15 @@ public class SuggestPeopleActivity extends BaseActivity{
 		friends.add(nc3);
 		
 //		this.entries = friends;
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()){
+		case R.id.backButton:
+			this.finish();
+			break;
+		}
+		
 	}
 }
