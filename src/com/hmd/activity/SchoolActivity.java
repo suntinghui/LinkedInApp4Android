@@ -29,6 +29,7 @@ import com.hmd.activity.component.SchoolWeiboRelativeLayout;
 import com.hmd.activity.component.TopbarRelativeLayout;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
+import com.hmd.model.ActiveModel;
 import com.hmd.model.AnnouncementModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.SchoolModel;
@@ -93,6 +94,7 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		// 官方活动
 		rlSchoolEvent = new SchoolEventRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolEvent);
+		rlSchoolEvent.setVisibility(View.GONE);
 		
 		// 校友卡
 		rlSchoolCard = new SchoolCardRelativeLayout(this);
@@ -106,6 +108,7 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		refreshData();
 	}
 	
+	// 刷新数据
 	private void refreshData(){
 		schoolModel = new SchoolModel();
 		profileModel = new ProfileModel();
@@ -114,6 +117,8 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		queue.addHttpRequest(getProfileRequest());
 		queue.addHttpRequest(getCollegeInfo());
 		queue.addHttpRequest(getLastestAnnouncement());
+		queue.addHttpRequest(getActiveTypeList());
+		queue.addHttpRequest(getActiveList());
 		queue.executeQueue("正在刷新数据...", new LKHttpRequestQueueDone());
 		
 		// 获取学校微博
@@ -174,6 +179,50 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		return request;
 	}
 	
+	// 取得活动类型列表
+	private LKHttpRequest getActiveTypeList(){
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_COLLEGE_EVENT_TYPE_LIST, null, new LKAsyncHttpResponseHandler() {
+			@Override
+			public void successAction(Object obj) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, String> map = (HashMap<String, String>) obj;
+				ActiveModel.setActiveTypeMap(map);
+			}
+		});
+		
+		return request;
+	}
+	
+	// 取得活动列表
+	private LKHttpRequest getActiveList(){
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("page", "1");
+		paramMap.put("num", "2");
+		paramMap.put("typeID", "0"); // 类型ID，用于返回特定类型的活动，0表示不限类型
+		paramMap.put("previewLen", "200"); //预览长度，即取正文内容前几个字符，范围[0,200]，0为关闭预览
+		
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_COLLEGE_EVENT_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+			
+			@Override
+			public void successAction(Object obj) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, Object> map = (HashMap<String, Object>) obj;
+				int total = (Integer) map.get("total");
+				if(total > 0){
+					rlSchoolEvent.setVisibility(View.VISIBLE);
+					rlSchoolEvent.refresh((ArrayList<ActiveModel>) map.get("list"));
+					
+				} else {
+					rlSchoolEvent.setVisibility(View.GONE);
+				}
+			}
+		});
+		
+		return request; 
+	}
+	
+	
+	// 取得微博信息
 	private void getSchoolWeibo(){
 		// 如果用户已经登录了新浪微博，则直接取得数据
 		if (WeiboUtil.hasAuth()){

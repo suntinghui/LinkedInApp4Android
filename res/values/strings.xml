@@ -9,7 +9,7 @@
     <string name="txtCancel">取消</string>
     <string name="txtBack">返回</string>
     <string name="txtLogin">登  录</string>
-    <string name="txtRegistr">注  册</string>
+    <string name="txtRegistr">激  活</string>
     <string name="txtLoginNameHint">邮箱/手机号/用户名</string>
     <string name="txtLoginPasswordHint">密码</string>
     <string name="txtRegistrPasswordConfirmHint">密码</string>
@@ -26,6 +26,15 @@
     <string name="txtUnkownSchoolDesc">大学简介</string>
     
 	<string name="txtMore">查看更多</string>
+	
+	<string name="txtTime">时  间</string>
+	<string name="txtAddress">地  点</string>
+	<string name="txtType">类  型</string>
+	<string name="txtCharge">费  用</string>
+	<string name="txtSponsor">主办方</string>
+	<string name="txtEventDetail">活动详情</string>
+	<string name="txtParticipantList">参加活动的人</string>
+	
 	
 	<string name="txtLoginSinaWeibo">&#160;&#160;&#160;&#160;登录新浪微博&#160;&#160;&#160;&#160;</string>
     

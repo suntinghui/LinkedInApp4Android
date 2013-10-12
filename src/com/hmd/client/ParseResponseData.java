@@ -10,6 +10,7 @@ import org.json.JSONTokener;
 
 import com.hmd.enums.ErrorCode;
 import com.hmd.exception.ServiceErrorException;
+import com.hmd.model.ActiveModel;
 import com.hmd.model.AnnouncementModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.SchoolModel;
@@ -25,6 +26,8 @@ public class ParseResponseData {
 			throw new ServiceErrorException(getErrorMsg(errorCode)+"[ERROR_CODE:"+errorCode+"]");
 		}
 		
+		
+		// Parse
 		if (type.equalsIgnoreCase(HttpRequestType.HTTP_LOGIN)){
 			return login(jsonObject);
 			
@@ -46,6 +49,18 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_BROADCAST_DETAIL)) {
 			return getBroadcastDetail(jsonObject);
 					
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_EVENT_TYPE_LIST)){
+			return getEventTypeList(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_EVENT_LIST)) {
+			return getEventList(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_EVENT_DETAIL)) {
+			return getEventDetail(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_EVENT_PARTICIPANT_LIST)) {
+			return getEventParticipantList(jsonObject);
+			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_TIMELINE_LIST)) {
 			return getTimelineList(jsonObject);
 			
@@ -63,12 +78,16 @@ public class ParseResponseData {
 			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_SUGGESTPEOPLE_LIST)) {
 			return getSuggestPeopleList(jsonObject);
+			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_MYATTENTIONS_LIST)) {
 			return getMyAttentionsList(jsonObject);
+			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_FANS_LIST)) {
 			return getFansList(jsonObject);
+			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_ADDATTENTION)) {
 			return getAddAttention(jsonObject);
+			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_CANCELATTENTION)) {
 			return getCancelAttention(jsonObject);
 		}
@@ -194,7 +213,100 @@ public class ParseResponseData {
 		return model;
 	}
 	
-	//根据选中履历推荐好友列表
+	// 获取活动类型列表
+	public static Object getEventTypeList(JSONObject jsonObject){
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (null != jsonArray){
+			for (int i=0; i<jsonArray.length(); i++){
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				map.put(obj.optString("id"), obj.optString("display"));
+			}
+		}
+		
+		return map;
+	}
+	
+	// 获取活动列表
+	public static Object getEventList(JSONObject jsonObject){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		int total = jsonObject.optInt("total", 0); // 活动总数
+		map.put("total", total);
+		
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (null != jsonArray){
+			ArrayList<ActiveModel> list = new ArrayList<ActiveModel>();
+			
+			for (int i=0; i<jsonArray.length(); i++){
+				ActiveModel model = new ActiveModel();
+				
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				model.setId(obj.optString("id", ""));
+				model.setStime(obj.optString("stime", ""));
+				model.setEtime(obj.optString("etime", ""));
+				model.setAddress(obj.optString("address", ""));
+				model.setTitle(obj.optString("title", ""));
+				model.setTypeID(obj.optString("typeID", ""));
+				model.setCharge(obj.optInt("charge", 0));
+				model.setSponsor(obj.optString("sponsor", ""));
+				model.setPreview(obj.optString("preview", ""));
+				
+				list.add(model);
+			}
+			
+			map.put("list", list);
+		}
+		
+		
+		return map;
+	}
+	
+	// 获取活动详情
+	public static Object getEventDetail(JSONObject jsonObject){
+		ActiveModel model = new ActiveModel();
+		
+		model.setId(jsonObject.optString("id", ""));
+		model.setStime(jsonObject.optString("stime", ""));
+		model.setEtime(jsonObject.optString("etime", ""));
+		model.setAddress(jsonObject.optString("address", ""));
+		model.setTitle(jsonObject.optString("title", ""));
+		model.setTypeID(jsonObject.optString("typeID", ""));
+		model.setCharge(jsonObject.optInt("charge", 0));
+		model.setSponsor(jsonObject.optString("sponsor", ""));
+		model.setPreview(jsonObject.optString("preview", ""));
+		model.setContent(jsonObject.optString("content", ""));
+		
+		return model;
+	}
+	
+	public static Object getEventParticipantList(JSONObject jsonObject){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
+		
+		int total = jsonObject.optInt("total", 0);
+		map.put("total", total);
+		
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0){
+			for (int i=0; i<jsonArray.length(); i++){
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				
+				ProfileModel model = new ProfileModel();
+				model.setId(obj.optString("id", ""));
+				model.setName(obj.optString("name", ""));
+				
+				modelList.add(model);
+			}
+		}
+		
+		map.put("list", modelList);
+		
+		return map;
+	}
+	
+	// 根据选中履历推荐好友列表
 	private static Object getSuggestPeopleList(JSONObject jsonObject){
 		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
 		
