@@ -1,6 +1,7 @@
 package com.hmd.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import weibo4j.Timeline;
 import weibo4j.model.Paging;
@@ -28,6 +29,7 @@ import com.hmd.activity.component.SchoolWeiboRelativeLayout;
 import com.hmd.activity.component.TopbarRelativeLayout;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
+import com.hmd.model.AnnouncementModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.SchoolModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
@@ -35,13 +37,6 @@ import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.WeiboUtil;
-
-/**
- * Test Github
- * 
- * @author liaojia
- *
- */
 
 public class SchoolActivity extends BaseActivity implements OnTouchListener {
 
@@ -93,6 +88,7 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		// 官方公告
 		rlSchoolNotice = new SchoolNoticeRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolNotice);
+		rlSchoolNotice.setVisibility(View.GONE);
 		
 		// 官方活动
 		rlSchoolEvent = new SchoolEventRelativeLayout(this);
@@ -117,6 +113,7 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getProfileRequest());
 		queue.addHttpRequest(getCollegeInfo());
+		queue.addHttpRequest(getLastestAnnouncement());
 		queue.executeQueue("正在刷新数据...", new LKHttpRequestQueueDone());
 		
 		// 获取学校微博
@@ -149,6 +146,33 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		return request;
 	}
 	
+	// 获取最新一条公告
+	private LKHttpRequest getLastestAnnouncement(){
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("page", "1");
+		paramMap.put("num", "1");
+		paramMap.put("previewLen", "200"); //预览长度，即取正文内容前几个字符，范围[0,200]，0为关闭预览
+		
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_COLLEGE_BROADCAST_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+			@Override
+			public void successAction(Object obj) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, Object> map = (HashMap<String, Object>) obj;
+				int total = (Integer) map.get("total");
+				if (total == 0){
+					rlSchoolNotice.setVisibility(View.GONE);
+				} else {
+					// 只取一条数据
+					@SuppressWarnings("unchecked")
+					ArrayList<AnnouncementModel> list = (ArrayList<AnnouncementModel>) map.get("list");
+					AnnouncementModel model = list.get(0);
+					rlSchoolNotice.refresh(model);
+				}
+			}
+		});
+		
+		return request;
+	}
 	
 	private void getSchoolWeibo(){
 		// 如果用户已经登录了新浪微博，则直接取得数据

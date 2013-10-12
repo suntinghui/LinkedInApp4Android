@@ -9,8 +9,9 @@
         android:id="@+id/topbarLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/img_weibo_title_bar"
-        android:orientation="horizontal" >
+        android:background="@color/topbarBg"
+        android:orientation="horizontal"
+        android:padding="5dip" >
 
         <Button
             android:id="@+id/backButton"
@@ -19,8 +20,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
             android:layout_marginTop="10dip"
-            android:text="@string/txtBack"
-            android:background="@drawable/img_weibo_title_btn_back" >
+            android:background="@drawable/img_btn_topbar_left_arrow" >
         </Button>
 
         <TextView
@@ -29,8 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="公告列表"
-            android:textColor="@color/titleGreen"
-            android:textSize="18dip" />
+            android:textColor="@color/white"
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -42,11 +42,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical" >
-
-            <com.print.activity.view.TopInfoView
-                android:id="@+id/topInfoView"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
 
             <ListView
                 android:id="@+id/transList"

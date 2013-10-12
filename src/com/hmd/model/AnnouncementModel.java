@@ -9,17 +9,11 @@ public class AnnouncementModel implements Serializable {
 	private String mId = null;
 	private String mTitle = null;
 	private String mTime = null;
+	private String mPreview = null;
 	private String mContent = null;
 
 	public AnnouncementModel() {
 
-	}
-
-	public AnnouncementModel(String id, String title, String time, String content) {
-		this.mId = id;
-		this.mTitle = title;
-		this.mTime = time;
-		this.mContent = content;
 	}
 
 	public String getId() {
@@ -44,6 +38,14 @@ public class AnnouncementModel implements Serializable {
 
 	public void setTime(String time) {
 		this.mTime = time;
+	}
+	
+	public String getPreview(){
+		return this.mPreview;
+	}
+	
+	public void setPreview(String preview){
+		this.mPreview = preview;
 	}
 
 	public String getContent() {

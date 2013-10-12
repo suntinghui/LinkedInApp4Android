@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.hmd.R;
 import com.hmd.activity.AnnouncementListActivity;
 import com.hmd.activity.BaseActivity;
+import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.AnnouncementModel;
 import com.hmd.model.TimelineModel;
@@ -25,6 +26,10 @@ import com.hmd.network.LKHttpRequestQueueDone;
 public class SchoolNoticeRelativeLayout extends RelativeLayout {
 	
 	private ImageButton noticeMoreButton = null;
+	
+	private TextView tvNoticeTitle = null;
+	private TextView tvNoticePreview = null;
+	private TextView tvNoticeTime = null;
 
 	public SchoolNoticeRelativeLayout(Context context) {
 		super(context);
@@ -35,45 +40,55 @@ public class SchoolNoticeRelativeLayout extends RelativeLayout {
 	}
 
 	private void init(){
-		TextView tvNotice = (TextView)this.findViewById(R.id.tv_school_notice);
-		String content = "各院（系）、单位：\r\n根据北京市政府办公厅精神，经过校长办公室讨论决定，现将2013年“十一”放假安排通知如下\r\n";
-		content += "2013年国庆节放假9天（9月29日-10月7日）。其中10月1日-10月3日为国庆节法定节假日。";
-		content += "9月28日（星期六）、10月12日（星期六）上星期一的课。";
-		tvNotice.setText(content);
+		tvNoticeTitle = (TextView)this.findViewById(R.id.tv_notice_title);
+		tvNoticePreview = (TextView) this.findViewById(R.id.tv_notice_preview);
+		tvNoticeTime = (TextView) this.findViewById(R.id.tv_notice_time);
 		
 		noticeMoreButton = (ImageButton) this.findViewById(R.id.btn_school_notice_more);
 		noticeMoreButton.setOnClickListener(new NoticeMoreListener());
+	}
+	
+	public void refresh(AnnouncementModel model){
+		this.setVisibility(View.VISIBLE);
+		
+		tvNoticeTitle.setText("    "+model.getTitle());
+		tvNoticePreview.setText(model.getPreview());
+		tvNoticeTime.setText(model.getTime());
 	}
 	
 	class NoticeMoreListener implements OnClickListener{
 
 		@Override
 		public void onClick(View arg0) {
-			refreshData();
+			getAnnouncementList();
 		}
 		
 	}
 	
-	private void refreshData(){
+	private void getAnnouncementList(){
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getNoticeListRequest());
 		queue.executeQueue("正在查询公告...", new LKHttpRequestQueueDone());
 		
 	}
 	
-	// 查看个人履历
+	// 查询公告列表
 	private LKHttpRequest getNoticeListRequest(){
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("page", "1");
-		paramMap.put("num", "20");
+		paramMap.put("num", Constants.PAGESIZE + "");
+		paramMap.put("previewLen", "200"); //预览长度，即取正文内容前几个字符，范围[0,200]，0为关闭预览
 		
 		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_COLLEGE_BROADCAST_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-//				Intent intent = new Intent(BaseActivity.getTopActivity(), AnnouncementListActivity.class);
-//				intent.putExtra("LIST", (ArrayList<AnnouncementModel>)obj);
-//				BaseActivity.getTopActivity().startActivity(intent);
+				HashMap<String, Object> map = (HashMap<String, Object>)obj;
+				
+				Intent intent = new Intent(BaseActivity.getTopActivity(), AnnouncementListActivity.class);
+				intent.putExtra("TOTAL", (Integer)map.get("total"));
+				intent.putExtra("LIST", (ArrayList<AnnouncementModel>)map.get("list"));
+				BaseActivity.getTopActivity().startActivity(intent);
 			}
 		});
 		

@@ -18,13 +18,6 @@ import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.view.EditTextWithClearView;
 
-/**
- * Test Github
- * 
- * @author liaojia
- *
- */
-
 public class LoginActivity extends BaseActivity implements OnClickListener {
 	
 	private Button backButton = null;

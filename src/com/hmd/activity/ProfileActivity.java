@@ -27,12 +27,6 @@ import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 
-/**
- * Test Github
- * 
- * @author sth
- *
- */
 public class ProfileActivity extends BaseActivity implements OnTouchListener{
 
 	private NameCardMainRelativeLayout profileInfoLayout = null;

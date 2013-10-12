@@ -34,7 +34,7 @@ public class AnnouncementDetailActivity extends BaseActivity implements OnClickL
 		contentView = (TextView) this.findViewById(R.id.content);
 		//contentView.setMovementMethod(ScrollingMovementMethod.getInstance()); // 实现文本可滚动
 		
-		model = (AnnouncementModel) this.getIntent().getSerializableExtra("announcement");
+		model = (AnnouncementModel) this.getIntent().getSerializableExtra("MODEL");
 		titleView.setText(model.getTitle());
 		timeView.setText(model.getTime());
 		contentView.setText(model.getContent());
