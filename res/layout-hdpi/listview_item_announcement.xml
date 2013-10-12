@@ -9,8 +9,7 @@
     <RelativeLayout
         android:id="@+id/contentLayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-         >
+        android:layout_height="fill_parent" >
 
         <TextView
             android:id="@+id/annTitle"
@@ -27,25 +26,23 @@
             android:id="@+id/annContent"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/annTitle"
             android:ellipsize="end"
             android:maxLines="2"
             android:paddingTop="5dip"
             android:text="@string/noNetTips"
-            android:layout_below="@id/annTitle"
-            android:textColor="#a5a5a5"
             android:textSize="14sp" />
 
         <TextView
             android:id="@+id/annDate"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/annContent"
             android:gravity="right"
             android:paddingTop="5dip"
             android:text="@string/app_name"
-            android:textColor="#a5a5a5"
             android:textSize="14sp"
-            android:visibility="visible" 
-            android:layout_below="@id/annContent"/>
+            android:visibility="visible" />
     </RelativeLayout>
 
     <RelativeLayout

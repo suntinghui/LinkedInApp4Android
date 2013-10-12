@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/mainBg"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -55,7 +54,8 @@
                 android:divider="@drawable/img_listview_divider"
                 android:dividerHeight="0px"
                 android:padding="5dip"
-                android:scrollbars="none" />
+                android:scrollbars="none" 
+                android:listSelector="#00000000"/>
         </LinearLayout>
     </RelativeLayout>
 

@@ -1,76 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" 
-    android:background="@drawable/img_weibo_con_border"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    >
-    
-	<RelativeLayout
-	    android:id="@+id/rl_school_event_top"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentTop="true"
-	    android:background="@drawable/img_weibo_con_bottom_border"
-	    >
-	    
-	    <TextView
-	        android:id="@+id/tv_school_event_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="@string/txtEvent"
-	        android:layout_alignParentLeft="true"
-	        android:textColor="@color/topbarBg"
-            android:typeface ="sans"
+    android:background="@drawable/img_weibo_con_border" >
+
+    <RelativeLayout
+        android:id="@+id/rl_school_event_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/img_weibo_con_bottom_border" >
+
+        <TextView
+            android:id="@+id/tv_school_event_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/txtEvent"
+            android:textColor="@color/topbarBg"
             android:textSize="15sp"
-	        />
-	    
-	</RelativeLayout>
-    
-	<RelativeLayout
-	    android:id="@+id/rl_school_event_content"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:background="@drawable/img_weibo_con_border"
-	    android:layout_below="@id/rl_school_event_top"
-	    android:layout_marginTop="5dp"
-	    >
-		<ImageView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:src="@drawable/img_school_activity_1"
-		    />
-		<ImageButton
-	        android:id="@+id/btn_school_event_more"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:layout_centerVertical="true"
-	        android:background="@drawable/img_btn_profile_arrow"
-	        />
-		
-	</RelativeLayout>
-	<RelativeLayout
-	    android:id="@+id/rl_school_event_content2"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:background="@drawable/img_weibo_con_border"
-	    android:layout_below="@id/rl_school_event_content"
-	    android:layout_marginTop="5dp"
-	    >
-		<ImageView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:src="@drawable/img_school_activity_2"
-		    />
-		<ImageButton
-	        android:id="@+id/btn_school_event_more2"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:layout_centerVertical="true"
-	        android:background="@drawable/img_btn_profile_arrow"
-	        />
-		
-	</RelativeLayout>
+            android:typeface="sans" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bodyLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_school_event_top"
+        android:orientation="vertical" >
+    </LinearLayout>
+
 </RelativeLayout>

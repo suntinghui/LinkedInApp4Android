@@ -40,8 +40,7 @@ public class ProfileTimelineLinearLayout extends LinearLayout {
 		
 		for(int i = 0; i < timelineList.size(); i ++){
 
-			ProfileCardRelativeLayout profile = new ProfileCardRelativeLayout(
-					this.mContext, timelineList.get(i));
+			ProfileCardRelativeLayout profile = new ProfileCardRelativeLayout(this.mContext, timelineList.get(i));
 			
 			profile.setPadding(0, 0, 0, 0);
 			

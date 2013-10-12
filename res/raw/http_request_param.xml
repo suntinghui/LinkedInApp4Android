@@ -88,6 +88,13 @@
         <method>GET</method>
     </request>
     
+    <!-- 获取活动类型列表 -->
+    <request>
+        <requestId>COLLEGE_EVENT_TYPE_LIST</requestId>
+        <url>/college/event/type/list</url>
+        <method>GET</method>
+    </request>
+    
     <!-- 获取活动列表 -->
     <request>
         <requestId>COLLEGE_EVENT_LIST</requestId>

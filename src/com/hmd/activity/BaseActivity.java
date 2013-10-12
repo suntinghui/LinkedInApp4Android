@@ -101,6 +101,7 @@ public class BaseActivity extends Activity {
 		}
 		
 		super.finish();
+		
 		overridePendingTransition(R.anim.trans_none, R.anim.out_from_right);
 	}
 	
@@ -110,7 +111,7 @@ public class BaseActivity extends Activity {
 			
 		} catch(Exception e){
 			// 重启系统
-			ApplicationEnvironment.getInstance().restartApp();
+			//ApplicationEnvironment.getInstance().restartApp();
 			
 			return null;
 		}
@@ -163,6 +164,7 @@ public class BaseActivity extends Activity {
 			
 		case PROGRESS_HUD:
 			this.showProgressHUD();
+			break;
 		}
 		
 		return super.onCreateDialog(id);
