@@ -97,7 +97,9 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-				timelineLayout.refresh((ArrayList<TimelineModel>) obj);
+				if (null != obj){
+					timelineLayout.refresh((ArrayList<TimelineModel>) obj);
+				}
 			}
 		}, mIdentity.equals("me") ? "me":profileModel.getId());
 		
