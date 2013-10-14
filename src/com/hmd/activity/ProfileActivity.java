@@ -113,15 +113,17 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
-				Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-				if(total < Constants.PAGESIZE+1){
-					friendLayout.hiddenMoreButton();
-				}
-				if(list == null || list.size() == 0){
-					
-				}else{
-					friendLayout.refresh(list);
+				if (null != obj){
+					ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
+					Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+					if(total < Constants.PAGESIZE+1){
+						friendLayout.hiddenMoreButton();
+					}
+					if(list == null || list.size() == 0){
+						
+					}else{
+						friendLayout.refresh(list);
+					}
 				}
 				
 			}
@@ -139,15 +141,17 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
-				Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-				if(total < 5){
-					fansLayout.hiddenMoreButton();
-				}
-				if(list == null || list.size() == 0){
-					
-				}else{
-					fansLayout.refresh(list);
+				if (null != obj){
+					ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
+					Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+					if(total < 5){
+						fansLayout.hiddenMoreButton();
+					}
+					if(list == null || list.size() == 0){
+						
+					}else{
+						fansLayout.refresh(list);
+					}
 				}
 				
 			}
