@@ -15,9 +15,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.activity.MyAttentionsActivity;
 import com.hmd.activity.ProfileActivity;
 import com.hmd.activity.SchoolActivity;
 import com.hmd.activity.SuggestPeopleActivity;
+import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.TimelineModel;
@@ -118,18 +120,22 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 	private LKHttpRequest getSuggestPeopleRequest(){
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("page", "1");
-		paramMap.put("num", "20");
+		paramMap.put("num", Constants.PAGESIZE+"");
 		
 		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_SUGGESTPEOPLE_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)obj;
+				int count = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
 				if(list == null || list.size() == 0){
 					
 				}else{
-					Intent intent = new Intent(ProfileCardRelativeLayout.this.mContext, SuggestPeopleActivity.class);  
-					intent.putExtra("PROFILEMODELLIST", (Serializable)obj);
+					Intent intent = new Intent(ProfileCardRelativeLayout.this.mContext, MyAttentionsActivity.class);  
+					intent.putExtra("PROFILEMODELLIST", list);
+					intent.putExtra("ID", data.getid());
+					intent.putExtra("TITLE", "相关推荐");
+					intent.putExtra("TOTAL", count);
 					ProfileCardRelativeLayout.this.mContext.startActivity(intent);
 				}
 				

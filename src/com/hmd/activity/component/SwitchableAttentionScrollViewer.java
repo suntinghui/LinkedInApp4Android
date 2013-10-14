@@ -26,7 +26,7 @@ import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 
-public class SwitchableScrollViewer extends ScrollView {
+public class SwitchableAttentionScrollViewer extends ScrollView {
 
 	private TextView tvTitle = null;
 	
@@ -34,72 +34,53 @@ public class SwitchableScrollViewer extends ScrollView {
 	private Context mContext = null;
 	private boolean isList = true;
 	private ImageButton btnList = null;
-	private Button btnMore = null;
+	private Button mBtn_more = null;
 	private String mTitle = null;
-	private Boolean mHasMoreButton = true;
-	private Boolean mHasSwitchButton = true;
 	private String mPage = "1";
 	private String mNum = Constants.PAGESIZE + "";
 	private int totalPage = 0;
-	private int currentPage = 0;
+	private int currentPage = 1;
+	private String currentId = null;
+	
 	private ArrayList<ProfileModel> list = new ArrayList<ProfileModel>();
 	
-	public SwitchableScrollViewer(Context context){
+	public SwitchableAttentionScrollViewer(Context context){
 		super(context);
 		this.mContext = context;
 	}
 	
-	public void hiddenMoreButton(){
-		if(this.btnMore != null){
-			this.mHasMoreButton = false;
-			this.btnMore.setVisibility(View.GONE);
-		}
-	}
-	
-	public SwitchableScrollViewer(Context context, AttributeSet attrs) {
+	public SwitchableAttentionScrollViewer(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		this.mContext = context;
 		
 		this.init();
 	}
 	
-	public SwitchableScrollViewer(Context context, ArrayList<ProfileModel> e, String title) {
+	public SwitchableAttentionScrollViewer(Context context, ArrayList<ProfileModel> e, String title, String idTmp, int total) {
 		super(context);
 
 		this.mContext = context;
 		this.entries = e;
 		this.mTitle = title;
-		
+		this.currentId = idTmp;
+		this.totalPage = (total + Integer.parseInt(mNum) - 1) / Integer.parseInt(mNum);
 		this.init();
 	}
 	
-	public SwitchableScrollViewer(Context context, ArrayList<ProfileModel> e, String title, Boolean hasMore, Boolean hasSwitch) {
-		super(context);
-
-		this.mContext = context;
-		this.entries = e;
-		this.mTitle = title;
-		this.mHasMoreButton = hasMore;
-		this.mHasSwitchButton = hasSwitch;
-		this.init();
-	}
-
 	private void init(){
-		LayoutInflater.from(this.mContext).inflate(R.layout.layout_switchable_scrollview, this, true);
+		LayoutInflater.from(this.mContext).inflate(R.layout.layout_switchable_attention_scrollview, this, true);
 		
 		tvTitle = (TextView)this.findViewById(R.id.tv_friend_title);
 		if(this.mTitle != null){
 			tvTitle.setText(this.mTitle);
 		}
 		
-		btnMore = (Button)this.findViewById(R.id.btn_layout_more);
-		btnMore.setOnClickListener(this.onSwitchView);
-		btnMore.setVisibility(mHasMoreButton ? View.VISIBLE:View.GONE);
+		mBtn_more = (Button)this.findViewById(R.id.btn_more);
+		mBtn_more.setOnClickListener(onSwitchView);
 		
 		this.btnList = (ImageButton)this.findViewById(R.id.btn_layout_switch);
 		
 		btnList.setOnClickListener(this.onSwitchView);
-		btnList.setVisibility(mHasSwitchButton ? View.VISIBLE:View.GONE);
 		if(this.entries == null){
 			if(this.isList){
 				this.btnList.setBackgroundResource(R.drawable.img_card_list_two);
@@ -120,6 +101,11 @@ public class SwitchableScrollViewer extends ScrollView {
 		
 		if(this.entries == null) return;
 		
+		if(currentPage < totalPage){
+			mBtn_more.setVisibility(View.VISIBLE);
+		}else{
+			mBtn_more.setVisibility(View.GONE);
+		}
 		ScrollView svContent = (ScrollView)this.findViewById(R.id.sv_container);
 		
 		svContent.removeAllViews();
@@ -149,11 +135,13 @@ public class SwitchableScrollViewer extends ScrollView {
 				isList = !isList;
 				refreshContent();
 				break;
-			case R.id.btn_layout_more:
+			case R.id.btn_more:
 				if(mTitle.equals("个人关注")){
 					getMoreMyAttentionData();
-				}else{
+				}else if(mTitle.equals("我关注的人")){
 					getMoreFansData();
+				}else if(mTitle.equals("相关推荐")){
+					getSuggestPeopleList();
 				}
 				break;
 			default:
@@ -178,27 +166,32 @@ public class SwitchableScrollViewer extends ScrollView {
 		queue.executeQueue("正在获取更多...", new LKHttpRequestQueueDone());
 		
 	}
+	
 	// 查看我关注的人
 	private LKHttpRequest getMyAttentionsRequest(){
 		HashMap<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("page", mPage);
+		paramMap.put("page", ++currentPage+"");
 		paramMap.put("num", mNum);
 		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_MYATTENTIONS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
+				if(obj == null){
+					mBtn_more.setVisibility(View.GONE);
+					return;
+				}
 				ArrayList<ProfileModel> tmpList = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
-				list = tmpList;
+				for(ProfileModel model:tmpList){
+					entries.add(model);
+				}
 				
-				if(list == null || list.size() == 0){
+				int count = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+				totalPage = (count + Integer.parseInt(mNum) - 1) / Integer.parseInt(mNum);
+				 
+				if(entries == null || entries.size() == 0){
 					
 				}else{
-					Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-					Intent intent = new Intent(SwitchableScrollViewer.this.mContext, MyAttentionsActivity.class);  
-					intent.putExtra("PROFILEMODELLIST", list);
-					intent.putExtra("TITLE", "个人关注");
-					intent.putExtra("TOTAL", total);
-					SwitchableScrollViewer.this.mContext.startActivity(intent);
+					refreshContent();
 					
 				}
 				
@@ -211,30 +204,76 @@ public class SwitchableScrollViewer extends ScrollView {
 	// 查看关注我的人
 	private LKHttpRequest getFansRequest(){
 		HashMap<String, String> paramMap = new HashMap<String, String>();
-		paramMap.put("page", mPage);
+		paramMap.put("page", ++currentPage+"");
 		paramMap.put("num", mNum);
 		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FANS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
-				Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-				if(list == null || list.size() == 0){
-					
-				}else{
-					Intent intent = new Intent(SwitchableScrollViewer.this.mContext, MyAttentionsActivity.class);  
-					intent.putExtra("PROFILEMODELLIST", list);
-					intent.putExtra("TITLE", "关注我的人");
-					intent.putExtra("TOTAL", total);
-					SwitchableScrollViewer.this.mContext.startActivity(intent);
+				if(obj == null){
+					mBtn_more.setVisibility(View.GONE);
+					return;
+				}
+				ArrayList<ProfileModel> tmpList = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
+				for(ProfileModel model:tmpList){
+					entries.add(model);
 				}
 				
+				int count = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+				totalPage = (count + Integer.parseInt(mNum) - 1) / Integer.parseInt(mNum);
+				 
+				if(entries == null || entries.size() == 0){
+					
+				}else{
+					refreshContent();
+					
+				}
 			}
 		});
 		
 		return request;
 	}
 		
+	private void getSuggestPeopleList(){
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getSuggestPeopleRequest());
+		queue.executeQueue("正在查询推荐好友...", new LKHttpRequestQueueDone());
+		
+	}
+	
+	// 查看推荐好友
+	private LKHttpRequest getSuggestPeopleRequest(){
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("page", ++currentPage+"");
+		paramMap.put("num", Constants.PAGESIZE+"");
+		
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_SUGGESTPEOPLE_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				if(obj == null){
+					mBtn_more.setVisibility(View.GONE);
+					return;
+				}
+				ArrayList<ProfileModel> tmpList = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
+				for(ProfileModel model:tmpList){
+					entries.add(model);
+				}
+				
+				int count = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+				totalPage = (count + Integer.parseInt(mNum) - 1) / Integer.parseInt(mNum);
+				 
+				if(entries == null || entries.size() == 0){
+					
+				}else{
+					refreshContent();
+					
+				}
+			}
+		}, currentId);
+		
+		return request;
+	}
 	public void refresh(ArrayList<ProfileModel> entries) {
 		this.setVisibility(View.VISIBLE);
 		

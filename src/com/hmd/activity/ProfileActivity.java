@@ -79,7 +79,6 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 	}
 	
 	private void refreshData(){
-		Constants.PAGESIZE = 5;
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getProfileTimelineRequest());
 		if(mIdentity.equals("me")){
@@ -116,7 +115,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 			public void successAction(Object obj) {
 				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
 				Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-				if(total < 5){
+				if(total < Constants.PAGESIZE+1){
 					friendLayout.hiddenMoreButton();
 				}
 				if(list == null || list.size() == 0){

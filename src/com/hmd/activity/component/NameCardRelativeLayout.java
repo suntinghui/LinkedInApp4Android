@@ -46,7 +46,7 @@ public class NameCardRelativeLayout extends RelativeLayout {
 		
 		TextView tvName = (TextView)this.findViewById(R.id.tv_name_card_name);
 		TextView tvGender = (TextView)this.findViewById(R.id.tv_name_card_gender);
-		TextView tvTime = (TextView)this.findViewById(R.id.tv_name_card_time);
+		TextView tvProvince = (TextView)this.findViewById(R.id.tv_name_card_province);
 		btnAttention = (Button)this.findViewById(R.id.btn_name_card_attention);
 		btnAttention.setOnClickListener(listener);
 		ImageView photoImageView = (ImageView) this.findViewById(R.id.iv_name_card_photo);
@@ -58,7 +58,10 @@ public class NameCardRelativeLayout extends RelativeLayout {
 		}else{
 			btnAttention.setText(this.data.getFlag().equals("0") ? "关注":"取消关注");
 		}
-		tvTime.setText(this.data.getTime()!=null ? this.data.getTime():"getTime");
+		
+		String province = this.data.getProvince() != null && this.data.getProvince().length() != 0 && !this.data.getProvince().equalsIgnoreCase("null") ? this.data.getProvince():"未知";
+		String city = this.data.getCity() != null && this.data.getCity().length() != 0 && !this.data.getCity().equalsIgnoreCase("null") ? this.data.getCity():"未知";
+		tvProvince.setText(province + "--" + city);
 		
 		ImageUtil.loadImage(R.drawable.img_card_head_portrait_small, ImageUtil.getTestImageURL(), photoImageView);
 	}

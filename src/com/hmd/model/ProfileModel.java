@@ -19,6 +19,7 @@ public class ProfileModel implements Serializable{
 	private String mImgUrl = null;
 	
 	private String mCity = null;
+	private String mProvince = null;
 	private String mDistrict = null;
 
 	private String mSchool = null; // 大学名称
@@ -37,6 +38,15 @@ public class ProfileModel implements Serializable{
 	private String mDesc = null; // 个人描述
 	private String mTime = null; // 关注时间
 	
+	
+	public String getProvince() {
+		return mProvince;
+	}
+
+	public void setProvince(String mProvince) {
+		this.mProvince = mProvince;
+	}
+
 	public String getFlag() {
 		return mFlag;
 	}

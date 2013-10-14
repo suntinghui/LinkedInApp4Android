@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.hmd.R;
+import com.hmd.activity.component.SwitchableAttentionScrollViewer;
 import com.hmd.activity.component.SwitchableScrollViewer;
 import com.hmd.client.Constants;
 import com.hmd.model.ProfileModel;
@@ -25,7 +26,7 @@ public class MyAttentionsActivity extends BaseActivity implements OnClickListene
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_suggest_people);
+		setContentView(R.layout.activity_myattention_people);
 
 		backButton = (Button) this.findViewById(R.id.backButton);
 		backButton.setOnClickListener(this);
@@ -39,9 +40,9 @@ public class MyAttentionsActivity extends BaseActivity implements OnClickListene
 		Intent intent = this.getIntent();
 		entries = (ArrayList<ProfileModel>) intent.getSerializableExtra("PROFILEMODELLIST");
 		mTitle = (String) intent.getStringExtra("TITLE");
-		
-		Constants.PAGESIZE = 20;
-		SwitchableScrollViewer svSuggestList = new SwitchableScrollViewer(this, this.entries, mTitle!=null ? mTitle:"相关推荐", false, false);
+		String idExtra = (String) intent.getStringExtra("ID");
+		int count = intent.getIntExtra("TOTAL", 0);
+		SwitchableAttentionScrollViewer svSuggestList = new SwitchableAttentionScrollViewer(this, this.entries, mTitle!=null ? mTitle:"相关推荐", idExtra, count);
 		LinearLayout llListContainer = (LinearLayout)this.findViewById(R.id.ll_suggest_people);
 		llListContainer.removeAllViews();
 		

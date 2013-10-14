@@ -310,20 +310,26 @@ public class ParseResponseData {
 	private static Object getSuggestPeopleList(JSONObject jsonObject){
 		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
 		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String total = jsonObject.optString("total", "0");
+		map.put("total", total);
 		JSONArray jsonArray = jsonObject.optJSONArray("list");
 		if (jsonArray != null && jsonArray.length() > 0){
 			for (int i=0; i<jsonArray.length(); i++){
-				JSONObject obj = (JSONObject) jsonArray.opt(i);
-				
 				ProfileModel model = new ProfileModel();
+				
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				model.setFlag("2");
 				model.setId(obj.optString("id", ""));
+				model.setCity(obj.optString("city"));
+				model.setProvince(obj.optString("province"));
 				model.setName(obj.optString("name", ""));
 				model.setGender(obj.optInt("gender", 1));
 				
 				modelList.add(model);
 			}
-			
-			return modelList;
+			map.put("list", modelList);
+			return map;
 			
 		}
 		
@@ -345,7 +351,8 @@ public class ParseResponseData {
 				JSONObject obj = (JSONObject) jsonArray.opt(i);
 				model.setFlag("1");
 				model.setId(obj.optString("id", ""));
-				model.setTime(obj.optString("time", ""));
+				model.setCity(obj.optString("city"));
+				model.setProvince(obj.optString("province"));
 				model.setName(obj.optString("name", ""));
 				model.setGender(obj.optInt("gender", 1));
 				
@@ -358,7 +365,7 @@ public class ParseResponseData {
 		
 		return null;
 	}
-	//关注我人列表
+	//关注我的人列表
 	private static Object getFansList(JSONObject jsonObject){
 		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
 		
@@ -373,7 +380,8 @@ public class ParseResponseData {
 				JSONObject obj = (JSONObject) jsonArray.opt(i);
 				model.setFlag("0");
 				model.setId(obj.optString("id", ""));
-				model.setTime(obj.optString("time", ""));
+				model.setCity(obj.optString("city"));
+				model.setProvince(obj.optString("province"));
 				model.setName(obj.optString("name", ""));
 				model.setGender(obj.optInt("gender", 1));
 				
