@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -26,14 +27,15 @@ public class BaseActivity extends Activity {
 	
 	public static final int PROGRESS_DIALOG 	= 0; // 带滚动条的提示框 
 	public static final int MODAL_DIALOG		= 1; // 带确定按纽的提示框，需要用户干预才能消失
-	public static final int PROGRESS_HUD 		= 2;
 	public static final int ALL_DIALOG			= 3; 
+	
+	public static final int PROGRESS_HUD		= 2;
 	
 	// 要命的static
 	private static LKProgressDialog progressDialog = null;
 	private LKAlertDialog alertDialog = null;
 	private ProgressHUD progressHUD = null;
-	
+
 	private String message = null;
 	
 	@Override
@@ -101,7 +103,6 @@ public class BaseActivity extends Activity {
 		}
 		
 		super.finish();
-		
 		overridePendingTransition(R.anim.trans_none, R.anim.out_from_right);
 	}
 	
@@ -111,7 +112,7 @@ public class BaseActivity extends Activity {
 			
 		} catch(Exception e){
 			// 重启系统
-			//ApplicationEnvironment.getInstance().restartApp();
+			ApplicationEnvironment.getInstance().restartApp();
 			
 			return null;
 		}
@@ -237,6 +238,7 @@ public class BaseActivity extends Activity {
 			if (null != progressHUD) {
 				progressHUD.dismiss();
 			}
+			break;
 			
 		default:
 			if (null != progressDialog && progressDialog.isShowing()){
@@ -244,9 +246,11 @@ public class BaseActivity extends Activity {
 			}
 			if (null != alertDialog && alertDialog.isShowing()){
 				alertDialog.dismiss();
-			} else if (null != progressHUD) {
+			}
+			if (null != progressHUD) {
 				progressHUD.dismiss();
 			}
+
 			break;
 		}
 		

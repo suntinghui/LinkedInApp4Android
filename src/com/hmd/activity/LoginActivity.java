@@ -16,6 +16,7 @@ import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
+import com.hmd.util.PatternUtil;
 import com.hmd.view.EditTextWithClearView;
 
 public class LoginActivity extends BaseActivity implements OnClickListener {
@@ -111,6 +112,11 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		if (nameView.getText().trim().equals("")){
 			this.showToast("请输入用户名\\手机号\\邮箱");
 			return false;
+		} else if (!PatternUtil.isValidEmail(nameView.getText().trim())) {
+			// TODO 先暂时只能为邮箱
+			this.showToast("用户名不是合法的邮箱格式");
+			return false;
+			
 		} else if (passwordView.getText().trim().equals("")) {
 			this.showToast("请输入密码");
 			return false;

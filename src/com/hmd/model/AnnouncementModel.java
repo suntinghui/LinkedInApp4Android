@@ -45,7 +45,7 @@ public class AnnouncementModel implements Serializable {
 	}
 	
 	public void setPreview(String preview){
-		this.mPreview = preview;
+		this.mPreview = preview.replace("\r", "\n");
 	}
 
 	public String getContent() {
@@ -53,7 +53,7 @@ public class AnnouncementModel implements Serializable {
 	}
 
 	public void setContent(String content) {
-		this.mContent = content;
+		this.mContent = content.replace("\r", "\n");;
 	}
 
 	
