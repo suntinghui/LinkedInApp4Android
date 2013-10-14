@@ -13,6 +13,7 @@ import com.hmd.R;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.enums.LoginCode;
+import com.hmd.enums.RegistrationCode;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
@@ -92,12 +93,12 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 				@SuppressWarnings("unchecked")
 				HashMap<String, String> respMap = (HashMap<String, String>) obj;
 				int returnCode = Integer.parseInt(respMap.get("rc"));
-				if (returnCode == LoginCode.SUCCESS){
+				if (returnCode == RegistrationCode.SUCCESS){
 					Constants.SESSION_ID = respMap.get("sid");
 					
 					LKAlertDialog dialog = new LKAlertDialog(RegistrationActivity.this);
 					dialog.setTitle("提示");
-					dialog.setMessage("注册成功,请登录。");
+					dialog.setMessage("注册成功");
 					dialog.setCancelable(false);
 					dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
@@ -105,7 +106,7 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 						public void onClick(DialogInterface arg0, int arg1) {
 							arg0.dismiss();
 							
-							Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+							Intent intent = new Intent(RegistrationActivity.this, SchoolActivity.class);
 							RegistrationActivity.this.startActivity(intent);
 							
 							RegistrationActivity.this.finish();
@@ -114,6 +115,15 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 					
 					dialog.create().show();
 
+				} else if (returnCode == RegistrationCode.WAITTING_INPUT_FAILURE){
+					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "尚未填写基本信息");
+					
+				} else if (returnCode == RegistrationCode.WAITTING_CONFIRM_FAILURE) {
+					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "尚未确认匹配结果");
+					
+				} else if (returnCode == RegistrationCode.WAITTING_AUDIT_FAILURE) {
+					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "等待审核");
+					
 				} 
 			}
 			 
