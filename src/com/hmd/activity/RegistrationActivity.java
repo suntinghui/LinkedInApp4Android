@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.hmd.R;
+import com.hmd.util.PatternUtil;
 import com.hmd.view.EditTextWithClearView;
 import com.hmd.view.LKAlertDialog;
 
@@ -81,6 +82,9 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 	private boolean checkValue(){
 		if (nameView.getText().trim().equals("")){
 			this.showToast("请输入用户名\\手机号\\邮箱");
+			return false;
+		} else if (!PatternUtil.isValidEmail(nameView.getText().trim())) {
+			this.showToast("用户名不是合法的邮箱格式");
 			return false;
 		} else if (passwordView.getText().trim().equals("")) {
 			this.showToast("请输入密码");
