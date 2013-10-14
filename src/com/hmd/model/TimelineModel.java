@@ -29,8 +29,17 @@ public class TimelineModel {
 	private String mPosition = null;
 
 	private String mEndorsedAs = null;
+	private String mOrg = null;
 
 	private String mImgUrl = null;
+	
+	public String getOrg() {
+		return mOrg;
+	}
+
+	public void setOrg(String mOrg) {
+		this.mOrg = mOrg;
+	}
 	
 	public String getid(){
 		return this.mId;

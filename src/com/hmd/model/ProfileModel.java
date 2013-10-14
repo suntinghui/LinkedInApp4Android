@@ -38,7 +38,6 @@ public class ProfileModel implements Serializable{
 	private String mDesc = null; // 个人描述
 	private String mTime = null; // 关注时间
 	
-	
 	public String getProvince() {
 		return mProvince;
 	}

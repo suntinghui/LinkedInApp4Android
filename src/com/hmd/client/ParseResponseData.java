@@ -437,7 +437,7 @@ public class ParseResponseData {
 				timeline.setProvince(tiemlineObj.optString("province", ""));
 				timeline.setCity(tiemlineObj.optString("city", ""));
 				timeline.setDistrict(tiemlineObj.optString("district", ""));
-				timeline.setSchool(tiemlineObj.optString("org", ""));
+				timeline.setOrg(tiemlineObj.optString("org", ""));
 				timeline.setImgUrl(ImageUtil.getTestImageURL());
 				
 				modelList.add(timeline);

@@ -59,28 +59,8 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 		String localPosition = (this.data.getProvince().equals("null") ? "未知":this.data.getProvince()) +"--"+ (this.data.getCity().equals("null") ? "未知":this.data.getCity());
 		tvLocalPosition.setText(localPosition);
 		
-		RelativeLayout rlSchool = (RelativeLayout)this.findViewById(R.id.rl_profile_school);
-		RelativeLayout rlCompany = (RelativeLayout)this.findViewById(R.id.rl_profile_company);
-		
-		if(this.data.isSchool()){
-			rlSchool.setVisibility(View.VISIBLE);
-			rlCompany.setVisibility(View.GONE);
-			
-			TextView tvSchool = (TextView)this.findViewById(R.id.tv_profile_school);
-			TextView tvMajor = (TextView)this.findViewById(R.id.tv_profile_major);
-			
-			tvSchool.setText(this.data.getSchool());
-			tvMajor.setText(this.data.getMajor());
-		}else{
-			rlSchool.setVisibility(View.GONE);
-			rlCompany.setVisibility(View.VISIBLE);
-			
-			TextView tvCompany = (TextView)this.findViewById(R.id.tv_profile_company);
-			TextView tvPosition = (TextView)this.findViewById(R.id.tv_profile_position);
-			
-			tvCompany.setText(this.data.getCompany());
-			tvPosition.setText(this.data.getTitle());
-		}
+		TextView tvOrg = (TextView)this.findViewById(R.id.tv_profile_org);
+		tvOrg.setText(this.data.getOrg().equals("null") ? "未知":this.data.getOrg());
 		
 		TextView tvDescription = (TextView)this.findViewById(R.id.tv_profile_description);
 		tvDescription.setText(this.data.getDescription());
