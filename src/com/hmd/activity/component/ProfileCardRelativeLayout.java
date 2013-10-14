@@ -55,7 +55,7 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 		TextView tvLocalPosition = (TextView)this.findViewById(R.id.tv_profile_localposition);
 		
 		tvStartDate.setText(this.data.getStartTime().equals("null")?"未知":this.data.getStartTime());
-		tvEndDate.setText(this.data.equals("null")?"未知":this.data.getEndTime());
+		tvEndDate.setText(this.data.getEndTime().equals("null")?"未知":this.data.getEndTime());
 		String localPosition = (this.data.getProvince().equals("null") ? "未知":this.data.getProvince()) +"--"+ (this.data.getCity().equals("null") ? "未知":this.data.getCity());
 		tvLocalPosition.setText(localPosition);
 		
@@ -63,7 +63,7 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 		tvOrg.setText(this.data.getOrg().equals("null") ? "未知":this.data.getOrg());
 		
 		TextView tvDescription = (TextView)this.findViewById(R.id.tv_profile_description);
-		tvDescription.setText(this.data.getDescription());
+		tvDescription.setText(this.data.getDescription().equals("null") ? "未知":this.data.getDescription());
 		
 		TextView tvEndorsed = (TextView)this.findViewById(R.id.tv_profile_endorsed);
 		if(this.data.getEndorsedAs() != null && this.data.getEndorsedAs() != ""){
