@@ -121,7 +121,7 @@ public class ActiveModel implements Serializable{
 	}
 
 	public void setPreview(String preview) {
-		this.preview = preview;
+		this.preview = preview.replace("\r", "\n");
 	}
 
 	public String getContent() {
@@ -129,7 +129,7 @@ public class ActiveModel implements Serializable{
 	}
 
 	public void setContent(String content) {
-		this.content = content;
+		this.content = content.replace("\r", "\n");
 	}
 
 }
