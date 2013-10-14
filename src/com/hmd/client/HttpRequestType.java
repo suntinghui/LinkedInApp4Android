@@ -4,6 +4,7 @@ public interface HttpRequestType {
 	
 	// HTTP REQUEST TYPE
 	public static final String HTTP_LOGIN 								= "LOGIN";
+	public static final String HTTP_REGISTER							= "REGISTER";
 	public static final String HTTP_LOGOUT								= "LOGOUT";
 	
 	public static final String HTTP_PROFILE_BASIC						= "PROFILE_BASIC";

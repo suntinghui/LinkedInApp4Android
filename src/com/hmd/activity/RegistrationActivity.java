@@ -1,5 +1,7 @@
 package com.hmd.activity;
 
+import java.util.HashMap;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +10,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.hmd.R;
+import com.hmd.client.Constants;
+import com.hmd.client.HttpRequestType;
+import com.hmd.enums.LoginCode;
+import com.hmd.network.LKAsyncHttpResponseHandler;
+import com.hmd.network.LKHttpRequest;
+import com.hmd.network.LKHttpRequestQueue;
+import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.view.EditTextWithClearView;
 import com.hmd.view.LKAlertDialog;
 
@@ -58,26 +67,57 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 	private void doRegistration(){
 		if(!this.checkValue()) return;
 		
-		LKAlertDialog dialog = new LKAlertDialog(this);
-		dialog.setTitle("提示");
-		dialog.setMessage("注册成功,请登录。");
-		dialog.setCancelable(false);
-		dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+		HashMap<String, String> paramMap = new HashMap<String, String>();
+		paramMap.put("name", nameView.getText());
+		paramMap.put("password", passwordView.getText());
+		
+		LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_REGISTER, paramMap, getRegisterHandler());
+		
+		new LKHttpRequestQueue().addHttpRequest(req1)
+		.executeQueue("正在注册请稍候...", new LKHttpRequestQueueDone(){
 
 			@Override
-			public void onClick(DialogInterface arg0, int arg1) {
-				arg0.dismiss();
-				
-				Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-				RegistrationActivity.this.startActivity(intent);
-				
-				RegistrationActivity.this.finish();
+			public void onComplete() {
+				super.onComplete();
 			}
-		});
+		});	
 		
-		dialog.create().show();
 	}
 	
+	private LKAsyncHttpResponseHandler getRegisterHandler(){
+		 return new LKAsyncHttpResponseHandler(){
+			@Override
+			public void successAction(Object obj) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, String> respMap = (HashMap<String, String>) obj;
+				int returnCode = Integer.parseInt(respMap.get("rc"));
+				if (returnCode == LoginCode.SUCCESS){
+					Constants.SESSION_ID = respMap.get("sid");
+					
+					LKAlertDialog dialog = new LKAlertDialog(RegistrationActivity.this);
+					dialog.setTitle("提示");
+					dialog.setMessage("注册成功,请登录。");
+					dialog.setCancelable(false);
+					dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							arg0.dismiss();
+							
+							Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+							RegistrationActivity.this.startActivity(intent);
+							
+							RegistrationActivity.this.finish();
+						}
+					});
+					
+					dialog.create().show();
+
+				} 
+			}
+			 
+		 };
+	}
 	private boolean checkValue(){
 		if (nameView.getText().trim().equals("")){
 			this.showToast("请输入用户名\\手机号\\邮箱");

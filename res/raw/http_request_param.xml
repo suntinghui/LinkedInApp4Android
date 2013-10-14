@@ -18,6 +18,13 @@
         <method>POST</method>
     </request>
     
+    <!-- 注册 -->
+    <request>
+        <requestId>REGISTER</requestId>
+        <url>/account/create</url>
+        <method>POST</method>
+    </request>
+    
     <!-- 查看个人基本信息 -->
     <request>
         <requestId>PROFILE_BASIC</requestId>

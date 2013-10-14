@@ -27,12 +27,15 @@ public class ParseResponseData {
 		}
 		
 		
-		// Parse
+		// Parse  
 		if (type.equalsIgnoreCase(HttpRequestType.HTTP_LOGIN)){
 			return login(jsonObject);
 			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_LOGOUT)) {
 			return logout(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_REGISTER)) {
+			return register(jsonObject);
 			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_BASIC)) {
 			return getProfileBasic(jsonObject);
@@ -111,6 +114,14 @@ public class ParseResponseData {
 		return JSONObject2Map(jsonObject);
 	}
 		
+	/*
+	 * 注册
+	 */
+	private static Object register(JSONObject jsonObject){
+		
+		return JSONObject2Map(jsonObject);
+	}
+	
 	/*
 	 * 查看个人基本信息
 	 * 

@@ -52,9 +52,12 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 	private void init(){
 		TextView tvStartDate = (TextView)this.findViewById(R.id.tv_profile_start_date);
 		TextView tvEndDate = (TextView)this.findViewById(R.id.tv_profile_end_date);
+		TextView tvLocalPosition = (TextView)this.findViewById(R.id.tv_profile_localposition);
 		
-		tvStartDate.setText(this.data.getStartTime());
-		tvEndDate.setText(this.data.getEndTime());
+		tvStartDate.setText(this.data.getStartTime().equals("null")?"未知":this.data.getStartTime());
+		tvEndDate.setText(this.data.equals("null")?"未知":this.data.getEndTime());
+		String localPosition = (this.data.getProvince().equals("null") ? "未知":this.data.getProvince()) +"--"+ (this.data.getCity().equals("null") ? "未知":this.data.getCity());
+		tvLocalPosition.setText(localPosition);
 		
 		RelativeLayout rlSchool = (RelativeLayout)this.findViewById(R.id.rl_profile_school);
 		RelativeLayout rlCompany = (RelativeLayout)this.findViewById(R.id.rl_profile_company);
@@ -85,7 +88,7 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 		TextView tvEndorsed = (TextView)this.findViewById(R.id.tv_profile_endorsed);
 		if(this.data.getEndorsedAs() != null && this.data.getEndorsedAs() != ""){
 			tvEndorsed.setVisibility(View.VISIBLE);
-			tvEndorsed.setText(this.data.getEndorsedAs());
+			tvEndorsed.setText(this.data.getEndorsedAs().equals("null") ? "未知":this.data.getEndorsedAs());
 		}else{
 			tvEndorsed.setVisibility(View.GONE);
 		}
