@@ -44,7 +44,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		nameView = (EditTextWithClearView) this.findViewById(R.id.nameText);
 		passwordView = (EditTextWithClearView) this.findViewById(R.id.passwordText);
 		
-		nameView.setText("2013092101@qq.com");
+		nameView.setText("20131014001@qq.com");
 		passwordView.setText("123");
 	}
 	
