@@ -193,7 +193,7 @@
         <method>GET</method>
     </request>
     
-    <!-- 查看我关注的好友列表 -->
+    <!-- 查看关注我的好友列表 -->
     <request>
         <requestId>FANS_LIST</requestId>
         <url>/friends/me/funs/list</url>
