@@ -9,6 +9,7 @@
         <requestId>LOGIN</requestId>
         <url>/login</url>
         <method>POST</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 登出 -->
@@ -16,6 +17,7 @@
         <requestId>LOGOUT</requestId>
         <url>/logout</url>
         <method>POST</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 注册 -->
@@ -23,6 +25,7 @@
         <requestId>REGISTER</requestId>
         <url>/account/create</url>
         <method>POST</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 查看个人基本信息 -->
@@ -30,6 +33,7 @@
         <requestId>PROFILE_BASIC</requestId>
         <url>/profile/${id}/basic</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 查看全部个人信息 -->
@@ -37,6 +41,15 @@
         <requestId>PROFILE_ALL</requestId>
         <url>/profile/${id}/all</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 提交个人信息－后台匹配 -->
+    <request>
+        <requestId>PROFILE_MATCH</requestId>
+        <url>/profile/me/match</url>
+        <method>POST</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 更新个人信息 -->
@@ -44,6 +57,7 @@
         <requestId>PROFILE_UPDATE</requestId>
         <url>/profile/me/update</url>
         <method>POST</method>
+        <contentType>multipart/form-data</contentType>
     </request>
     
     <!-- 查看时间轴 -->
@@ -51,6 +65,7 @@
         <requestId>TIMELINE_LIST</requestId>
         <url>/timeline/${id}/list</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 添加时间轴结点 -->
@@ -58,6 +73,7 @@
         <requestId>TIMELINE_NODE_CREATE</requestId>
         <url>/timeline/me/node/create</url>
         <method>POST</method>
+        <contentType>multipart/form-data</contentType>
     </request>
     
     <!-- 更新时间轴结点 -->
@@ -65,6 +81,7 @@
         <requestId>TIMELINE_NODE_UPDATE</requestId>
         <url>/timeline/me/node/update</url>
         <method>POST</method>
+        <contentType>multipart/form-data</contentType>
     </request>
     
     <!-- 删除时间轴结点 -->
@@ -72,6 +89,47 @@
         <requestId>TIMELINE_NODE_DELETE</requestId>
         <url>/timeline/me/node/delete</url>
         <method>POST</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 根据选中履历推荐好友 -->
+    <request>
+        <requestId>TIMELINE_NODE_NEWFRIENDS_LIST</requestId>
+        <url>/timeline/me/node/${nodeID}/newfriends/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 我关注的好友列表 -->
+    <request>
+        <requestId>FRIENDS_LIST</requestId>
+        <url>/friends/me/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 关注我的人列表 -->
+    <request>
+        <requestId>FRIENDS_FUNS_LIST</requestId>
+        <url>/friends/me/funs/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 关注某人（添加好友） -->
+    <request>
+        <requestId>FRIENDS_FOLLOW</requestId>
+        <url>/friends/${id}/follow</url>
+        <method>POST</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 取消关注某人（删除好友） -->
+    <request>
+        <requestId>FRIENDS_UNFOLLOW</requestId>
+        <url>/friends/${id}/unfollow</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 获取母校介绍 -->
@@ -79,6 +137,7 @@
         <requestId>COLLEGE_INTRODUCT</requestId>
         <url>/college/info</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 获取公告标题列表 -->
@@ -86,6 +145,7 @@
         <requestId>COLLEGE_BROADCAST_LIST</requestId>
         <url>/college/broadcast/list</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 获取公告详情 -->
@@ -93,6 +153,7 @@
         <requestId>COLLEGE_BROADCAST_DETAIL</requestId>
         <url>/college/broadcast/${id}/detail</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 获取活动类型列表 -->
@@ -100,6 +161,7 @@
         <requestId>COLLEGE_EVENT_TYPE_LIST</requestId>
         <url>/college/event/type/list</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 获取活动列表 -->
@@ -107,6 +169,7 @@
         <requestId>COLLEGE_EVENT_LIST</requestId>
         <url>/college/event/list</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 获取活动详情 -->
@@ -114,6 +177,7 @@
         <requestId>COLLEGE_EVENT_DETAIL</requestId>
         <url>/college/event/${id}/detail</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 获取活动成员列表 -->
@@ -121,6 +185,7 @@
         <requestId>COLLEGE_EVENT_PARTICIPANT_LIST</requestId>
         <url>/college/event/${id}/participant/list</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 关注活动 -->
@@ -128,6 +193,7 @@
         <requestId>COLLEGE_EVENT_FOLLOW</requestId>
         <url>/college/event/${id}/follow</url>
         <method>POST</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 取消关注活动 -->
@@ -135,6 +201,7 @@
         <requestId>COLLEGE_EVENT_UNFOLLOW</requestId>
         <url>/college/event/${id}/unfollow</url>
         <method>POST</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 参加活动 -->
@@ -142,6 +209,7 @@
         <requestId>COLLEGE_EVENT_JOIN</requestId>
         <url>/college/event/${id}/join</url>
         <method>POST</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 取消参加活动 -->
@@ -149,6 +217,7 @@
         <requestId>COLLEGE_EVENT_QUIT</requestId>
         <url>/college/event/${id}/quit</url>
         <method>POST</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 回馈母校记录列表 -->
@@ -156,6 +225,7 @@
         <requestId>COLLEGE_FEEDBACK_LIST</requestId>
         <url>/college/feedback/list</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 记录回馈母校行为 -->
@@ -163,6 +233,7 @@
         <requestId>COLLEGE_FEEDBACK_CREATE</requestId>
         <url>/college/feedback/me/create</url>
         <method>POST</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 申请校友卡 -->
@@ -170,6 +241,7 @@
         <requestId>COLLEGE_ALUCARD_APPLY</requestId>
         <url>/college/alucard/apply</url>
         <method>POST</method>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 查看校友卡申请进度 -->
@@ -177,42 +249,7 @@
         <requestId>COLLEGE_ALUCARD_STATUS</requestId>
         <url>/college/alucard/status</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
     </request>
-    
-    <!-- 查看履历推荐好友 -->
-    <request>
-        <requestId>SUGGESTPEOPLE_LIST</requestId>
-        <url>/timeline/me/node/${nodeID}/newfriends/list</url>
-        <method>GET</method>
-    </request>
-    
-    <!-- 查看我关注的好友列表 -->
-    <request>
-        <requestId>MYATTENTIONS_LIST</requestId>
-        <url>/friends/me/list</url>
-        <method>GET</method>
-    </request>
-    
-    <!-- 查看我关注的好友列表 -->
-    <request>
-        <requestId>FANS_LIST</requestId>
-        <url>/friends/me/funs/list</url>
-        <method>GET</method>
-    </request>
-    
-    <!-- 加关注 -->
-    <request>
-        <requestId>ADD_ATTENTION</requestId>
-        <url>/friends/${id}/follow</url>
-        <method>POST</method>
-    </request>
-    
-    <!-- 取消关注 -->
-    <request>
-        <requestId>CANCELATTENTION</requestId>
-        <url>/friends/${id}/unfollow</url>
-        <method>POST</method>
-    </request>
-     
     
 </root>

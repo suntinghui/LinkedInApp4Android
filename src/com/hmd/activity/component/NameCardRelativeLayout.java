@@ -125,7 +125,7 @@ public class NameCardRelativeLayout extends RelativeLayout {
 	
 	
 	private LKHttpRequest getAddAttentionRequest(){
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_ADDATTENTION, null, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_FOLLOW, null, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
@@ -152,7 +152,7 @@ public class NameCardRelativeLayout extends RelativeLayout {
 	
 	
 	private LKHttpRequest getCancelAttentionRequest(){
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_CANCELATTENTION, null, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_UNFOLLOW, null, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {

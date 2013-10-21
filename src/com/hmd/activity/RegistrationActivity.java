@@ -94,6 +94,7 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 				HashMap<String, String> respMap = (HashMap<String, String>) obj;
 				int returnCode = Integer.parseInt(respMap.get("rc"));
 				if (returnCode == RegistrationCode.SUCCESS){
+					
 					Constants.SESSION_ID = respMap.get("sid");
 					
 					LKAlertDialog dialog = new LKAlertDialog(RegistrationActivity.this);
@@ -106,7 +107,7 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 						public void onClick(DialogInterface arg0, int arg1) {
 							arg0.dismiss();
 							
-							Intent intent = new Intent(RegistrationActivity.this, SchoolActivity.class);
+							Intent intent = new Intent(RegistrationActivity.this, SubmitProfileActivity.class);
 							RegistrationActivity.this.startActivity(intent);
 							
 							RegistrationActivity.this.finish();
@@ -115,14 +116,11 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 					
 					dialog.create().show();
 
-				} else if (returnCode == RegistrationCode.WAITTING_INPUT_FAILURE){
-					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "尚未填写基本信息");
+				} else if (returnCode == 0) {
+					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "失败，原因未知");
 					
-				} else if (returnCode == RegistrationCode.WAITTING_CONFIRM_FAILURE) {
-					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "尚未确认匹配结果");
-					
-				} else if (returnCode == RegistrationCode.WAITTING_AUDIT_FAILURE) {
-					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "等待审核");
+				} else if (returnCode == -2) {
+					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "该邮箱已被注册");
 					
 				} 
 			}
@@ -131,10 +129,10 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 	}
 	private boolean checkValue(){
 		if (nameView.getText().trim().equals("")){
-			this.showToast("请输入用户名\\手机号\\邮箱");
+			this.showToast("请输入邮箱");
 			return false;
 		} else if (!PatternUtil.isValidEmail(nameView.getText().trim())) {
-			this.showToast("用户名不是合法的邮箱格式");
+			this.showToast("邮箱格式不合法");
 			return false;
 		} else if (passwordView.getText().trim().equals("")) {
 			this.showToast("请输入密码");

@@ -5,6 +5,7 @@ public class HttpRequestModel {
 	private String requestId;
 	private String url;
 	private String method;
+	private String contentType;
 
 	public String getRequestId() {
 		return requestId;
@@ -28,6 +29,14 @@ public class HttpRequestModel {
 
 	public void setMethod(String method) {
 		this.method = method;
+	}
+	
+	public String getContentType(){
+		return (null == contentType||"".equals(contentType))?"application/json":contentType;
+	}
+	
+	public void setContentType(String contentType){
+		this.contentType = contentType;
 	}
 
 	@Override

@@ -10,7 +10,11 @@
     <string name="txtBack">返回</string>
     <string name="txtLogin">登  录</string>
     <string name="txtRegistr">激  活</string>
-    <string name="txtLoginNameHint">邮箱/手机号/用户名</string>
+    <string name="txtLoginNameHint">邮箱</string>
+    <string name="txtNameHint">姓名</string>
+    <string name="txtStudentIdHint">学号</string>
+    <string name="txtCardNoHint">身份证号</string>
+    <string name="txtMajordHint">专业</string>
     <string name="txtLoginPasswordHint">密码</string>
     <string name="txtRegistrPasswordConfirmHint">密码</string>
     <string name="txtTo">至</string>

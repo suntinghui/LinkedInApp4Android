@@ -52,7 +52,8 @@
         android:id="@+id/rl_school_card_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_school_card_top" >
+        android:layout_below="@id/rl_school_card_top" 
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/iv_school_card_front"

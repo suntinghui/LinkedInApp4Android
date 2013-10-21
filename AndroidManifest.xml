@@ -45,6 +45,7 @@
         <activity android:name=".activity.LoginActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.RegistrationActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.ProfileActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+        <activity android:name=".activity.SubmitProfileActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.SuggestPeopleActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.SchoolActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.SinaOAuthActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>

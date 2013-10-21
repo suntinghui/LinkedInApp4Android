@@ -105,7 +105,7 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 		paramMap.put("page", "1");
 		paramMap.put("num", Constants.PAGESIZE+"");
 		
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_SUGGESTPEOPLE_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_TIMELINE_NODE_NEWFRIENDS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {

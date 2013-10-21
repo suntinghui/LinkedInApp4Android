@@ -100,7 +100,7 @@ public class LKHttpRequest {
 	
 	public void send(){
 		if (this.httpRequestModel.getMethod().equalsIgnoreCase("POST")){ // POST
-			this.client.post(ApplicationEnvironment.getInstance().getApplication(), this.getRequestURL(), this.getHttpPostEntity(this.requestDataMap), "application/json", this.responseHandler);
+			this.client.post(ApplicationEnvironment.getInstance().getApplication(), this.getRequestURL(), this.getHttpPostEntity(this.requestDataMap), this.httpRequestModel.getContentType(), this.responseHandler);
 			
 		} else { // GET
 			this.client.get(ApplicationEnvironment.getInstance().getApplication(), this.getHttpGetEntity(this.requestDataMap), this.responseHandler);
