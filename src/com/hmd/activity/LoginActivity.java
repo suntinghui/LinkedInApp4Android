@@ -89,12 +89,23 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			public void successAction(Object obj) {
 				@SuppressWarnings("unchecked")
 				HashMap<String, String> respMap = (HashMap<String, String>) obj;
+				
 				int returnCode = Integer.parseInt(respMap.get("rc"));
 				if (returnCode == LoginCode.SUCCESS){
 					Constants.SESSION_ID = respMap.get("sid");
 					
-					Intent intent = new Intent(LoginActivity.this, SchoolActivity.class);
-					LoginActivity.this.startActivity(intent);
+					int statusCode = Integer.parseInt(respMap.get("status"));
+					if (statusCode == 1){ // 账号状态正常
+						Intent intent = new Intent(LoginActivity.this, SchoolActivity.class);
+						LoginActivity.this.startActivity(intent);
+						
+					} else if (statusCode == -1) { // 尚未填写基本信息
+						Intent intent = new Intent(LoginActivity.this, SubmitProfileActivity.class);
+						LoginActivity.this.startActivity(intent);
+						
+					} else if (statusCode == -2) { // 等待审核
+						LoginActivity.this.showDialog(LoginActivity.MODAL_DIALOG, "该账号正在审核");
+					}
 
 				} else if (returnCode == LoginCode.WRONG_PASSWORD){
 					LoginActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "密码错误");
@@ -110,7 +121,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	
 	private boolean checkValue(){
 		if (nameView.getText().trim().equals("")){
-			this.showToast("请输入用户名\\手机号\\邮箱");
+			this.showToast("请输入邮箱");
 			return false;
 		} else if (!PatternUtil.isValidEmail(nameView.getText().trim())) {
 			// TODO 先暂时只能为邮箱

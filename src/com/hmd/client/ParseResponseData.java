@@ -43,6 +43,9 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_ALL)) {
 			return getProfileAll(jsonObject);
 
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_MATCH)) {
+			return profileMatch(jsonObject);
+			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_UPDATE)) {
 			return profileUpdate(jsonObject);
 			
@@ -79,19 +82,19 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_INTRODUCT)) {
 			return getCollegeInfo(jsonObject);
 			
-		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_SUGGESTPEOPLE_LIST)) {
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_TIMELINE_NODE_NEWFRIENDS_LIST)) {
 			return getSuggestPeopleList(jsonObject);
 			
-		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_MYATTENTIONS_LIST)) {
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_FRIENDS_LIST)) {
 			return getMyAttentionsList(jsonObject);
 			
-		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_FANS_LIST)) {
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_FRIENDS_FUNS_LIST)) {
 			return getFansList(jsonObject);
 			
-		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_ADDATTENTION)) {
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_FRIENDS_FOLLOW)) {
 			return getAddAttention(jsonObject);
 			
-		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_CANCELATTENTION)) {
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_FRIENDS_UNFOLLOW)) {
 			return getCancelAttention(jsonObject);
 		}
 		
@@ -180,6 +183,12 @@ public class ParseResponseData {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	private static Object profileMatch(JSONObject jsonObject){
+		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
+		
+		return errorCode;
 	}
 	
 	private static Object profileUpdate(JSONObject jsonObject){

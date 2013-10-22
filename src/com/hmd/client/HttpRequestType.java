@@ -9,12 +9,14 @@ public interface HttpRequestType {
 	
 	public static final String HTTP_PROFILE_BASIC						= "PROFILE_BASIC";
 	public static final String HTTP_PROFILE_ALL							= "PROFILE_ALL";
+	public static final String HTTP_PROFILE_MATCH						= "PROFILE_MATCH";
 	public static final String HTTP_PROFILE_UPDATE						= "PROFILE_UPDATE";
 	
 	public static final String HTTP_TIMELINE_LIST						= "TIMELINE_LIST";
 	public static final String HTTP_TIMELINE_NODE_CREATE				= "TIMELINE_NODE_CREATE";
 	public static final String HTTP_TIMELINE_NODE_UPDATE				= "TIMELINE_NODE_UPDATE";
 	public static final String HTTP_TIMELINE_NODE_DELETE				= "TIMELINE_NODE_DELETE";
+	public static final String HTTP_TIMELINE_NODE_NEWFRIENDS_LIST		= "TIMELINE_NODE_NEWFRIENDS_LIST";
 	
 	public static final String HTTP_COLLEGE_INTRODUCT					= "COLLEGE_INTRODUCT";
 	public static final String HTTP_COLLEGE_BROADCAST_LIST				= "COLLEGE_BROADCAST_LIST";
@@ -33,11 +35,11 @@ public interface HttpRequestType {
 	public static final String HTTP_COLLEGE_FEEDBACK_CREATE				= "COLLEGE_FEEDBACK_CREATE";
 	public static final String HTTP_COLLEGE_ALUCARD_APPLY				= "COLLEGE_ALUCARD_APPLY";
 	public static final String HTTP_COLLEGE_ALUCARD_STATUS				= "COLLEGE_ALUCARD_STATUS";
-	public static final String HTTP_SUGGESTPEOPLE_LIST					= "SUGGESTPEOPLE_LIST";
-	public static final String HTTP_MYATTENTIONS_LIST					= "MYATTENTIONS_LIST";
-	public static final String HTTP_FANS_LIST							= "FANS_LIST";
-	public static final String HTTP_ADDATTENTION						= "ADD_ATTENTION";
-	public static final String HTTP_CANCELATTENTION						= "CANCELATTENTION";
+	
+	public static final String HTTP_FRIENDS_LIST						= "FRIENDS_LIST";
+	public static final String HTTP_FRIENDS_FUNS_LIST					= "FRIENDS_FUNS_LIST";
+	public static final String HTTP_FRIENDS_FOLLOW						= "FRIENDS_FOLLOW";
+	public static final String HTTP_FRIENDS_UNFOLLOW					= "FRIENDS_UNFOLLOW";
 	
 	
 }

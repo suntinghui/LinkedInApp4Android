@@ -183,7 +183,7 @@ public class SwitchableScrollViewer extends ScrollView {
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("page", mPage);
 		paramMap.put("num", mNum);
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_MYATTENTIONS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
@@ -213,7 +213,7 @@ public class SwitchableScrollViewer extends ScrollView {
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("page", mPage);
 		paramMap.put("num", mNum);
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FANS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_FUNS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {

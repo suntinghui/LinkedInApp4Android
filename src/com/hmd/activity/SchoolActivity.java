@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -41,7 +42,7 @@ import com.hmd.util.WeiboUtil;
 
 public class SchoolActivity extends BaseActivity implements OnTouchListener {
 
-	private TopbarRelativeLayout topbar 				= null; // 搜索栏
+	private Button profileButton;
 	private SchoolInfoCardRelativeLayout rlSchoolInfo 	= null; // 学校信息	
 	private SchoolNoticeRelativeLayout rlSchoolNotice 	= null; // 官方公告
 	private SchoolEventRelativeLayout rlSchoolEvent 	= null; // 官方活动
@@ -77,11 +78,9 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		llSchoolContainer.setOnTouchListener(this);
 		this.mDector = new GestureDetector(this, new GestureListener()); 
 		
-		// 搜索栏
-		LinearLayout llTopbar = (LinearLayout)this.findViewById(R.id.ll_main_topbar);
-		topbar = new TopbarRelativeLayout(this, this.onNavigation, R.drawable.img_btn_topbar_right_arrow);
-		llTopbar.addView(topbar);
-
+		profileButton = (Button) this.findViewById(R.id.profileButton);
+		profileButton.setOnClickListener(this.onNavigation);
+		
 		// 学校信息
 		rlSchoolInfo = new SchoolInfoCardRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolInfo);
@@ -256,7 +255,13 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 
 		@Override
 		protected void onPostExecute(Object result) {
-			rlSchoolWeibo.refresh(((StatusWapper)result).getStatuses());
+			try{
+				rlSchoolWeibo.refresh(((StatusWapper)result).getStatuses());
+			} catch(Exception e){
+				e.printStackTrace();
+				
+				rlSchoolWeibo.setVisibility(View.GONE);
+			}
 		}
 
 	}

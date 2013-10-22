@@ -20,6 +20,13 @@ public class PatternUtil {
 		ret = mat.matches();
 		return ret;
 	}
+	
+	public static boolean isValidIDNum(String idNum){
+		String regex = "^(\\d{15}$|^\\d{18}$|^\\d{17}(\\d|X|x))$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher mat = pattern.matcher(idNum);
+		return mat.matches();
+	}
 
 
 }

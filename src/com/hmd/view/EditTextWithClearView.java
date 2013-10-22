@@ -53,6 +53,10 @@ public class EditTextWithClearView extends RelativeLayout implements OnClickList
 	public String getText(){
 		return this.editText.getText().toString();
 	}
+	
+	public void setHint(String hint){
+		this.editText.setHint(hint);
+	}
 
 	@Override
 	public void onClick(View v) {

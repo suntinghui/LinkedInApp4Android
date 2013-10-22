@@ -172,7 +172,7 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("page", ++currentPage+"");
 		paramMap.put("num", mNum);
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_MYATTENTIONS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
@@ -206,7 +206,7 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 		HashMap<String, String> paramMap = new HashMap<String, String>();
 		paramMap.put("page", ++currentPage+"");
 		paramMap.put("num", mNum);
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FANS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_FUNS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
@@ -247,7 +247,7 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 		paramMap.put("page", ++currentPage+"");
 		paramMap.put("num", Constants.PAGESIZE+"");
 		
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_SUGGESTPEOPLE_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_TIMELINE_NODE_NEWFRIENDS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
