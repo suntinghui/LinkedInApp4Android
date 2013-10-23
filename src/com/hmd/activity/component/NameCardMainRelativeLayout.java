@@ -95,7 +95,6 @@ public class NameCardMainRelativeLayout extends RelativeLayout {
 		public void onClick(View arg0) {
 			if(arg0.getId() == R.id.topLayout){
 				Intent intent = new Intent(BaseActivity.getTopActivity(), PersonInfoModifyActivity.class);
-				intent.putExtra("MODEL", data);
 				BaseActivity.getTopActivity().startActivity(intent);
 			}
 			

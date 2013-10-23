@@ -136,7 +136,7 @@ public class ProfileModel implements Serializable{
 	}
 	
 	public void setName(String s) {
-		this.mName = s;
+		this.mName = checkNull(s);
 	}
 	
 	public void setGender(int gender){
@@ -144,55 +144,43 @@ public class ProfileModel implements Serializable{
 	}
 	
 	public void setImgUrl(String s) {
-		this.mImgUrl = s;
+		this.mImgUrl = checkNull(s);
 	}
 
 	public void setCity(String s) {
-		if (!s.equals("null"))
-			this.mCity = s;
+		this.mCity = checkNull(s);
 	}
 
 	public void setDistrict(String s) {
-		if (!s.equals("null"))
-			this.mDistrict = s;
+		this.mDistrict = checkNull(s);
 	}
 
 	public void setSchool(String s) {
-		if (!s.equals("null"))
-			this.mSchool = s;
+		this.mSchool = checkNull(s);
 	}
 	
 	public void setDept(String s){
-		if (!s.equals("null")){
-			this.mDept = s;
-		}
+		this.mDept = checkNull(s);
 	}
 	
 	public void setMajor(String s) {
-		if (!s.equals("null"))
-			this.mMajor = s;
+		this.mMajor = checkNull(s);
 	}
 	
 	public void setAdYear(String s){
-		if (!s.equals("null")){
-			this.mAdYear = s;
-		}
+		this.mAdYear = checkNull(s);
 	}
 	
 	public void setGradYear(String s){
-		if (!s.equals("null")){
-			this.mGradYear = s;
-		}
+		this.mGradYear = checkNull(s);
 	}
 
 	public void setCompany(String s) {
-		if (!s.equals("null"))
-			this.mCompany = s;
+		this.mCompany = checkNull(s);
 	}
 
 	public void setPosition(String s) {
-		if (!s.equals("null"))
-			this.mPosition = s;
+		this.mPosition = checkNull(s);
 	}
 
 	public boolean isSchool() {
@@ -200,23 +188,30 @@ public class ProfileModel implements Serializable{
 	}
 	
 	public void setBirthday(String s){
-		this.mBirthday = s;
+		this.mBirthday = checkNull(s);
 	}
 	
 	public void setBirthplace(String s){
-		this.mBirthplace = s;
+		this.mBirthplace = checkNull(s);
 	}
 	
 	public void setNation(String s){
-		this.mNation = s;
+		this.mNation = checkNull(s);
 	}
 	
 	public void setDesc(String s){
-		this.mDesc = s;
+		this.mDesc = checkNull(s);
 	}
 	
 	public String toString(){
 		return this.mName;
 	}
-	
+	private String checkNull(String s)
+	{
+		if(s != null && s.length() != 0 && !s.contains("null")){
+			return s;
+		}else{
+			return "未知";
+		}
+	}
 }

@@ -73,7 +73,7 @@
                         android:src="@drawable/img_card_head_portrait" />
 
                     <Button
-                        android:id="@+id/btn_picture"
+                        android:id="@+id/btn_pick"
                         android:layout_width="120dip"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@id/image_head"
@@ -100,17 +100,100 @@
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dip"
+                        android:gravity="right"
                         android:layout_height="wrap_content"
-                        android:text="姓名" />
+                        android:text="姓	名" />
 
                     <EditText
                         android:id="@+id/et_name"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
                         android:background="@drawable/edittext_bg"
-                        android:hint="请输姓名"
+                        android:hint="请输入姓名"
+                        android:paddingBottom="3dip"
+                        android:paddingLeft="3dip"
+                        android:paddingTop="3dip" 
+                        style="@style/TextView15sp_black"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dip"
+                        android:gravity="right"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="性	别" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="30dip"
+                        android:contentDescription="性别"
+                        android:orientation="horizontal" >
+
+                        <RadioButton
+                            android:id="@+id/radioMale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="男" >
+                        </RadioButton>
+
+                        <RadioButton
+                            android:id="@+id/radioFemale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="40dip"
+                            android:text="女" >
+                        </RadioButton>
+                    </RadioGroup>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dip"
+                        android:gravity="right"
+                        android:layout_height="wrap_content"
+                        android:text="专	业" />
+
+                    <EditText
+                        android:id="@+id/et_major"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dip"
+                        android:layout_marginLeft="35dip"
+                        android:background="@drawable/edittext_bg"
+                        android:hint="请输入专业名称"
+                        style="@style/TextView15sp_black"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
                         android:paddingTop="3dip" />
@@ -131,20 +214,40 @@
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dip"
+                        android:gravity="right"
                         android:layout_height="wrap_content"
-                        android:text="性别" />
+                        android:layout_gravity="center_vertical"
+          			    android:text="入学时间" />
 
-                    <EditText
-                        android:id="@+id/et_name"
+                    <!-- 入学年份 -->
+
+                    <RelativeLayout
+                        android:id="@+id/adYearLayout"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dip"
+                        android:layout_height="30dip"
+                        android:layout_gravity="center_vertical"
                         android:background="@drawable/edittext_bg"
-                        android:hint="请输姓名"
-                        android:paddingBottom="3dip"
-                        android:paddingLeft="3dip"
-                        android:paddingTop="3dip" />
+                        android:layout_marginLeft="35dip" >
+
+                        <Spinner
+                            android:id="@+id/adYearSpinner"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dip"
+                            android:background="@null" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dip"
+                            android:contentDescription="@string/app_name"
+                            android:focusable="false"
+                            android:src="@drawable/img_login_arrows" />
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <View
@@ -162,113 +265,40 @@
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="学校" />
-
-                    <EditText
-                        android:id="@+id/et_name"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dip"
-                        android:background="@drawable/edittext_bg"
-                        android:hint="请输姓名"
-                        android:paddingBottom="3dip"
-                        android:paddingLeft="3dip"
-                        android:paddingTop="3dip" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2px"
-                    android:background="?android:attr/listDivider" />
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dip"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="专业" />
-
-                    <EditText
-                        android:id="@+id/et_name"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dip"
-                        android:background="@drawable/edittext_bg"
-                        android:hint="请输姓名"
-                        android:paddingBottom="3dip"
-                        android:paddingLeft="3dip"
-                        android:paddingTop="3dip" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2px"
-                    android:background="?android:attr/listDivider" />
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dip"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="入学时间" />
-
-                    <EditText
-                        android:id="@+id/et_name"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dip"
-                        android:background="@drawable/edittext_bg"
-                        android:hint="请输姓名"
-                        android:paddingBottom="3dip"
-                        android:paddingLeft="3dip"
-                        android:paddingTop="3dip" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2px"
-                    android:background="?android:attr/listDivider" />
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dip"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dip"
+                        android:gravity="right"
+                        android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"
                         android:text="毕业时间" />
 
-                    <EditText
-                        android:id="@+id/et_name"
+                    <!-- 毕业年份 -->
+
+                    <RelativeLayout
+                        android:id="@+id/gradYearLayout"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dip"
-                        android:background="@drawable/edittext_bg"
-                        android:hint="请输姓名"
-                        android:paddingBottom="3dip"
-                        android:paddingLeft="3dip"
-                        android:paddingTop="3dip" />
+                        android:layout_height="30dip"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="35dip" 
+                        android:background="@drawable/edittext_bg">
+
+                        <Spinner
+                            android:id="@+id/gradYearSpinner"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dip"
+                            android:background="@null" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dip"
+                            android:contentDescription="@string/app_name"
+                            android:focusable="false"
+                            android:src="@drawable/img_login_arrows" />
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -303,20 +333,22 @@
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dip"
+                        android:gravity="right"
                         android:layout_height="wrap_content"
                         android:text="生日" />
 
-                    <EditText
-                        android:id="@+id/et_name"
+                    <TextView
+                        android:id="@+id/tv_birthday"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
                         android:background="@drawable/edittext_bg"
-                        android:hint="请输姓名"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
-                        android:paddingTop="3dip" />
+                        android:paddingTop="3dip" 
+                        style="@style/TextView15sp_black"/>
                 </LinearLayout>
 
                 <View
@@ -334,20 +366,22 @@
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dip"
+                        android:gravity="right"
                         android:layout_height="wrap_content"
                         android:text="籍贯" />
 
                     <EditText
-                        android:id="@+id/et_name"
+                        android:id="@+id/et_birthplace"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
                         android:background="@drawable/edittext_bg"
-                        android:hint="请输姓名"
+                        android:hint="请输入籍贯"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
-                        android:paddingTop="3dip" />
+                        android:paddingTop="3dip"
+                        style="@style/TextView15sp_black" />
                 </LinearLayout>
 
                 <View
@@ -365,20 +399,22 @@
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dip"
+                        android:gravity="right"
                         android:layout_height="wrap_content"
                         android:text="民族" />
 
                     <EditText
-                        android:id="@+id/et_name"
+                        android:id="@+id/et_nation"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
                         android:background="@drawable/edittext_bg"
-                        android:hint="请输姓名"
+                        android:hint="请输入民族"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
-                        android:paddingTop="3dip" />
+                        android:paddingTop="3dip" 
+                        style="@style/TextView15sp_black"/>
                 </LinearLayout>
 
                 <View
@@ -396,20 +432,22 @@
                     android:orientation="horizontal" >
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dip"
+                        android:gravity="right"
                         android:layout_height="wrap_content"
                         android:text="简介" />
 
                     <EditText
-                        android:id="@+id/et_name"
+                        android:id="@+id/et_desc"
                         android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
                         android:background="@drawable/edittext_bg"
-                        android:hint="请输姓名"
+                        android:hint="请输入简介"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
-                        android:paddingTop="3dip" />
+                        android:paddingTop="3dip"
+                        style="@style/TextView15sp_black" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

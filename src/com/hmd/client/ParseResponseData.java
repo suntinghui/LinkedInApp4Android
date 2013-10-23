@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import android.util.Log;
+
 import com.hmd.enums.ErrorCode;
 import com.hmd.exception.ServiceErrorException;
 import com.hmd.model.ActiveModel;
@@ -140,7 +142,6 @@ public class ParseResponseData {
 				model.setName(basicObj.optString("name", ""));
 				model.setGender(basicObj.optInt("gender"));
 				model.setSchool(basicObj.optString("colg", ""));
-				model.setDept(basicObj.optString("dept", ""));
 				model.setMajor(basicObj.optString("major", ""));
 				model.setAdYear(basicObj.optString("adyear", ""));
 				model.setGradYear(basicObj.optString("gradYear", ""));
@@ -159,26 +160,29 @@ public class ParseResponseData {
 		try{
 			JSONTokener parse = new JSONTokener(jsonObject.optString("basic"));
 			JSONObject basicObj = (JSONObject) parse.nextValue();
-			
+			JSONTokener parse2 = new JSONTokener(jsonObject.optString("ext"));
+			JSONObject extObj = (JSONObject) parse2.nextValue();
+			ProfileModel model = new ProfileModel();
 			if (null != basicObj){
 				// TODO 因为返回的数据不全，有些字段不能够多确定，待完善
-				ProfileModel model = new ProfileModel();
-				model.setName(basicObj.optString("name", null));
-				model.setGender(basicObj.optInt("gender"));
-				model.setSchool(basicObj.optString("colg", null));
-				model.setDept(basicObj.optString("dept", null));
-				model.setMajor(basicObj.optString("major", null));
-				model.setAdYear(basicObj.optString("adyear", null));
-				model.setGradYear(basicObj.optString("gradYear", null));
-
-				model.setBirthday(basicObj.optString("birthday", null));
-				model.setBirthplace(basicObj.optString("birthplace", null));
-				model.setNation(basicObj.optString("nation", null));
-				model.setDesc(basicObj.optString("desc", null));
 				
-				return model;
+				model.setName(basicObj.optString("name", ""));
+				model.setGender(basicObj.optInt("gender"));
+				model.setSchool(basicObj.optString("colg", ""));
+				model.setDept(basicObj.optString("dept", ""));
+				model.setMajor(basicObj.optString("major", ""));
+				model.setAdYear(basicObj.optString("adYear", ""));
+				model.setGradYear(basicObj.optString("gradYear", ""));
+
+				
 			}
-			
+			if(null != extObj){
+				model.setBirthday(extObj.optString("birthday", ""));
+				model.setBirthplace(extObj.optString("birthplace", ""));
+				model.setNation(extObj.optString("nation", ""));
+				model.setDesc(extObj.optString("desc", ""));
+			}
+			return model;
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -192,7 +196,7 @@ public class ParseResponseData {
 	}
 	
 	private static Object profileUpdate(JSONObject jsonObject){
-		
+		Log.i("obj: %@", jsonObject.toString());
 		return null;
 	}
 	
