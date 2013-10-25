@@ -143,8 +143,9 @@ public class ParseResponseData {
 				model.setGender(basicObj.optInt("gender"));
 				model.setSchool(basicObj.optString("colg", ""));
 				model.setMajor(basicObj.optString("major", ""));
-				model.setAdYear(basicObj.optString("adyear", ""));
+				model.setAdYear(basicObj.optString("adYear", ""));
 				model.setGradYear(basicObj.optString("gradYear", ""));
+				model.setPic(basicObj.optString("pic", ""));
 				
 				return model;
 			}
@@ -195,9 +196,10 @@ public class ParseResponseData {
 		return errorCode;
 	}
 	
+	//更新个人信息
 	private static Object profileUpdate(JSONObject jsonObject){
-		Log.i("obj: %@", jsonObject.toString());
-		return null;
+		
+		return JSONObject2Map(jsonObject);
 	}
 	
 	// 取得公告列表
@@ -451,7 +453,7 @@ public class ParseResponseData {
 				timeline.setCity(tiemlineObj.optString("city", ""));
 				timeline.setDistrict(tiemlineObj.optString("district", ""));
 				timeline.setOrg(tiemlineObj.optString("org", ""));
-				timeline.setImgUrl(ImageUtil.getTestImageURL());
+				timeline.setImgUrl(tiemlineObj.optString("pic", ""));
 				
 				modelList.add(timeline);
 			}
@@ -462,10 +464,10 @@ public class ParseResponseData {
 		
 		return null;
 	}
-	
+	// 添加时间轴结点
 	private static Object timelineNodeCreate(JSONObject jsonObject){
-		
-		return null;
+		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
+		return errorCode;
 	}
 	
 	private static Object timelineNodeUpdate(JSONObject jsonObject){

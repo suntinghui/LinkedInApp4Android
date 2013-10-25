@@ -169,7 +169,7 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 	
 	// 查看我关注的人
 	private LKHttpRequest getMyAttentionsRequest(){
-		HashMap<String, String> paramMap = new HashMap<String, String>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", ++currentPage+"");
 		paramMap.put("num", mNum);
 		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
@@ -203,7 +203,7 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 	
 	// 查看关注我的人
 	private LKHttpRequest getFansRequest(){
-		HashMap<String, String> paramMap = new HashMap<String, String>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", ++currentPage+"");
 		paramMap.put("num", mNum);
 		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_FUNS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
@@ -243,7 +243,7 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 	
 	// 查看推荐好友
 	private LKHttpRequest getSuggestPeopleRequest(){
-		HashMap<String, String> paramMap = new HashMap<String, String>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", ++currentPage+"");
 		paramMap.put("num", Constants.PAGESIZE+"");
 		

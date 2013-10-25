@@ -57,7 +57,7 @@
         <requestId>PROFILE_UPDATE</requestId>
         <url>/profile/me/update</url>
         <method>POST</method>
-        <contentType>multipart/form-data</contentType>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 查看时间轴 -->
@@ -73,7 +73,7 @@
         <requestId>TIMELINE_NODE_CREATE</requestId>
         <url>/timeline/me/node/create</url>
         <method>POST</method>
-        <contentType>multipart/form-data</contentType>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 更新时间轴结点 -->
@@ -81,7 +81,7 @@
         <requestId>TIMELINE_NODE_UPDATE</requestId>
         <url>/timeline/me/node/update</url>
         <method>POST</method>
-        <contentType>multipart/form-data</contentType>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 删除时间轴结点 -->
@@ -128,7 +128,7 @@
     <request>
         <requestId>FRIENDS_UNFOLLOW</requestId>
         <url>/friends/${id}/unfollow</url>
-        <method>GET</method>
+        <method>POST</method>
         <contentType>application/json</contentType>
     </request>
     

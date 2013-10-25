@@ -27,6 +27,7 @@ public class ProfileModel implements Serializable{
 	private String mMajor = null; // 专业名称
 	private String mAdYear = null; // 入学年份
 	private String mGradYear = null; // 毕业年份，如果尚未毕业则为null
+	private String mPic = null;// 头像
 	
 	private String mCompany = null;
 	private String mPosition = null;
@@ -38,6 +39,13 @@ public class ProfileModel implements Serializable{
 	private String mDesc = null; // 个人描述
 	private String mTime = null; // 关注时间
 	
+	public String getPic() {
+		return mPic;
+	}
+
+	public void setPic(String mPic) {
+		this.mPic = mPic;
+	}
 	public String getProvince() {
 		return mProvince;
 	}
@@ -168,7 +176,7 @@ public class ProfileModel implements Serializable{
 	}
 	
 	public void setAdYear(String s){
-		this.mAdYear = checkNull(s);
+		this.mAdYear = s;
 	}
 	
 	public void setGradYear(String s){

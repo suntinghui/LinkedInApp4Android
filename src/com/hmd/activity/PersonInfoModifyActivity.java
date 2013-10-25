@@ -41,6 +41,7 @@ import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.DateUtil;
+import com.hmd.util.ImageUtil;
 import com.hmd.util.PatternUtil;
 import com.hmd.view.LKAlertDialog;
 
@@ -49,6 +50,11 @@ public class PersonInfoModifyActivity extends BaseActivity {
 	private ProfileModel model = null;
 	private final String IMAGE_TYPE = "image/*";
 	private final int IMAGE_CODE = 0;   //这里的IMAGE_CODE是自己任意定义的
+	private Bitmap bm = null;
+	
+	private Button btn_back = null;
+	private Button btn_confirm = null;
+	
 	//基本信息
 	private ImageView image_head = null;
 	private Button btn_pick = null;
@@ -78,10 +84,15 @@ public class PersonInfoModifyActivity extends BaseActivity {
 		setContentView(R.layout.activity_personinfomodify);
 
 		this.init();
-		refreshPersonInfoAll();
+//		refreshPersonInfoAll();
 	}
 
 	private void init() {
+		
+		btn_back = (Button)this.findViewById(R.id.btn_back);
+		btn_back.setOnClickListener(listener);
+		btn_confirm = (Button)this.findViewById(R.id.btn_confirm);
+		btn_confirm.setOnClickListener(listener);
 		
 		image_head = (ImageView)this.findViewById(R.id.image_head);
 		btn_pick = (Button)this.findViewById(R.id.btn_pick);
@@ -90,12 +101,12 @@ public class PersonInfoModifyActivity extends BaseActivity {
 		
 		et_major = (EditText)this.findViewById(R.id.et_major);
 		
-		tv_birthday = (TextView)this.findViewById(R.id.tv_birthday);
-		tv_birthday.setOnClickListener(listener);
-		et_birthplace = (EditText)this.findViewById(R.id.et_birthplace); 
-		
-		et_nation = (EditText)this.findViewById(R.id.et_nation);
-		et_desc = (EditText)this.findViewById(R.id.et_desc);
+//		tv_birthday = (TextView)this.findViewById(R.id.tv_birthday);
+//		tv_birthday.setOnClickListener(listener);
+//		et_birthplace = (EditText)this.findViewById(R.id.et_birthplace); 
+//		
+//		et_nation = (EditText)this.findViewById(R.id.et_nation);
+//		et_desc = (EditText)this.findViewById(R.id.et_desc);
 		
 		radioGroup = (RadioGroup)this.findViewById(R.id.radioGroup);
 		radioMale = (RadioButton)this.findViewById(R.id.radioMale);
@@ -133,6 +144,29 @@ public class PersonInfoModifyActivity extends BaseActivity {
 		gradYearSpinner.setAdapter(gradYearAdapter);
 		gradYearSpinner.setPrompt("毕业年份");
 		gradYearSpinner.setSelection(gradYearValueList.size() - 1);
+		
+		//填充值
+		Intent intent = this.getIntent();
+		model = (ProfileModel) intent.getSerializableExtra("MODEL");
+		ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, model.getPic(), image_head);
+		et_name.setText(model.getName());
+		et_major.setText(model.getMajor());
+		
+		if(model.getGender() == 0){
+			radioFemale.setChecked(true);
+		}else{
+			radioMale.setChecked(true);
+		}
+		int currentYear = Integer.parseInt(DateUtil.getCurrentYear())+1;
+		int adYear = adYearValueList.size()-(currentYear-Integer.valueOf(model.getAdYear()));
+		int gradYear = 0;
+		if(model.getGradYear().equals("未知")){
+			gradYear = currentYear - 1949;
+		}else{
+			gradYear = gradYearValueList.size()-(currentYear-Integer.valueOf(model.getGradYear())) - 1;
+		}
+		adYearSpinner.setSelection(adYear);
+		gradYearSpinner.setSelection(gradYear);
 	}
 
 	private void preparData(){
@@ -162,6 +196,12 @@ public class PersonInfoModifyActivity extends BaseActivity {
 			case R.id.tv_birthday:
 				//用于显示日期对话框,他会调用onCreateDialog()
 				showDialog(1);
+				break;
+			case R.id.btn_back:
+				PersonInfoModifyActivity.this.finish();
+				break;
+			case R.id.btn_confirm:
+				doProfileUpdate();
 				break;
 			default:
 				break;
@@ -209,12 +249,12 @@ public class PersonInfoModifyActivity extends BaseActivity {
 	  // TODO Auto-generated method stub
 	  switch (id) {
 	  case 1:
-		  String tmpStr = tv_birthday.getText().toString();
-		  int year = Integer.valueOf(tmpStr.substring(0, 4));
-		  int month = Integer.valueOf(tmpStr.substring(5, 7));
-		  int day = Integer.valueOf(tmpStr.substring(8, 10));
+//		  String tmpStr = tv_birthday.getText().toString();
+//		  int year = Integer.valueOf(tmpStr.substring(0, 4));
+//		  int month = Integer.valueOf(tmpStr.substring(5, 7));
+//		  int day = Integer.valueOf(tmpStr.substring(8, 10));
 		  
-	   return new DatePickerDialog(this,onDateSetListener,year,month-1,day);
+//	   return new DatePickerDialog(this,onDateSetListener,year,month-1,day);
 	  }
 	  return null;
 	 }
@@ -226,19 +266,21 @@ public class PersonInfoModifyActivity extends BaseActivity {
 	public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
 		tv_birthday.setText(arg1+"-"+(arg2+1)+"-"+arg3);
 		
-	}
-	 };    
+		}
+	 };
 	 
-	 private void doRegistration(){
+	 //更新个人信息
+	 private void doProfileUpdate(){
 			
-			HashMap<String, String> paramMap = new HashMap<String, String>();
+			HashMap<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("name", et_name.getText().toString());
 			paramMap.put("gender", model.getGender()+"");
 			paramMap.put("major", et_major.getText().toString());
 			paramMap.put("adYear", adYearKeyList.get(adYearSpinner.getSelectedItemPosition()));
 			paramMap.put("gradYear", gradYearKeyList.get(gradYearSpinner.getSelectedItemPosition()));
+			paramMap.put("pic", bm == null ? "null":this.bitmaptoString(bm));
 			
-			LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_PROFILE_UPDATE, paramMap, getRegisterHandler());
+			LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_PROFILE_UPDATE, paramMap, getUpdateProfileHandler());
 			
 			new LKHttpRequestQueue().addHttpRequest(req1)
 			.executeQueue("正在提交数据，请稍候...", new LKHttpRequestQueueDone(){
@@ -251,29 +293,33 @@ public class PersonInfoModifyActivity extends BaseActivity {
 			
 		}
 		
-		private LKAsyncHttpResponseHandler getRegisterHandler(){
+		private LKAsyncHttpResponseHandler getUpdateProfileHandler(){
 			 return new LKAsyncHttpResponseHandler(){
 				@Override
 				public void successAction(Object obj) {
 					@SuppressWarnings("unchecked")
 					HashMap<String, String> respMap = (HashMap<String, String>) obj;
 					int returnCode = Integer.parseInt(respMap.get("rc"));
+					if(returnCode == 1){
+						//修改成功
+						PersonInfoModifyActivity.this.showDialog(PersonInfoModifyActivity.MODAL_DIALOG, "信息更新成功！");
+					}
 					
 				}
 				 
 			 };
 		}
-	private boolean checkValue(){
-		if(et_name.getText().toString().trim().equals("")){
-			this.showToast("姓名不能为空！");
-			return false;
-		}else if(et_major.getText().toString().trim().equals("")){
-			this.showToast("专业不能为空！");
-			return false;
-		}
-		
-		return true;
-	}
+//	private boolean checkValue(){
+//		if(et_name.getText().toString().trim().equals("")){
+//			this.showToast("姓名不能为空！");
+//			return false;
+//		}else if(et_major.getText().toString().trim().equals("")){
+//			this.showToast("专业不能为空！");
+//			return false;
+//		}
+//		
+//		return true;
+//	}
 	
 	 @Override
 
@@ -286,7 +332,7 @@ public class PersonInfoModifyActivity extends BaseActivity {
 
 	     }
 
-	     Bitmap bm = null;
+	     bm = null;
 	     //外界的程序访问ContentProvider所提供数据 可以通过ContentResolver接口
 	     ContentResolver resolver = getContentResolver();
 	     //此处的用于判断接收的Activity是不是你想要的那个

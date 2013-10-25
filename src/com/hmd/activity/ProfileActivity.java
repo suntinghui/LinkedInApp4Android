@@ -108,7 +108,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 	
 	// 查看我关注的人
 	private LKHttpRequest getMyAttentionsRequest(){
-		HashMap<String, String> paramMap = new HashMap<String, String>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", "1");
 		paramMap.put("num", "5");
 		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
@@ -136,7 +136,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 	
 	// 查看关注我的人
 	private LKHttpRequest getFansRequest(){
-		HashMap<String, String> paramMap = new HashMap<String, String>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", "1");
 		paramMap.put("num", "5");
 		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_FUNS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
@@ -222,4 +222,11 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 			return false;
 		}
     }
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data){
+		 super.onActivityResult(requestCode, resultCode, data);
+		 if(resultCode == 5){
+			 refreshData();
+		 }
+	}
 }

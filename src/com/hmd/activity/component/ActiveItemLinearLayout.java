@@ -140,7 +140,7 @@ public class ActiveItemLinearLayout extends LinearLayout implements OnClickListe
 	
 	// 获取活动成员列表
 	private LKHttpRequest getParticipantListRequest(){
-		HashMap<String, String> paramMap = new HashMap<String, String>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", "1");
 		paramMap.put("num", Constants.PAGESIZE+"");
 		

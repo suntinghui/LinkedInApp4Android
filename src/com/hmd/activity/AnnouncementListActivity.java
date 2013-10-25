@@ -100,7 +100,7 @@ public class AnnouncementListActivity extends BaseActivity implements OnClickLis
 	}
 	
 	private LKHttpRequest getAnnouncementListRequest(){
-		HashMap<String, String> paramMap = new HashMap<String, String>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", ++currentPage + "");
 		paramMap.put("num", Constants.PAGESIZE + "");
 		paramMap.put("previewLen", "200"); //预览长度，即取正文内容前几个字符，范围[0,200]，0为关闭预览

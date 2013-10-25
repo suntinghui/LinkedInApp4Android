@@ -9,12 +9,14 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.activity.AddTimelineActivity;
 import com.hmd.activity.MyAttentionsActivity;
 import com.hmd.activity.ProfileActivity;
 import com.hmd.activity.SchoolActivity;
@@ -62,32 +64,51 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 		TextView tvOrg = (TextView)this.findViewById(R.id.tv_profile_org);
 		tvOrg.setText(this.data.getOrg().equals("null") ? "未知":this.data.getOrg());
 		
-		TextView tvDescription = (TextView)this.findViewById(R.id.tv_profile_description);
-		tvDescription.setText(this.data.getDescription().equals("null") ? "未知":this.data.getDescription());
-		
-		TextView tvEndorsed = (TextView)this.findViewById(R.id.tv_profile_endorsed);
-		if(this.data.getEndorsedAs() != null && this.data.getEndorsedAs() != ""){
-			tvEndorsed.setVisibility(View.VISIBLE);
-			tvEndorsed.setText(this.data.getEndorsedAs().equals("null") ? "未知":this.data.getEndorsedAs());
-		}else{
-			tvEndorsed.setVisibility(View.GONE);
-		}
-		
 		ImageView photoImageView = (ImageView) this.findViewById(R.id.iv_profile_photo);
 		ImageUtil.loadImage(R.drawable.img_school_head_portrait, this.data.getImgUrl(), photoImageView);
 		
 		ImageButton btnFind = (ImageButton)this.findViewById(R.id.btn_profile_find);
 		btnFind.setOnClickListener(this.onFindClicked);
+		
+		Button btn_modify = (Button)this.findViewById(R.id.btn_modify);
+		btn_modify.setOnClickListener(this.onFindClicked);
+		
+		Button btn_delete = (Button)this.findViewById(R.id.btn_delete);
+		btn_delete.setOnClickListener(this.onFindClicked);
 	}
 	
 	private OnClickListener onFindClicked=new OnClickListener(){
 
 		@Override
 		public void onClick(View v) {
-			findRelatedProfile();
+			switch (v.getId()) {
+			case R.id.btn_profile_find:
+				findRelatedProfile();				
+				break;
+			case R.id.btn_modify:
+				modifyTimeLine();
+				break;
+			case R.id.btn_delete:
+				deleteTimeLine();
+				break;
+			default:
+				break;
+			}
 		}
 	};
 	
+	private void modifyTimeLine()
+	{
+		Intent intent = new Intent(ProfileCardRelativeLayout.this.mContext, AddTimelineActivity.class);  
+//		intent.putExtra("PROFILEMODELLIST", list);
+		ProfileCardRelativeLayout.this.mContext.startActivity(intent);
+	}
+	
+	private void deleteTimeLine(){
+		Intent intent = new Intent(ProfileCardRelativeLayout.this.mContext, AddTimelineActivity.class);  
+//		intent.putExtra("PROFILEMODELLIST", list);
+		ProfileCardRelativeLayout.this.mContext.startActivity(intent);
+	}
 	private void findRelatedProfile(){
 		getSuggestPeopleList();  
 	}
@@ -101,7 +122,7 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 	
 	// 查看推荐好友
 	private LKHttpRequest getSuggestPeopleRequest(){
-		HashMap<String, String> paramMap = new HashMap<String, String>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", "1");
 		paramMap.put("num", Constants.PAGESIZE+"");
 		

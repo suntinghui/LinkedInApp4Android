@@ -28,7 +28,6 @@ public class TimelineModel {
 	private String mCompany = null;
 	private String mPosition = null;
 
-	private String mEndorsedAs = null;
 	private String mOrg = null;
 
 	private String mImgUrl = null;
@@ -89,10 +88,6 @@ public class TimelineModel {
 		return this.mPosition;
 	}
 
-	public String getEndorsedAs() {
-		return this.mEndorsedAs;
-	}
-
 	public String getImgUrl() {
 		return this.mImgUrl;
 	}
@@ -142,10 +137,6 @@ public class TimelineModel {
 
 	public void setPosition(String s) {
 		this.mPosition = s;
-	}
-
-	public void setEndorsedAs(String s) {
-		this.mEndorsedAs = s;
 	}
 
 	public void setImgUrl(String s) {
