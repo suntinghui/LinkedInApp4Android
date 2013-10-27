@@ -2,13 +2,18 @@ package com.hmd.activity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -31,6 +36,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.hmd.R;
 import com.hmd.client.Constants;
@@ -71,8 +77,11 @@ public class AddTimelineActivity extends BaseActivity {
 	private TimelineModel data = null;
 	private Boolean isModify = false;
 	
-	private Boolean btn_pressed = false;
 	
+	public static final int DATE = 0;  
+    public static final int TIME = 1;  
+      
+    private Boolean isTopDataPicker = true; 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -135,14 +144,20 @@ public class AddTimelineActivity extends BaseActivity {
 				 startActivityForResult(getAlbum, IMAGE_CODE);
 				break;
 			case R.id.tv_stime:
-				//用于显示日期对话框,他会调用onCreateDialog()
-				btn_pressed = true;
-				showDialog(1);
+				isTopDataPicker = true;
+				String tmpStr1 = tv_stime.getText().toString();
+				int year1 = Integer.valueOf(tmpStr1.substring(0, 4));
+				int month1 = Integer.valueOf(tmpStr1.substring(5, 7));
+				int day1 = Integer.valueOf(tmpStr1.substring(8, 10));
+				buildDateOrTimeDialog(AddTimelineActivity.this, year1, month1, day1) ;
 				break;
 			case R.id.tv_etime:
-				//用于显示日期对话框,他会调用onCreateDialog()
-				btn_pressed = true;
-				showDialog(2);
+				isTopDataPicker = false;
+				String tmpStr2 = tv_etime.getText().toString();
+				int year2 = Integer.valueOf(tmpStr2.substring(0, 4));
+				int month2 = Integer.valueOf(tmpStr2.substring(5, 7));
+				int day2 = Integer.valueOf(tmpStr2.substring(8, 10));
+				buildDateOrTimeDialog(AddTimelineActivity.this, year2, month2, day2) ; 
 				break;
 			case R.id.btn_back:
 				AddTimelineActivity.this.finish();
@@ -165,22 +180,38 @@ public class AddTimelineActivity extends BaseActivity {
 		}
 	};
 	
-	private void refreshPersonInfoAll(){
-		LKHttpRequestQueue queue = new LKHttpRequestQueue();
-		queue.addHttpRequest(getProfileRequest());
-		queue.executeQueue("正在刷新数据...", new LKHttpRequestQueueDone());
-	}
-	// 查看个人基本信息
-	private LKHttpRequest getProfileRequest(){
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_PROFILE_ALL, null, new LKAsyncHttpResponseHandler() {
-			@Override
-			public void successAction(Object obj) {
-			}
-		}, "me");
-		
-		return request;
-	}
-	
+	private void buildDateOrTimeDialog(Context context, int year, int month, int day) {  
+//        df = new SimpleDateFormat("HH:mm:SS");  
+        switch (444) {  
+        case DATE:  
+            date: new DatePickerDialog(context, listener1,  
+            		year,month-1, day).show();  
+            break;  
+  
+          
+        default:  
+            new DatePickerDialog(context, listener1, year,month-1, day).show();  
+  
+        }  
+  
+    }  
+      
+      
+    private DatePickerDialog.OnDateSetListener listener1 = new DatePickerDialog.OnDateSetListener() { //  
+  
+        @Override  
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {  
+        	if(isTopDataPicker){
+        		tv_stime.setText(arg1+"-"+(arg2+1)+"-"+arg3);
+        	}else{
+        		tv_etime.setText(arg1+"-"+(arg2+1)+"-"+arg3);
+        	}
+  
+        }  
+  
+    };  
+      
+      
 	//修改时间轴
 	private void doTimeLineModify(){
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
@@ -209,8 +240,14 @@ public class AddTimelineActivity extends BaseActivity {
 	}
 	 //	添加时间轴结点
 	 private void doTimeLineAdd(){
+		 LKHttpRequestQueue queue = new LKHttpRequestQueue();
+			queue.addHttpRequest(getTimeLineAdd());
+			queue.executeQueue("正在提交数据，请稍候...", new LKHttpRequestQueueDone());
 			
-			HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		}
+		
+	 private LKHttpRequest getTimeLineAdd(){
+		 HashMap<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("title", et_title.getText().toString());
 			paramMap.put("desc", et_desc.getText().toString());
 			paramMap.put("org", et_org.getText().toString());
@@ -223,21 +260,8 @@ public class AddTimelineActivity extends BaseActivity {
 				paramMap.put("pic",this.bitmaptoString(bm));				
 			}
 			
-			LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_TIMELINE_NODE_CREATE, paramMap, getAddHandler());
-			
-			new LKHttpRequestQueue().addHttpRequest(req1)
-			.executeQueue("正在提交数据，请稍候...", new LKHttpRequestQueueDone(){
-
-				@Override
-				public void onComplete() {
-					super.onComplete();
-				}
-			});	
-			
-		}
-		
-		private LKAsyncHttpResponseHandler getAddHandler(){
-			 return new LKAsyncHttpResponseHandler(){
+			LKHttpRequest req = new LKHttpRequest( HttpRequestType.HTTP_TIMELINE_NODE_CREATE, paramMap, new LKAsyncHttpResponseHandler() {
+				@SuppressWarnings("unchecked")
 				@Override
 				public void successAction(Object obj) {
 					if((Integer)obj == 1){
@@ -255,79 +279,37 @@ public class AddTimelineActivity extends BaseActivity {
 			                       })  
 						                .show(); 
 					}
-					
 				}
-				 
-			 };
-		}
+			});
+			
+			return req;
+	 }
 		
-		private LKAsyncHttpResponseHandler getModifyHandler(){
-			 return new LKAsyncHttpResponseHandler(){
-				@Override
-				public void successAction(Object obj) {
-					if((Integer)obj == 1){
-						new AlertDialog.Builder(AddTimelineActivity.this)    
-						                .setTitle("标题")  
-						                .setMessage("修改履历成功！")  
-						                .setPositiveButton("确定", new DialogInterface.OnClickListener() {  
-			                                   public void onClick(DialogInterface dialog, int whichButton) {  
-			                                	   Intent it = new Intent();  
-			                                       setResult(5, it);  
-			                                       finish();  
-			                                	   
-			  
-			                                   }  
-			                       })  
-						                .show(); 
-					}
-					
+	 private LKAsyncHttpResponseHandler getModifyHandler(){
+		 return new LKAsyncHttpResponseHandler(){
+			@Override
+			public void successAction(Object obj) {
+				if((Integer)obj == 1){
+					new AlertDialog.Builder(AddTimelineActivity.this)    
+					                .setTitle("标题")  
+					                .setMessage("修改履历成功！")  
+					                .setPositiveButton("确定", new DialogInterface.OnClickListener() {  
+		                                   public void onClick(DialogInterface dialog, int whichButton) {  
+		                                	   Intent it = new Intent();  
+		                                       setResult(5, it);  
+		                                       finish();  
+		                                	   
+		  
+		                                   }  
+		                       })  
+					                .show(); 
 				}
-				 
-			 };
-		}
-		
-		@Override
-		 protected Dialog onCreateDialog(int id) {
-			if(!btn_pressed){
-				return null;
+				
 			}
-			switch (id) {
-			  case 1:
-				  btn_pressed = false;
-				  String tmpStr1 = tv_stime.getText().toString();
-				  int year = Integer.valueOf(tmpStr1.substring(0, 4));
-				  int month = Integer.valueOf(tmpStr1.substring(5, 7));
-				  int day = Integer.valueOf(tmpStr1.substring(8, 10));
-				  DatePickerDialog dialog1 = new DatePickerDialog(this,new DatePickerDialog.OnDateSetListener() {
-					  
-						@Override
-						public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-							tv_stime.setText(arg1+"-"+(arg2+1)+"-"+arg3);
-							
-							}
-						 },year,month-1,day);
-				  
-				  return dialog1;
-				  
-			  case 2:
-				  btn_pressed = false;
-				  String tmpStr2 = tv_etime.getText().toString();
-				  int year2 = Integer.valueOf(tmpStr2.substring(0, 4));
-				  int month2 = Integer.valueOf(tmpStr2.substring(5, 7));
-				  int day2 = Integer.valueOf(tmpStr2.substring(8, 10));
-				  DatePickerDialog dialog2 = new DatePickerDialog(this,new DatePickerDialog.OnDateSetListener() {
-					  
-						@Override
-						public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-							tv_etime.setText(arg1+"-"+(arg2+1)+"-"+arg3);
-							
-							}
-						 }, year2,month2-1,day2);
-				  return dialog2;
-			  }
-			  return null;
-			 }
-		 
+			 
+		 };
+	}
+		
 		 
 	private boolean checkValue(){
 		if(et_title.getText().toString().trim().equals("")){

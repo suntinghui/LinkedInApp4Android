@@ -68,15 +68,13 @@ public class NameCardMainRelativeLayout extends RelativeLayout {
 		topLayout = (RelativeLayout)this.findViewById(R.id.topLayout);
 		topLayout.setOnClickListener(listener);
 		TextView tvName = (TextView)this.findViewById(R.id.tv_name_card_main_name);
-		TextView tvCity = (TextView)this.findViewById(R.id.tv_name_card_main_city);
-		TextView tvDistrict = (TextView)this.findViewById(R.id.tv_name_card_main_district);
+		TextView tvGender = (TextView)this.findViewById(R.id.tv_name_card_main_gender);
 		TextView tvBrief1 = (TextView)this.findViewById(R.id.tv_name_card_main_brief1);
 		TextView tvBrief2 = (TextView)this.findViewById(R.id.tv_name_card_main_brief2);
 		ImageView photoImageView = (ImageView) this.findViewById(R.id.iv_name_card_main_photo);
 		
 		tvName.setText(this.data.getName());
-		tvCity.setText(this.data.getCity());
-		tvDistrict.setText(this.data.getDistrict());
+		tvGender.setText(this.data.getGender() == 1? "男":"女");
 		
 		if(this.data.isSchool()){
 			tvBrief1.setText(this.data.getSchool());

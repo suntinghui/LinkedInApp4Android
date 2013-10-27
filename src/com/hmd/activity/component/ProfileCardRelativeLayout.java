@@ -69,7 +69,7 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 		tvOrg.setText(this.data.getOrg().equals("null") ? "未知":this.data.getOrg());
 		
 		ImageView photoImageView = (ImageView) this.findViewById(R.id.iv_profile_photo);
-		ImageUtil.loadImage(R.drawable.img_school_head_portrait, this.data.getImgUrl(), photoImageView);
+		ImageUtil.loadImage(R.drawable.img_card_head_portrait, this.data.getImgUrl(), photoImageView);
 		
 		ImageButton btnFind = (ImageButton)this.findViewById(R.id.btn_profile_find);
 		btnFind.setOnClickListener(this.onFindClicked);

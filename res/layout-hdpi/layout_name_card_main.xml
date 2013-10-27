@@ -55,19 +55,10 @@
         	android:layout_below="@id/rl_name_card_main_name"
         	>
             <TextView
-                android:id="@+id/tv_name_card_main_city"
+                android:id="@+id/tv_name_card_main_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:textColor="@color/fontGrey"
-                android:typeface ="sans"
-                android:textSize="15sp"
-                />
-            <TextView
-                android:id="@+id/tv_name_card_main_district"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:textColor="@color/fontGrey"
                 android:typeface ="sans"
                 android:textSize="15sp"
