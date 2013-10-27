@@ -86,7 +86,7 @@ public class NameCardMainRelativeLayout extends RelativeLayout {
 			tvBrief2.setText(this.data.getPosition());
 		}
 		
-		ImageUtil.loadImage(R.drawable.img_card_head_portrait, ImageUtil.getTestImageURL(), photoImageView);
+		ImageUtil.loadImage(R.drawable.img_card_head_portrait, this.data.getImgUrl(), photoImageView);
 	}
 
 	private OnClickListener listener = new OnClickListener() {

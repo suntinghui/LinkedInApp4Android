@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.hmd.R;
 import com.hmd.activity.AddTimelineActivity;
@@ -22,7 +25,7 @@ public class ProfileTimelineLinearLayout extends LinearLayout {
 	private Context mContext = null;
 	private Button btn_add = null;
 	private ArrayList<TimelineModel> modelArray = null;
-	
+	public String mIdentity = "me";
 	public ProfileTimelineLinearLayout(Context context) {
 		super(context);
 		this.mContext = context;
@@ -42,15 +45,20 @@ public class ProfileTimelineLinearLayout extends LinearLayout {
 		llTimelineLayout = (LinearLayout)this.findViewById(R.id.ll_profile_timeline);
 		btn_add = (Button)this.findViewById(R.id.btn_add);
 		btn_add.setOnClickListener(listener);
+		
 	}
 	
 	public void refresh(ArrayList<TimelineModel> timelineList){
 		this.setVisibility(View.VISIBLE);
 		modelArray = timelineList;
+
+		if(!(mIdentity.equals("me"))){
+			btn_add.setVisibility(View.GONE);
+		}
+		llTimelineLayout.removeAllViews();
 		for(int i = 0; i < timelineList.size(); i ++){
 
-			ProfileCardRelativeLayout profile = new ProfileCardRelativeLayout(this.mContext, timelineList.get(i));
-			
+			ProfileCardRelativeLayout profile = new ProfileCardRelativeLayout(this.mContext, timelineList.get(i), mIdentity.equals("me")?true:false);
 			profile.setPadding(0, 0, 0, 0);
 			
 			llTimelineLayout.addView(profile,

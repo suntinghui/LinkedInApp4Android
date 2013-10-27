@@ -32,7 +32,7 @@ public abstract class LKAsyncHttpResponseHandler extends JsonHttpResponseHandler
 	@Override
 	public void onSuccess(JSONObject response) {
 		super.onSuccess(response);
-		
+	
 		if (null == response){
 			BaseActivity.getTopActivity().showDialog(BaseActivity.MODAL_DIALOG, "系统异常，请重新操作。");
 			return;

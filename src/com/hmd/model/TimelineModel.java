@@ -1,10 +1,17 @@
 package com.hmd.model;
 
+import java.io.Serializable;
+
 /*
  * 表示一条履历数据
  */
 
-public class TimelineModel {
+public class TimelineModel implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public TimelineModel() {
 	}

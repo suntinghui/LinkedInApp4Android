@@ -31,6 +31,6 @@ public class NameCardBriefRelativeLayout extends RelativeLayout {
 		ImageView photoImagView = (ImageView) this.findViewById(R.id.iv_name_card_brief_photo);
 		
 		tvName.setText(this.data.getName());
-		ImageUtil.loadImage(R.drawable.img_card_head_portrait_small, ImageUtil.getTestImageURL(), photoImagView);
+		ImageUtil.loadImage(R.drawable.img_card_head_portrait_small, this.data.getImgUrl(), photoImagView);
 	}
 }

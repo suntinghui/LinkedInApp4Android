@@ -471,13 +471,13 @@ public class ParseResponseData {
 	}
 	
 	private static Object timelineNodeUpdate(JSONObject jsonObject){
-		
-		return null;
+		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
+		return errorCode;
 	}
 	
 	private static Object timelineNodeDelete(JSONObject jsonObject){
-		
-		return null;
+		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
+		return errorCode;
 	}
 	
 	// 获取母校信息

@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
@@ -23,6 +24,7 @@ import com.hmd.activity.BaseActivity;
 import com.hmd.client.ApplicationEnvironment;
 import com.hmd.client.Constants;
 import com.hmd.model.HttpRequestModel;
+import com.hmd.util.UnicodeUtil;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 
@@ -134,7 +136,7 @@ public class LKHttpRequest {
 			}
 			
 			Log.e("request body:", jsonObject.toString());
-			return new StringEntity(jsonObject.toString());
+			return new StringEntity(jsonObject.toString(),HTTP.UTF_8);
 			
 		} catch(JSONException e){
 			e.printStackTrace();

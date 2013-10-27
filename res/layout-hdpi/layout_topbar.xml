@@ -25,6 +25,7 @@
         android:layout_alignParentRight="true"
         android:background="@drawable/img_btn_topbar_search"
  		android:layout_marginLeft="5dp"
+ 		android:visibility="gone"
         />
     
     <EditText
@@ -35,6 +36,7 @@
         android:layout_toRightOf="@id/btn_topbar_category"
         android:layout_toLeftOf="@id/btn_topbar_search"
         android:background="@drawable/img_topbar_searchbox"
+        android:visibility="gone"
         />
 
 </RelativeLayout>

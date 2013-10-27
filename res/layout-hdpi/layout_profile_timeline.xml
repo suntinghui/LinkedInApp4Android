@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ll_profile_timeline"
+    android:id="@+id/ll_profile_timeline_"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5dp"
@@ -30,5 +30,11 @@
             android:layout_marginTop="5dip"
             android:text="增加" />
     </RelativeLayout>
-
+	
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/ll_profile_timeline">
+        
+    </LinearLayout>
 </LinearLayout>

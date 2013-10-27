@@ -63,7 +63,7 @@ public class NameCardRelativeLayout extends RelativeLayout {
 		String city = this.data.getCity() != null && this.data.getCity().length() != 0 && !this.data.getCity().equalsIgnoreCase("null") ? this.data.getCity():"未知";
 		tvProvince.setText(province + "--" + city);
 		
-		ImageUtil.loadImage(R.drawable.img_card_head_portrait_small, ImageUtil.getTestImageURL(), photoImageView);
+		ImageUtil.loadImage(R.drawable.img_card_head_portrait_small, this.data.getImgUrl(), photoImageView);
 	}
 	
 	private OnClickListener listener = new OnClickListener() {

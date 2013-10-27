@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 
 import com.hmd.R;
 import com.hmd.activity.AddTimelineActivity;
+import com.hmd.activity.BaseActivity;
 import com.hmd.activity.MyAttentionsActivity;
 import com.hmd.activity.ProfileActivity;
 import com.hmd.activity.SchoolActivity;
@@ -40,11 +43,12 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 
 	private TimelineModel data = null;
 	private Context mContext = null;
-	
-	public ProfileCardRelativeLayout(Context context, TimelineModel e) {
+	public Boolean isMe = true;
+	public ProfileCardRelativeLayout(Context context, TimelineModel e, Boolean iMe) {
 		super(context);
 		this.mContext = context;
 		this.data = e;
+		this.isMe = iMe;
 		
         LayoutInflater.from(context).inflate(R.layout.layout_profile_card, this, true); 
         
@@ -75,6 +79,11 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 		
 		Button btn_delete = (Button)this.findViewById(R.id.btn_delete);
 		btn_delete.setOnClickListener(this.onFindClicked);
+		if(!isMe){
+			btnFind.setVisibility(View.GONE);
+			btn_modify.setVisibility(View.GONE);
+			btn_delete.setVisibility(View.GONE);
+		}
 	}
 	
 	private OnClickListener onFindClicked=new OnClickListener(){
@@ -89,7 +98,7 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 				modifyTimeLine();
 				break;
 			case R.id.btn_delete:
-				deleteTimeLine();
+				delete();
 				break;
 			default:
 				break;
@@ -100,14 +109,43 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 	private void modifyTimeLine()
 	{
 		Intent intent = new Intent(ProfileCardRelativeLayout.this.mContext, AddTimelineActivity.class);  
-//		intent.putExtra("PROFILEMODELLIST", list);
-		ProfileCardRelativeLayout.this.mContext.startActivity(intent);
+		intent.putExtra("DATA", data);
+		intent.putExtra("ISMODIFY", true);
+		((BaseActivity) ProfileCardRelativeLayout.this.mContext).startActivityForResult(intent,5);
+
 	}
 	
-	private void deleteTimeLine(){
-		Intent intent = new Intent(ProfileCardRelativeLayout.this.mContext, AddTimelineActivity.class);  
-//		intent.putExtra("PROFILEMODELLIST", list);
-		ProfileCardRelativeLayout.this.mContext.startActivity(intent);
+	private void delete(){
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(doTimeLineDelete());
+		queue.executeQueue("正在删除履历...", new LKHttpRequestQueueDone());
+		
+	}
+	
+	// 删除履历
+	private LKHttpRequest doTimeLineDelete(){
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("id", data.getid());
+		
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_TIMELINE_NODE_DELETE, paramMap, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				if((Integer)obj == 1){
+					new AlertDialog.Builder(ProfileCardRelativeLayout.this.mContext)    
+	                .setTitle("标题")  
+	                .setMessage("履历成功删除！")  
+	                .setPositiveButton("确定", new DialogInterface.OnClickListener() {  
+                           public void onClick(DialogInterface dialog, int whichButton) {  
+                        	   ((ProfileActivity)BaseActivity.getTopActivity()).refreshData();
+                           }  
+               })  
+	                .show();
+				}
+			}
+		});
+		
+		return request;
 	}
 	private void findRelatedProfile(){
 		getSuggestPeopleList();  
@@ -130,17 +168,22 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-				int count = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
-				if(list == null || list.size() == 0){
+				if(obj == null){
+					BaseActivity.getTopActivity().showToast("没有相关推荐人！");
 					
 				}else{
-					Intent intent = new Intent(ProfileCardRelativeLayout.this.mContext, MyAttentionsActivity.class);  
-					intent.putExtra("PROFILEMODELLIST", list);
-					intent.putExtra("ID", data.getid());
-					intent.putExtra("TITLE", "相关推荐");
-					intent.putExtra("TOTAL", count);
-					ProfileCardRelativeLayout.this.mContext.startActivity(intent);
+					int count = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+					ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
+					if(list == null || list.size() == 0){
+						
+					}else{
+						Intent intent = new Intent(ProfileCardRelativeLayout.this.mContext, MyAttentionsActivity.class);  
+						intent.putExtra("PROFILEMODELLIST", list);
+						intent.putExtra("ID", data.getid());
+						intent.putExtra("TITLE", "相关推荐");
+						intent.putExtra("TOTAL", count);
+						ProfileCardRelativeLayout.this.mContext.startActivity(intent);
+					}
 				}
 				
 			}

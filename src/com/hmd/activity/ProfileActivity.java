@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.hmd.R;
@@ -40,6 +41,8 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 	private LinearLayout mLlContainer = null;
 	private String mIdentity = "me";// 个人还是他人
 	
+	private Button profileButton = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,10 +52,19 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 		Intent intent = this.getIntent();
 		profileModel = (ProfileModel) intent.getSerializableExtra("PROFILE");
 		mIdentity = intent.getStringExtra("IDENTITY");
-
+		profileButton = (Button)this.findViewById(R.id.profileButton);
+		profileButton.setOnClickListener(listener);
 		this.init();
 	}
 	
+	private OnClickListener listener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			finish();
+			
+		}
+	};
 	private void init(){
 
 		this.mLlContainer = (LinearLayout)this.findViewById(R.id.ll_profile_container);
@@ -60,12 +72,13 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 		
 		this.mDector = new GestureDetector(this, new GestureListener()); 
 	
-		LinearLayout llTopbar = (LinearLayout)this.findViewById(R.id.ll_profile_topbar);
-		TopbarRelativeLayout topbar = new TopbarRelativeLayout(this, this.onNavigation, R.drawable.img_btn_topbar_left_arrow);
-		llTopbar.addView(topbar);
+//		LinearLayout llTopbar = (LinearLayout)this.findViewById(R.id.ll_profile_topbar);
+//		TopbarRelativeLayout topbar = new TopbarRelativeLayout(this, this.onNavigation, R.drawable.img_btn_topbar_left_arrow);
+//		llTopbar.addView(topbar);
 		
 		profileInfoLayout = (NameCardMainRelativeLayout) this.findViewById(R.id.profileInfoLayout);
 		timelineLayout = (ProfileTimelineLinearLayout) this.findViewById(R.id.profileTimelineLayout);
+		timelineLayout.mIdentity = mIdentity;
 		friendLayout = (SwitchableScrollViewer) this.findViewById(R.id.profileFirendLayout);
 		friendLayout.setTitle("个人关注");
 		fansLayout = (SwitchableScrollViewer) this.findViewById(R.id.profileFansLayout);
@@ -78,7 +91,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 		this.refreshData();
 	}
 	
-	private void refreshData(){
+	public void refreshData(){
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getProfileTimelineRequest());
 		if(mIdentity.equals("me")){

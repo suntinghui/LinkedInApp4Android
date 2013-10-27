@@ -99,7 +99,8 @@ public class SwitchableScrollViewer extends ScrollView {
 		this.btnList = (ImageButton)this.findViewById(R.id.btn_layout_switch);
 		
 		btnList.setOnClickListener(this.onSwitchView);
-		btnList.setVisibility(mHasSwitchButton ? View.VISIBLE:View.GONE);
+		btnList.setVisibility(View.GONE);
+//		btnList.setVisibility(mHasSwitchButton ? View.VISIBLE:View.GONE);
 		if(this.entries == null){
 			if(this.isList){
 				this.btnList.setBackgroundResource(R.drawable.img_card_list_two);

@@ -37,11 +37,13 @@ import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.enums.RegistrationCode;
 import com.hmd.model.ProfileModel;
+import com.hmd.model.TimelineModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.DateUtil;
+import com.hmd.util.ImageUtil;
 import com.hmd.util.PatternUtil;
 import com.hmd.view.LKAlertDialog;
 
@@ -66,6 +68,11 @@ public class AddTimelineActivity extends BaseActivity {
 	private TextView tv_stime = null;
 	private TextView tv_etime = null;
 	
+	private TimelineModel data = null;
+	private Boolean isModify = false;
+	
+	private Boolean btn_pressed = false;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,7 +83,11 @@ public class AddTimelineActivity extends BaseActivity {
 	}
 
 	private void init() {
-		
+		Intent intent = this.getIntent();
+		data = (TimelineModel) intent.getSerializableExtra("DATA");
+		isModify = intent.getBooleanExtra("ISMODIFY", false);
+		afterId = (String) intent.getStringExtra("AFTERID");
+
 		btn_back = (Button)this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(listener);
 		btn_confirm = (Button)this.findViewById(R.id.btn_confirm);
@@ -92,13 +103,25 @@ public class AddTimelineActivity extends BaseActivity {
 		et_city = (EditText)this.findViewById(R.id.et_city);
 		tv_stime = (TextView)this.findViewById(R.id.tv_stime);
 		tv_stime.setText(DateUtil.getCurrentYearMonthDay());
+		tv_stime.clearFocus();
 		tv_stime.setOnClickListener(listener);
 		tv_etime = (TextView)this.findViewById(R.id.tv_etime);
 		tv_etime.setText(DateUtil.getCurrentYearMonthDay());
 		tv_etime.setOnClickListener(listener);
 		
-		Intent intent = this.getIntent();
-		afterId = (String) intent.getStringExtra("AFTERID");
+		if(isModify){
+			if(data.getImgUrl() != null){
+				ImageUtil.loadImage(R.drawable.img_card_head_portrait, data.getImgUrl(), image_head);	
+			}
+			et_title.setText(data.getTitle());
+			et_desc.setText(data.getDescription());
+			et_org.setText(data.getOrg());
+			et_province.setText(data.getProvince());
+			et_city.setText(data.getCity());
+			tv_stime.setText(data.getStartTime()+"-09");
+			tv_etime.setText(data.getEndTime()+"-06");
+		}
+		
 	}
 
 	private OnClickListener listener = new OnClickListener() {
@@ -113,10 +136,12 @@ public class AddTimelineActivity extends BaseActivity {
 				break;
 			case R.id.tv_stime:
 				//用于显示日期对话框,他会调用onCreateDialog()
+				btn_pressed = true;
 				showDialog(1);
 				break;
 			case R.id.tv_etime:
 				//用于显示日期对话框,他会调用onCreateDialog()
+				btn_pressed = true;
 				showDialog(2);
 				break;
 			case R.id.btn_back:
@@ -124,7 +149,12 @@ public class AddTimelineActivity extends BaseActivity {
 				break;
 			case R.id.btn_confirm:
 				if(checkValue()){
-					doTimeLineAdd();
+					if(isModify){
+						doTimeLineModify();
+					}else{
+						doTimeLineAdd();	
+					}
+					
 				};
 				
 				break;
@@ -151,6 +181,32 @@ public class AddTimelineActivity extends BaseActivity {
 		return request;
 	}
 	
+	//修改时间轴
+	private void doTimeLineModify(){
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("title", et_title.getText().toString());
+		paramMap.put("desc", et_desc.getText().toString());
+		paramMap.put("org", et_org.getText().toString());
+		paramMap.put("province", et_province.getText().toString());
+		paramMap.put("city", et_city.getText().toString());
+		paramMap.put("stime", tv_stime.getText().toString().substring(0, 7));
+		paramMap.put("etime", tv_etime.getText().toString().substring(0, 7));
+		paramMap.put("id", data.getid());
+		if(bm != null){
+			paramMap.put("pic",this.bitmaptoString(bm));				
+		}
+		
+		LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_TIMELINE_NODE_UPDATE, paramMap, getModifyHandler());
+		
+		new LKHttpRequestQueue().addHttpRequest(req1)
+		.executeQueue("正在提交数据，请稍候...", new LKHttpRequestQueueDone(){
+
+			@Override
+			public void onComplete() {
+				super.onComplete();
+			}
+		});	
+	}
 	 //	添加时间轴结点
 	 private void doTimeLineAdd(){
 			
@@ -167,7 +223,7 @@ public class AddTimelineActivity extends BaseActivity {
 				paramMap.put("pic",this.bitmaptoString(bm));				
 			}
 			
-			LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_TIMELINE_NODE_CREATE, paramMap, getRegisterHandler());
+			LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_TIMELINE_NODE_CREATE, paramMap, getAddHandler());
 			
 			new LKHttpRequestQueue().addHttpRequest(req1)
 			.executeQueue("正在提交数据，请稍候...", new LKHttpRequestQueueDone(){
@@ -180,7 +236,7 @@ public class AddTimelineActivity extends BaseActivity {
 			
 		}
 		
-		private LKAsyncHttpResponseHandler getRegisterHandler(){
+		private LKAsyncHttpResponseHandler getAddHandler(){
 			 return new LKAsyncHttpResponseHandler(){
 				@Override
 				public void successAction(Object obj) {
@@ -205,10 +261,39 @@ public class AddTimelineActivity extends BaseActivity {
 			 };
 		}
 		
+		private LKAsyncHttpResponseHandler getModifyHandler(){
+			 return new LKAsyncHttpResponseHandler(){
+				@Override
+				public void successAction(Object obj) {
+					if((Integer)obj == 1){
+						new AlertDialog.Builder(AddTimelineActivity.this)    
+						                .setTitle("标题")  
+						                .setMessage("修改履历成功！")  
+						                .setPositiveButton("确定", new DialogInterface.OnClickListener() {  
+			                                   public void onClick(DialogInterface dialog, int whichButton) {  
+			                                	   Intent it = new Intent();  
+			                                       setResult(5, it);  
+			                                       finish();  
+			                                	   
+			  
+			                                   }  
+			                       })  
+						                .show(); 
+					}
+					
+				}
+				 
+			 };
+		}
+		
 		@Override
 		 protected Dialog onCreateDialog(int id) {
+			if(!btn_pressed){
+				return null;
+			}
 			switch (id) {
 			  case 1:
+				  btn_pressed = false;
 				  String tmpStr1 = tv_stime.getText().toString();
 				  int year = Integer.valueOf(tmpStr1.substring(0, 4));
 				  int month = Integer.valueOf(tmpStr1.substring(5, 7));
@@ -225,6 +310,7 @@ public class AddTimelineActivity extends BaseActivity {
 				  return dialog1;
 				  
 			  case 2:
+				  btn_pressed = false;
 				  String tmpStr2 = tv_etime.getText().toString();
 				  int year2 = Integer.valueOf(tmpStr2.substring(0, 4));
 				  int month2 = Integer.valueOf(tmpStr2.substring(5, 7));
