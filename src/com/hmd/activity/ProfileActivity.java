@@ -50,7 +50,6 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 		setContentView(R.layout.activity_profile);
 		
 		Intent intent = this.getIntent();
-		profileModel = (ProfileModel) intent.getSerializableExtra("PROFILE");
 		mIdentity = intent.getStringExtra("IDENTITY");
 		profileButton = (Button)this.findViewById(R.id.profileButton);
 		profileButton.setOnClickListener(listener);
@@ -93,6 +92,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 	
 	public void refreshData(){
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getProfileRequest());
 		queue.addHttpRequest(getProfileTimelineRequest());
 		if(mIdentity.equals("me")){
 			queue.addHttpRequest(getMyAttentionsRequest());
@@ -101,7 +101,19 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 		
 		queue.executeQueue("正在查询履历...", new LKHttpRequestQueueDone());
 		
-		profileInfoLayout.refresh(profileModel);
+	}
+	
+	// 查看个人基本信息
+	private LKHttpRequest getProfileRequest(){
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_PROFILE_BASIC, null, new LKAsyncHttpResponseHandler() {
+			@Override
+			public void successAction(Object obj) {
+				profileModel = (ProfileModel) obj;
+				profileInfoLayout.refresh(profileModel);
+			}
+		}, "me");
+		
+		return request;
 	}
 	
 	// 查看个人履历
@@ -135,10 +147,12 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 						friendLayout.hiddenMoreButton();
 					}
 					if(list == null || list.size() == 0){
-						
+						friendLayout.setVisibility(View.GONE);
 					}else{
 						friendLayout.refresh(list);
 					}
+				}else{
+					friendLayout.setVisibility(View.GONE);
 				}
 				
 			}
@@ -163,7 +177,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 						fansLayout.hiddenMoreButton();
 					}
 					if(list == null || list.size() == 0){
-						
+						fansLayout.setVisibility(View.GONE);
 					}else{
 						fansLayout.refresh(list);
 					}

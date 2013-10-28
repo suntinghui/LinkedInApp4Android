@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.activity.BaseActivity;
 import com.hmd.activity.ProfileActivity;
 import com.hmd.activity.SchoolActivity;
 import com.hmd.client.HttpRequestType;
@@ -63,7 +64,7 @@ public class NameCardRelativeLayout extends RelativeLayout {
 		String city = this.data.getCity() != null && this.data.getCity().length() != 0 && !this.data.getCity().equalsIgnoreCase("null") ? this.data.getCity():"未知";
 		tvProvince.setText(province + "--" + city);
 		
-		ImageUtil.loadImage(R.drawable.img_card_head_portrait_small, this.data.getImgUrl(), photoImageView);
+		ImageUtil.loadImage(R.drawable.img_card_head_portrait_small, this.data.getPic(), photoImageView);
 	}
 	
 	private OnClickListener listener = new OnClickListener() {
@@ -131,6 +132,7 @@ public class NameCardRelativeLayout extends RelativeLayout {
 			public void successAction(Object obj) {
 				int obj2 = (Integer) obj;
 				if(obj2 == 1){
+					((ProfileActivity)(BaseActivity.getTopActivity())).refreshData();
 					NameCardRelativeLayout.this.data.setFlag("1");
 					btnAttention.setText("取消关注");
 				}else{
@@ -158,8 +160,9 @@ public class NameCardRelativeLayout extends RelativeLayout {
 			public void successAction(Object obj) {
 				int obj2 = (Integer) obj;
 				if(obj2 == 1){
-					NameCardRelativeLayout.this.data.setFlag("0");
-					btnAttention.setText("关注");
+					((ProfileActivity)(BaseActivity.getTopActivity())).refreshData();
+//					NameCardRelativeLayout.this.data.setFlag("0");
+//					btnAttention.setText("关注");
 				}else{
 					//失败
 				}

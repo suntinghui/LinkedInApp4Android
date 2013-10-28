@@ -39,5 +39,6 @@ public class NameCardListLinearLayout extends LinearLayout {
 							LinearLayout.LayoutParams.WRAP_CONTENT));	
 
 		}
+		llNameCardList.invalidate();
 	}
 }

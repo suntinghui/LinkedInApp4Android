@@ -113,7 +113,6 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		profileModel = new ProfileModel();
 		
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
-		queue.addHttpRequest(getProfileRequest());
 		queue.addHttpRequest(getCollegeInfo());
 		queue.addHttpRequest(getLastestAnnouncement());
 		queue.addHttpRequest(getActiveTypeList());
@@ -124,17 +123,6 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		this.getSchoolWeibo();
 	}
 	
-	// 查看个人基本信息
-	private LKHttpRequest getProfileRequest(){
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_PROFILE_BASIC, null, new LKAsyncHttpResponseHandler() {
-			@Override
-			public void successAction(Object obj) {
-				profileModel = (ProfileModel) obj;
-			}
-		}, "me");
-		
-		return request;
-	}
 	
 	// 获取母校信息
 	private LKHttpRequest getCollegeInfo(){
@@ -287,7 +275,6 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 	private void TransformToProfileScreen(){
 		
 		Intent intent = new Intent(SchoolActivity.this, ProfileActivity.class);  
-		intent.putExtra("PROFILE", profileModel);
 		intent.putExtra("IDENTITY", "me");
 		startActivity(intent);  
 	}

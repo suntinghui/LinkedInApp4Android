@@ -133,7 +133,7 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 			public void successAction(Object obj) {
 				if((Integer)obj == 1){
 					new AlertDialog.Builder(ProfileCardRelativeLayout.this.mContext)    
-	                .setTitle("标题")  
+	                .setTitle("提示")  
 	                .setMessage("履历成功删除！")  
 	                .setPositiveButton("确定", new DialogInterface.OnClickListener() {  
                            public void onClick(DialogInterface dialog, int whichButton) {  

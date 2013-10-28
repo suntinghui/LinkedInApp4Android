@@ -45,7 +45,7 @@
                 android:textColor="@color/topbarBg"
                 android:typeface ="sans"
                 android:textSize="17sp"
-                android:text="@string/app_name"
+                android:text="未知"
                 />
         </RelativeLayout>
         <RelativeLayout 

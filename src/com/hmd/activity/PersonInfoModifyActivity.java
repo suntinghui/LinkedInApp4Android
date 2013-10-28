@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -32,6 +33,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.activity.component.ProfileCardRelativeLayout;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.enums.RegistrationCode;
@@ -101,13 +103,6 @@ public class PersonInfoModifyActivity extends BaseActivity {
 		
 		et_major = (EditText)this.findViewById(R.id.et_major);
 		
-//		tv_birthday = (TextView)this.findViewById(R.id.tv_birthday);
-//		tv_birthday.setOnClickListener(listener);
-//		et_birthplace = (EditText)this.findViewById(R.id.et_birthplace); 
-//		
-//		et_nation = (EditText)this.findViewById(R.id.et_nation);
-//		et_desc = (EditText)this.findViewById(R.id.et_desc);
-		
 		radioGroup = (RadioGroup)this.findViewById(R.id.radioGroup);
 		radioMale = (RadioButton)this.findViewById(R.id.radioMale);
 		radioFemale = (RadioButton)this.findViewById(R.id.radioFemale);
@@ -148,7 +143,7 @@ public class PersonInfoModifyActivity extends BaseActivity {
 		//填充值
 		Intent intent = this.getIntent();
 		model = (ProfileModel) intent.getSerializableExtra("MODEL");
-		ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, model.getPic(), image_head);
+		ImageUtil.loadImage(R.drawable.img_card_head_portrait_small, model.getPic(), image_head);
 		et_name.setText(model.getName());
 		et_major.setText(model.getMajor());
 		
@@ -192,10 +187,6 @@ public class PersonInfoModifyActivity extends BaseActivity {
 				 Intent getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
 				 getAlbum.setType(IMAGE_TYPE);
 				 startActivityForResult(getAlbum, IMAGE_CODE);
-				break;
-			case R.id.tv_birthday:
-				//用于显示日期对话框,他会调用onCreateDialog()
-				showDialog(1);
 				break;
 			case R.id.btn_back:
 				PersonInfoModifyActivity.this.finish();
@@ -244,31 +235,6 @@ public class PersonInfoModifyActivity extends BaseActivity {
 		return request;
 	}
 	
-	@Override
-	 protected Dialog onCreateDialog(int id) {
-	  // TODO Auto-generated method stub
-	  switch (id) {
-	  case 1:
-//		  String tmpStr = tv_birthday.getText().toString();
-//		  int year = Integer.valueOf(tmpStr.substring(0, 4));
-//		  int month = Integer.valueOf(tmpStr.substring(5, 7));
-//		  int day = Integer.valueOf(tmpStr.substring(8, 10));
-		  
-//	   return new DatePickerDialog(this,onDateSetListener,year,month-1,day);
-	  }
-	  return null;
-	 }
-	 
-	 //设置时间之后点击SET就会将时间改为你刚刚设置的时间
-	 DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
-	  
-	@Override
-	public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-		tv_birthday.setText(arg1+"-"+(arg2+1)+"-"+arg3);
-		
-		}
-	 };
-	 
 	 //更新个人信息
 	 private void doProfileUpdate(){
 			
@@ -302,7 +268,17 @@ public class PersonInfoModifyActivity extends BaseActivity {
 					int returnCode = Integer.parseInt(respMap.get("rc"));
 					if(returnCode == 1){
 						//修改成功
-						PersonInfoModifyActivity.this.showDialog(PersonInfoModifyActivity.MODAL_DIALOG, "信息更新成功！");
+						new AlertDialog.Builder(PersonInfoModifyActivity.this)    
+		                .setTitle("提示")  
+		                .setMessage("信息更新成功！")  
+		                .setPositiveButton("确定", new DialogInterface.OnClickListener() {  
+	                           public void onClick(DialogInterface dialog, int whichButton) {  
+	                        	   Intent it = new Intent();  
+                                   setResult(5, it);  
+                                   finish();
+	                           }  
+	               })  
+		                .show();
 					}
 					
 				}

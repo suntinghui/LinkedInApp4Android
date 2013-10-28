@@ -266,7 +266,7 @@ public class AddTimelineActivity extends BaseActivity {
 				public void successAction(Object obj) {
 					if((Integer)obj == 1){
 						new AlertDialog.Builder(AddTimelineActivity.this)    
-						                .setTitle("标题")  
+						                .setTitle("提示")  
 						                .setMessage("新增履历成功！")  
 						                .setPositiveButton("确定", new DialogInterface.OnClickListener() {  
 			                                   public void onClick(DialogInterface dialog, int whichButton) {  
@@ -291,7 +291,7 @@ public class AddTimelineActivity extends BaseActivity {
 			public void successAction(Object obj) {
 				if((Integer)obj == 1){
 					new AlertDialog.Builder(AddTimelineActivity.this)    
-					                .setTitle("标题")  
+					                .setTitle("提示")  
 					                .setMessage("修改履历成功！")  
 					                .setPositiveButton("确定", new DialogInterface.OnClickListener() {  
 		                                   public void onClick(DialogInterface dialog, int whichButton) {  

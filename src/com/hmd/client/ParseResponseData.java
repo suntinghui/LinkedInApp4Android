@@ -278,6 +278,7 @@ public class ParseResponseData {
 				model.setCharge(obj.optInt("charge", 0));
 				model.setSponsor(obj.optString("sponsor", ""));
 				model.setPreview(obj.optString("preview", ""));
+				model.setPosterImage(obj.optString("pic", ""));
 				
 				list.add(model);
 			}

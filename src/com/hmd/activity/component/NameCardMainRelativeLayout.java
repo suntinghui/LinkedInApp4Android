@@ -84,7 +84,7 @@ public class NameCardMainRelativeLayout extends RelativeLayout {
 			tvBrief2.setText(this.data.getPosition());
 		}
 		
-		ImageUtil.loadImage(R.drawable.img_card_head_portrait, this.data.getImgUrl(), photoImageView);
+		ImageUtil.loadImage(R.drawable.img_card_head_portrait, this.data.getPic(), photoImageView);
 	}
 
 	private OnClickListener listener = new OnClickListener() {
@@ -94,7 +94,7 @@ public class NameCardMainRelativeLayout extends RelativeLayout {
 			if(arg0.getId() == R.id.topLayout){
 				Intent intent = new Intent(BaseActivity.getTopActivity(), PersonInfoModifyActivity.class);
 				intent.putExtra("MODEL", data);
-				BaseActivity.getTopActivity().startActivity(intent);
+				((BaseActivity) NameCardMainRelativeLayout.this.mContext).startActivityForResult(intent,5);
 			}
 			
 		}

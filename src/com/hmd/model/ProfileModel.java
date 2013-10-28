@@ -16,7 +16,6 @@ public class ProfileModel implements Serializable{
 	
 	private String mName = null;
 	private int mGender = 0; // 性别，1男，0女
-	private String mImgUrl = null;
 	
 	private String mCity = null;
 	private String mProvince = null;
@@ -76,10 +75,6 @@ public class ProfileModel implements Serializable{
 	
 	public String getName() {
 		return this.mName;
-	}
-	
-	public String getImgUrl() {
-		return this.mImgUrl;
 	}
 	
 	public int getGender(){
@@ -149,10 +144,6 @@ public class ProfileModel implements Serializable{
 	
 	public void setGender(int gender){
 		this.mGender = gender;
-	}
-	
-	public void setImgUrl(String s) {
-		this.mImgUrl = checkNull(s);
 	}
 
 	public void setCity(String s) {
