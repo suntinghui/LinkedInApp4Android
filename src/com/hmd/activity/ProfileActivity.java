@@ -35,6 +35,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 	private ProfileTimelineLinearLayout timelineLayout = null;
 	private SwitchableScrollViewer friendLayout = null;
 	private SwitchableScrollViewer fansLayout = null;
+	private SwitchableScrollViewer groupLayout = null;
 	
 	private GestureDetector mDector = null;
 	private ProfileModel profileModel = null;
@@ -51,6 +52,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 		
 		Intent intent = this.getIntent();
 		mIdentity = intent.getStringExtra("IDENTITY");
+		profileModel = (ProfileModel) intent.getSerializableExtra("PROFILE");
 		profileButton = (Button)this.findViewById(R.id.profileButton);
 		profileButton.setOnClickListener(listener);
 		this.init();
@@ -82,9 +84,14 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 		friendLayout.setTitle("个人关注");
 		fansLayout = (SwitchableScrollViewer) this.findViewById(R.id.profileFansLayout);
 		fansLayout.setTitle("关注我的人");
+		groupLayout  = (SwitchableScrollViewer) this.findViewById(R.id.groupLayout);
+		groupLayout.setTitle("我的圈子");
+		groupLayout.showAllGroupButton();
+		groupLayout.setVisibility(View.VISIBLE);
 		if(!mIdentity.equals("me")){
 			friendLayout.setVisibility(View.GONE);
 			fansLayout.setVisibility(View.GONE);
+			groupLayout.setVisibility(View.GONE);
 		}
 		
 		this.refreshData();
@@ -97,6 +104,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 		if(mIdentity.equals("me")){
 			queue.addHttpRequest(getMyAttentionsRequest());
 			queue.addHttpRequest(getFansRequest());
+//			queue.addHttpRequest(getMyGroupRequest());
 		}
 		
 		queue.executeQueue("正在查询履历...", new LKHttpRequestQueueDone());
@@ -111,7 +119,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 				profileModel = (ProfileModel) obj;
 				profileInfoLayout.refresh(profileModel);
 			}
-		}, "me");
+		}, mIdentity.equals("me") ? "me":profileModel.getId());
 		
 		return request;
 	}
@@ -131,6 +139,35 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 		return request;
 	}
 	
+	// 查看我的圈子列表
+	private LKHttpRequest getMyGroupRequest(){
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("page", "1");
+		paramMap.put("num", "5");
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_GROUP_ME_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+//				if (null != obj){
+//					ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
+//					Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+//					if(total < Constants.PAGESIZE+1){
+//						friendLayout.hiddenMoreButton();
+//					}
+//					if(list == null || list.size() == 0){
+//						friendLayout.setVisibility(View.GONE);
+//					}else{
+//						friendLayout.refresh(list);
+//					}
+//				}else{
+//					friendLayout.setVisibility(View.GONE);
+//				}
+				
+			}
+		});
+		
+		return request;
+	}
 	// 查看我关注的人
 	private LKHttpRequest getMyAttentionsRequest(){
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();

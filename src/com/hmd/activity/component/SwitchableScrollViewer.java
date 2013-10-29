@@ -16,6 +16,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.activity.AllGroupActivity;
 import com.hmd.activity.MyAttentionsActivity;
 import com.hmd.activity.SuggestPeopleActivity;
 import com.hmd.client.Constants;
@@ -35,6 +36,7 @@ public class SwitchableScrollViewer extends ScrollView {
 	private boolean isList = true;
 	private ImageButton btnList = null;
 	private Button btnMore = null;
+	private Button btnAllGroup = null;
 	private String mTitle = null;
 	private Boolean mHasMoreButton = true;
 	private Boolean mHasSwitchButton = true;
@@ -54,6 +56,10 @@ public class SwitchableScrollViewer extends ScrollView {
 			this.mHasMoreButton = false;
 			this.btnMore.setVisibility(View.GONE);
 		}
+	}
+	
+	public void showAllGroupButton(){
+		this.btnAllGroup.setVisibility(View.VISIBLE);
 	}
 	
 	public SwitchableScrollViewer(Context context, AttributeSet attrs) {
@@ -95,6 +101,9 @@ public class SwitchableScrollViewer extends ScrollView {
 		btnMore = (Button)this.findViewById(R.id.btn_layout_more);
 		btnMore.setOnClickListener(this.onSwitchView);
 		btnMore.setVisibility(mHasMoreButton ? View.VISIBLE:View.GONE);
+		
+		btnAllGroup = (Button)this.findViewById(R.id.btn_layout_all_group);
+		btnAllGroup.setOnClickListener(this.onSwitchView);
 		
 		this.btnList = (ImageButton)this.findViewById(R.id.btn_layout_switch);
 		
@@ -156,6 +165,10 @@ public class SwitchableScrollViewer extends ScrollView {
 				}else{
 					getMoreFansData();
 				}
+				break;
+			case R.id.btn_layout_all_group:
+				Intent intent = new Intent(SwitchableScrollViewer.this.mContext, AllGroupActivity.class);  
+				SwitchableScrollViewer.this.mContext.startActivity(intent);
 				break;
 			default:
 				break;

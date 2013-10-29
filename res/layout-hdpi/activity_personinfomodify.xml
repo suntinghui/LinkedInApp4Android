@@ -123,7 +123,7 @@
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
                         android:paddingTop="3dip" 
-                        style="@style/TextView15sp_black"/>
+                        style="@style/black_15"/>
                 </LinearLayout>
 
                 <View
@@ -201,7 +201,7 @@
                         android:layout_marginLeft="35dip"
                         android:background="@drawable/edittext_bg"
                         android:hint="请输入专业名称"
-                        style="@style/TextView15sp_black"
+                        style="@style/black_15"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
                         android:paddingTop="3dip" />
@@ -358,7 +358,7 @@
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
                         android:paddingTop="3dip" 
-                        style="@style/TextView15sp_black"/>
+                        style="@style/black_15"/>
                 </LinearLayout>
 
                 <View
@@ -391,7 +391,7 @@
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
                         android:paddingTop="3dip"
-                        style="@style/TextView15sp_black" />
+                        style="@style/black_15" />
                 </LinearLayout>
 
                 <View
@@ -424,7 +424,7 @@
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
                         android:paddingTop="3dip" 
-                        style="@style/TextView15sp_black"/>
+                        style="@style/black_15"/>
                 </LinearLayout>
 
                 <View
@@ -457,7 +457,7 @@
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
                         android:paddingTop="3dip"
-                        style="@style/TextView15sp_black" />
+                        style="@style/black_15" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

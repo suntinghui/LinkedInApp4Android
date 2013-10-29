@@ -109,7 +109,7 @@
 
                     <EditText
                         android:id="@+id/et_title"
-                        style="@style/TextView15sp_black"
+                        style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
@@ -142,7 +142,7 @@
 
                     <EditText
                         android:id="@+id/et_desc"
-                        style="@style/TextView15sp_black"
+                        style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
@@ -175,7 +175,7 @@
 
                     <EditText
                         android:id="@+id/et_org"
-                        style="@style/TextView15sp_black"
+                        style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
@@ -208,7 +208,7 @@
 
                     <EditText
                         android:id="@+id/et_province"
-                        style="@style/TextView15sp_black"
+                        style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
@@ -241,7 +241,7 @@
 
                     <EditText
                         android:id="@+id/et_city"
-                        style="@style/TextView15sp_black"
+                        style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
@@ -275,7 +275,7 @@
 
                     <TextView
                         android:id="@+id/tv_stime"
-                        style="@style/TextView15sp_black"
+                        style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
@@ -309,7 +309,7 @@
 
                     <TextView
                         android:id="@+id/tv_etime"
-                        style="@style/TextView15sp_black"
+                        style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"

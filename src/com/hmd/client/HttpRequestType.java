@@ -40,6 +40,10 @@ public interface HttpRequestType {
 	public static final String HTTP_FRIENDS_FUNS_LIST					= "FRIENDS_FUNS_LIST";
 	public static final String HTTP_FRIENDS_FOLLOW						= "FRIENDS_FOLLOW";
 	public static final String HTTP_FRIENDS_UNFOLLOW					= "FRIENDS_UNFOLLOW";
-	
+	public static final String HTTP_GROUP_ME_LIST						= "GROUP_ME_LIST";
+	public static final String HTTP_PARTICIPANT_LIST					= "PARTICIPANT_LIST";
+	public static final String HTTP_ALL_GROUP_LIST						= "ALL_GROUP_LIST";
+	public static final String HTTP_GROUP_JOIN							= "GROUP_JOIN";
+	public static final String HTTP_GROUP_QUIT							= "GROUP_QUIT";
 	
 }

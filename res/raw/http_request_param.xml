@@ -252,4 +252,44 @@
         <contentType>application/json</contentType>
     </request>
     
+    <!-- 查看所有圈子列表 -->
+    <request>
+        <requestId>ALL_GROUP_LIST</requestId>
+        <url>/group/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 查看我的圈子列表 -->
+    <request>
+        <requestId>GROUP_ME_LIST</requestId>
+        <url>/group/me/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 查看圈子成员 -->
+    <request>
+        <requestId>PARTICIPANT_LIST</requestId>
+        <url>/group/${id}/participant/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 加入圈子 -->
+    <request>
+        <requestId>GROUP_JOIN</requestId>
+        <url>/group/${id}/join</url>
+        <method>POST</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 退出圈子 -->
+    <request>
+        <requestId>GROUP_QUIT</requestId>
+        <url>/group/${id}/quit</url>
+        <method>POST</method>
+        <contentType>application/json</contentType>
+    </request>
+    
 </root>

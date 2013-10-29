@@ -28,9 +28,68 @@
         <item name="android:typeface">sans</item>
         <item name="android:textSize">14sp</item>
     </style>
+	
+    <style name="black_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#000000</item>
+    </style>
 
-    <style name="TextView15sp_black">
+    <style name="white_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="orange_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#FF6600</item>
+    </style>
+    
+    <style name="black_15">
         <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="white_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="black_16">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+
+    <style name="white_17">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="black_17">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#000000</item>
+    </style>
+ 	
+    <style name="green_17">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#00CCCC</item>
+    </style>
+
+    <style name="orange_17">
+        <item name="android:textSize">17sp</item>
+        <item name="android:textColor">#FF6600</item>
+    </style>
+    
+    <style name="white_18">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="white_20">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+    <style name="black_18">
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">#000000</item>
     </style>
 </resources>

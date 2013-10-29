@@ -27,6 +27,8 @@ public class ProfileModel implements Serializable{
 	private String mAdYear = null; // 入学年份
 	private String mGradYear = null; // 毕业年份，如果尚未毕业则为null
 	private String mPic = null;// 头像
+	private String mOrg = null;//所在组织或公司，可能为空
+	private String mTitle = null;//职位
 	
 	private String mCompany = null;
 	private String mPosition = null;
@@ -50,7 +52,23 @@ public class ProfileModel implements Serializable{
 	}
 
 	public void setProvince(String mProvince) {
-		this.mProvince = mProvince;
+		this.mProvince = checkNull(mProvince);
+	}
+
+	public String getOrg() {
+		return mOrg;
+	}
+
+	public void setOrg(String mOrg) {
+		this.mOrg = checkNull(mOrg);
+	}
+	
+	public String getmTitle() {
+		return mTitle;
+	}
+
+	public void setmTitle(String mTitle) {
+		this.mTitle = checkNull(mTitle);
 	}
 
 	public String getFlag() {

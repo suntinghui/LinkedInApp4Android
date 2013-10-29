@@ -14,6 +14,7 @@ import com.hmd.enums.ErrorCode;
 import com.hmd.exception.ServiceErrorException;
 import com.hmd.model.ActiveModel;
 import com.hmd.model.AnnouncementModel;
+import com.hmd.model.GroupModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.SchoolModel;
 import com.hmd.model.TimelineModel;
@@ -98,6 +99,22 @@ public class ParseResponseData {
 			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_FRIENDS_UNFOLLOW)) {
 			return getCancelAttention(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_ME_LIST)) {
+			return getGroupMeList(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PARTICIPANT_LIST)) {
+			return getParticipantList(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_ALL_GROUP_LIST)) {
+			return getAllGroupList(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_JOIN)) {
+			return getGroupJoin(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_QUIT)) {
+			return getGroupQuit(jsonObject);
+			
 		}
 		
 		return null;
@@ -431,6 +448,112 @@ public class ParseResponseData {
 	
 	// 取消关注
 	private static int getCancelAttention(JSONObject jsonObject){
+		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
+		
+		return errorCode;
+	}
+	
+	//我的圈子列表
+	private static Object getGroupMeList(JSONObject jsonObject){
+		ArrayList<GroupModel> modelList = new ArrayList<GroupModel>();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String total = jsonObject.optString("total", "0");
+		map.put("total", total);
+		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0){
+			for (int i=0; i<jsonArray.length(); i++){
+				GroupModel model = new GroupModel();
+				
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				model.setId(obj.optString("id", ""));
+				model.setName(obj.optString("name", ""));
+				model.setDesc(obj.optString("desc", ""));
+				model.setCreateTime(obj.optString("createTime", ""));
+				
+				modelList.add(model);
+			}
+			map.put("list", modelList);
+			return map;
+			
+		}
+		
+		return null;
+	}
+	
+	//所有圈子列表
+	private static Object getAllGroupList(JSONObject jsonObject){
+		ArrayList<GroupModel> modelList = new ArrayList<GroupModel>();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String total = jsonObject.optString("total", "0");
+		map.put("total", total);
+		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0){
+			for (int i=0; i<jsonArray.length(); i++){
+				GroupModel model = new GroupModel();
+				
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				model.setId(obj.optString("id", ""));
+				model.setName(obj.optString("name", ""));
+				model.setDesc(obj.optString("desc", ""));
+				model.setCreateTime(obj.optString("createTime", ""));
+				
+				modelList.add(model);
+			}
+			map.put("list", modelList);
+			return map;
+			
+		}
+		
+		return null;
+	}
+	
+	//查看圈子成员
+	
+	private static Object getParticipantList(JSONObject jsonObject){
+		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String total = jsonObject.optString("total", "0");
+		map.put("total", total);
+		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0){
+			for (int i=0; i<jsonArray.length(); i++){
+				ProfileModel model = new ProfileModel();
+				
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				model.setFlag("2");
+				model.setId(obj.optString("id", ""));
+				model.setName(obj.optString("name", ""));
+				model.setGender(obj.optInt("gender", 1));
+				model.setProvince(obj.optString("province"));
+				model.setCity(obj.optString("city"));
+				model.setOrg(obj.optString("org", ""));
+				model.setmTitle(obj.optString("title", ""));
+				
+				modelList.add(model);
+			}
+			map.put("list", modelList);
+			return map;
+			
+		}
+		
+		return null;
+	}
+	
+	// 加入圈子
+	private static int getGroupJoin(JSONObject jsonObject){
+		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
+		
+		return errorCode;
+	}
+		
+	// 退出圈子
+	private static int getGroupQuit(JSONObject jsonObject){
 		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
 		
 		return errorCode;
