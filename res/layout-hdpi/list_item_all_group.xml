@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="10dip"
+    android:paddingTop="10dip" >
+
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/black_15"
+                android:layout_width="80dip"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:text="圈子名称：" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/green_17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:text="未知" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/black_15"
+                android:id="@+id/tv_desc_tmp"
+                android:layout_width="80dip"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:text="简介：" />
+
+            <Button
+                android:id="@+id/btn_join"
+                android:layout_width="60dip"
+                android:layout_height="35dip"
+                android:layout_marginLeft="5dip"
+                android:layout_alignParentRight="true"
+                android:text="加入" />
+            
+            <TextView
+                android:id="@+id/tv_desc"
+                style="@style/black_15"
+                android:layout_toRightOf="@id/tv_desc_tmp"
+                android:layout_toLeftOf="@id/btn_join"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:text="未知" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:orientation="horizontal" >
+
+            <TextView
+                style="@style/black_15"
+                android:layout_width="80dip"
+                android:gravity="right"
+                android:layout_height="wrap_content"
+                android:text="创建时间：" />
+
+            <TextView
+                android:id="@+id/tv_createTime"
+                style="@style/black_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dip"
+                android:text="未知" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/moreLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="10dip"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/moreButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/more_button"
+            android:text="点击查看更多" />
+    </RelativeLayout>
+
+</LinearLayout>

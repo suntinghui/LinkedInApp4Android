@@ -18,10 +18,12 @@ import android.widget.LinearLayout;
 import com.hmd.R;
 import com.hmd.activity.component.NameCardMainRelativeLayout;
 import com.hmd.activity.component.ProfileTimelineLinearLayout;
+import com.hmd.activity.component.SwitchableGroupScrollViewer;
 import com.hmd.activity.component.SwitchableScrollViewer;
 import com.hmd.activity.component.TopbarRelativeLayout;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
+import com.hmd.model.GroupModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.TimelineModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
@@ -35,7 +37,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 	private ProfileTimelineLinearLayout timelineLayout = null;
 	private SwitchableScrollViewer friendLayout = null;
 	private SwitchableScrollViewer fansLayout = null;
-	private SwitchableScrollViewer groupLayout = null;
+	private SwitchableGroupScrollViewer groupLayout = null;
 	
 	private GestureDetector mDector = null;
 	private ProfileModel profileModel = null;
@@ -78,13 +80,14 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 //		llTopbar.addView(topbar);
 		
 		profileInfoLayout = (NameCardMainRelativeLayout) this.findViewById(R.id.profileInfoLayout);
+		profileInfoLayout.mIdentity = mIdentity;
 		timelineLayout = (ProfileTimelineLinearLayout) this.findViewById(R.id.profileTimelineLayout);
 		timelineLayout.mIdentity = mIdentity;
 		friendLayout = (SwitchableScrollViewer) this.findViewById(R.id.profileFirendLayout);
 		friendLayout.setTitle("个人关注");
 		fansLayout = (SwitchableScrollViewer) this.findViewById(R.id.profileFansLayout);
 		fansLayout.setTitle("关注我的人");
-		groupLayout  = (SwitchableScrollViewer) this.findViewById(R.id.groupLayout);
+		groupLayout  = (SwitchableGroupScrollViewer) this.findViewById(R.id.groupLayout);
 		groupLayout.setTitle("我的圈子");
 		groupLayout.showAllGroupButton();
 		groupLayout.setVisibility(View.VISIBLE);
@@ -104,10 +107,10 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 		if(mIdentity.equals("me")){
 			queue.addHttpRequest(getMyAttentionsRequest());
 			queue.addHttpRequest(getFansRequest());
-//			queue.addHttpRequest(getMyGroupRequest());
+			queue.addHttpRequest(getMyGroupRequest());
 		}
 		
-		queue.executeQueue("正在查询履历...", new LKHttpRequestQueueDone());
+		queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());
 		
 	}
 	
@@ -148,20 +151,18 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-//				if (null != obj){
-//					ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
-//					Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-//					if(total < Constants.PAGESIZE+1){
-//						friendLayout.hiddenMoreButton();
-//					}
-//					if(list == null || list.size() == 0){
-//						friendLayout.setVisibility(View.GONE);
-//					}else{
-//						friendLayout.refresh(list);
-//					}
-//				}else{
-//					friendLayout.setVisibility(View.GONE);
-//				}
+				if (null != obj){
+					ArrayList<GroupModel> list = (ArrayList<GroupModel>)(((HashMap<String, Object>)obj).get("list"));
+					Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+					if(total < 6){
+						groupLayout.hiddenMoreButton();
+					}
+					if(list == null || list.size() == 0){
+					}else{
+						groupLayout.refresh(list);
+					}
+				}else{
+				}
 				
 			}
 		});
@@ -180,7 +181,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 				if (null != obj){
 					ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
 					Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-					if(total < Constants.PAGESIZE+1){
+					if(total < 6){
 						friendLayout.hiddenMoreButton();
 					}
 					if(list == null || list.size() == 0){
@@ -210,7 +211,7 @@ public class ProfileActivity extends BaseActivity implements OnTouchListener{
 				if (null != obj){
 					ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
 					Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-					if(total < 5){
+					if(total < 6){
 						fansLayout.hiddenMoreButton();
 					}
 					if(list == null || list.size() == 0){

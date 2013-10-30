@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
 import com.hmd.R;
+import com.hmd.model.GroupModel;
 import com.hmd.model.ProfileModel;
 
-public class NameCardListLinearLayout extends LinearLayout {
+public class NameCardListGroupLinearLayout extends LinearLayout {
 
-	private ArrayList<ProfileModel> entries = null;
-	public NameCardListLinearLayout(Context context, ArrayList<ProfileModel> e) {
+	private ArrayList<GroupModel> entries = null;
+	public NameCardListGroupLinearLayout(Context context, ArrayList<GroupModel> e) {
 		super(context);
 		this.entries = e;
 		
@@ -28,7 +29,7 @@ public class NameCardListLinearLayout extends LinearLayout {
 		
 		for(int i = 0; i < this.entries.size(); i ++){
 
-			NameCardRelativeLayout profile = new NameCardRelativeLayout(this.getContext(), this.entries.get(i));
+			NameCardGroupRelativeLayout profile = new NameCardGroupRelativeLayout(this.getContext(), this.entries.get(i));
 			
 			profile.setPadding(0, 0, 0, 0);
 			

@@ -27,6 +27,7 @@ public class NameCardMainRelativeLayout extends RelativeLayout {
 	
 	private ProfileModel data = null;
 	private RelativeLayout topLayout = null;
+	public String mIdentity = "he";// 个人还是他人
 	
 	public NameCardMainRelativeLayout(Context context){
 		super(context);
@@ -92,9 +93,12 @@ public class NameCardMainRelativeLayout extends RelativeLayout {
 		@Override
 		public void onClick(View arg0) {
 			if(arg0.getId() == R.id.topLayout){
-				Intent intent = new Intent(BaseActivity.getTopActivity(), PersonInfoModifyActivity.class);
-				intent.putExtra("MODEL", data);
-				((BaseActivity) NameCardMainRelativeLayout.this.mContext).startActivityForResult(intent,5);
+				if(mIdentity.equals("me")){
+					Intent intent = new Intent(BaseActivity.getTopActivity(), PersonInfoModifyActivity.class);
+					intent.putExtra("MODEL", data);
+					((BaseActivity) NameCardMainRelativeLayout.this.mContext).startActivityForResult(intent,5);
+				}
+				
 			}
 			
 		}

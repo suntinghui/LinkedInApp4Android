@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:id="@+id/rl_layout_btns"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true" >
 
@@ -24,14 +24,14 @@
             android:typeface="sans" />
 
         <LinearLayout
-            android:layout_width="200dip"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true" >
 			
             <Button
                 android:id="@+id/btn_layout_all_group"
                 android:layout_width="60dip"
-                android:layout_height="30dip"
+                android:layout_height="25dip"
                 android:background="@color/middleBlue"
                 android:text="所有圈子"
                 android:visibility="gone"
@@ -42,7 +42,7 @@
             <Button
                 android:id="@+id/btn_layout_more"
                 android:layout_width="60dip"
-                android:layout_height="30dip"
+                android:layout_height="25dip"
                 android:layout_marginLeft="5dip"
                 android:background="@color/middleBlue"
                 android:text="查看更多"
@@ -50,11 +50,11 @@
                 android:textSize="13sp"
                 android:layout_marginRight="10dip"/>
 
-            <ImageButton
+           <!--  <ImageButton
                 android:id="@+id/btn_layout_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone" />
+                android:visibility="gone" /> -->
         </LinearLayout>
 
     </RelativeLayout>

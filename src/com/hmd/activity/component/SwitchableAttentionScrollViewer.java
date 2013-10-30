@@ -33,7 +33,7 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 	private ArrayList<ProfileModel> entries = null;
 	private Context mContext = null;
 	private boolean isList = true;
-	private ImageButton btnList = null;
+//	private ImageButton btnList = null;
 	private Button mBtn_more = null;
 	private String mTitle = null;
 	private String mPage = "1";
@@ -78,16 +78,16 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 		mBtn_more = (Button)this.findViewById(R.id.btn_more);
 		mBtn_more.setOnClickListener(onSwitchView);
 		
-		this.btnList = (ImageButton)this.findViewById(R.id.btn_layout_switch);
+//		this.btnList = (ImageButton)this.findViewById(R.id.btn_layout_switch);
 		
-		btnList.setOnClickListener(this.onSwitchView);
+//		btnList.setOnClickListener(this.onSwitchView);
 		if(this.entries == null){
-			if(this.isList){
-				this.btnList.setBackgroundResource(R.drawable.img_card_list_two);
-			}else{
-				this.btnList.setBackgroundResource(R.drawable.img_card_list_one);
-			}
-			
+//			if(this.isList){
+//				this.btnList.setBackgroundResource(R.drawable.img_card_list_two);
+//			}else{
+//				this.btnList.setBackgroundResource(R.drawable.img_card_list_one);
+//			}
+//			
 		}else{
 			
 			this.refreshContent();
@@ -113,12 +113,12 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 		if(this.isList){
 			NameCardListLinearLayout glNameCards = new NameCardListLinearLayout(this.mContext, this.entries);
 			svContent.addView(glNameCards);
-			this.btnList.setBackgroundResource(R.drawable.img_card_list_two);
+//			this.btnList.setBackgroundResource(R.drawable.img_card_list_two);
 
 		}else{
 			NameCardListTableLayout glNameCards = new NameCardListTableLayout(this.mContext, this.entries);
 			svContent.addView(glNameCards);
-			this.btnList.setBackgroundResource(R.drawable.img_card_list_one);
+//			this.btnList.setBackgroundResource(R.drawable.img_card_list_one);
 		}
 	}
 	
@@ -131,10 +131,10 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.btn_layout_switch:
-				isList = !isList;
-				refreshContent();
-				break;
+//			case R.id.btn_layout_switch:
+//				isList = !isList;
+//				refreshContent();
+//				break;
 			case R.id.btn_more:
 				if(mTitle.equals("个人关注")){
 					getMoreMyAttentionData();
@@ -142,6 +142,8 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 					getMoreFansData();
 				}else if(mTitle.equals("相关推荐")){
 					getSuggestPeopleList();
+				}else if(mTitle.equals("圈子成员")){
+					getMoreGroupParticipantList();
 				}
 				break;
 			default:
@@ -150,6 +152,13 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 			
 		}
 	};
+	
+	private void getMoreGroupParticipantList(){
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getGroupParticipantsRequest());
+		
+		queue.executeQueue("正在获取更多...", new LKHttpRequestQueueDone());
+	}
 	
 	private void getMoreMyAttentionData(){
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
@@ -167,6 +176,40 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 		
 	}
 	
+	// 查看圈子成员
+	private LKHttpRequest getGroupParticipantsRequest(){
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("page", ++currentPage+"");
+		paramMap.put("num", mNum);
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_PARTICIPANT_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				if(obj == null){
+					mBtn_more.setVisibility(View.GONE);
+					return;
+				}
+				ArrayList<ProfileModel> tmpList = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
+				for(ProfileModel model:tmpList){
+					entries.add(model);
+				}
+				
+				int count = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
+				totalPage = (count + Integer.parseInt(mNum) - 1) / Integer.parseInt(mNum);
+				 
+				if(entries == null || entries.size() == 0){
+					
+				}else{
+					refreshContent();
+					
+				}
+				
+			}
+		}, currentId);
+		
+		return request;
+	}
+		
 	// 查看我关注的人
 	private LKHttpRequest getMyAttentionsRequest(){
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();

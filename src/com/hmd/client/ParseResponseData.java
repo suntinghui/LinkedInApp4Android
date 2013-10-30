@@ -534,7 +534,7 @@ public class ParseResponseData {
 				model.setCity(obj.optString("city"));
 				model.setOrg(obj.optString("org", ""));
 				model.setmTitle(obj.optString("title", ""));
-				
+				model.setPic(obj.optString("pic", ""));
 				modelList.add(model);
 			}
 			map.put("list", modelList);
