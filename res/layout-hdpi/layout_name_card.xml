@@ -3,6 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" 
     android:id="@+id/rl_name_card"
+    android:background="@drawable/img_weibo_con_border"
     >
     
     <RelativeLayout 
@@ -41,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/dateBlue"
                 android:typeface ="sans"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 />
         </RelativeLayout>
         <RelativeLayout 
@@ -72,15 +73,10 @@
         	android:orientation="horizontal"
         	>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="所在地:"
-                />
-            <TextView
                 android:id="@+id/tv_name_card_province"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
+                android:layout_alignParentLeft="true"
                 />
         </LinearLayout>
     </RelativeLayout>

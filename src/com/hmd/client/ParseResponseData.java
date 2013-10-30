@@ -533,7 +533,7 @@ public class ParseResponseData {
 				model.setProvince(obj.optString("province"));
 				model.setCity(obj.optString("city"));
 				model.setOrg(obj.optString("org", ""));
-				model.setmTitle(obj.optString("title", ""));
+				model.setTitle(obj.optString("title", ""));
 				model.setPic(obj.optString("pic", ""));
 				modelList.add(model);
 			}

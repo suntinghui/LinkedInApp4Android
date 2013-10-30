@@ -63,11 +63,11 @@ public class ProfileModel implements Serializable{
 		this.mOrg = checkNull(mOrg);
 	}
 	
-	public String getmTitle() {
+	public String getTitle() {
 		return mTitle;
 	}
 
-	public void setmTitle(String mTitle) {
+	public void setTitle(String mTitle) {
 		this.mTitle = checkNull(mTitle);
 	}
 
