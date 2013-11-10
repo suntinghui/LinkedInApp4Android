@@ -111,6 +111,7 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 		Intent intent = new Intent(ProfileCardRelativeLayout.this.mContext, AddTimelineActivity.class);  
 		intent.putExtra("DATA", data);
 		intent.putExtra("ISMODIFY", true);
+		intent.putExtra("TITLE", "修改履历");
 		((BaseActivity) ProfileCardRelativeLayout.this.mContext).startActivityForResult(intent,5);
 
 	}

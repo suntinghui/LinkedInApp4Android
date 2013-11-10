@@ -54,7 +54,7 @@ import com.hmd.util.PatternUtil;
 import com.hmd.view.LKAlertDialog;
 
 public class AddTimelineActivity extends BaseActivity {
-
+    //test 11/10 
 	private String afterId = null;
 	private final String IMAGE_TYPE = "image/*";
 	private final int IMAGE_CODE = 0;   //这里的IMAGE_CODE是自己任意定义的
@@ -96,6 +96,9 @@ public class AddTimelineActivity extends BaseActivity {
 		data = (TimelineModel) intent.getSerializableExtra("DATA");
 		isModify = intent.getBooleanExtra("ISMODIFY", false);
 		afterId = (String) intent.getStringExtra("AFTERID");
+		TextView tv_title = (TextView)this.findViewById(R.id.titleView);
+		String title = intent.getStringExtra("TITLE");
+		tv_title.setText(title != null ? title:"新增个人履历");
 
 		btn_back = (Button)this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(listener);
