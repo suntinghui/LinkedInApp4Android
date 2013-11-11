@@ -3,7 +3,7 @@
     xmlns:hmd="http://schemas.android.com/apk/res/com.hmd"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/img_login_backdrop" >
+    android:background="@drawable/img_splash" >
 
     <RelativeLayout
         android:id="@+id/topLayout"
@@ -87,8 +87,15 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/nameText"
                 android:layout_marginTop="30dip"
-                hmd:hint="@string/txtMajordHint"
-                hmd:inputType="password" />
+                hmd:hint="@string/txtMajorHint" />
+
+            <com.hmd.view.EditTextWithClearView
+                android:id="@+id/classText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/majorText"
+                android:layout_marginTop="30dip"
+                hmd:hint="@string/txtClassHint" />
 
             <!-- 性别 -->
 
@@ -96,7 +103,7 @@
                 android:id="@+id/genderLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/majorText"
+                android:layout_below="@id/classText"
                 android:layout_marginTop="30dip"
                 android:background="@drawable/img_login_edittext_backdrop" >
 

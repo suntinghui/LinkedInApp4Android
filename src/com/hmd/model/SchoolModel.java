@@ -1,7 +1,11 @@
 package com.hmd.model;
 
-public class SchoolModel {
+import java.io.Serializable;
 
+public class SchoolModel implements Serializable{
+
+	private static final long serialVersionUID = 4742626869001520846L;
+	
 	private String mId 					= null;
 	private String mName 				= null;
 	private String mLogoUrl 			= null;

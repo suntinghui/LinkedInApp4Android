@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/topbarLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/topbarBg"
+        android:orientation="horizontal"
+        android:padding="5dip" >
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/img_btn_topbar_left_arrow" >
+        </Button>
+
+        <TextView
+            android:id="@+id/titleTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="学校信息"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true" >
+
+        <RelativeLayout
+            android:id="@+id/bgLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip" >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="首都师范大学"
+                android:textColor="@color/fontGrey"
+                android:textSize="18sp"
+                android:textStyle="bold" 
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title"
+                android:layout_marginTop="5dip"
+                android:scaleType="fitCenter"
+                android:src="@drawable/img_weibo_item_pic_loading" />
+
+            <RelativeLayout
+                android:id="@+id/weiboLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/imageView"
+                android:layout_marginTop="5dip" >
+
+                <ImageButton
+                    android:id="@+id/rl_school_weibo_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/img_btn_school_notice" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="查看微博"
+                    android:textColor="@color/cardMainBg"
+                    android:textSize="13sp"
+                    android:typeface="sans" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/dividerImage"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/weiboLayout"
+                android:layout_marginTop="5dip"
+                android:src="@drawable/img_listview_divider" />
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dividerImage"
+                android:layout_marginTop="5dip"
+                android:singleLine="false"
+                android:text="北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学北京师范大学"
+                android:textColor="#000000"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

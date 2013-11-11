@@ -1,8 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-
     <string name="app_name">校友汇</string>
-    
     <string name="txtPrompt">提示</string>
     <string name="txtWait">请稍候</string>
     <string name="txtOK">确定</string>
@@ -14,7 +12,8 @@
     <string name="txtNameHint">姓名</string>
     <string name="txtStudentIdHint">学号</string>
     <string name="txtCardNoHint">身份证号</string>
-    <string name="txtMajordHint">专业</string>
+    <string name="txtMajorHint">专业</string>
+    <string name="txtClassHint">班级</string>
     <string name="txtLoginPasswordHint">密码</string>
     <string name="txtRegistrPasswordConfirmHint">密码</string>
     <string name="txtTo">至</string>
@@ -25,23 +24,17 @@
     <string name="txtWeibo">官方微博</string>
     <string name="txtCard">校友卡</string>
     <string name="txtApply">我要申请</string>
-    
     <string name="txtUnkownSchoolName">大学名称</string>
     <string name="txtUnkownSchoolDesc">大学简介</string>
-    
-	<string name="txtMore">查看更多</string>
-	
-	<string name="txtTime">时&#160;&#160;&#160;&#160;间</string>
-	<string name="txtAddress">地&#160;&#160;&#160;&#160;点</string>
-	<string name="txtType">类&#160;&#160;&#160;&#160;型</string>
-	<string name="txtCharge">费&#160;&#160;&#160;&#160;用</string>
-	<string name="txtSponsor">主办方</string>
-	<string name="txtEventDetail">活动详情</string>
-	<string name="txtParticipantList">参加活动的人</string>
-	
-	
-	<string name="txtLoginSinaWeibo">&#160;&#160;&#160;&#160;登录新浪微博&#160;&#160;&#160;&#160;</string>
-    
+    <string name="txtMore">查看更多</string>
+    <string name="txtTime">时    间</string>
+    <string name="txtAddress">地    点</string>
+    <string name="txtType">类    型</string>
+    <string name="txtCharge">费    用</string>
+    <string name="txtSponsor">主办方</string>
+    <string name="txtEventDetail">活动详情</string>
+    <string name="txtParticipantList">参加活动的人</string>
+    <string name="txtLoginSinaWeibo">    登录新浪微博    </string>
     <string name="noNetTips">请您确认已开通手机上网功能，并在手机上设置正确的上网方式</string>
-	<string name="cancelAttention">取消关注</string>
+    <string name="cancelAttention">取消关注</string>
 </resources>

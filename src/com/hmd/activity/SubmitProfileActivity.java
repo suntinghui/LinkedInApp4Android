@@ -35,6 +35,7 @@ public class SubmitProfileActivity extends BaseActivity implements OnClickListen
 	private EditTextWithClearView idTextView = null;
 	private EditTextWithClearView nameView = null;
 	private EditTextWithClearView majorView = null;
+	private EditTextWithClearView classView = null;
 	private Spinner genderSpinner = null;
 	private Spinner adYearSpinner = null;
 	private Spinner gradYearSpinner = null;
@@ -68,6 +69,7 @@ public class SubmitProfileActivity extends BaseActivity implements OnClickListen
 		idTextView = (EditTextWithClearView) this.findViewById(R.id.idText);
 		nameView = (EditTextWithClearView) this.findViewById(R.id.nameText);
 		majorView = (EditTextWithClearView) this.findViewById(R.id.majorText);
+		classView = (EditTextWithClearView) this.findViewById(R.id.classText);
 		genderSpinner = (Spinner) this.findViewById(R.id.genderSpinner);
 		adYearSpinner = (Spinner) this.findViewById(R.id.adYearSpinner);
 		gradYearSpinner = (Spinner) this.findViewById(R.id.gradYearSpinner);
@@ -131,6 +133,7 @@ public class SubmitProfileActivity extends BaseActivity implements OnClickListen
 		
 		paramMap.put("name", nameView.getText().trim());
 		paramMap.put("major", majorView.getText().trim());
+		paramMap.put("class", classView.getText().trim());
 		paramMap.put("gender", genderKeyList.get(genderSpinner.getSelectedItemPosition()));
 		paramMap.put("adYear", adYearKeyList.get(adYearSpinner.getSelectedItemPosition()));
 		paramMap.put("gradYear", gradYearKeyList.get(gradYearSpinner.getSelectedItemPosition()));
@@ -205,6 +208,9 @@ public class SubmitProfileActivity extends BaseActivity implements OnClickListen
 			this.showToast("请输入专业名称");
 			return false;
 			
+		} else if (classView.getText().trim().equals("")) {
+			this.showToast("请输入班级");
+			return false;
 		}
 		
 		return true;

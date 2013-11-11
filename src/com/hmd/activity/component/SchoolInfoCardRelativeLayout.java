@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.hmd.R;
 import com.hmd.activity.BaseActivity;
+import com.hmd.activity.SchoolInfoActivity;
 import com.hmd.activity.ShowWebViewActivity;
 import com.hmd.client.Constants;
 import com.hmd.model.SchoolModel;
@@ -22,6 +23,8 @@ public class SchoolInfoCardRelativeLayout extends RelativeLayout {
 	private TextView schoolNameTextView = null;
 	private TextView schoolDescTextView = null;
 	private ImageButton infoMoreButton = null;
+	
+	private SchoolModel school = null;
 
 	public SchoolInfoCardRelativeLayout(Context context) {
 		super(context);
@@ -44,6 +47,8 @@ public class SchoolInfoCardRelativeLayout extends RelativeLayout {
 	
 	public void refresh(SchoolModel school){
 		if (null != school){
+			this.school = school;
+			
 			ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, school.getmLogoUrl(), schoolLogoImageView);
 			
 			schoolNameTextView.setText(school.getmName());
@@ -55,9 +60,15 @@ public class SchoolInfoCardRelativeLayout extends RelativeLayout {
 
 		@Override
 		public void onClick(View arg0) {
+			/*
 			Intent intent = new Intent(BaseActivity.getTopActivity(), ShowWebViewActivity.class);
 			intent.putExtra("TITLE", "首都师范大学");
 			intent.putExtra("URL", Constants.URL_CNU_EDU);
+			BaseActivity.getTopActivity().startActivity(intent);
+			*/
+			
+			Intent intent = new Intent(BaseActivity.getTopActivity(), SchoolInfoActivity.class);
+			intent.putExtra("school", school);
 			BaseActivity.getTopActivity().startActivity(intent);
 		}
 		

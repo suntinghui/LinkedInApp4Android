@@ -12,7 +12,6 @@ import android.widget.Button;
 import com.hmd.R;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
-import com.hmd.enums.LoginCode;
 import com.hmd.enums.RegistrationCode;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
