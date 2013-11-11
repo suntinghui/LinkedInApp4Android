@@ -74,7 +74,7 @@ public class SchoolNoticeRelativeLayout extends RelativeLayout {
 	
 	// 查询公告列表
 	private LKHttpRequest getNoticeListRequest(){
-		HashMap<String, String> paramMap = new HashMap<String, String>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", "1");
 		paramMap.put("num", Constants.PAGESIZE + "");
 		paramMap.put("previewLen", "200"); //预览长度，即取正文内容前几个字符，范围[0,200]，0为关闭预览

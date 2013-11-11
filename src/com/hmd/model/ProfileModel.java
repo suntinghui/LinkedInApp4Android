@@ -16,7 +16,6 @@ public class ProfileModel implements Serializable{
 	
 	private String mName = null;
 	private int mGender = 0; // 性别，1男，0女
-	private String mImgUrl = null;
 	
 	private String mCity = null;
 	private String mProvince = null;
@@ -27,6 +26,9 @@ public class ProfileModel implements Serializable{
 	private String mMajor = null; // 专业名称
 	private String mAdYear = null; // 入学年份
 	private String mGradYear = null; // 毕业年份，如果尚未毕业则为null
+	private String mPic = null;// 头像
+	private String mOrg = null;//所在组织或公司，可能为空
+	private String mTitle = null;//职位
 	
 	private String mCompany = null;
 	private String mPosition = null;
@@ -38,12 +40,35 @@ public class ProfileModel implements Serializable{
 	private String mDesc = null; // 个人描述
 	private String mTime = null; // 关注时间
 	
+	public String getPic() {
+		return mPic;
+	}
+
+	public void setPic(String mPic) {
+		this.mPic = mPic;
+	}
 	public String getProvince() {
 		return mProvince;
 	}
 
 	public void setProvince(String mProvince) {
-		this.mProvince = mProvince;
+		this.mProvince = checkNull(mProvince);
+	}
+
+	public String getOrg() {
+		return mOrg;
+	}
+
+	public void setOrg(String mOrg) {
+		this.mOrg = checkNull(mOrg);
+	}
+	
+	public String getTitle() {
+		return mTitle;
+	}
+
+	public void setTitle(String mTitle) {
+		this.mTitle = checkNull(mTitle);
 	}
 
 	public String getFlag() {
@@ -68,10 +93,6 @@ public class ProfileModel implements Serializable{
 	
 	public String getName() {
 		return this.mName;
-	}
-	
-	public String getImgUrl() {
-		return this.mImgUrl;
 	}
 	
 	public int getGender(){
@@ -136,63 +157,47 @@ public class ProfileModel implements Serializable{
 	}
 	
 	public void setName(String s) {
-		this.mName = s;
+		this.mName = checkNull(s);
 	}
 	
 	public void setGender(int gender){
 		this.mGender = gender;
 	}
-	
-	public void setImgUrl(String s) {
-		this.mImgUrl = s;
-	}
 
 	public void setCity(String s) {
-		if (!s.equals("null"))
-			this.mCity = s;
+		this.mCity = checkNull(s);
 	}
 
 	public void setDistrict(String s) {
-		if (!s.equals("null"))
-			this.mDistrict = s;
+		this.mDistrict = checkNull(s);
 	}
 
 	public void setSchool(String s) {
-		if (!s.equals("null"))
-			this.mSchool = s;
+		this.mSchool = checkNull(s);
 	}
 	
 	public void setDept(String s){
-		if (!s.equals("null")){
-			this.mDept = s;
-		}
+		this.mDept = checkNull(s);
 	}
 	
 	public void setMajor(String s) {
-		if (!s.equals("null"))
-			this.mMajor = s;
+		this.mMajor = checkNull(s);
 	}
 	
 	public void setAdYear(String s){
-		if (!s.equals("null")){
-			this.mAdYear = s;
-		}
+		this.mAdYear = s;
 	}
 	
 	public void setGradYear(String s){
-		if (!s.equals("null")){
-			this.mGradYear = s;
-		}
+		this.mGradYear = checkNull(s);
 	}
 
 	public void setCompany(String s) {
-		if (!s.equals("null"))
-			this.mCompany = s;
+		this.mCompany = checkNull(s);
 	}
 
 	public void setPosition(String s) {
-		if (!s.equals("null"))
-			this.mPosition = s;
+		this.mPosition = checkNull(s);
 	}
 
 	public boolean isSchool() {
@@ -200,23 +205,30 @@ public class ProfileModel implements Serializable{
 	}
 	
 	public void setBirthday(String s){
-		this.mBirthday = s;
+		this.mBirthday = checkNull(s);
 	}
 	
 	public void setBirthplace(String s){
-		this.mBirthplace = s;
+		this.mBirthplace = checkNull(s);
 	}
 	
 	public void setNation(String s){
-		this.mNation = s;
+		this.mNation = checkNull(s);
 	}
 	
 	public void setDesc(String s){
-		this.mDesc = s;
+		this.mDesc = checkNull(s);
 	}
 	
 	public String toString(){
 		return this.mName;
 	}
-	
+	private String checkNull(String s)
+	{
+		if(s != null && s.length() != 0 && !s.contains("null")){
+			return s;
+		}else{
+			return "未知";
+		}
+	}
 }

@@ -67,7 +67,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	private void doLogin(){
 		if(!this.checkValue()) return;
 		
-		HashMap<String, String> paramMap = new HashMap<String, String>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("name", nameView.getText());
 		paramMap.put("password", passwordView.getText());
 		

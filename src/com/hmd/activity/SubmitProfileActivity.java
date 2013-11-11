@@ -124,7 +124,7 @@ public class SubmitProfileActivity extends BaseActivity implements OnClickListen
 	private void submitAction(){
 		if (!checkValue()) return;
 		
-		HashMap<String, String> paramMap = new HashMap<String, String>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		if (idTypeSpinner.getSelectedItemPosition() == 0){
 			paramMap.put("stuNo", idTextView.getText().trim());
 		} else {

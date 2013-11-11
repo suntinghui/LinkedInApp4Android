@@ -1,0 +1,326 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <RelativeLayout
+        android:id="@+id/topLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/topbarBg"
+        android:padding="5dip" >
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="15dip"
+            android:background="@drawable/img_btn_topbar_left_arrow" />
+
+        <TextView
+            android:id="@+id/titleView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="新增个人履历"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dip"
+            android:background="@drawable/img_login_completed" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/topLayout"
+        android:layout_margin="5dip" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_bg_s"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dip"
+                    android:paddingLeft="10dip"
+                    android:paddingTop="10dip" >
+
+                    <ImageView
+                        android:id="@+id/image_head"
+                        android:layout_width="80dip"
+                        android:layout_height="80dip"
+                        android:src="@drawable/img_card_head_portrait" />
+
+                    <Button
+                        android:id="@+id/btn_pick"
+                        android:layout_width="120dip"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/image_head"
+                        android:layout_marginBottom="5dip"
+                        android:layout_marginLeft="20dip"
+                        android:layout_toRightOf="@id/image_head"
+                        android:background="@drawable/edittext_bg_s"
+                        android:padding="3dip"
+                        android:text="从相册中选取头像" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dip"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="身份" />
+
+                    <EditText
+                        android:id="@+id/et_title"
+                        style="@style/black_15"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dip"
+                        android:layout_marginLeft="35dip"
+                        android:background="@drawable/edittext_bg"
+                        android:hint="请输入身份"
+                        android:paddingBottom="3dip"
+                        android:paddingLeft="3dip"
+                        android:paddingTop="3dip" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dip"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="描述" />
+
+                    <EditText
+                        android:id="@+id/et_desc"
+                        style="@style/black_15"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dip"
+                        android:layout_marginLeft="35dip"
+                        android:background="@drawable/edittext_bg"
+                        android:hint="请输入描述信息"
+                        android:paddingBottom="3dip"
+                        android:paddingLeft="3dip"
+                        android:paddingTop="3dip" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dip"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="组织" />
+
+                    <EditText
+                        android:id="@+id/et_org"
+                        style="@style/black_15"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dip"
+                        android:layout_marginLeft="35dip"
+                        android:background="@drawable/edittext_bg"
+                        android:hint="请输入组织名称"
+                        android:paddingBottom="3dip"
+                        android:paddingLeft="3dip"
+                        android:paddingTop="3dip" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dip"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="省份" />
+
+                    <EditText
+                        android:id="@+id/et_province"
+                        style="@style/black_15"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dip"
+                        android:layout_marginLeft="35dip"
+                        android:background="@drawable/edittext_bg"
+                        android:hint="请输入省份"
+                        android:paddingBottom="3dip"
+                        android:paddingLeft="3dip"
+                        android:paddingTop="3dip" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dip"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="城市" />
+
+                    <EditText
+                        android:id="@+id/et_city"
+                        style="@style/black_15"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dip"
+                        android:layout_marginLeft="35dip"
+                        android:background="@drawable/edittext_bg"
+                        android:hint="请输入城市名称"
+                        android:paddingBottom="3dip"
+                        android:paddingLeft="3dip"
+                        android:paddingTop="3dip" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="?android:attr/listDivider" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dip"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="开始时间" />
+                    <!-- 开始时间 -->
+
+                    <TextView
+                        android:id="@+id/tv_stime"
+                        style="@style/black_15"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dip"
+                        android:layout_marginLeft="35dip"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:paddingBottom="3dip"
+                        android:paddingLeft="3dip"
+                        android:paddingTop="3dip" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="?android:attr/listDivider" />
+
+               <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dip"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="10dip"
+                    android:layout_marginTop="10dip"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="70dip"
+                        android:layout_height="wrap_content"
+                        android:gravity="right"
+                        android:text="结束时间" />
+                    <!-- 结束时间 -->
+
+                    <TextView
+                        android:id="@+id/tv_etime"
+                        style="@style/black_15"
+                        android:layout_width="fill_parent"
+                        android:layout_height="30dip"
+                        android:layout_marginLeft="35dip"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittext_bg"
+                        android:paddingBottom="3dip"
+                        android:paddingLeft="3dip"
+                        android:paddingTop="3dip" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

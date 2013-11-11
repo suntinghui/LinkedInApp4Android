@@ -1,10 +1,17 @@
 package com.hmd.model;
 
+import java.io.Serializable;
+
 /*
  * 表示一条履历数据
  */
 
-public class TimelineModel {
+public class TimelineModel implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	public TimelineModel() {
 	}
@@ -28,7 +35,6 @@ public class TimelineModel {
 	private String mCompany = null;
 	private String mPosition = null;
 
-	private String mEndorsedAs = null;
 	private String mOrg = null;
 
 	private String mImgUrl = null;
@@ -89,10 +95,6 @@ public class TimelineModel {
 		return this.mPosition;
 	}
 
-	public String getEndorsedAs() {
-		return this.mEndorsedAs;
-	}
-
 	public String getImgUrl() {
 		return this.mImgUrl;
 	}
@@ -142,10 +144,6 @@ public class TimelineModel {
 
 	public void setPosition(String s) {
 		this.mPosition = s;
-	}
-
-	public void setEndorsedAs(String s) {
-		this.mEndorsedAs = s;
 	}
 
 	public void setImgUrl(String s) {

@@ -113,7 +113,6 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		profileModel = new ProfileModel();
 		
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
-		queue.addHttpRequest(getProfileRequest());
 		queue.addHttpRequest(getCollegeInfo());
 		queue.addHttpRequest(getLastestAnnouncement());
 		queue.addHttpRequest(getActiveTypeList());
@@ -124,17 +123,6 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		this.getSchoolWeibo();
 	}
 	
-	// 查看个人基本信息
-	private LKHttpRequest getProfileRequest(){
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_PROFILE_BASIC, null, new LKAsyncHttpResponseHandler() {
-			@Override
-			public void successAction(Object obj) {
-				profileModel = (ProfileModel) obj;
-			}
-		}, "me");
-		
-		return request;
-	}
 	
 	// 获取母校信息
 	private LKHttpRequest getCollegeInfo(){
@@ -152,7 +140,7 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 	
 	// 获取最新一条公告
 	private LKHttpRequest getLastestAnnouncement(){
-		HashMap<String, String> paramMap = new HashMap<String, String>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", "1");
 		paramMap.put("num", "1");
 		paramMap.put("previewLen", "200"); //预览长度，即取正文内容前几个字符，范围[0,200]，0为关闭预览
@@ -194,7 +182,7 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 	
 	// 取得活动列表
 	private LKHttpRequest getActiveList(){
-		HashMap<String, String> paramMap = new HashMap<String, String>();
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", "1");
 		paramMap.put("num", "2");
 		paramMap.put("typeID", "0"); // 类型ID，用于返回特定类型的活动，0表示不限类型
@@ -287,7 +275,6 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 	private void TransformToProfileScreen(){
 		
 		Intent intent = new Intent(SchoolActivity.this, ProfileActivity.class);  
-		intent.putExtra("PROFILE", profileModel);
 		intent.putExtra("IDENTITY", "me");
 		startActivity(intent);  
 	}

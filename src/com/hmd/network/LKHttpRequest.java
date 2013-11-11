@@ -1,13 +1,16 @@
 package com.hmd.network;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
@@ -21,14 +24,16 @@ import com.hmd.activity.BaseActivity;
 import com.hmd.client.ApplicationEnvironment;
 import com.hmd.client.Constants;
 import com.hmd.model.HttpRequestModel;
+import com.hmd.util.UnicodeUtil;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.RequestParams;
 
 public class LKHttpRequest {
 	
 	private int tag;
 	private String requestId;
 	private String[] httpRequestParms;
-	private HashMap<String, String> requestDataMap;
+	private HashMap<String, Object> requestDataMap;
 	private LKAsyncHttpResponseHandler responseHandler;
 	private AsyncHttpClient client;
 	private LKHttpRequestQueue queue;
@@ -36,10 +41,10 @@ public class LKHttpRequest {
 	
 	private static ArrayList<HttpRequestModel> httpRequestTypeList = null;
 	
-	public LKHttpRequest(String requestId, HashMap<String, String> requestDataMap, LKAsyncHttpResponseHandler handler,String... params){
+	public LKHttpRequest(String requestId, HashMap<String, Object> requestDataMap, LKAsyncHttpResponseHandler handler,String... params){
 		this.requestId = requestId;
 		this.httpRequestParms = params;
-		this.requestDataMap = (requestDataMap==null?new HashMap<String, String>():requestDataMap);
+		this.requestDataMap = (requestDataMap==null?new HashMap<String, Object>():requestDataMap);
 		this.responseHandler = handler;
 		this.httpRequestModel = getHttpRequestModel(requestId);
 		client = new AsyncHttpClient();
@@ -86,7 +91,7 @@ public class LKHttpRequest {
 		this.queue = queue;
 	}
 	
-	public HashMap<String, String> getRequestDataMap() {
+	public HashMap<String, Object> getRequestDataMap() {
 		return requestDataMap;
 	}
 	
@@ -101,13 +106,16 @@ public class LKHttpRequest {
 	public void send(){
 		if (this.httpRequestModel.getMethod().equalsIgnoreCase("POST")){ // POST
 			this.client.post(ApplicationEnvironment.getInstance().getApplication(), this.getRequestURL(), this.getHttpPostEntity(this.requestDataMap), this.httpRequestModel.getContentType(), this.responseHandler);
+			//this.client.post(ApplicationEnvironment.getInstance().getApplication(), this.getRequestURL(), getRequestParams(this.requestDataMap).getEntity(), this.httpRequestModel.getContentType(), this.responseHandler);
 			
+			//this.client.addHeader("Content-Type", this.httpRequestModel.getContentType());
+			//this.client.post(this.getRequestURL(), getRequestParams(this.requestDataMap), this.responseHandler);
 		} else { // GET
 			this.client.get(ApplicationEnvironment.getInstance().getApplication(), this.getHttpGetEntity(this.requestDataMap), this.responseHandler);
 		}
 	}
 	
-	private String getHttpGetEntity(HashMap<String, String> map){
+	private String getHttpGetEntity(HashMap<String, Object> map){
 		StringBuffer requestURL = new StringBuffer(this.getRequestURL());
 		requestURL.append("&");
 		for (String key : map.keySet()){
@@ -120,7 +128,7 @@ public class LKHttpRequest {
 		return requestURL.toString();
 	}
 	
-	private HttpEntity getHttpPostEntity(HashMap<String, String> map){
+	private HttpEntity getHttpPostEntity(HashMap<String, Object> map){
 		try{
 			JSONObject jsonObject = new JSONObject();
 			for (String key : map.keySet()) {
@@ -128,8 +136,7 @@ public class LKHttpRequest {
 			}
 			
 			Log.e("request body:", jsonObject.toString());
-			
-			return new StringEntity(jsonObject.toString());
+			return new StringEntity(jsonObject.toString(),HTTP.UTF_8);
 			
 		} catch(JSONException e){
 			e.printStackTrace();
@@ -140,6 +147,26 @@ public class LKHttpRequest {
 		return null;
 	}
 	
+	private RequestParams getRequestParams(HashMap<String, Object> map){
+		RequestParams params = new RequestParams();
+		try{
+			for (String key : map.keySet()){
+				Object obj = map.get(key);
+				if (obj instanceof String){
+					params.put(key, (String)obj);
+					
+				} else if (obj instanceof File){
+					params.put(key, (File)obj);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		//Log.e("request body:", params.getEntity().toString());
+		
+		return params;
+	}
 	
 	private HttpRequestModel getHttpRequestModel(String requstId){
 		if (null == httpRequestTypeList) {
@@ -181,7 +208,9 @@ public class LKHttpRequest {
 	                        model.setUrl(parser.nextText());  
 	                    }else if("method".equals(parser.getName())){  
 	                        model.setMethod(parser.nextText());  
-	                    } 
+	                    }else if("contentType".equals(parser.getName())){
+	                    	model.setContentType(parser.nextText());
+	                    }
 	                }  
 	                break;
 	                

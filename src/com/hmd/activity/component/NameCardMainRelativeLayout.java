@@ -1,6 +1,9 @@
 package com.hmd.activity.component;
 
+import java.util.ArrayList;
+
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.activity.AnnouncementListActivity;
+import com.hmd.activity.BaseActivity;
+import com.hmd.activity.LoginActivity;
+import com.hmd.activity.PersonInfoModifyActivity;
+import com.hmd.activity.SubmitProfileActivity;
+import com.hmd.model.AnnouncementModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.util.ImageUtil;
 
@@ -17,6 +26,8 @@ public class NameCardMainRelativeLayout extends RelativeLayout {
 	private Context mContext = null;
 	
 	private ProfileModel data = null;
+	private RelativeLayout topLayout = null;
+	public String mIdentity = "he";// 个人还是他人
 	
 	public NameCardMainRelativeLayout(Context context){
 		super(context);
@@ -55,16 +66,16 @@ public class NameCardMainRelativeLayout extends RelativeLayout {
 		
 		this.setVisibility(View.VISIBLE);
 		
+		topLayout = (RelativeLayout)this.findViewById(R.id.topLayout);
+		topLayout.setOnClickListener(listener);
 		TextView tvName = (TextView)this.findViewById(R.id.tv_name_card_main_name);
-		TextView tvCity = (TextView)this.findViewById(R.id.tv_name_card_main_city);
-		TextView tvDistrict = (TextView)this.findViewById(R.id.tv_name_card_main_district);
+		TextView tvGender = (TextView)this.findViewById(R.id.tv_name_card_main_gender);
 		TextView tvBrief1 = (TextView)this.findViewById(R.id.tv_name_card_main_brief1);
 		TextView tvBrief2 = (TextView)this.findViewById(R.id.tv_name_card_main_brief2);
 		ImageView photoImageView = (ImageView) this.findViewById(R.id.iv_name_card_main_photo);
 		
 		tvName.setText(this.data.getName());
-		tvCity.setText(this.data.getCity());
-		tvDistrict.setText(this.data.getDistrict());
+		tvGender.setText(this.data.getGender() == 1? "男":"女");
 		
 		if(this.data.isSchool()){
 			tvBrief1.setText(this.data.getSchool());
@@ -74,7 +85,22 @@ public class NameCardMainRelativeLayout extends RelativeLayout {
 			tvBrief2.setText(this.data.getPosition());
 		}
 		
-		ImageUtil.loadImage(R.drawable.img_card_head_portrait, ImageUtil.getTestImageURL(), photoImageView);
+		ImageUtil.loadImage(R.drawable.img_card_head_portrait, this.data.getPic(), photoImageView);
 	}
 
+	private OnClickListener listener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			if(arg0.getId() == R.id.topLayout){
+				if(mIdentity.equals("me")){
+					Intent intent = new Intent(BaseActivity.getTopActivity(), PersonInfoModifyActivity.class);
+					intent.putExtra("MODEL", data);
+					((BaseActivity) NameCardMainRelativeLayout.this.mContext).startActivityForResult(intent,5);
+				}
+				
+			}
+			
+		}
+	};
 }

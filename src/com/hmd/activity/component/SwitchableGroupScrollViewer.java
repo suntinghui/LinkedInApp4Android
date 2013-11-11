@@ -22,17 +22,18 @@ import com.hmd.activity.MyAttentionsActivity;
 import com.hmd.activity.SuggestPeopleActivity;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
+import com.hmd.model.GroupModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 
-public class SwitchableScrollViewer extends ScrollView {
+public class SwitchableGroupScrollViewer extends ScrollView {
 
 	private TextView tvTitle = null;
 	
-	private ArrayList<ProfileModel> entries = null;
+	private ArrayList<GroupModel> entries = null;
 	private Context mContext = null;
 	private boolean isList = true;
 //	private ImageButton btnList = null;
@@ -45,9 +46,9 @@ public class SwitchableScrollViewer extends ScrollView {
 	private String mNum = Constants.PAGESIZE + "";
 	private int totalPage = 0;
 	private int currentPage = 0;
-	private ArrayList<ProfileModel> list = new ArrayList<ProfileModel>();
+	private ArrayList<GroupModel> list = new ArrayList<GroupModel>();
 	
-	public SwitchableScrollViewer(Context context){
+	public SwitchableGroupScrollViewer(Context context){
 		super(context);
 		this.mContext = context;
 	}
@@ -63,14 +64,14 @@ public class SwitchableScrollViewer extends ScrollView {
 		this.btnAllGroup.setVisibility(View.VISIBLE);
 	}
 	
-	public SwitchableScrollViewer(Context context, AttributeSet attrs) {
+	public SwitchableGroupScrollViewer(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		this.mContext = context;
 		
 		this.init();
 	}
 	
-	public SwitchableScrollViewer(Context context, ArrayList<ProfileModel> e, String title) {
+	public SwitchableGroupScrollViewer(Context context, ArrayList<GroupModel> e, String title) {
 		super(context);
 
 		this.mContext = context;
@@ -80,7 +81,7 @@ public class SwitchableScrollViewer extends ScrollView {
 		this.init();
 	}
 	
-	public SwitchableScrollViewer(Context context, ArrayList<ProfileModel> e, String title, Boolean hasMore, Boolean hasSwitch) {
+	public SwitchableGroupScrollViewer(Context context, ArrayList<GroupModel> e, String title, Boolean hasMore, Boolean hasSwitch) {
 		super(context);
 
 		this.mContext = context;
@@ -101,7 +102,7 @@ public class SwitchableScrollViewer extends ScrollView {
 		
 		btnMore = (Button)this.findViewById(R.id.btn_layout_more);
 		btnMore.setOnClickListener(this.onSwitchView);
-		btnMore.setVisibility(mHasMoreButton ? View.VISIBLE:View.GONE);
+//		btnMore.setVisibility(mHasMoreButton ? View.VISIBLE:View.GONE);
 		
 		btnAllGroup = (Button)this.findViewById(R.id.btn_layout_all_group);
 		btnAllGroup.setOnClickListener(this.onSwitchView);
@@ -136,13 +137,13 @@ public class SwitchableScrollViewer extends ScrollView {
 		svContent.removeAllViews();
 		
 		if(this.isList){
-			NameCardListLinearLayout glNameCards = new NameCardListLinearLayout(this.mContext, this.entries);
+			NameCardListGroupLinearLayout glNameCards = new NameCardListGroupLinearLayout(this.mContext, this.entries);
 			svContent.addView(glNameCards);
 //			this.btnList.setBackgroundResource(R.drawable.img_card_list_two);
 
 		}else{
-			NameCardListTableLayout glNameCards = new NameCardListTableLayout(this.mContext, this.entries);
-			svContent.addView(glNameCards);
+//			NameCardListTableLayout glNameCards = new NameCardListGroupLinearLayout(this.mContext, this.entries);
+//			svContent.addView(glNameCards);
 //			this.btnList.setBackgroundResource(R.drawable.img_card_list_one);
 		}
 	}
@@ -162,15 +163,13 @@ public class SwitchableScrollViewer extends ScrollView {
 //				refreshContent();
 //				break;
 			case R.id.btn_layout_more:
-				if(mTitle.equals("个人关注")){
-					getMoreMyAttentionData();
-				}else{
-					getMoreFansData();
-				}
+				
+				getMoreMyGroupData();
 				break;
 			case R.id.btn_layout_all_group:
-				Intent intent = new Intent(SwitchableScrollViewer.this.mContext, AllGroupActivity.class);
-				((BaseActivity) SwitchableScrollViewer.this.mContext).startActivityForResult(intent,5);
+				Intent intent = new Intent(SwitchableGroupScrollViewer.this.mContext, AllGroupActivity.class);
+				((BaseActivity) SwitchableGroupScrollViewer.this.mContext).startActivityForResult(intent,5);
+				
 				break;
 			default:
 				break;
@@ -179,79 +178,14 @@ public class SwitchableScrollViewer extends ScrollView {
 		}
 	};
 	
-	private void getMoreMyAttentionData(){
-		LKHttpRequestQueue queue = new LKHttpRequestQueue();
-		queue.addHttpRequest(getMyAttentionsRequest());
-		
-		queue.executeQueue("正在获取更多...", new LKHttpRequestQueueDone());
-		
-	}
-	
-	private void getMoreFansData(){
-		LKHttpRequestQueue queue = new LKHttpRequestQueue();
-		queue.addHttpRequest(getFansRequest());
-		
-		queue.executeQueue("正在获取更多...", new LKHttpRequestQueueDone());
+	private void getMoreMyGroupData(){
+		Intent intent = new Intent(SwitchableGroupScrollViewer.this.mContext, AllGroupActivity.class);
+		intent.putExtra("ISALL", false);
+		((BaseActivity) SwitchableGroupScrollViewer.this.mContext).startActivityForResult(intent,5);
 		
 	}
-	// 查看我关注的人
-	private LKHttpRequest getMyAttentionsRequest(){
-		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("page", mPage);
-		paramMap.put("num", mNum);
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
-			@SuppressWarnings("unchecked")
-			@Override
-			public void successAction(Object obj) {
-				ArrayList<ProfileModel> tmpList = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
-				list = tmpList;
-				
-				if(list == null || list.size() == 0){
-					
-				}else{
-					Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-					Intent intent = new Intent(SwitchableScrollViewer.this.mContext, MyAttentionsActivity.class);  
-					intent.putExtra("PROFILEMODELLIST", list);
-					intent.putExtra("TITLE", "个人关注");
-					intent.putExtra("TOTAL", total);
-					SwitchableScrollViewer.this.mContext.startActivity(intent);
-					
-				}
-				
-			}
-		});
 		
-		return request;
-	}
-	
-	// 查看关注我的人
-	private LKHttpRequest getFansRequest(){
-		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("page", mPage);
-		paramMap.put("num", mNum);
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_FUNS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
-			@SuppressWarnings("unchecked")
-			@Override
-			public void successAction(Object obj) {
-				ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
-				Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-				if(list == null || list.size() == 0){
-					
-				}else{
-					Intent intent = new Intent(SwitchableScrollViewer.this.mContext, MyAttentionsActivity.class);  
-					intent.putExtra("PROFILEMODELLIST", list);
-					intent.putExtra("TITLE", "关注我的人");
-					intent.putExtra("TOTAL", total);
-					SwitchableScrollViewer.this.mContext.startActivity(intent);
-				}
-				
-			}
-		});
-		
-		return request;
-	}
-		
-	public void refresh(ArrayList<ProfileModel> entries) {
+	public void refresh(ArrayList<GroupModel> entries) {
 		this.setVisibility(View.VISIBLE);
 		
 		this.entries = entries;

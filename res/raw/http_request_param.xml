@@ -57,7 +57,7 @@
         <requestId>PROFILE_UPDATE</requestId>
         <url>/profile/me/update</url>
         <method>POST</method>
-        <contentType>multipart/form-data</contentType>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 查看时间轴 -->
@@ -73,7 +73,7 @@
         <requestId>TIMELINE_NODE_CREATE</requestId>
         <url>/timeline/me/node/create</url>
         <method>POST</method>
-        <contentType>multipart/form-data</contentType>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 更新时间轴结点 -->
@@ -81,7 +81,7 @@
         <requestId>TIMELINE_NODE_UPDATE</requestId>
         <url>/timeline/me/node/update</url>
         <method>POST</method>
-        <contentType>multipart/form-data</contentType>
+        <contentType>application/json</contentType>
     </request>
     
     <!-- 删除时间轴结点 -->
@@ -128,7 +128,7 @@
     <request>
         <requestId>FRIENDS_UNFOLLOW</requestId>
         <url>/friends/${id}/unfollow</url>
-        <method>GET</method>
+        <method>POST</method>
         <contentType>application/json</contentType>
     </request>
     
@@ -249,6 +249,46 @@
         <requestId>COLLEGE_ALUCARD_STATUS</requestId>
         <url>/college/alucard/status</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 查看所有圈子列表 -->
+    <request>
+        <requestId>ALL_GROUP_LIST</requestId>
+        <url>/group/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 查看我的圈子列表 -->
+    <request>
+        <requestId>GROUP_ME_LIST</requestId>
+        <url>/group/me/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 查看圈子成员 -->
+    <request>
+        <requestId>PARTICIPANT_LIST</requestId>
+        <url>/group/${id}/participant/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 加入圈子 -->
+    <request>
+        <requestId>GROUP_JOIN</requestId>
+        <url>/group/${id}/join</url>
+        <method>POST</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 退出圈子 -->
+    <request>
+        <requestId>GROUP_QUIT</requestId>
+        <url>/group/${id}/quit</url>
+        <method>POST</method>
         <contentType>application/json</contentType>
     </request>
     

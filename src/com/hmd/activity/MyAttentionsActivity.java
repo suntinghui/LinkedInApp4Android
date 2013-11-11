@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hmd.R;
 import com.hmd.activity.component.SwitchableAttentionScrollViewer;
@@ -40,6 +41,8 @@ public class MyAttentionsActivity extends BaseActivity implements OnClickListene
 		Intent intent = this.getIntent();
 		entries = (ArrayList<ProfileModel>) intent.getSerializableExtra("PROFILEMODELLIST");
 		mTitle = (String) intent.getStringExtra("TITLE");
+		TextView tv_title = (TextView)this.findViewById(R.id.titleView);
+		tv_title.setText(mTitle != null ? mTitle:"相关推荐人");
 		String idExtra = (String) intent.getStringExtra("ID");
 		int count = intent.getIntExtra("TOTAL", 0);
 		SwitchableAttentionScrollViewer svSuggestList = new SwitchableAttentionScrollViewer(this, this.entries, mTitle!=null ? mTitle:"相关推荐", idExtra, count);
