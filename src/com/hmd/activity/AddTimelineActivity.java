@@ -54,7 +54,7 @@ import com.hmd.util.PatternUtil;
 import com.hmd.view.LKAlertDialog;
 
 public class AddTimelineActivity extends BaseActivity {
-    //test 11/10 
+    //test 11/19
 	private String afterId = null;
 	private final String IMAGE_TYPE = "image/*";
 	private final int IMAGE_CODE = 0;   //这里的IMAGE_CODE是自己任意定义的
