@@ -93,7 +93,7 @@ public class AllGroupActivity extends BaseActivity implements OnClickListener {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", ++currentPage +"");
 		paramMap.put("num", Constants.PAGESIZE);
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_ALL_GROUP_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_GROUP_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {

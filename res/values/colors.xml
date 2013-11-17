@@ -9,4 +9,5 @@
     <color name="dateBlue">#344fa1</color>
     <color name="titleGreen">#008ccf</color>
     <color name="white">#ffffff</color>
+    <color name="gray">#808080</color>
 </resources>

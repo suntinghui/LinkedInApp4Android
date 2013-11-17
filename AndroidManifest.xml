@@ -61,6 +61,8 @@
         <activity android:name=".activity.AddTimelineActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.AllGroupActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.MeberOfGroupActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+        <activity android:name=".activity.CircleActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+        <activity android:name=".activity.CreateCircleActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         
         
         <!-- BaiduMobAd STAT -->

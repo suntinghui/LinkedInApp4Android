@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.hmd.R;
 import com.hmd.activity.AllGroupActivity;
 import com.hmd.activity.BaseActivity;
+import com.hmd.activity.CircleActivity;
 import com.hmd.activity.MyAttentionsActivity;
 import com.hmd.activity.SuggestPeopleActivity;
 import com.hmd.client.Constants;
@@ -167,7 +168,7 @@ public class SwitchableGroupScrollViewer extends ScrollView {
 				getMoreMyGroupData();
 				break;
 			case R.id.btn_layout_all_group:
-				Intent intent = new Intent(SwitchableGroupScrollViewer.this.mContext, AllGroupActivity.class);
+				Intent intent = new Intent(SwitchableGroupScrollViewer.this.mContext, CircleActivity.class);
 				((BaseActivity) SwitchableGroupScrollViewer.this.mContext).startActivityForResult(intent,5);
 				
 				break;

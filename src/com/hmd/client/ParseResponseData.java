@@ -100,10 +100,13 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_ME_LIST)) {
 			return getGroupMeList(jsonObject);
 			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_MY_LIST)) {
+			return getGroupMyList(jsonObject);
+			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PARTICIPANT_LIST)) {
 			return getParticipantList(jsonObject);
 			
-		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_ALL_GROUP_LIST)) {
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_LIST)) {
 			return getAllGroupList(jsonObject);
 			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_JOIN)) {
@@ -450,8 +453,37 @@ public class ParseResponseData {
 		return errorCode;
 	}
 	
-	//我的圈子列表
+	//查看我加入的圈子列表
 	private static Object getGroupMeList(JSONObject jsonObject){
+		ArrayList<GroupModel> modelList = new ArrayList<GroupModel>();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String total = jsonObject.optString("total", "0");
+		map.put("total", total);
+		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0){
+			for (int i=0; i<jsonArray.length(); i++){
+				GroupModel model = new GroupModel();
+				
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				model.setId(obj.optString("id", ""));
+				model.setName(obj.optString("name", ""));
+				model.setDesc(obj.optString("desc", ""));
+				model.setCreateTime(obj.optString("createTime", ""));
+				
+				modelList.add(model);
+			}
+			map.put("list", modelList);
+			return map;
+			
+		}
+		
+		return null;
+	}
+	
+	//查看我创建的圈子列表
+	private static Object getGroupMyList(JSONObject jsonObject){
 		ArrayList<GroupModel> modelList = new ArrayList<GroupModel>();
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();

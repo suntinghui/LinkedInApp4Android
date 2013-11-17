@@ -252,18 +252,26 @@
         <contentType>application/json</contentType>
     </request>
     
-    <!-- 查看所有圈子列表 -->
+    <!-- 查看推荐的圈子列表 -->
     <request>
-        <requestId>ALL_GROUP_LIST</requestId>
+        <requestId>GROUP_LIST</requestId>
         <url>/group/list</url>
         <method>GET</method>
         <contentType>application/json</contentType>
     </request>
     
-    <!-- 查看我的圈子列表 -->
+    <!-- 查看我加入的圈子列表 -->
     <request>
         <requestId>GROUP_ME_LIST</requestId>
         <url>/group/me/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 查看我创建的圈子列表 -->
+    <request>
+        <requestId>GROUP_MY_LIST</requestId>
+        <url>/group/my/list</url>
         <method>GET</method>
         <contentType>application/json</contentType>
     </request>

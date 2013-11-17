@@ -9,6 +9,10 @@ public class Constants {
 	public static final String CLIENT_ID						= "2"; //1、网站 2、Android 3、IOS 
 	public static String SESSION_ID								= "-1"; // sessionId
 	
+	public static int GROUP_MY 									= 0;//我的圈子
+	public static int GROUP_SYS 								= 1;//系统圈子
+	public static int GROUP_SEARCH								= 2;//搜索圈子
+	
 	
 	// 测试数据
 	public static final String WEIBO_TIMELINE_SCREENNAME		= "首都师范大学招生";
