@@ -43,7 +43,7 @@ public class NameCardGroupRelativeLayout extends RelativeLayout {
 		this.context = context;
 		this.data = d;
 		
-        LayoutInflater.from(context).inflate(R.layout.list_item_my_group, this, true); 
+        LayoutInflater.from(context).inflate(R.layout.listview_item_my_group, this, true); 
         
         this.init();
 	}
@@ -116,7 +116,7 @@ public class NameCardGroupRelativeLayout extends RelativeLayout {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", "1");
 		paramMap.put("num", Constants.PAGESIZE+"");
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_PARTICIPANT_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_GROUP_PARTICIPANT_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {

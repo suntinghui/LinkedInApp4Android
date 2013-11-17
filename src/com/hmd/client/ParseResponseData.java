@@ -100,10 +100,10 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_ME_LIST)) {
 			return getGroupMeList(jsonObject);
 			
-		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PARTICIPANT_LIST)) {
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_PARTICIPANT_LIST)) {
 			return getParticipantList(jsonObject);
 			
-		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_ALL_GROUP_LIST)) {
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_ALL_LIST)) {
 			return getAllGroupList(jsonObject);
 			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_JOIN)) {

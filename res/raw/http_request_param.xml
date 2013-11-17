@@ -252,7 +252,7 @@
         <contentType>application/json</contentType>
     </request>
     
-    <!-- 查看所有圈子列表 -->
+    <!-- 查看系统推荐的圈子列表 -->
     <request>
         <requestId>ALL_GROUP_LIST</requestId>
         <url>/group/list</url>
@@ -288,6 +288,22 @@
     <request>
         <requestId>GROUP_QUIT</requestId>
         <url>/group/${id}/quit</url>
+        <method>POST</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 获取圈子发言列表 -->
+    <request>
+        <requestId>GROUP_COMMENT_LIT</requestId>
+        <url>/group/${id}/comment/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 圈子中发言 -->
+    <request>
+        <requestId>GROUP_COMMENT_CREATE</requestId>
+        <url>/group/${id}/comment/create</url>
         <method>POST</method>
         <contentType>application/json</contentType>
     </request>

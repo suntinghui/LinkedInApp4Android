@@ -181,7 +181,7 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", ++currentPage+"");
 		paramMap.put("num", mNum);
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_PARTICIPANT_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_GROUP_PARTICIPANT_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {

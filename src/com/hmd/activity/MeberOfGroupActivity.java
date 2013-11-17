@@ -82,7 +82,7 @@ public class MeberOfGroupActivity extends BaseActivity implements OnClickListene
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", ++currentPage+"");
 		paramMap.put("num", Constants.PAGESIZE+"");
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_PARTICIPANT_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_GROUP_PARTICIPANT_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
@@ -148,7 +148,7 @@ public class MeberOfGroupActivity extends BaseActivity implements OnClickListene
 			if (null == convertView){
 				holder = new MemberViewHolder();
 				
-				convertView = mInflater.inflate(R.layout.list_item_group_member, null);
+				convertView = mInflater.inflate(R.layout.listview_item_group_member, null);
 				
 				holder.contentLayout = (RelativeLayout) convertView.findViewById(R.id.contentLayout);
 				holder.moreLayout = (RelativeLayout) convertView.findViewById(R.id.moreLayout);
