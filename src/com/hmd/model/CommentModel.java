@@ -1,6 +1,10 @@
 package com.hmd.model;
 
-public class CommentModel {
+import java.io.Serializable;
+
+public class CommentModel implements Serializable {
+
+	private static final long serialVersionUID = -2501441005917099605L;
 
 	private String id;
 	private String content;
