@@ -11,8 +11,8 @@ import java.util.HashMap;
  */
 public class GroupModel implements Serializable{
 
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = -8443539917708958943L;
+	
 	private String id;
 	private String name;
 	private String desc;

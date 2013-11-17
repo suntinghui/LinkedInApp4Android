@@ -77,10 +77,10 @@ public class CircleActivity extends BaseActivity implements OnClickListener {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				// Intent intent = new Intent(AllGroupActivity.this,
-				// MeberOfGroupActivity.class);
-				// intent.putExtra("MODEL", array.get(arg2));
-				// AllGroupActivity.this.startActivity(intent);
+				 Intent intent = new Intent(CircleActivity.this,
+				 MeberOfGroupActivity.class);
+				 intent.putExtra("MODEL", array.get(arg2));
+				 CircleActivity.this.startActivity(intent);
 			}
 
 		});

@@ -178,7 +178,7 @@ public class AllGroupActivity extends BaseActivity implements OnClickListener {
 			if (null == convertView){
 				holder = new GroupViewHolder();
 				
-				convertView = mInflater.inflate(R.layout.list_item_all_group, null);
+				convertView = mInflater.inflate(R.layout.listview_item_all_group, null);
 				
 				holder.contentLayout = (LinearLayout) convertView.findViewById(R.id.contentLayout);
 				holder.moreLayout = (RelativeLayout) convertView.findViewById(R.id.moreLayout);

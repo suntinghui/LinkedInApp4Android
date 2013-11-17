@@ -19,7 +19,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="15dip"
             android:layout_centerVertical="true"
-            android:background="@drawable/img_list_normal" />
+            android:background="@drawable/img_btn_topbar_left_arrow" />
 
         <TextView
             android:id="@+id/titleView"

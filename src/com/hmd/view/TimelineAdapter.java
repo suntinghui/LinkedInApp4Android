@@ -95,7 +95,7 @@ public class TimelineAdapter extends BaseAdapter {
 		WeiboItemHolder holder = null;
 		if (itemView == null) {
 			holder = new WeiboItemHolder();
-			itemView = LayoutInflater.from(BaseActivity.getTopActivity()).inflate(R.layout.listtview_item_weibo, null);
+			itemView = LayoutInflater.from(BaseActivity.getTopActivity()).inflate(R.layout.listview_item_weibo, null);
 			
 			holder.iv_weiboitem_head = (ImageView) itemView.findViewById(R.id.iv_weiboitem_head);
 			holder.iv_weiboitem_gender = (ImageView) itemView.findViewById(R.id.iv_weiboitem_gender);
