@@ -78,8 +78,8 @@ public class CircleActivity extends BaseActivity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				 Intent intent = new Intent(CircleActivity.this,
-				 MeberOfGroupActivity.class);
-				 intent.putExtra("MODEL", array.get(arg2));
+				 GroupDetailActivity.class);
+				 intent.putExtra("model", array.get(arg2));
 				 CircleActivity.this.startActivity(intent);
 			}
 
@@ -334,6 +334,7 @@ public class CircleActivity extends BaseActivity implements OnClickListener {
 			btn_1.setBackgroundResource(R.drawable.btn_group_s);
 			btn_2.setBackgroundResource(R.drawable.btn_group_n);
 			btn_3.setBackgroundResource(R.drawable.btn_group_n);
+			adapter.notifyDataSetChanged();
 			refresh();
 			break;
 		case R.id.btn_2:
@@ -343,6 +344,7 @@ public class CircleActivity extends BaseActivity implements OnClickListener {
 			btn_2.setBackgroundResource(R.drawable.btn_group_s);
 			btn_1.setBackgroundResource(R.drawable.btn_group_n);
 			btn_3.setBackgroundResource(R.drawable.btn_group_n);
+			adapter.notifyDataSetChanged();
 			refresh();
 			break;
 		case R.id.btn_3:
@@ -352,6 +354,7 @@ public class CircleActivity extends BaseActivity implements OnClickListener {
 			btn_3.setBackgroundResource(R.drawable.btn_group_s);
 			btn_2.setBackgroundResource(R.drawable.btn_group_n);
 			btn_1.setBackgroundResource(R.drawable.btn_group_n);
+			adapter.notifyDataSetChanged();
 			refresh();
 			break;
 		case R.id.btn_create:
