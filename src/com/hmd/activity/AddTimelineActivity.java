@@ -163,7 +163,7 @@ public class AddTimelineActivity extends AbsSubActivity {
 				buildDateOrTimeDialog(AddTimelineActivity.this, year2, month2, day2);
 				break;
 			case R.id.btn_back:
-				AddTimelineActivity.this.finish();
+				AddTimelineActivity.this.goback();
 				break;
 			case R.id.btn_confirm:
 				if (checkValue()) {
@@ -268,8 +268,7 @@ public class AddTimelineActivity extends AbsSubActivity {
 					new AlertDialog.Builder(AddTimelineActivity.this).setTitle("提示").setMessage("新增履历成功！").setPositiveButton("确定", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int whichButton) {
 							Intent it = new Intent();
-							setResult(5, it);
-							finish();
+							AddTimelineActivity.this.gobackWithResult(5, it);
 
 						}
 					}).show();
@@ -288,8 +287,7 @@ public class AddTimelineActivity extends AbsSubActivity {
 					new AlertDialog.Builder(AddTimelineActivity.this).setTitle("提示").setMessage("修改履历成功！").setPositiveButton("确定", new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int whichButton) {
 							Intent it = new Intent();
-							setResult(5, it);
-							finish();
+							AddTimelineActivity.this.gobackWithResult(5, it);
 
 						}
 					}).show();

@@ -19,7 +19,6 @@ import com.hmd.activity.component.NameCardMainRelativeLayout;
 import com.hmd.activity.component.ProfileTimelineLinearLayout;
 import com.hmd.activity.component.SwitchableGroupScrollViewer;
 import com.hmd.activity.component.SwitchableScrollViewer;
-import com.hmd.activity.component.TopbarRelativeLayout;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.GroupModel;
@@ -63,7 +62,7 @@ public class ProfileActivity extends AbsSubActivity implements OnTouchListener{
 		
 		@Override
 		public void onClick(View arg0) {
-			finish();
+			goback();
 			
 		}
 	};
@@ -228,7 +227,7 @@ public class ProfileActivity extends AbsSubActivity implements OnTouchListener{
 	
 	
 	private void TransformToMainScreen(){
-		this.finish();
+		this.goback();
 	}
 	
 	@Override

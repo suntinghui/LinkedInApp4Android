@@ -27,7 +27,6 @@ import com.hmd.activity.component.SchoolEventRelativeLayout;
 import com.hmd.activity.component.SchoolInfoCardRelativeLayout;
 import com.hmd.activity.component.SchoolNoticeRelativeLayout;
 import com.hmd.activity.component.SchoolWeiboRelativeLayout;
-import com.hmd.activity.component.TopbarRelativeLayout;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.ActiveModel;

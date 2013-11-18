@@ -44,7 +44,7 @@ public class AnnouncementDetailActivity extends AbsSubActivity implements OnClic
 	public void onClick(View view) {
 		switch(view.getId()){
 		case R.id.backButton:
-			this.finish();
+			this.goback();
 			break;
 		}
 	}

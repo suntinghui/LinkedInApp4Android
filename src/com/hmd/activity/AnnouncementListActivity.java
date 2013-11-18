@@ -68,7 +68,7 @@ public class AnnouncementListActivity extends AbsSubActivity implements OnClickL
 	public void onClick(View view) {
 		switch(view.getId()){
 		case R.id.backButton:
-			this.finish();
+			this.goback();
 			break;
 			
 		case R.id.moreButton:
@@ -78,7 +78,7 @@ public class AnnouncementListActivity extends AbsSubActivity implements OnClickL
 	}
 	
 	public void onBackPressed(){
-		this.finish();
+		this.goback();
 	}
 	
 	@Override

@@ -56,7 +56,7 @@ public class SuggestPeopleActivity extends AbsSubActivity implements OnClickList
 	public void onClick(View v) {
 		switch(v.getId()){
 		case R.id.backButton:
-			this.finish();
+			this.goback();
 			break;
 		}
 		

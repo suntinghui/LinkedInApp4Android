@@ -69,7 +69,7 @@ public class ShowWebViewActivity extends AbsSubActivity implements OnClickListen
 				public boolean shouldOverrideUrlLoading(WebView view, String url) {
 					Log.e("url",url);
 					if (url.endsWith("returnPageIndex")){
-						ShowWebViewActivity.this.finish();
+						ShowWebViewActivity.this.goback();
 						return true;
 					}
 					
@@ -89,14 +89,14 @@ public class ShowWebViewActivity extends AbsSubActivity implements OnClickListen
 	public void onClick(View view) {
 		switch(view.getId()){
 		case R.id.btn_back:
-			this.finish();
+			this.goback();
 			break;
 		}
 	}
 	
 	@Override
 	public void onBackPressed() {
-		this.finish();
+		this.goback();
 		super.onBackPressed();
 	}
 

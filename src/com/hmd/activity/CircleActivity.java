@@ -291,8 +291,7 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.profileButton:
 			Intent it = new Intent();
-			setResult(5, it);
-			finish();
+			CircleActivity.this.gobackWithResult(5, it);
 			break;
 		case R.id.moreButton:
 			refresh();

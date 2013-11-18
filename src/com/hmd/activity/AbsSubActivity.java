@@ -2,12 +2,14 @@ package com.hmd.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.view.Window;
 
 /** 继承该类即可实现子Activity的功能 */
 public abstract class AbsSubActivity extends BaseActivity {
 
 	private AbsSubActivity requestSubActivity;
-
+	
 	public AbsSubActivity getRequestSubActivity() {
 		return requestSubActivity;
 	}

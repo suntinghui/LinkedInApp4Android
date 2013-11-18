@@ -28,7 +28,7 @@
             android:gravity="center"
             android:text="圈子信息"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btn_jornOrQuit"

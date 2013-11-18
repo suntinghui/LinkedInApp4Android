@@ -9,15 +9,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/topbarBg"
-        android:padding="5dip" >
+        android:background="@drawable/img_topbar_backdrop"
+        >
 
         <Button
             android:id="@+id/profileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="15dip"
             android:background="@drawable/img_btn_topbar_left_arrow" />
 
         <TextView
@@ -27,7 +26,7 @@
             android:layout_centerInParent="true"
             android:text="所有圈子"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </RelativeLayout>
 
     <RelativeLayout

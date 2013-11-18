@@ -121,6 +121,6 @@ public class WeiboDetailActivity extends AbsSubActivity {
 	}
 
 	public void btn_back(View v) {
-		finish();
+		goback();
 	}
 }

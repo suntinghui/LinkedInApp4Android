@@ -93,13 +93,13 @@ public class SchoolEventActivity extends AbsSubActivity implements OnClickListen
 	public void onClick(View view) {
 		switch(view.getId()){
 		case R.id.backButton:
-			this.finish();
+			this.goback();
 			break;
 		}
 	}
 	
 	public void onBackPressed(){
-		this.finish();
+		this.goback();
 	}
 
 

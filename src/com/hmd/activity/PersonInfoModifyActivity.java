@@ -189,7 +189,7 @@ public class PersonInfoModifyActivity extends AbsSubActivity {
 				 startActivityForResult(getAlbum, IMAGE_CODE);
 				break;
 			case R.id.btn_back:
-				PersonInfoModifyActivity.this.finish();
+				PersonInfoModifyActivity.this.goback();
 				break;
 			case R.id.btn_confirm:
 				doProfileUpdate();
@@ -274,8 +274,7 @@ public class PersonInfoModifyActivity extends AbsSubActivity {
 		                .setPositiveButton("确定", new DialogInterface.OnClickListener() {  
 	                           public void onClick(DialogInterface dialog, int whichButton) {  
 	                        	   Intent it = new Intent();  
-                                   setResult(5, it);  
-                                   finish();
+                                   PersonInfoModifyActivity.this.gobackWithResult(5, it);
 	                           }  
 	               })  
 		                .show();

@@ -197,7 +197,7 @@ public class MeberOfGroupActivity extends AbsSubActivity implements OnClickListe
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.profileButton:
-			finish();
+			goback();
 			break;
 		case R.id.moreButton:
 			refresh();
