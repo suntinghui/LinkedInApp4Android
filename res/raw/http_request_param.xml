@@ -292,6 +292,14 @@
         <contentType>application/json</contentType>
     </request>
     
+    <!-- 删除圈子 -->
+    <request>
+        <requestId>GROUP_DELETE</requestId>
+        <url>/admin/group/${id}/delete</url>
+        <method>POST</method>
+        <contentType>application/json</contentType>
+    </request>
+    
     <!-- 退出圈子 -->
     <request>
         <requestId>GROUP_QUIT</requestId>

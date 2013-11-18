@@ -112,6 +112,9 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_JOIN)) {
 			return getGroupJoin(jsonObject);
 			
+		}else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_DELETE)) {
+			return getGroupDelete(jsonObject);
+			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_QUIT)) {
 			return getGroupQuit(jsonObject);
 			
@@ -579,6 +582,12 @@ public class ParseResponseData {
 	
 	// 加入圈子
 	private static int getGroupJoin(JSONObject jsonObject){
+		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
+		
+		return errorCode;
+	}
+	// 删除圈子
+	private static int getGroupDelete(JSONObject jsonObject){
 		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
 		
 		return errorCode;
