@@ -115,6 +115,9 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_QUIT)) {
 			return getGroupQuit(jsonObject);
 			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_CREATE)) {
+			return getCreateCircle(jsonObject);
+			
 		}
 		
 		return null;
@@ -583,6 +586,13 @@ public class ParseResponseData {
 		
 	// 退出圈子
 	private static int getGroupQuit(JSONObject jsonObject){
+		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
+		
+		return errorCode;
+	}
+	
+	// 退出圈子
+	private static int getCreateCircle(JSONObject jsonObject){
 		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
 		
 		return errorCode;
