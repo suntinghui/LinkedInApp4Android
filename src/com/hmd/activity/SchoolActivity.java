@@ -43,23 +43,23 @@ import com.hmd.util.WeiboUtil;
 public class SchoolActivity extends BaseActivity implements OnTouchListener {
 
 	private Button profileButton;
-	private SchoolInfoCardRelativeLayout rlSchoolInfo 	= null; // 学校信息	
-	private SchoolNoticeRelativeLayout rlSchoolNotice 	= null; // 官方公告
-	private SchoolEventRelativeLayout rlSchoolEvent 	= null; // 官方活动
-	private SchoolCardRelativeLayout rlSchoolCard		= null; // 校友卡
-	private SchoolWeiboRelativeLayout rlSchoolWeibo 	= null; // 官方微博
-	
-	private SchoolModel schoolModel 					= null;
-	private ProfileModel profileModel 					= null;
-	
-	private GestureDetector mDector 					= null;
-	
-	private long exitTimeMillis 						= 0;
-	
+	private SchoolInfoCardRelativeLayout rlSchoolInfo = null; // 学校信息
+	private SchoolNoticeRelativeLayout rlSchoolNotice = null; // 官方公告
+	private SchoolEventRelativeLayout rlSchoolEvent = null; // 官方活动
+	private SchoolCardRelativeLayout rlSchoolCard = null; // 校友卡
+	private SchoolWeiboRelativeLayout rlSchoolWeibo = null; // 官方微博
+
+	private SchoolModel schoolModel = null;
+	private ProfileModel profileModel = null;
+
+	private GestureDetector mDector = null;
+
+	private long exitTimeMillis = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.activity_school);
 
 		this.init();
@@ -69,94 +69,93 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 	public boolean onTouch(View v, MotionEvent event) {
 		return this.mDector.onTouchEvent(event);
 	}
-	
-	private void init(){
-		RelativeLayout rlMain = (RelativeLayout)this.findViewById(R.id.rl_main);
-		LinearLayout llSchoolContainer = (LinearLayout)this.findViewById(R.id.ll_main_school_container);
-		
+
+	private void init() {
+		RelativeLayout rlMain = (RelativeLayout) this.findViewById(R.id.rl_main);
+		LinearLayout llSchoolContainer = (LinearLayout) this.findViewById(R.id.ll_main_school_container);
+
 		rlMain.setOnTouchListener(this);
 		llSchoolContainer.setOnTouchListener(this);
-		this.mDector = new GestureDetector(this, new GestureListener()); 
-		
+		this.mDector = new GestureDetector(this, new GestureListener());
+
 		profileButton = (Button) this.findViewById(R.id.profileButton);
 		profileButton.setOnClickListener(this.onNavigation);
-		
+
 		// 学校信息
 		rlSchoolInfo = new SchoolInfoCardRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolInfo);
 		rlSchoolInfo.setOnTouchListener(this);
-		
+
 		// 官方公告
 		rlSchoolNotice = new SchoolNoticeRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolNotice);
 		rlSchoolNotice.setVisibility(View.GONE);
 		rlSchoolNotice.setOnTouchListener(this);
-		
+
 		// 官方活动
 		rlSchoolEvent = new SchoolEventRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolEvent);
 		rlSchoolEvent.setVisibility(View.GONE);
 		rlSchoolEvent.setOnTouchListener(this);
-		
+
 		// 校友卡
 		rlSchoolCard = new SchoolCardRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolCard);
 		rlSchoolCard.setOnTouchListener(this);
-		
+
 		// 官方微博
 		rlSchoolWeibo = new SchoolWeiboRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolWeibo);
 		rlSchoolWeibo.setVisibility(WeiboUtil.hasAuth() ? View.GONE : View.VISIBLE);
 		rlSchoolWeibo.setOnTouchListener(this);
-		
+
 		refreshData();
 	}
-	
+
 	// 刷新数据
-	private void refreshData(){
+	private void refreshData() {
 		schoolModel = new SchoolModel();
 		profileModel = new ProfileModel();
-		
+
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getCollegeInfo());
 		queue.addHttpRequest(getLastestAnnouncement());
 		queue.addHttpRequest(getActiveTypeList());
 		queue.addHttpRequest(getActiveList());
 		queue.executeQueue("正在刷新数据...", new LKHttpRequestQueueDone());
-		
+
 		// 获取学校微博
 		this.getSchoolWeibo();
 	}
-	
-	
+
 	// 获取母校信息
-	private LKHttpRequest getCollegeInfo(){
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_COLLEGE_INTRODUCT, null, new LKAsyncHttpResponseHandler() {
+	private LKHttpRequest getCollegeInfo() {
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_COLLEGE_INTRODUCT, null, new LKAsyncHttpResponseHandler() {
 			@Override
 			public void successAction(Object obj) {
 				schoolModel = (SchoolModel) obj;
-				
+
 				rlSchoolInfo.refresh(schoolModel);
 			}
 		});
-		
+
 		return request;
 	}
-	
+
 	// 获取最新一条公告
-	private LKHttpRequest getLastestAnnouncement(){
+	private LKHttpRequest getLastestAnnouncement() {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", "1");
 		paramMap.put("num", "1");
-		paramMap.put("previewLen", "200"); //预览长度，即取正文内容前几个字符，范围[0,200]，0为关闭预览
-		
+		paramMap.put("previewLen", "200"); // 预览长度，即取正文内容前几个字符，范围[0,200]，0为关闭预览
+
 		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_COLLEGE_BROADCAST_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@Override
 			public void successAction(Object obj) {
 				@SuppressWarnings("unchecked")
 				HashMap<String, Object> map = (HashMap<String, Object>) obj;
 				int total = (Integer) map.get("total");
-				if (total == 0){
+				if (total == 0) {
 					rlSchoolNotice.setVisibility(View.GONE);
 				} else {
 					// 只取一条数据
@@ -167,12 +166,12 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 				}
 			}
 		});
-		
+
 		return request;
 	}
-	
+
 	// 取得活动类型列表
-	private LKHttpRequest getActiveTypeList(){
+	private LKHttpRequest getActiveTypeList() {
 		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_COLLEGE_EVENT_TYPE_LIST, null, new LKAsyncHttpResponseHandler() {
 			@Override
 			public void successAction(Object obj) {
@@ -181,66 +180,65 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 				ActiveModel.setActiveTypeMap(map);
 			}
 		});
-		
+
 		return request;
 	}
-	
+
 	// 取得活动列表
-	private LKHttpRequest getActiveList(){
+	private LKHttpRequest getActiveList() {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", "1");
 		paramMap.put("num", "2");
 		paramMap.put("typeID", "0"); // 类型ID，用于返回特定类型的活动，0表示不限类型
-		paramMap.put("previewLen", "200"); //预览长度，即取正文内容前几个字符，范围[0,200]，0为关闭预览
-		
+		paramMap.put("previewLen", "200"); // 预览长度，即取正文内容前几个字符，范围[0,200]，0为关闭预览
+
 		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_COLLEGE_EVENT_LIST, paramMap, new LKAsyncHttpResponseHandler() {
-			
+
 			@Override
 			public void successAction(Object obj) {
 				@SuppressWarnings("unchecked")
 				HashMap<String, Object> map = (HashMap<String, Object>) obj;
 				int total = (Integer) map.get("total");
-				if(total > 0){
+				if (total > 0) {
 					rlSchoolEvent.setVisibility(View.VISIBLE);
 					rlSchoolEvent.refresh((ArrayList<ActiveModel>) map.get("list"));
-					
+
 				} else {
 					rlSchoolEvent.setVisibility(View.GONE);
 				}
 			}
 		});
-		
-		return request; 
+
+		return request;
 	}
-	
-	
+
 	// 取得微博信息
-	private void getSchoolWeibo(){
+	private void getSchoolWeibo() {
 		// 如果用户已经登录了新浪微博，则直接取得数据
-		if (WeiboUtil.hasAuth()){
+		if (WeiboUtil.hasAuth()) {
 			new GetSchoolTask().execute();
 		}
 	}
-	
+
 	// 异步取得微博数据
-	class GetSchoolTask extends AsyncTask<Object, Object, Object>{
-		
+	class GetSchoolTask extends AsyncTask<Object, Object, Object> {
+
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
 		}
-		
+
 		@Override
 		protected Object doInBackground(Object... arg0) {
-			try{
+			try {
 				Timeline timeline = new Timeline();
 				Paging paging = new Paging();
 				paging.count(3); // 在主页中只显示三条微博数据
-				
+
 				timeline.client.setToken(WeiboUtil.getToken());
 				StatusWapper statusWapper = timeline.getUserTimelineByName(Constants.WEIBO_TIMELINE_SCREENNAME, paging, 0, 0);
 				return statusWapper;
-			} catch(Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			return null;
@@ -248,42 +246,41 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 
 		@Override
 		protected void onPostExecute(Object result) {
-			try{
-				rlSchoolWeibo.refresh(((StatusWapper)result).getStatuses());
-			} catch(Exception e){
+			try {
+				rlSchoolWeibo.refresh(((StatusWapper) result).getStatuses());
+			} catch (Exception e) {
 				e.printStackTrace();
-				
+
 				rlSchoolWeibo.setVisibility(View.GONE);
 			}
 		}
 
 	}
-	
+
 	@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// 认证微博成功
-		if(requestCode == 100 && resultCode == RESULT_OK) {
+		if (requestCode == 100 && resultCode == RESULT_OK) {
 			getSchoolWeibo();
 		}
-    }
-	
-	
+	}
+
 	// 最上面的TopBar的左边的按纽的点击事件
-	private OnClickListener onNavigation = new OnClickListener(){
+	private OnClickListener onNavigation = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			TransformToProfileScreen();
 		}
 	};
-	
+
 	// 显示个人信息
-	private void TransformToProfileScreen(){
-		
-		Intent intent = new Intent(SchoolActivity.this, ProfileActivity.class);  
+	private void TransformToProfileScreen() {
+
+		Intent intent = new Intent(SchoolActivity.this, ProfileActivity.class);
 		intent.putExtra("IDENTITY", "me");
-		startActivity(intent);  
+		startActivity(intent);
 	}
-	
+
 	// 程序退出
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -299,45 +296,44 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 
 				System.exit(0);
 			}
-			
+
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-	
-	class GestureListener extends SimpleOnGestureListener  
-    {  
+
+	class GestureListener extends SimpleOnGestureListener {
 		@Override
 		public boolean onDown(MotionEvent e) {
 			return true;
 		}
-	
+
 		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-			if (e1.getX() - e2.getX() > 80) {    
+			if (e1.getX() - e2.getX() > 80) {
 				TransformToProfileScreen();
-	            return true;    
-	        }  
+				return true;
+			}
 			return false;
 		}
-	
+
 		@Override
 		public void onLongPress(MotionEvent e) {
 		}
-	
+
 		@Override
 		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
 			return false;
 		}
-	
+
 		@Override
 		public void onShowPress(MotionEvent e) {
 		}
-	
+
 		@Override
 		public boolean onSingleTapUp(MotionEvent e) {
 			return false;
 		}
-    }
-	
+	}
+
 }
