@@ -34,7 +34,7 @@ public class BaseActivity extends Activity {
 	// 要命的static
 	private static LKProgressDialog progressDialog = null;
 	private LKAlertDialog alertDialog = null;
-	private ProgressHUD progressHUD = null;
+	private static ProgressHUD progressHUD = null;
 
 	private String message = null;
 	
