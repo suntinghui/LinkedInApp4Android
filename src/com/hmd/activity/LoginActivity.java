@@ -96,7 +96,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 					
 					int statusCode = Integer.parseInt(respMap.get("status"));
 					if (statusCode == 1){ // 账号状态正常
-						Intent intent = new Intent(LoginActivity.this, SchoolActivity.class);
+						Intent intent = new Intent(LoginActivity.this, MainActivityGroup.class);
 						LoginActivity.this.startActivity(intent);
 						
 					} else if (statusCode == -1) { // 尚未填写基本信息

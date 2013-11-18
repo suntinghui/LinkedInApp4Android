@@ -20,7 +20,7 @@ import com.hmd.model.CommentModel;
 import com.hmd.model.GroupModel;
 import com.hmd.util.ImageUtil;
 
-public class GroupDetailActivity extends BaseActivity implements OnClickListener {
+public class GroupDetailActivity extends AbsSubActivity implements OnClickListener {
 
 	private Button backButton;
 	private Button joinOrQuitButton;

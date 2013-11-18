@@ -30,7 +30,7 @@ import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 
-public class AllGroupActivity extends BaseActivity implements OnClickListener {
+public class AllGroupActivity extends AbsSubActivity implements OnClickListener {
 
 	private ListView listView = null;
 	private GroupAdapter adapter = null;

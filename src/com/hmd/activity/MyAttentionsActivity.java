@@ -17,7 +17,7 @@ import com.hmd.activity.component.SwitchableScrollViewer;
 import com.hmd.client.Constants;
 import com.hmd.model.ProfileModel;
 
-public class MyAttentionsActivity extends BaseActivity implements OnClickListener{
+public class MyAttentionsActivity extends AbsSubActivity implements OnClickListener{
 	
 	private ArrayList<ProfileModel> entries = null;
 	private String mTitle = null;

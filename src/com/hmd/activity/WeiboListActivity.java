@@ -24,7 +24,7 @@ import com.hmd.util.ListViewUtil;
 import com.hmd.util.WeiboUtil;
 import com.hmd.view.TimelineAdapter;
 
-public class WeiboListActivity extends BaseActivity implements OnItemClickListener, OnClickListener {
+public class WeiboListActivity extends AbsSubActivity implements OnItemClickListener, OnClickListener {
 	
 	private static final int BASEAPP = 0;
 	private static final int FEATURE = 0;

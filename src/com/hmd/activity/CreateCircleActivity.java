@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import com.hmd.R;
 
-public class CreateCircleActivity extends BaseActivity implements OnClickListener {
+public class CreateCircleActivity extends AbsSubActivity implements OnClickListener {
 	private EditText et_circle_name = null;
 	private EditText et_circle_content = null;
 	@Override

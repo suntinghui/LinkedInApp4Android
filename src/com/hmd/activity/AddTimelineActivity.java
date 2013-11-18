@@ -53,7 +53,7 @@ import com.hmd.util.ImageUtil;
 import com.hmd.util.PatternUtil;
 import com.hmd.view.LKAlertDialog;
 
-public class AddTimelineActivity extends BaseActivity {
+public class AddTimelineActivity extends AbsSubActivity {
 	// test 11/19
 	private String afterId = null;
 	private final String IMAGE_TYPE = "image/*";
