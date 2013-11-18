@@ -84,7 +84,7 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.btn_back: // 返回
-			this.finish();
+			this.goback();
 			break;
 
 		case R.id.btn_jornOrQuit: // 加入或退出圈子

@@ -68,7 +68,7 @@ public class SinaOAuthActivity extends AbsSubActivity {
 							SinaOAuthActivity.this.setResult(RESULT_OK);
 						}
 						
-						finish();
+						goback();
 					}
 				}
 				

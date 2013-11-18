@@ -63,7 +63,7 @@ public class ProfileActivity extends AbsSubActivity implements OnTouchListener{
 		
 		@Override
 		public void onClick(View arg0) {
-			finish();
+			goback();
 			
 		}
 	};
@@ -228,7 +228,7 @@ public class ProfileActivity extends AbsSubActivity implements OnTouchListener{
 	
 	
 	private void TransformToMainScreen(){
-		this.finish();
+		this.goback();
 	}
 	
 	@Override

@@ -53,7 +53,7 @@ public class SchoolInfoActivity extends AbsSubActivity implements OnClickListene
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.backButton:
-			this.finish();
+			this.goback();
 			break;
 
 		case R.id.weiboLayout:
@@ -65,7 +65,7 @@ public class SchoolInfoActivity extends AbsSubActivity implements OnClickListene
 	}
 
 	public void onBackPressed() {
-		this.finish();
+		this.goback();
 	}
 
 }

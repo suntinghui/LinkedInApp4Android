@@ -129,7 +129,7 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 	
 	@Override
 	public void onBackPressed() {
-		this.finish();
+		this.goback();
 		super.onBackPressed();
 	}
 	
@@ -137,7 +137,7 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 	public void onClick(View view) {
 		switch(view.getId()){
 		case R.id.btn_back:
-			WeiboListActivity.this.finish();
+			WeiboListActivity.this.goback();
 			break;
 			
 		case R.id.moreButton:

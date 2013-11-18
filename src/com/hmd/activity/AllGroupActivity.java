@@ -276,8 +276,7 @@ public class AllGroupActivity extends AbsSubActivity implements OnClickListener 
 		switch (v.getId()) {
 		case R.id.profileButton:
 			Intent it = new Intent();  
-            setResult(5, it);
-			finish();
+			AllGroupActivity.this.gobackWithResult(5, it);
 			break;
 		case R.id.moreButton:
 			refresh();

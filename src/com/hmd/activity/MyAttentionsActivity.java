@@ -56,7 +56,7 @@ public class MyAttentionsActivity extends AbsSubActivity implements OnClickListe
 	public void onClick(View arg0) {
 		switch(arg0.getId()){
 		case R.id.backButton:
-			this.finish();
+			this.goback();
 			break;
 		}
 		
