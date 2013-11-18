@@ -50,5 +50,6 @@ public interface HttpRequestType {
 	public static final String HTTP_GROUP_COMMENT_LIT					= "GROUP_COMMENT_LIT";
 	public static final String HTTP_GROUP_COMMENT_CREATE				= "GROUP_COMMENT_CREATE";
 	public static final String HTTP_GROUP_CREATE						= "GROUP_CREATE";
+	public static final String HTTP_GROUP_DELETE						= "GROUP_DELETE";
 	
 }

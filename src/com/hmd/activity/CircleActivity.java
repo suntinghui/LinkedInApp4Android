@@ -79,8 +79,9 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				 Intent intent = new Intent(CircleActivity.this,
 				 GroupDetailActivity.class);
-				 intent.putExtra("model", array.get(arg2));
-				 CircleActivity.this.startActivity(intent);
+				 intent.putExtra("model", (GroupModel)(array.get(arg2)));
+				 intent.putExtra("tag", currentGroup);
+				 CircleActivity.this.startActivityForResult(intent, 0);
 			}
 
 		});
@@ -90,6 +91,20 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 		currentPage = 0;
 
 		refresh();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case 0:
+			refresh();
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	public void refresh() {
@@ -137,7 +152,7 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", ++currentPage + "");
 		paramMap.put("num", Constants.PAGESIZE);
-		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_GROUP_ME_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_GROUP_MY_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
@@ -164,7 +179,7 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", ++currentPage + "");
 		paramMap.put("num", Constants.PAGESIZE);
-		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_GROUP_MY_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_GROUP_ME_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
@@ -269,52 +284,7 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 		}
 	}
 
-	private void JoinGroup() {
-		LKHttpRequestQueue queue = new LKHttpRequestQueue();
-		if (isAll) {
-			queue.addHttpRequest(getJoinGroupRequest());
-		} else {
-			queue.addHttpRequest(getQuiteGroupRequest());
-		}
-
-		queue.executeQueue(isAll ? "正在加入圈子..." : "正在退出圈子...", new LKHttpRequestQueueDone());
-	}
-
-	// 加入圈子列表
-	private LKHttpRequest getJoinGroupRequest() {
-		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_GROUP_JOIN, null, new LKAsyncHttpResponseHandler() {
-			@Override
-			public void successAction(Object obj) {
-				if ((Integer) obj == 1) {
-					CircleActivity.this.showToast("成功加入圈子！");
-				} else if ((Integer) obj == -2) {
-					CircleActivity.this.showToast("已经加入过该圈子！");
-				}
-			}
-		}, selectModel.getId());
-		return request;
-	}
-
-	// 退出圈子列表
-	private LKHttpRequest getQuiteGroupRequest() {
-		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_GROUP_QUIT, null, new LKAsyncHttpResponseHandler() {
-			@Override
-			public void successAction(Object obj) {
-				if ((Integer) obj == 1) {
-					CircleActivity.this.showToast("成功退出圈子！");
-					array.clear();
-					currentPage = 0;
-//					refresh();
-
-				} else if ((Integer) obj == -2) {
-					CircleActivity.this.showToast("没有加入过该圈子！");
-				} else {
-					CircleActivity.this.showToast("退出失败！");
-				}
-			}
-		}, selectModel.getId());
-		return request;
-	}
+	
 
 	@Override
 	public void onClick(View v) {
@@ -329,6 +299,7 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 		case R.id.btn_1:
 			currentGroup = 0;
 			currentPage = 0;
+			totalPage = 0;
 			array.clear();
 			btn_1.setBackgroundResource(R.drawable.btn_group_s);
 			btn_2.setBackgroundResource(R.drawable.btn_group_n);
@@ -339,6 +310,7 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 		case R.id.btn_2:
 			currentGroup = 1;
 			currentPage = 0;
+			totalPage = 0;
 			array.clear();
 			btn_2.setBackgroundResource(R.drawable.btn_group_s);
 			btn_1.setBackgroundResource(R.drawable.btn_group_n);
@@ -349,6 +321,7 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 		case R.id.btn_3:
 			currentGroup = 2;
 			currentPage = 0;
+			totalPage = 0;
 			array.clear();
 			btn_3.setBackgroundResource(R.drawable.btn_group_s);
 			btn_2.setBackgroundResource(R.drawable.btn_group_n);
