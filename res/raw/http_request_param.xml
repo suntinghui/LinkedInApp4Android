@@ -332,6 +332,21 @@
         <contentType>application/json</contentType>
     </request>
     
+    <!-- 获取圈子发言列表圈子 -->
+    <request>
+        <requestId>GROUP_COMMENT_LIST</requestId>
+        <url>/group/${id}/comment/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!-- 获取圈子发言列表圈子 -->
+    <request>
+        <requestId>PUBLISH_COMMENT</requestId>
+        <url>/group/${id}/comment/create</url>
+        <method>POST</method>
+        <contentType>application/json</contentType>
+    </request>
     
     
 </root>

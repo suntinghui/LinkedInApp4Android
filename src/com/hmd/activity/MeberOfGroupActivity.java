@@ -48,7 +48,7 @@ public class MeberOfGroupActivity extends AbsSubActivity implements OnClickListe
 		setContentView(R.layout.activity_all_group_list);
 		
 		Intent intent = this.getIntent();
-		groupModel = (GroupModel) intent.getSerializableExtra("MODEL");
+		groupModel = (GroupModel) intent.getSerializableExtra("model");
 		TextView tv_title = (TextView)this.findViewById(R.id.titleView);
 		tv_title.setText("圈子成员");
 		Button btn_back = (Button)this.findViewById(R.id.profileButton);
