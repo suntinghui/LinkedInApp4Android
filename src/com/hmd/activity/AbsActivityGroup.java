@@ -1,99 +1,174 @@
 package com.hmd.activity;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.Activity;
 import android.app.ActivityGroup;
-import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.CompoundButton;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.RadioButton;
 
-/**
- * 自己实现的一个通用ActivityGroup。 可以通过简单的重写它来制作有导航按钮和用导航按钮控制动态加载Activity的ActivityGroup。
- * 开发者需要在实现类中实现三个方法： 1.指定动态加载Activity的容器的对象，getContainer()方法。
- * 2.初始化所有的导航按钮，initRadioBtns()方法，开发者要遍历所有的导航按钮并执行initRadioBtn(int id)方法。
- * 3.实现导航按钮动作监听器的具体方法，onCheckedChanged(...)方法。这个方法将实现某个导航按钮与要启动对应的Activity的关联关系，
- * 可以调用setContainerView(...)方法。
- * 
- * @author zet
- * 
- */
-public abstract class AbsActivityGroup extends ActivityGroup implements CompoundButton.OnCheckedChangeListener {
+import com.hmd.R;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		initRadioBtns();
+/** 继承该类并实现其五个抽象方法即可 */
+public abstract class AbsActivityGroup extends ActivityGroup{
+	
+	/** 源Intent */
+	protected Intent fromIntent;
+	
+	/** 功能模块跳转的目标Intent */
+	protected Intent targetIntent = new Intent();
+	
+	// 当前选中的项目的tag
+	private int selectedImageWithTextViewId = 0;
+	
+	/** 用来加载子Activity的布局 */
+	private LinearLayout container = null;
+	
+	/** 选项卡的所有标签 */
+	private ImageButton[] imageWithTextViews = null;
+	
+	/** 选项卡所有标签的ID */
+	private int[] imageWithTextViewIds = null;
+	
+	/** 选项卡所有标签的图标ID */
+	private int[] imageWithTextViewImageIds;
+	
+	/** 标签ID对应的初始Activity集合 */
+	private Map<Integer,Class<? extends Activity>> classes = new HashMap<Integer,Class<? extends Activity>>();
+	
+	/**
+	 * 在子类中实现的设定布局的方法，Activity的布局的id必须为activity_group_container；
+	 * 选项卡的id必须为activity_group_radioGroup
+	 */
+	protected abstract int getLayoutResourceId();
+	
+	/** 在子类中需要实现的获取选项卡所有标签的ID的方法 */ 
+	protected abstract int[] getImageWithTextViewIds();
+	
+	/** 在子类中需要实现的获取选项卡所有标签的图标的方法 */ 
+	protected abstract int[] getImageWithTextViewImageIds();
+	
+	/** 在子类中需要实现的获取选项卡所有标签ID对应的初始Activity的方法 */ 
+	public abstract Class<? extends Activity>[] getClasses();
+	
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(getLayoutResourceId());         
+        // 获取源Intent
+		fromIntent = getIntent();
+		// 设定原始数据
+        setData();
+        // 初始化控件
+        initWidgetStatic();
+    }
+			
+	/** 设定数据源的方法 */ 
+	protected  void setData(){
+		imageWithTextViewIds = getImageWithTextViewIds();
+		imageWithTextViewImageIds = getImageWithTextViewImageIds();
+		
+		for(int i=0;i<imageWithTextViewIds.length;i++){
+			classes.put(imageWithTextViewIds[i], getClasses()[i]);
+		}
+		
+		this.selectedImageWithTextViewId = this.imageWithTextViewIds[fromIntent.getIntExtra("TAG", 0)];
 	}
-
-	// 加载Activity的View容器，容器应该是ViewGroup的子类
-	private ViewGroup container;
-
-	private LocalActivityManager localActivityManager;
-
-	/**
-	 * 加载Activity的View容器的id并不是固定的，将命名规则交给开发者
-	 * 开发者可以在布局文件中自定义其id，通过重写这个方法获得这个View容器的对象
-	 * 
-	 * @return
-	 */
-	abstract protected ViewGroup getContainer();
-
-	/**
-	 * 供实现类调用，根据导航按钮id初始化按钮
-	 * 
-	 * @param id
-	 */
-	protected void initRadioBtn(int id) {
-		RadioButton btn = (RadioButton) findViewById(id);
-		btn.setOnCheckedChangeListener(this);
-	}
-
-	/**
-	 * 开发者必须重写这个方法，来遍历并初始化所有的导航按钮
-	 */
-	abstract protected void initRadioBtns();
-
-	/**
-	 * 为启动Activity初始化Intent信息
-	 * 
-	 * @param cls
-	 * @return
-	 */
-	private Intent initIntent(Class<?> cls) {
-		return new Intent(this, cls).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	}
-
-	/**
-	 * 供开发者在实现类中调用，能将Activity容器内的Activity移除，再将指定的某个Activity加入
-	 * 
-	 * @param activityName
-	 *            加载的Activity在localActivityManager中的名字
-	 * @param activityClassTye
-	 *            要加载Activity的类型
-	 */
-	protected void setContainerView(String activityName, Class<?> activityClassTye) {
-		if (null == localActivityManager) {
-			localActivityManager = getLocalActivityManager();
+	
+	/** 初始化控件 */ 
+	protected void initWidgetStatic(){
+		container = (LinearLayout) findViewById(R.id.activity_group_container);
+		imageWithTextViews = new ImageButton[imageWithTextViewIds.length];
+		for(int i=0;i<imageWithTextViews.length;i++){
+			imageWithTextViews[i] = (ImageButton) findViewById(imageWithTextViewIds[i]);
+			if(imageWithTextViewImageIds != null){
+				imageWithTextViews[i].setImageResource(imageWithTextViewImageIds[i]);
+				
+			}
+			
+			imageWithTextViews[i].setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View view) {
+					selectedImageWithTextViewId = view.getId();
+					for (int i=0; i<imageWithTextViewIds.length; i++){
+						if (selectedImageWithTextViewId == imageWithTextViewIds[i]){
+							//imageWithTextViews[i].setBackgroundResource(R.drawable.img_group_selected);
+							imageWithTextViews[i].setSelected(true);
+							
+						} else {
+							//imageWithTextViews[i].setBackgroundResource(0);
+							imageWithTextViews[i].setSelected(false);
+						}
+					}
+					
+					targetIntent.setClass(AbsActivityGroup.this, classes.get(selectedImageWithTextViewId));
+					//launchActivity(targetIntent);
+					launchNewActivity(targetIntent);
+				}
+			});
 		}
 
-		if (null == container) {
-			container = getContainer();
-		}
-
-		// 移除内容部分全部的View
+		//((ImageButton) findViewById(selectedImageWithTextViewId)).setBackgroundResource(R.drawable.img_group_selected);
+		((ImageButton) findViewById(selectedImageWithTextViewId)).setSelected(true);
+		
+		// 初始化加载
+		targetIntent.setClass(AbsActivityGroup.this, classes.get(this.selectedImageWithTextViewId));
+		launchNewActivity(targetIntent);
+	}
+	
+	/** ActivityGroup加载新的子Activity的方法(创建新的) */ 
+	public void launchNewActivity(Intent intent) {
 		container.removeAllViews();
-
-		Activity contentActivity = localActivityManager.getActivity(activityName);
-		if (null == contentActivity) {
-			localActivityManager.startActivity(activityName, initIntent(activityClassTye));
-		}
-
-		// 加载Activity
-		container.addView(localActivityManager.getActivity(activityName).getWindow().getDecorView(), new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+		View view = getLocalActivityManager().startActivity(
+				intent.getComponent().getShortClassName() + this.selectedImageWithTextViewId,
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		
+		/*
+		Animation fadeInAnimation = AnimationUtils.loadAnimation(this,
+				android.R.anim.fade_in);
+		view.startAnimation(fadeInAnimation);
+		*/
+		
+		container.addView(view);
 	}
-
+	
+	/** ActivityGroup加载新的子Activity的方法(创建新的) */ 
+	public void launchNewActivityForResult(AbsSubActivity requestSubActivity,
+			Intent intent, int requestCode) {
+		intent.putExtra("requestCode", requestCode);
+		container.removeAllViews();
+		View view = getLocalActivityManager().startActivity(
+				intent.getComponent().getShortClassName() + this.selectedImageWithTextViewId, 
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)).getDecorView();
+		/*
+		Animation fadeInAnimation = AnimationUtils.loadAnimation(this,
+				android.R.anim.fade_in);
+		view.startAnimation(fadeInAnimation);
+		**/
+		container.addView(view);
+		
+		((AbsSubActivity)getCurrentActivity()).setRequestSubActivity(requestSubActivity);
+	}
+	
+	/** ActivityGroup加载子Activity的方法(先看有没有，有则加载原来的，否则创建新的) */ 
+	public void launchActivity(Intent intent) {
+		container.removeAllViews();
+		View view = getLocalActivityManager().startActivity(
+				intent.getComponent().getShortClassName() + this.selectedImageWithTextViewId, 
+				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)).getDecorView();
+		
+		/*
+		Animation fadeOutAnimation = AnimationUtils.loadAnimation(this,
+				android.R.anim.fade_out);
+		view.startAnimation(fadeOutAnimation);
+		
+		 **/
+		container.addView(view);
+	}
+	
 }

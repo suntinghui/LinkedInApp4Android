@@ -17,7 +17,7 @@ import com.hmd.model.ActiveModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.util.ImageUtil;
 
-public class SchoolEventActivity extends BaseActivity implements OnClickListener {
+public class SchoolEventActivity extends AbsSubActivity implements OnClickListener {
 	
 	private ImageView posterImage;
 	private TextView titleView;

@@ -15,7 +15,7 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class SinaOAuthActivity extends BaseActivity {
+public class SinaOAuthActivity extends AbsSubActivity {
 	
 	public WebView webview;
 

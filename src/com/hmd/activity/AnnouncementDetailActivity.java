@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.hmd.R;
 import com.hmd.model.AnnouncementModel;
 
-public class AnnouncementDetailActivity extends BaseActivity implements OnClickListener {
+public class AnnouncementDetailActivity extends AbsSubActivity implements OnClickListener {
 	
 	private Button backButton = null;
 	

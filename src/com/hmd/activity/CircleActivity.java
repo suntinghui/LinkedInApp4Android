@@ -28,7 +28,7 @@ import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 
-public class CircleActivity extends BaseActivity implements OnClickListener {
+public class CircleActivity extends AbsSubActivity implements OnClickListener {
 
 	private ListView listView = null;
 	private GroupAdapter adapter = null;

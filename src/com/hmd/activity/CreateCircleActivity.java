@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import com.hmd.R;
 
-public class CreateCircleActivity extends BaseActivity implements OnClickListener {
+public class CreateCircleActivity extends AbsSubActivity implements OnClickListener {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

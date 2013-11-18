@@ -10,7 +10,7 @@ import com.hmd.R;
 import com.hmd.model.WeiboItemModel;
 import com.hmd.util.ImageUtil;
 
-public class WeiboDetailActivity extends BaseActivity {
+public class WeiboDetailActivity extends AbsSubActivity {
 
 	/** 用户的头像 */
 	private ImageView iv_shakeweiboitem_profile;

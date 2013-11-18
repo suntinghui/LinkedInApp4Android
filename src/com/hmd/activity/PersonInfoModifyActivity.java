@@ -47,7 +47,7 @@ import com.hmd.util.ImageUtil;
 import com.hmd.util.PatternUtil;
 import com.hmd.view.LKAlertDialog;
 
-public class PersonInfoModifyActivity extends BaseActivity {
+public class PersonInfoModifyActivity extends AbsSubActivity {
 
 	private ProfileModel model = null;
 	private final String IMAGE_TYPE = "image/*";

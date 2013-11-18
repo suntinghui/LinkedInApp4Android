@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.hmd.R;
 
 @SuppressLint({ "JavascriptInterface", "SetJavaScriptEnabled" })
-public class ShowWebViewActivity extends BaseActivity implements OnClickListener {
+public class ShowWebViewActivity extends AbsSubActivity implements OnClickListener {
 	
 	private WebView mWebView;
 	private Button backButton;

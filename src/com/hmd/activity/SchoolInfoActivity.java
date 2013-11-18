@@ -14,7 +14,7 @@ import com.hmd.model.SchoolModel;
 import com.hmd.util.ImageUtil;
 import com.hmd.util.WeiboUtil;
 
-public class SchoolInfoActivity extends BaseActivity implements OnClickListener {
+public class SchoolInfoActivity extends AbsSubActivity implements OnClickListener {
 
 	private Button backButton = null;
 	private TextView titleView = null;

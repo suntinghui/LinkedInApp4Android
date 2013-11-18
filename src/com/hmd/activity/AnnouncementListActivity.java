@@ -27,7 +27,7 @@ import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 
-public class AnnouncementListActivity extends BaseActivity implements OnClickListener, OnItemClickListener {
+public class AnnouncementListActivity extends AbsSubActivity implements OnClickListener, OnItemClickListener {
 	
 	private Button backButton = null;
 	private ListView listView = null;

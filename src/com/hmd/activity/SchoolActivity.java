@@ -40,7 +40,7 @@ import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.WeiboUtil;
 
-public class SchoolActivity extends BaseActivity implements OnTouchListener {
+public class SchoolActivity extends AbsSubActivity implements OnTouchListener {
 
 	private Button profileButton;
 	private SchoolInfoCardRelativeLayout rlSchoolInfo = null; // 学校信息

@@ -14,7 +14,7 @@ import com.hmd.R;
 import com.hmd.activity.component.SwitchableScrollViewer;
 import com.hmd.model.ProfileModel;
 
-public class SuggestPeopleActivity extends BaseActivity implements OnClickListener{
+public class SuggestPeopleActivity extends AbsSubActivity implements OnClickListener{
 	
 	private ArrayList<ProfileModel> entries = null;
 	

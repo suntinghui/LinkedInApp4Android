@@ -32,7 +32,7 @@ import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.ImageUtil;
 
-public class MeberOfGroupActivity extends BaseActivity implements OnClickListener {
+public class MeberOfGroupActivity extends AbsSubActivity implements OnClickListener {
 
 	private ListView listView = null;
 	private MemberAdapter adapter = null;
