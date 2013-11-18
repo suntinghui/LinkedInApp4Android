@@ -81,7 +81,7 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 				 GroupDetailActivity.class);
 				 intent.putExtra("model", (GroupModel)(array.get(arg2)));
 				 intent.putExtra("tag", currentGroup);
-				 CircleActivity.this.startActivity(intent);
+				 CircleActivity.this.startActivityForResult(intent, 0);
 			}
 
 		});
@@ -91,6 +91,20 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 		currentPage = 0;
 
 		refresh();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case 0:
+			refresh();
+			break;
+
+		default:
+			break;
+		}
 	}
 
 	public void refresh() {

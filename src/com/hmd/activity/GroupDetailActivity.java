@@ -198,17 +198,14 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 		case 0:
 			tmp_tip = "正在删除圈子...";
 			queue.addHttpRequest(getDeleteGroupRequest());
-			this.goback();
 			break;
 		case 1:
 			queue.addHttpRequest(getQuiteGroupRequest());
 			tmp_tip = "正在退出圈子...";
-			this.goback();
 			break;
 		case 2:
 			queue.addHttpRequest(getJoinGroupRequest());
 			tmp_tip = "正在加入圈子...";
-			this.goback();
 			break;
 
 		default:
@@ -225,6 +222,8 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 			public void successAction(Object obj) {
 				if ((Integer) obj == 1) {
 					GroupDetailActivity.this.showToast("成功加入圈子！");
+					GroupDetailActivity.this.setResult(RESULT_OK);
+					GroupDetailActivity.this.goback();
 				} else if ((Integer) obj == -2) {
 					GroupDetailActivity.this.showToast("已经加入过该圈子！");
 				}
@@ -234,11 +233,13 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 	}
 	// 删除圈子列表
 	private LKHttpRequest getDeleteGroupRequest() {
-		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_GROUP_JOIN, null, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_GROUP_DELETE, null, new LKAsyncHttpResponseHandler() {
 			@Override
 			public void successAction(Object obj) {
 				if ((Integer) obj == 1) {
 					GroupDetailActivity.this.showToast("成功删除圈子！");
+					GroupDetailActivity.this.setResult(RESULT_OK);
+					GroupDetailActivity.this.goback();
 				} else if ((Integer) obj == -2) {
 					GroupDetailActivity.this.showToast("操作失败！");
 				}
@@ -254,6 +255,8 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 			public void successAction(Object obj) {
 				if ((Integer) obj == 1) {
 					GroupDetailActivity.this.showToast("成功退出圈子！");
+					GroupDetailActivity.this.setResult(RESULT_OK);
+					GroupDetailActivity.this.goback();
 
 				} else if ((Integer) obj == -2) {
 					GroupDetailActivity.this.showToast("没有加入过该圈子！");
