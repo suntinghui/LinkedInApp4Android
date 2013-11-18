@@ -19,7 +19,6 @@ import com.hmd.activity.component.NameCardMainRelativeLayout;
 import com.hmd.activity.component.ProfileTimelineLinearLayout;
 import com.hmd.activity.component.SwitchableGroupScrollViewer;
 import com.hmd.activity.component.SwitchableScrollViewer;
-import com.hmd.activity.component.TopbarRelativeLayout;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.GroupModel;

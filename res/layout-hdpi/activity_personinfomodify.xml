@@ -3,10 +3,6 @@
     android:id="@+id/rl_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
     <RelativeLayout
@@ -14,15 +10,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/topbarBg"
-        android:padding="5dip" >
+        android:layout_centerVertical="true"
+        android:background="@drawable/img_topbar_backdrop" >
 
         <Button
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="15dip"
             android:background="@drawable/img_btn_topbar_left_arrow" />
 
         <TextView
@@ -32,15 +27,18 @@
             android:layout_centerInParent="true"
             android:text="个人信息"
             android:textColor="@color/white"
-            android:textSize="18sp" />
-        
+            android:textSize="16sp" />
+
         <Button
             android:id="@+id/btn_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="15dip"
-            android:background="@drawable/img_login_completed" />
+            android:background="@drawable/btn_create_group"
+            android:text="完成"
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <ScrollView
@@ -109,12 +107,13 @@
 
                     <TextView
                         android:layout_width="70dip"
-                        android:gravity="right"
                         android:layout_height="wrap_content"
+                        android:gravity="right"
                         android:text="姓	名" />
 
                     <EditText
                         android:id="@+id/et_name"
+                        style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
@@ -122,8 +121,7 @@
                         android:hint="请输入姓名"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
-                        android:paddingTop="3dip" 
-                        style="@style/black_15"/>
+                        android:paddingTop="3dip" />
                 </LinearLayout>
 
                 <View
@@ -142,9 +140,9 @@
 
                     <TextView
                         android:layout_width="70dip"
-                        android:gravity="right"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:gravity="right"
                         android:text="性	别" />
 
                     <RadioGroup
@@ -190,18 +188,18 @@
 
                     <TextView
                         android:layout_width="70dip"
-                        android:gravity="right"
                         android:layout_height="wrap_content"
+                        android:gravity="right"
                         android:text="专	业" />
 
                     <EditText
                         android:id="@+id/et_major"
+                        style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
                         android:background="@drawable/edittext_bg"
                         android:hint="请输入专业名称"
-                        style="@style/black_15"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
                         android:paddingTop="3dip" />
@@ -223,10 +221,10 @@
 
                     <TextView
                         android:layout_width="70dip"
-                        android:gravity="right"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-          			    android:text="入学时间" />
+                        android:gravity="right"
+                        android:text="入学时间" />
 
                     <!-- 入学年份 -->
 
@@ -235,8 +233,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/edittext_bg"
-                        android:layout_marginLeft="35dip" >
+                        android:layout_marginLeft="35dip"
+                        android:background="@drawable/edittext_bg" >
 
                         <Spinner
                             android:id="@+id/adYearSpinner"
@@ -274,9 +272,9 @@
 
                     <TextView
                         android:layout_width="70dip"
-                        android:gravity="right"
-                        android:layout_gravity="center_vertical"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
                         android:text="毕业时间" />
 
                     <!-- 毕业年份 -->
@@ -286,8 +284,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="35dip" 
-                        android:background="@drawable/edittext_bg">
+                        android:layout_marginLeft="35dip"
+                        android:background="@drawable/edittext_bg" >
 
                         <Spinner
                             android:id="@+id/gradYearSpinner"
@@ -344,21 +342,21 @@
 
                     <TextView
                         android:layout_width="70dip"
-                        android:gravity="right"
                         android:layout_height="wrap_content"
+                        android:gravity="right"
                         android:text="生日" />
 
                     <TextView
                         android:id="@+id/tv_birthday"
+                        style="@style/black_15"
                         android:layout_width="fill_parent"
-                        android:layout_weight="1"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
+                        android:layout_weight="1"
                         android:background="@drawable/edittext_bg"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
-                        android:paddingTop="3dip" 
-                        style="@style/black_15"/>
+                        android:paddingTop="3dip" />
                 </LinearLayout>
 
                 <View
@@ -377,12 +375,13 @@
 
                     <TextView
                         android:layout_width="70dip"
-                        android:gravity="right"
                         android:layout_height="wrap_content"
+                        android:gravity="right"
                         android:text="籍贯" />
 
                     <EditText
                         android:id="@+id/et_birthplace"
+                        style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
@@ -390,8 +389,7 @@
                         android:hint="请输入籍贯"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
-                        android:paddingTop="3dip"
-                        style="@style/black_15" />
+                        android:paddingTop="3dip" />
                 </LinearLayout>
 
                 <View
@@ -410,12 +408,13 @@
 
                     <TextView
                         android:layout_width="70dip"
-                        android:gravity="right"
                         android:layout_height="wrap_content"
+                        android:gravity="right"
                         android:text="民族" />
 
                     <EditText
                         android:id="@+id/et_nation"
+                        style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
@@ -423,8 +422,7 @@
                         android:hint="请输入民族"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
-                        android:paddingTop="3dip" 
-                        style="@style/black_15"/>
+                        android:paddingTop="3dip" />
                 </LinearLayout>
 
                 <View
@@ -443,12 +441,13 @@
 
                     <TextView
                         android:layout_width="70dip"
-                        android:gravity="right"
                         android:layout_height="wrap_content"
+                        android:gravity="right"
                         android:text="简介" />
 
                     <EditText
                         android:id="@+id/et_desc"
+                        style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
@@ -456,8 +455,7 @@
                         android:hint="请输入简介"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
-                        android:paddingTop="3dip"
-                        style="@style/black_15" />
+                        android:paddingTop="3dip" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

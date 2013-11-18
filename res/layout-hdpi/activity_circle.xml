@@ -7,17 +7,15 @@
     <RelativeLayout
         android:id="@+id/topLayout"
         android:layout_width="fill_parent"
-        android:layout_height="44dip"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@drawable/nav_bar"
-        android:padding="5dip">
+        android:background="@drawable/img_topbar_backdrop"  >
 
         <Button
             android:id="@+id/profileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="15dip"
             android:layout_centerVertical="true"
             android:background="@drawable/img_btn_topbar_left_arrow" />
 
@@ -28,44 +26,49 @@
             android:layout_centerInParent="true"
             android:text="我的圈子"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
-        <Button android:id="@+id/btn_create"
+        <Button
+            android:id="@+id/btn_create"
+            style="@style/white_15"
             android:layout_width="80dip"
             android:layout_height="30dip"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="4dip"
             android:layout_centerVertical="true"
+            android:layout_marginRight="4dip"
             android:background="@drawable/btn_create_group"
-            android:text="创建圈子"
-            style="@style/white_15" />
+            android:text="创建圈子" />
     </RelativeLayout>
 
-    <LinearLayout android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        
-        <Button android:layout_width="fill_parent"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_1"
+            android:layout_width="fill_parent"
             android:layout_height="40dip"
-            android:text="我创建的圈子"
             android:layout_weight="1"
             android:background="@drawable/btn_group_s"
-            android:id="@+id/btn_1"/>
-        
-        <Button android:layout_width="fill_parent"
+            android:text="我创建的圈子" />
+
+        <Button
+            android:id="@+id/btn_2"
+            android:layout_width="fill_parent"
             android:layout_height="40dip"
-            android:text="我加入的圈子"
             android:layout_weight="1"
             android:background="@drawable/btn_group_n"
-            android:id="@+id/btn_2"/>
-        
-        <Button android:layout_width="fill_parent"
+            android:text="我加入的圈子" />
+
+        <Button
+            android:id="@+id/btn_3"
+            android:layout_width="fill_parent"
             android:layout_height="40dip"
-            android:text="系统推荐"
-            android:background="@drawable/btn_group_n"
             android:layout_weight="1"
-            android:id="@+id/btn_3"/>
-        </LinearLayout>
+            android:background="@drawable/btn_group_n"
+            android:text="系统推荐" />
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -74,7 +77,6 @@
 
         <ListView
             android:id="@+id/listView"
-            android:fadingEdge="none"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_alignParentBottom="true"
@@ -84,6 +86,7 @@
             android:layout_marginTop="20dip"
             android:cacheColorHint="#00000000"
             android:descendantFocusability="blocksDescendants"
+            android:fadingEdge="none"
             android:listSelector="@android:color/transparent" />
     </RelativeLayout>
 

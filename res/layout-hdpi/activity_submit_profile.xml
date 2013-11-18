@@ -10,8 +10,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/topbarBg"
-        android:padding="5dip" >
+        android:background="@drawable/img_topbar_backdrop"
+        >
 
         <Button
             android:id="@+id/backButton"
@@ -28,7 +28,7 @@
             android:layout_centerInParent="true"
             android:text="完善个人信息"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/submitButton"
