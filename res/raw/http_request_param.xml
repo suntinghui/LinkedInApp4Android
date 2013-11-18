@@ -316,4 +316,14 @@
         <contentType>application/json</contentType>
     </request>
     
+    <!-- 创建圈子 -->
+    <request>
+        <requestId>GROUP_CREATE</requestId>
+        <url>/group/create</url>
+        <method>POST</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    
+    
 </root>

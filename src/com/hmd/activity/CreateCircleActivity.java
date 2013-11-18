@@ -1,22 +1,39 @@
 package com.hmd.activity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.hmd.R;
+import com.hmd.client.Constants;
+import com.hmd.client.HttpRequestType;
+import com.hmd.model.GroupModel;
+import com.hmd.network.LKAsyncHttpResponseHandler;
+import com.hmd.network.LKHttpRequest;
+import com.hmd.network.LKHttpRequestQueue;
+import com.hmd.network.LKHttpRequestQueueDone;
 
 public class CreateCircleActivity extends AbsSubActivity implements OnClickListener {
-	
+	private EditText et_circle_name = null;
+	private EditText et_circle_content = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_create_circle);
 
-		Button btn_back = (Button) this.findViewById(R.id.profileButton);
+		Button btn_back = (Button) this.findViewById(R.id.backButton);
 		btn_back.setOnClickListener(this);
+		
+		Button btn_create = (Button)this.findViewById(R.id.btn_create);
+		btn_create.setOnClickListener(this);
+		et_circle_name = (EditText)this.findViewById(R.id.et_circle_name);
+		et_circle_content = (EditText)this.findViewById(R.id.et_circle_content);
 	}
 
 	
@@ -25,14 +42,58 @@ public class CreateCircleActivity extends AbsSubActivity implements OnClickListe
 		switch(view.getId()){
 		case R.id.backButton:
 			this.finish();
-			
 			break;
 			
-		case R.id.completedButton:
-			
+		case R.id.btn_create:
+			if(checkValue()){
+				createCircle();				
+			}
 			break;
 		}
 	}
 
 
+	private void createCircle(){
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getCreateRequest());
+		queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());
+	}
+	
+	private Boolean checkValue(){
+		if(et_circle_name.length() == 0){
+			this.showToast("圈子名称不能为空！");
+			return false;
+		}else if(et_circle_content.length() == 0){
+			this.showToast("圈子内容不能为空！");
+			return false;
+		}
+		return true;
+	}
+	
+	// 查看所有圈子列表
+	private LKHttpRequest getCreateRequest() {
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("name", et_circle_name.getText().toString());
+		paramMap.put("desc", et_circle_content.getText().toString());
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_GROUP_CREATE, paramMap, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				if (null != obj) {
+					if(((Integer)obj) == 1){
+						CreateCircleActivity.this.showToast("圈子创建成功！");
+						CreateCircleActivity.this.finish();
+					}else{
+						CreateCircleActivity.this.showToast("圈子创建失败！");
+					}
+					
+				} else {
+					
+				}
+
+			}
+		});
+
+		return request;
+	}
 }
