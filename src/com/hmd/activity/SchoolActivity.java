@@ -84,25 +84,30 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 		// 学校信息
 		rlSchoolInfo = new SchoolInfoCardRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolInfo);
+		rlSchoolInfo.setOnTouchListener(this);
 		
 		// 官方公告
 		rlSchoolNotice = new SchoolNoticeRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolNotice);
 		rlSchoolNotice.setVisibility(View.GONE);
+		rlSchoolNotice.setOnTouchListener(this);
 		
 		// 官方活动
 		rlSchoolEvent = new SchoolEventRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolEvent);
 		rlSchoolEvent.setVisibility(View.GONE);
+		rlSchoolEvent.setOnTouchListener(this);
 		
 		// 校友卡
 		rlSchoolCard = new SchoolCardRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolCard);
+		rlSchoolCard.setOnTouchListener(this);
 		
 		// 官方微博
 		rlSchoolWeibo = new SchoolWeiboRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolWeibo);
 		rlSchoolWeibo.setVisibility(WeiboUtil.hasAuth() ? View.GONE : View.VISIBLE);
+		rlSchoolWeibo.setOnTouchListener(this);
 		
 		refreshData();
 	}
@@ -309,7 +314,7 @@ public class SchoolActivity extends BaseActivity implements OnTouchListener {
 	
 		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-			if (e1.getX() - e2.getX() > 120) {    
+			if (e1.getX() - e2.getX() > 80) {    
 				TransformToProfileScreen();
 	            return true;    
 	        }  
