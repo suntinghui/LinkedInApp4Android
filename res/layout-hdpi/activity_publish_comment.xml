@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="创建圈子"
+            android:text="发表评论"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </RelativeLayout>
@@ -50,7 +50,7 @@
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
             android:layout_weight="1"
-            android:background="@drawable/boder"
+            android:background="@drawable/boder2"
             android:orientation="vertical" >
 
             <EditText

@@ -74,8 +74,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/img_group_participant_button"
                 android:text="成员列表"
+                android:layout_gravity="center_vertical"
                 android:textColor="@color/dateBlue"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <!-- 圈子信息 -->
@@ -125,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="圈内圈外圈内圈外圈内圈外圈内圈外圈内圈外圈内圈外圈内圈外圈内圈外圈内圈外圈内圈外圈内圈外圈内圈外圈内圈外圈内圈外圈内圈外圈内圈外圈内圈外" />
+                    android:text="圈内圈" />
             </LinearLayout>
 
             <LinearLayout
@@ -172,8 +173,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/img_group_participant_button"
                 android:text="发表评论"
+                android:layout_gravity="center_vertical"
                 android:textColor="@color/dateBlue"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
         </LinearLayout>
 
         <ListView

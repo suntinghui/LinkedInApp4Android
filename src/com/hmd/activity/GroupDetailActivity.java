@@ -177,6 +177,7 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 				holder.time = (TextView) convertView.findViewById(R.id.timeText);
 				holder.authorImg = (ImageView) convertView.findViewById(R.id.authorLogoImage);
 				holder.replyButton = (Button) convertView.findViewById(R.id.replyButton);
+				holder.replyButton.setTag(1000+position);
 
 				convertView.setTag(holder);
 			} else {
@@ -191,7 +192,11 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 			holder.replyButton.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View view) {
-					// TODO 评论
+					Integer index = (Integer)view.getTag()-1000;
+					String tmp_id = commentList.get(index).getId();
+					Intent intent_s= new Intent(GroupDetailActivity.this, ReplyCommentActivity.class);
+					intent_s.putExtra("COMMENT_ID", tmp_id);
+					GroupDetailActivity.this.startActivity(intent_s);
 
 				}
 
