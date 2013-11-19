@@ -27,8 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="完善个人信息"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            style="@style/white_20"/>
 
         <Button
             android:id="@+id/submitButton"

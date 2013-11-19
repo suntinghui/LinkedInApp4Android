@@ -24,8 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="关于系统"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            style="@style/white_20"/>
     </RelativeLayout>
 
     <RelativeLayout

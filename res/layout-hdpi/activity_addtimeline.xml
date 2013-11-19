@@ -25,8 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="新增个人履历"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            style="@style/white_20"/>
 
         <Button
             android:id="@+id/btn_confirm"

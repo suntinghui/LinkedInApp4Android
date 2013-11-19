@@ -23,7 +23,7 @@
         android:background="@null"
         android:hint="@string/app_name"
         android:paddingLeft="10dip"
-        android:textSize="14sp" />
+        android:textSize="15sp" />
 
     <ImageView
         android:id="@+id/clearImage"

@@ -26,8 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="圈子信息"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            style="@style/white_20"/>
 
         <Button
             android:id="@+id/btn_create"
@@ -88,6 +87,7 @@
             android:cacheColorHint="#00000000"
             android:descendantFocusability="blocksDescendants"
             android:fadingEdge="none"
+            android:divider="@null" 
             android:listSelector="@android:color/transparent" />
     </RelativeLayout>
 
