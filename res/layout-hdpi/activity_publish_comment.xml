@@ -65,7 +65,8 @@
                 android:paddingBottom="5dip"
                 android:paddingLeft="5dip"
                 android:paddingRight="5dip"
-                android:paddingTop="5dip" />
+                android:paddingTop="5dip"
+                style="@style/black_14" />
         </LinearLayout>
     </LinearLayout>
 

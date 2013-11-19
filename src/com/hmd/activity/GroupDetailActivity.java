@@ -197,7 +197,7 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 					Intent intent_s= new Intent(GroupDetailActivity.this, ReplyCommentActivity.class);
 					intent_s.putExtra("COMMENT_ID", tmp_id);
 					intent_s.putExtra("GROUP_ID", groupModel.getId());
-					GroupDetailActivity.this.startActivity(intent_s);
+					GroupDetailActivity.this.startActivityForResult(intent_s, 5);
 
 				}
 
@@ -313,6 +313,21 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getCommentListRequest());
 		queue.executeQueue("正在获取评论列表...", new LKHttpRequestQueueDone());
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		switch (requestCode) {
+		case 5:
+			refreshCommentList();
+			break;
+
+		default:
+			break;
+		}
 	}
 
 }

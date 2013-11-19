@@ -50,7 +50,7 @@
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
             android:layout_weight="1"
-            android:background="@drawable/boder"
+            android:background="@drawable/boder2"
             android:orientation="vertical" >
 
             <EditText
@@ -65,7 +65,8 @@
                 android:paddingBottom="5dip"
                 android:paddingLeft="5dip"
                 android:paddingRight="5dip"
-                android:paddingTop="5dip" />
+                android:paddingTop="5dip"
+                style="@style/black_14" />
         </LinearLayout>
     </LinearLayout>
 
