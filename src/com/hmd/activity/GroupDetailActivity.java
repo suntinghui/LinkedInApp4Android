@@ -1,8 +1,10 @@
 package com.hmd.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.CommentModel;
 import com.hmd.model.GroupModel;
@@ -47,6 +50,9 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 
 	private ArrayList<CommentModel> commentList = new ArrayList<CommentModel>();
 	private CommentAdapter adapter = null;
+	
+	private int totalPage = 0;
+	private int currentPage = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +105,7 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 		commentListView = (ListView) this.findViewById(R.id.commentListView);
 		adapter = new CommentAdapter(this);
 		commentListView.setAdapter(adapter);
+		refreshCommentList();
 	}
 
 	@Override
@@ -113,11 +120,15 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 			break;
 
 		case R.id.sendButton:// 发送评论
-
+			Intent intent_s= new Intent(GroupDetailActivity.this, PublishCommentActivity.class);
+			intent_s.putExtra("GROUP_ID", groupModel.getId());
+			GroupDetailActivity.this.startActivity(intent_s);
 			break;
 
 		case R.id.queryParticipantBtn: // 查询成员
-
+			Intent intent_par = new Intent(GroupDetailActivity.this, MeberOfGroupActivity.class);
+			intent_par.putExtra("model", groupModel);
+			GroupDetailActivity.this.startActivity(intent_par);
 			break;
 
 		}
@@ -231,6 +242,7 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 		}, groupModel.getId());
 		return request;
 	}
+	
 	// 删除圈子列表
 	private LKHttpRequest getDeleteGroupRequest() {
 		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_GROUP_DELETE, null, new LKAsyncHttpResponseHandler() {
@@ -266,6 +278,35 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 			}
 		}, groupModel.getId());
 		return request;
+	}
+	
+	// 获取评论列表
+	private LKHttpRequest getCommentListRequest() {
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("page", ++currentPage + "");
+		paramMap.put("num", Constants.PAGESIZE);
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_GROUP_COMMENT_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+			@Override
+			public void successAction(Object obj) {
+				if (null != obj) {
+					ArrayList<CommentModel> list = (ArrayList<CommentModel>) (((HashMap<String, Object>) obj).get("list"));
+					for (int i = 0; i < list.size(); i++) {
+						commentList.add(list.get(i));
+					}
+					int count = Integer.valueOf((String) ((HashMap<String, Object>) obj).get("total"));
+					totalPage = (count + Constants.PAGESIZE - 1) / Constants.PAGESIZE;
+					adapter.notifyDataSetChanged();
+				} else {
+				}
+			}
+		}, groupModel.getId());
+		return request;
+	}
+	
+	private void refreshCommentList(){
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getCommentListRequest());
+		queue.executeQueue("正在获取评论列表...", new LKHttpRequestQueueDone());
 	}
 
 }

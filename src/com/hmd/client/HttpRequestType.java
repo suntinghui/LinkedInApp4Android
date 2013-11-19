@@ -48,9 +48,10 @@ public interface HttpRequestType {
 	public static final String HTTP_GROUP_LIST							= "GROUP_LIST";
 	public static final String HTTP_GROUP_JOIN							= "GROUP_JOIN";
 	public static final String HTTP_GROUP_QUIT							= "GROUP_QUIT";
-	public static final String HTTP_GROUP_COMMENT_LIT					= "GROUP_COMMENT_LIT";
+	public static final String HTTP_GROUP_COMMENT_LIST					= "GROUP_COMMENT_LIST";
 	public static final String HTTP_GROUP_COMMENT_CREATE				= "GROUP_COMMENT_CREATE";
 	public static final String HTTP_GROUP_CREATE						= "GROUP_CREATE";
 	public static final String HTTP_GROUP_DELETE						= "GROUP_DELETE";
+	public static final String HTTP_PUBLISH_COMMENT						= "PUBLISH_COMMENT";
 	
 }

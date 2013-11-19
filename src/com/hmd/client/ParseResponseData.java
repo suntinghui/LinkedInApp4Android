@@ -12,6 +12,7 @@ import com.hmd.enums.ErrorCode;
 import com.hmd.exception.ServiceErrorException;
 import com.hmd.model.ActiveModel;
 import com.hmd.model.AnnouncementModel;
+import com.hmd.model.CommentModel;
 import com.hmd.model.GroupModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.SchoolModel;
@@ -122,7 +123,12 @@ public class ParseResponseData {
 
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_CREATE)) {
 			return getCreateCircle(jsonObject);
-
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_COMMENT_LIST)) {
+			return getCommentList(jsonObject);
+			
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PUBLISH_COMMENT)) {
+			return getPublishComment(jsonObject);
 		}
 
 		return null;
@@ -556,10 +562,41 @@ public class ParseResponseData {
 
 		return null;
 	}
-
-	// 查看圈子成员
-
-	private static Object getParticipantList(JSONObject jsonObject) {
+	
+	//获取圈子发言列表
+	private static Object getCommentList(JSONObject jsonObject){
+		ArrayList<CommentModel> modelList = new ArrayList<CommentModel>();
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String total = jsonObject.optString("total", "0");
+		map.put("total", total);
+		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0){
+			for (int i=0; i<jsonArray.length(); i++){
+				CommentModel model = new CommentModel();
+				
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				model.setId(obj.optString("id", ""));
+				model.setContent(obj.optString("content", ""));
+				model.setAuthorId(obj.optString("authorId", ""));
+				model.setAuthorPic(obj.optString("authorPic", ""));
+				model.setAuthorName(obj.optString("authorName", ""));
+				model.setTime(obj.optString("time", ""));
+				
+				modelList.add(model);
+			}
+			map.put("list", modelList);
+			return map;
+			
+		}
+		
+		return null;
+	}
+	
+	//查看圈子成员
+	
+	private static Object getParticipantList(JSONObject jsonObject){
 		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -618,8 +655,15 @@ public class ParseResponseData {
 
 		return errorCode;
 	}
-
-	private static Object getTimelineList(JSONObject jsonObject) {
+	
+	// 退出圈子
+	private static int getPublishComment(JSONObject jsonObject){
+		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
+		
+		return errorCode;
+	}
+	
+	private static Object getTimelineList(JSONObject jsonObject){
 		ArrayList<TimelineModel> modelList = new ArrayList<TimelineModel>();
 
 		JSONArray jsonArray = jsonObject.optJSONArray("list");
