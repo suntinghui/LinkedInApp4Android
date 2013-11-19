@@ -41,7 +41,7 @@ public class MainActivityGroup extends AbsActivityGroup {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Class<? extends Activity>[] getClasses() {
-		Class<? extends Activity>[] classes = new Class[] { SchoolActivity.class, ProfileActivity.class, CircleActivity.class, SchoolActivity.class };
+		Class<? extends Activity>[] classes = new Class[] { SchoolActivity.class, ProfileActivity.class, CircleActivity.class, SystemSettingActivity.class };
 		return classes;
 	}
 

@@ -217,7 +217,7 @@ public class BaseActivity extends Activity {
 	public void showProgressHUD(){
 		this.hideDialog(ALL_DIALOG);
 		
-		progressHUD = ProgressHUD.show(this,(null==message?"":message), true, false, null);
+		progressHUD = ProgressHUD.show(getTopActivity(),(null==message?"":message), true, false, null);
 	}
 	
 	public void hideDialog(int type){
