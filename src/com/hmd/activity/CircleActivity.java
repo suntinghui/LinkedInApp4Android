@@ -240,7 +240,7 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 			if (null == convertView) {
 				holder = new GroupViewHolder();
 
-				convertView = mInflater.inflate(R.layout.list_item_circle, null);
+				convertView = mInflater.inflate(R.layout.listview_item_circle, null);
 
 				holder.contentLayout = (RelativeLayout) convertView.findViewById(R.id.contentLayout);
 				holder.moreLayout = (RelativeLayout) convertView.findViewById(R.id.moreLayout);
