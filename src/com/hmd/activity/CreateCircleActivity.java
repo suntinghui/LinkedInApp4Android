@@ -41,7 +41,7 @@ public class CreateCircleActivity extends AbsSubActivity implements OnClickListe
 	public void onClick(View view) {
 		switch(view.getId()){
 		case R.id.backButton:
-			this.goback();
+			this.gobackWithResult(1, this.getIntent());
 			break;
 			
 		case R.id.btn_create:
@@ -82,7 +82,7 @@ public class CreateCircleActivity extends AbsSubActivity implements OnClickListe
 				if (null != obj) {
 					if(((Integer)obj) == 1){
 						CreateCircleActivity.this.showToast("圈子创建成功！");
-						CreateCircleActivity.this.goback();
+						CreateCircleActivity.this.gobackWithResult(1, CreateCircleActivity.this.getIntent());
 					}else{
 						CreateCircleActivity.this.showToast("圈子创建失败！");
 					}
