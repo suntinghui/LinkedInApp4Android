@@ -20,6 +20,14 @@
         <contentType>application/json</contentType>
     </request>
     
+    <!-- 修改密码 -->
+    <request>
+        <requestId>UPDATEPWD</requestId>
+        <url>/account/password/update</url>
+        <method>POST</method>
+        <contentType>application/json</contentType>
+    </request>
+    
     <!-- 注册 -->
     <request>
         <requestId>REGISTER</requestId>

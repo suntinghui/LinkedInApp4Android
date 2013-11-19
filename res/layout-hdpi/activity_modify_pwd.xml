@@ -17,15 +17,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/img_btn_topbar_left_arrow"
-            android:visibility="gone" />
+            android:background="@drawable/img_btn_topbar_left_arrow" />
 
         <TextView
             android:id="@+id/titleView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="登 录"
+            android:text="修改密码"
             android:textColor="@color/white"
             android:textSize="16sp" />
     </RelativeLayout>
@@ -39,52 +38,44 @@
         android:paddingRight="10dip" >
 
         <com.hmd.view.EditTextWithClearView
-            android:id="@+id/nameText"
+            android:id="@+id/oldpwd"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dip"
-            hmd:hint="请输入用户名"
-            hmd:inputType="text"
-            hmd:leftImage="user" >
-        </com.hmd.view.EditTextWithClearView>
-
-        <com.hmd.view.EditTextWithClearView
-            android:id="@+id/passwordText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
-            hmd:hint="请输入密码"
+            hmd:hint="请输入原密码"
             hmd:inputType="password"
             hmd:leftImage="password" >
         </com.hmd.view.EditTextWithClearView>
 
-        <LinearLayout
+        <com.hmd.view.EditTextWithClearView
+            android:id="@+id/newpwd1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            hmd:hint="请输入新密码"
+            hmd:inputType="password"
+            hmd:leftImage="password" >
+        </com.hmd.view.EditTextWithClearView>
+
+        <com.hmd.view.EditTextWithClearView
+            android:id="@+id/newpwd2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            hmd:hint="请确认新密码"
+            hmd:inputType="password"
+            hmd:leftImage="password" >
+        </com.hmd.view.EditTextWithClearView>
+
+        <Button
+            android:id="@+id/okButton"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dip"
-            android:orientation="horizontal" >
-
-            <Button
-                android:id="@+id/registrationButton"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/img_blue_button"
-                android:text="注  册"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/completedButton"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/img_orange_button"
-                android:text="登  录"
-                android:layout_marginLeft="20dip"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
-        </LinearLayout>
+            android:background="@drawable/img_orange_button"
+            android:text="确   定"
+            android:textColor="@color/white" 
+            android:textSize="16sp"/>
     </LinearLayout>
 
 </LinearLayout>

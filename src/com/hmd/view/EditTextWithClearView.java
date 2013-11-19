@@ -17,6 +17,7 @@ public class EditTextWithClearView extends RelativeLayout implements OnClickList
 	
 	private EditText editText = null;
 	private ImageView clearImage = null;
+	private ImageView leftImage = null;
 
 	public EditTextWithClearView(Context context) {
 		super(context);
@@ -29,6 +30,7 @@ public class EditTextWithClearView extends RelativeLayout implements OnClickList
 		editText = (EditText) layout.findViewById(R.id.editText);
 		clearImage = (ImageView) layout.findViewById(R.id.clearImage);
 		clearImage.setOnClickListener(this);
+		leftImage = (ImageView) layout.findViewById(R.id.leftImage);
 		
 		TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EditTextWithClearView);  
 		CharSequence hint = typedArray.getText(R.styleable.EditTextWithClearView_hint);
@@ -41,6 +43,19 @@ public class EditTextWithClearView extends RelativeLayout implements OnClickList
 			editText.setInputType(InputType.TYPE_CLASS_TEXT);
 		} else if (inputType == 1){
 			editText.setInputType(InputType.TYPE_CLASS_TEXT |InputType.TYPE_TEXT_VARIATION_PASSWORD);
+		}
+		
+		int imageType = typedArray.getInteger(R.styleable.EditTextWithClearView_leftImage, 0);
+		if (imageType == 0){
+			leftImage.setVisibility(View.GONE);
+		} else if (imageType == 1) {
+			leftImage.setVisibility(View.VISIBLE);
+			leftImage.setImageResource(R.drawable.img_edittext_user);
+		} else if (imageType == 2){
+			leftImage.setVisibility(View.VISIBLE);
+			leftImage.setImageResource(R.drawable.img_edittext_pwd);
+		} else {
+			leftImage.setVisibility(View.GONE);
 		}
 		
 		typedArray.recycle();

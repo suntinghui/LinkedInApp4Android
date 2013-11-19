@@ -4,8 +4,13 @@
     <declare-styleable name="EditTextWithClearView">
         <attr name="hint" format="string"></attr>
         <attr name="inputType" format="integer">
-            <enum name="text" value="0"/>
-            <enum name="password" value="1"/>
+            <enum name="text" value="0" />
+            <enum name="password" value="1" />
+        </attr>
+        <attr name="leftImage" format="integer">
+            <enum name="none" value="0" />
+            <enum name="user" value="1" />
+            <enum name="password" value="2" />
         </attr>
     </declare-styleable>
 
