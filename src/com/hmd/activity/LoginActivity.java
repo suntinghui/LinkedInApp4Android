@@ -21,8 +21,8 @@ import com.hmd.view.EditTextWithClearView;
 
 public class LoginActivity extends BaseActivity implements OnClickListener {
 	
-	private Button backButton = null;
 	private Button completedButton = null;
+	private Button registrationButton = null;
 	private EditTextWithClearView nameView = null;
 	private EditTextWithClearView passwordView = null;
 
@@ -36,8 +36,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void init(){
-		backButton = (Button) this.findViewById(R.id.backButton);
-		backButton.setOnClickListener(this);
+		registrationButton = (Button) this.findViewById(R.id.registrationButton);
+		registrationButton.setOnClickListener(this);
 		
 		completedButton = (Button) this.findViewById(R.id.completedButton);
 		completedButton.setOnClickListener(this);
@@ -52,8 +52,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void onClick(View view) {
 		switch(view.getId()){
-		case R.id.backButton:
-			this.finish();
+		case R.id.registrationButton:
+			Intent intent = new Intent(this, RegistrationActivity.class);
+			this.startActivity(intent);
 			
 			break;
 			

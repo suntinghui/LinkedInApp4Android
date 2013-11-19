@@ -17,11 +17,8 @@ import android.widget.LinearLayout;
 import com.hmd.R;
 import com.hmd.activity.component.NameCardMainRelativeLayout;
 import com.hmd.activity.component.ProfileTimelineLinearLayout;
-import com.hmd.activity.component.SwitchableGroupScrollViewer;
 import com.hmd.activity.component.SwitchableScrollViewer;
-import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
-import com.hmd.model.GroupModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.TimelineModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
@@ -29,54 +26,61 @@ import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 
-public class ProfileActivity extends AbsSubActivity implements OnTouchListener{
+public class ProfileActivity extends AbsSubActivity implements OnTouchListener {
 
 	private NameCardMainRelativeLayout profileInfoLayout = null;
 	private ProfileTimelineLinearLayout timelineLayout = null;
 	private SwitchableScrollViewer friendLayout = null;
 	private SwitchableScrollViewer fansLayout = null;
-	private SwitchableGroupScrollViewer groupLayout = null;
-	
+
 	private GestureDetector mDector = null;
 	private ProfileModel profileModel = null;
 	private LinearLayout mLlContainer = null;
 	private String mIdentity = "me";// 个人还是他人
-	
+
 	private Button profileButton = null;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.activity_profile);
-		
+
 		Intent intent = this.getIntent();
+
 		mIdentity = intent.getStringExtra("IDENTITY");
+		if (null == mIdentity) {
+			mIdentity = "me";
+		}
+
 		profileModel = (ProfileModel) intent.getSerializableExtra("PROFILE");
-		profileButton = (Button)this.findViewById(R.id.profileButton);
+		profileButton = (Button) this.findViewById(R.id.profileButton);
 		profileButton.setOnClickListener(listener);
 		this.init();
 	}
-	
+
 	private OnClickListener listener = new OnClickListener() {
-		
+
 		@Override
 		public void onClick(View arg0) {
 			goback();
-			
+
 		}
 	};
-	private void init(){
 
-		this.mLlContainer = (LinearLayout)this.findViewById(R.id.ll_profile_container);
+	private void init() {
+
+		this.mLlContainer = (LinearLayout) this.findViewById(R.id.ll_profile_container);
 		this.mLlContainer.setOnTouchListener(this);
-		
-		this.mDector = new GestureDetector(this, new GestureListener()); 
-	
-//		LinearLayout llTopbar = (LinearLayout)this.findViewById(R.id.ll_profile_topbar);
-//		TopbarRelativeLayout topbar = new TopbarRelativeLayout(this, this.onNavigation, R.drawable.img_btn_topbar_left_arrow);
-//		llTopbar.addView(topbar);
-		
+
+		this.mDector = new GestureDetector(this, new GestureListener());
+
+		// LinearLayout llTopbar =
+		// (LinearLayout)this.findViewById(R.id.ll_profile_topbar);
+		// TopbarRelativeLayout topbar = new TopbarRelativeLayout(this,
+		// this.onNavigation, R.drawable.img_btn_topbar_left_arrow);
+		// llTopbar.addView(topbar);
+
 		profileInfoLayout = (NameCardMainRelativeLayout) this.findViewById(R.id.profileInfoLayout);
 		profileInfoLayout.mIdentity = mIdentity;
 		timelineLayout = (ProfileTimelineLinearLayout) this.findViewById(R.id.profileTimelineLayout);
@@ -85,153 +89,120 @@ public class ProfileActivity extends AbsSubActivity implements OnTouchListener{
 		friendLayout.setTitle("个人关注");
 		fansLayout = (SwitchableScrollViewer) this.findViewById(R.id.profileFansLayout);
 		fansLayout.setTitle("关注我的人");
-		groupLayout  = (SwitchableGroupScrollViewer) this.findViewById(R.id.groupLayout);
-		groupLayout.setTitle("我的圈子");
-		groupLayout.showAllGroupButton();
-		groupLayout.setVisibility(View.VISIBLE);
-		if(!mIdentity.equals("me")){
+		if (!mIdentity.equals("me")) {
 			friendLayout.setVisibility(View.GONE);
 			fansLayout.setVisibility(View.GONE);
-			groupLayout.setVisibility(View.GONE);
 		}
-		
+
 		this.refreshData();
 	}
-	
-	public void refreshData(){
+
+	public void refreshData() {
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getProfileRequest());
 		queue.addHttpRequest(getProfileTimelineRequest());
-		if(mIdentity.equals("me")){
+		if (mIdentity.equals("me")) {
 			queue.addHttpRequest(getMyAttentionsRequest());
 			queue.addHttpRequest(getFansRequest());
-			queue.addHttpRequest(getMyGroupRequest());
 		}
-		
+
 		queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());
-		
+
 	}
-	
+
 	// 查看个人基本信息
-	private LKHttpRequest getProfileRequest(){
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_PROFILE_BASIC, null, new LKAsyncHttpResponseHandler() {
+	private LKHttpRequest getProfileRequest() {
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_PROFILE_BASIC, null, new LKAsyncHttpResponseHandler() {
 			@Override
 			public void successAction(Object obj) {
 				profileModel = (ProfileModel) obj;
 				profileInfoLayout.refresh(profileModel);
 			}
-		}, mIdentity.equals("me") ? "me":profileModel.getId());
-		
+		}, mIdentity.equals("me") ? "me" : profileModel.getId());
+
 		return request;
 	}
-	
+
 	// 查看个人履历
-	private LKHttpRequest getProfileTimelineRequest(){
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_TIMELINE_LIST, null, new LKAsyncHttpResponseHandler() {
+	private LKHttpRequest getProfileTimelineRequest() {
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_TIMELINE_LIST, null, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-				if (null != obj){
+				if (null != obj) {
 					timelineLayout.refresh((ArrayList<TimelineModel>) obj);
 				}
 			}
-		}, mIdentity.equals("me") ? "me":profileModel.getId());
-		
+		}, mIdentity.equals("me") ? "me" : profileModel.getId());
+
 		return request;
 	}
-	
-	// 查看我的圈子列表
-	private LKHttpRequest getMyGroupRequest(){
-		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("page", "1");
-		paramMap.put("num", "5");
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_GROUP_ME_LIST, paramMap, new LKAsyncHttpResponseHandler() {
-			@SuppressWarnings("unchecked")
-			@Override
-			public void successAction(Object obj) {
-				if (null != obj){
-					ArrayList<GroupModel> list = (ArrayList<GroupModel>)(((HashMap<String, Object>)obj).get("list"));
-					Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-					if(total < 6){
-						groupLayout.hiddenMoreButton();
-					}
-					if(list == null || list.size() == 0){
-					}else{
-						groupLayout.refresh(list);
-					}
-				}else{
-				}
-				
-			}
-		});
-		
-		return request;
-	}
+
+
 	// 查看我关注的人
-	private LKHttpRequest getMyAttentionsRequest(){
+	private LKHttpRequest getMyAttentionsRequest() {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", "1");
 		paramMap.put("num", "5");
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_FRIENDS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-				if (null != obj){
-					ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
-					Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-					if(total < 6){
+				if (null != obj) {
+					ArrayList<ProfileModel> list = (ArrayList<ProfileModel>) (((HashMap<String, Object>) obj).get("list"));
+					Integer total = Integer.valueOf((String) (((HashMap<String, Object>) obj).get("total")));
+					if (total < 6) {
 						friendLayout.hiddenMoreButton();
 					}
-					if(list == null || list.size() == 0){
+					if (list == null || list.size() == 0) {
 						friendLayout.setVisibility(View.GONE);
-					}else{
+					} else {
 						friendLayout.refresh(list);
 					}
-				}else{
+				} else {
 					friendLayout.setVisibility(View.GONE);
 				}
-				
+
 			}
 		});
-		
+
 		return request;
 	}
-	
+
 	// 查看关注我的人
-	private LKHttpRequest getFansRequest(){
+	private LKHttpRequest getFansRequest() {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", "1");
 		paramMap.put("num", "5");
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_FRIENDS_FUNS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_FRIENDS_FUNS_LIST, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-				if (null != obj){
-					ArrayList<ProfileModel> list = (ArrayList<ProfileModel>)(((HashMap<String, Object>)obj).get("list"));
-					Integer total = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));
-					if(total < 6){
+				if (null != obj) {
+					ArrayList<ProfileModel> list = (ArrayList<ProfileModel>) (((HashMap<String, Object>) obj).get("list"));
+					Integer total = Integer.valueOf((String) (((HashMap<String, Object>) obj).get("total")));
+					if (total < 6) {
 						fansLayout.hiddenMoreButton();
 					}
-					if(list == null || list.size() == 0){
+					if (list == null || list.size() == 0) {
 						fansLayout.setVisibility(View.GONE);
-					}else{
+					} else {
 						fansLayout.refresh(list);
 					}
 				}
-				
+
 			}
 		});
-		
+
 		return request;
 	}
-	
-	
-	private void TransformToMainScreen(){
+
+	private void TransformToMainScreen() {
 		this.goback();
 	}
-	
+
 	@Override
-	public void onBackPressed(){
+	public void onBackPressed() {
 		this.TransformToMainScreen();
 	}
 
@@ -239,57 +210,56 @@ public class ProfileActivity extends AbsSubActivity implements OnTouchListener{
 	public boolean onTouch(View v, MotionEvent event) {
 		return this.mDector.onTouchEvent(event);
 	}
-	
-	private OnClickListener onNavigation = new OnClickListener(){
+
+	private OnClickListener onNavigation = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
 			TransformToMainScreen();
 		}
-		
+
 	};
-	
-	class GestureListener extends SimpleOnGestureListener  
-    {  
+
+	class GestureListener extends SimpleOnGestureListener {
 		@Override
 		public boolean onDown(MotionEvent e) {
 			return true;
 		}
-	
+
 		@Override
 		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-			
-			if (e1.getX() - e2.getX() < -120) {    
+
+			if (e1.getX() - e2.getX() < -120) {
 				TransformToMainScreen();
-	            return true;    
-	        }  
-			
+				return true;
+			}
+
 			return false;
 		}
-	
+
 		@Override
 		public void onLongPress(MotionEvent e) {
 		}
-	
+
 		@Override
 		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
 			return false;
 		}
-	
+
 		@Override
 		public void onShowPress(MotionEvent e) {
 		}
-	
+
 		@Override
 		public boolean onSingleTapUp(MotionEvent e) {
 			return false;
 		}
-    }
-	
-	protected void onActivityResult(int requestCode, int resultCode, Intent data){
-		 super.onActivityResult(requestCode, resultCode, data);
-		 if(resultCode == 5){
-			 refreshData();
-		 }
+	}
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == 5) {
+			refreshData();
+		}
 	}
 }

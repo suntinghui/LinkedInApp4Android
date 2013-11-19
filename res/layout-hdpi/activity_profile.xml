@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:background="@drawable/img_btn_topbar_left_arrow" />
+            android:background="@drawable/img_btn_topbar_left_arrow"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/titleView"

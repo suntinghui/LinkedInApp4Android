@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@drawable/img_topbar_backdrop"  >
+        android:background="@drawable/img_topbar_backdrop" >
 
         <Button
             android:id="@+id/profileButton"
@@ -17,14 +17,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/img_btn_topbar_left_arrow" />
+            android:background="@drawable/img_btn_topbar_left_arrow"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/titleView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="我的圈子"
+            android:text="圈子信息"
             android:textColor="@color/white"
             android:textSize="16sp" />
 

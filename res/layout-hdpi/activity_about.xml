@@ -28,11 +28,27 @@
             android:textSize="16sp" />
     </RelativeLayout>
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:contentDescription="@string/app_name"
-        android:scaleType="centerCrop"
-        android:src="@drawable/img_splash" />
+        android:background="@drawable/img_backdrop" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dip"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="feedback@xy.cnu.edu.cn\n\nVersion:1.0.0"
+            android:textColor="@color/fontGrey" />
+    </RelativeLayout>
 
 </LinearLayout>

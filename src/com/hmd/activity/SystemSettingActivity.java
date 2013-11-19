@@ -78,11 +78,8 @@ public class SystemSettingActivity extends AbsSubActivity {
 			public void onClick(DialogInterface arg0, int arg1) {
 				arg0.dismiss();
 				
-				for (Activity mActivity : BaseActivity.getAllActiveActivity()){
-					if (!(mActivity instanceof LoginActivity)){
-						mActivity.finish();
-					}
-					
+				while (!(BaseActivity.getTopActivity() instanceof LoginActivity)){
+					BaseActivity.getTopActivity().finish();
 				}
 				
 			}
