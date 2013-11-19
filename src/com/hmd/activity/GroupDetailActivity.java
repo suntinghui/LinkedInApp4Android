@@ -196,6 +196,7 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 					String tmp_id = commentList.get(index).getId();
 					Intent intent_s= new Intent(GroupDetailActivity.this, ReplyCommentActivity.class);
 					intent_s.putExtra("COMMENT_ID", tmp_id);
+					intent_s.putExtra("GROUP_ID", groupModel.getId());
 					GroupDetailActivity.this.startActivity(intent_s);
 
 				}
