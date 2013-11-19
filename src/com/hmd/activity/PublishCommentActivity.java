@@ -80,7 +80,7 @@ public class PublishCommentActivity extends AbsSubActivity implements OnClickLis
 				if (null != obj) {
 					if(((Integer)obj) == 1){
 						PublishCommentActivity.this.showToast("评论成功！");
-						PublishCommentActivity.this.goback();
+						PublishCommentActivity.this.gobackWithResult(RESULT_OK, PublishCommentActivity.this.getIntent());
 					}else{
 						PublishCommentActivity.this.showToast("评论失败！");
 					}

@@ -80,8 +80,7 @@ public class ReplyCommentActivity extends AbsSubActivity implements OnClickListe
 				if (null != obj) {
 					if(((Integer)obj) == 1){
 						ReplyCommentActivity.this.showToast("回复成功！");
-						setResult(5);
-						ReplyCommentActivity.this.goback();
+						ReplyCommentActivity.this.gobackWithResult(RESULT_OK, ReplyCommentActivity.this.getIntent());
 					}else{
 						ReplyCommentActivity.this.showToast("回复失败！");
 					}

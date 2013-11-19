@@ -122,7 +122,7 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 		case R.id.sendButton:// 发送评论
 			Intent intent_s= new Intent(GroupDetailActivity.this, PublishCommentActivity.class);
 			intent_s.putExtra("GROUP_ID", groupModel.getId());
-			GroupDetailActivity.this.startActivity(intent_s);
+			GroupDetailActivity.this.startActivityForResult(intent_s, 5);
 			break;
 
 		case R.id.queryParticipantBtn: // 查询成员
@@ -318,10 +318,10 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
-		super.onActivityResult(requestCode, resultCode, data);
+		//super.onActivityResult(requestCode, resultCode, data);
 		
-		switch (requestCode) {
-		case 5:
+		switch (resultCode) {
+		case RESULT_OK:
 			refreshCommentList();
 			break;
 
