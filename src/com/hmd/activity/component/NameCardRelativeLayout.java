@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.hmd.R;
 import com.hmd.activity.BaseActivity;
 import com.hmd.activity.ProfileActivity;
+import com.hmd.activity.ProfileHeActivity;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.ProfileModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
@@ -96,7 +97,7 @@ public class NameCardRelativeLayout extends RelativeLayout {
 				detailModel = (ProfileModel) obj;
 				detailModel.setId(data.getId());
 				
-				Intent intent = new Intent(NameCardRelativeLayout.this.context, ProfileActivity.class);  
+				Intent intent = new Intent(NameCardRelativeLayout.this.context, ProfileHeActivity.class);  
 				intent.putExtra("PROFILE", detailModel);
 				intent.putExtra("IDENTITY", "he");
 				NameCardRelativeLayout.this.context.startActivity(intent);
