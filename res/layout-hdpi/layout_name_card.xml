@@ -56,11 +56,11 @@
 
             <Button
                 android:id="@+id/btn_name_card_attention"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/img_group_participant_button"
+                android:layout_width="80dip"
+                android:layout_height="40dip"
+                android:background="@drawable/btn_reply"
                 android:text="@string/cancelAttention"
+                android:layout_alignParentRight="true"
                 android:textColor="@color/dateBlue" />
         </RelativeLayout>
 
