@@ -56,11 +56,11 @@
 
             <Button
                 android:id="@+id/btn_name_card_attention"
-                android:layout_width="80dip"
-                android:layout_height="40dip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:background="@drawable/btn_reply"
                 android:text="@string/cancelAttention"
-                android:layout_alignParentRight="true"
                 android:textColor="@color/dateBlue" />
         </RelativeLayout>
 
@@ -75,7 +75,7 @@
                 android:id="@+id/tv_name_card_province"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true" />
+                android:text="北京" />
         </LinearLayout>
     </RelativeLayout>
 
