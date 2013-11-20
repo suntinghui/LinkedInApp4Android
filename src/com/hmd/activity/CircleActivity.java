@@ -142,6 +142,8 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 					totalPage = (count + Constants.PAGESIZE - 1) / Constants.PAGESIZE;
 					adapter.notifyDataSetChanged();
 				} else {
+					array.clear();
+					adapter.notifyDataSetChanged();
 				}
 
 			}
@@ -169,6 +171,8 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 					totalPage = (count + Constants.PAGESIZE - 1) / Constants.PAGESIZE;
 					adapter.notifyDataSetChanged();
 				} else {
+					array.clear();
+					adapter.notifyDataSetChanged();
 				}
 
 			}
@@ -196,6 +200,8 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 					totalPage = (count + Constants.PAGESIZE - 1) / Constants.PAGESIZE;
 					adapter.notifyDataSetChanged();
 				} else {
+					array.clear();
+					adapter.notifyDataSetChanged();
 				}
 
 			}

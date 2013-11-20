@@ -256,8 +256,7 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 			public void successAction(Object obj) {
 				if ((Integer) obj == 1) {
 					GroupDetailActivity.this.showToast("成功删除圈子！");
-					GroupDetailActivity.this.setResult(RESULT_OK);
-					GroupDetailActivity.this.goback();
+					GroupDetailActivity.this.gobackWithResult(0, GroupDetailActivity.this.getIntent());
 				} else if ((Integer) obj == -2) {
 					GroupDetailActivity.this.showToast("操作失败！");
 				}
@@ -273,8 +272,7 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 			public void successAction(Object obj) {
 				if ((Integer) obj == 1) {
 					GroupDetailActivity.this.showToast("成功退出圈子！");
-					GroupDetailActivity.this.setResult(RESULT_OK);
-					GroupDetailActivity.this.goback();
+					GroupDetailActivity.this.gobackWithResult(0, GroupDetailActivity.this.getIntent());
 
 				} else if ((Integer) obj == -2) {
 					GroupDetailActivity.this.showToast("没有加入过该圈子！");
