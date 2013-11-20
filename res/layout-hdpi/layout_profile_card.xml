@@ -1,180 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" 
+    android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="0dp"
-    >
-    <RelativeLayout 
+    android:background="@drawable/img_weibo_con_border" >
+
+    <RelativeLayout
         android:id="@+id/rl_profile_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:background="@drawable/img_weibo_con_border"
-        >
+        android:layout_alignParentLeft="true" >
+
         <ImageView
             android:id="@+id/iv_profile_photo"
             android:layout_width="80dip"
             android:layout_height="80dip"
             android:layout_centerVertical="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/img_school_head_portrait"
-            
-            />
-    </RelativeLayout>
-    
-    <RelativeLayout 
-        android:id="@+id/rl_profile_middle_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/rl_profile_photo"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        >
-        <ImageView
-            android:id="@+id/iv_profile_mid_node"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img_card_node_pressed"
-            android:layout_centerHorizontal="true"
-            />
-        
-        <TextView 
-            android:layout_width="2dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/img_weibo_con_border_blue"
-            android:layout_below="@id/iv_profile_mid_node"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="2dp"
-            />
+            android:src="@drawable/img_school_head_portrait" />
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/rl_profile_middle_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="80dip"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_toRightOf="@id/rl_profile_photo"
+        android:src="@drawable/img_card_node_pressed" />
+
     <ImageButton
-	    android:id="@+id/btn_profile_find"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-		android:layout_alignParentRight="true"
-		android:layout_centerVertical="true"
-		android:background="@drawable/img_btn_profile_arrow"
-    />
-    
-    <RelativeLayout 
+        android:id="@+id/btn_profile_find"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/img_btn_profile_arrow" />
+
+    <RelativeLayout
         android:id="@+id/rl_profile_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/rl_profile_middle_bar"
-        android:layout_toLeftOf="@id/btn_profile_find"
-        android:background="@drawable/img_weibo_con_border"
         android:layout_marginLeft="5dp"
-	    android:layout_marginRight="5dp"
-        >
-        <!-- 时间 -->
-        <RelativeLayout 
-	        android:id="@+id/rl_profile_date"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentTop="true"
-	        android:layout_alignParentLeft="true"
-	        >
-		    <TextView 
-		        android:id="@+id/tv_profile_start_date"
-		        android:layout_height="wrap_content"
-		        android:layout_width="wrap_content"
-		        android:textColor="@color/dateBlue"
-                android:typeface ="sans"
-                android:textSize="12sp"
-		        /> 
-		    <TextView
-		        android:id="@+id/tv_profile_to"
-		        android:layout_height="wrap_content"
-		        android:layout_width="wrap_content"
-		        android:text="@string/txtTo"
-		        android:layout_marginLeft="5dp"
-	    		android:layout_marginRight="5dp"
-	    		android:layout_toRightOf="@id/tv_profile_start_date"
-	    		android:textColor="@color/dateBlue"
-                android:typeface ="sans"
-                android:textSize="12sp"
-		        />
-		    <TextView 
-		        android:id="@+id/tv_profile_end_date"
-		        android:layout_height="wrap_content"
-		        android:layout_width="wrap_content"
-		        android:layout_toRightOf="@id/tv_profile_to"
-		        android:textColor="@color/dateBlue"
-                android:typeface ="sans"
-                android:textSize="12sp"
-		        />
-	    </RelativeLayout>
-	    <!-- 学校或单位 -->
-	    <LinearLayout
-	        android:id="@+id/ll_profile_inner_container"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@id/rl_profile_date"
-	        android:orientation="vertical"
-	        >
-		    <RelativeLayout
-		        android:id="@+id/rl_profile_school"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-	       		>
-		        <TextView 
-			        android:id="@+id/tv_profile_org"
-			        android:layout_height="wrap_content"
-			        android:layout_width="wrap_content" 
-			        android:textColor="@color/fontGrey"
-               		android:typeface ="sans"
-               		android:text="school"
-                	android:textSize="12sp" 
-		        />
-	   		</RelativeLayout>
-	    </LinearLayout>
-	    
-	    <!-- 地址 -->
-    	<RelativeLayout
-	        android:id="@+id/rl_profile_localposition"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@id/ll_profile_inner_container"
-	        
-        	>
-	        <TextView 
-		        android:id="@+id/tv_profile_localposition"
-		        android:layout_height="wrap_content"
-		        android:layout_width="wrap_content"
-		        android:layout_alignParentLeft="true"
-		        android:singleLine="false"
-		        android:textColor="@color/fontGrey"
-              	android:typeface ="sans"
-               	android:textSize="12sp" 
-	        />
-	        
-    	</RelativeLayout>
-    	
-    	<RelativeLayout
-	        android:id="@+id/rl_profile_description"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@id/rl_profile_localposition"
-	        
-        	>
-		      <Button android:id="@+id/btn_modify"
-		          android:layout_width="60dip"
-		          android:layout_height="35dip"
-		          android:text="修改"
-		          android:layout_marginLeft="5dip"
-		          android:layout_marginTop="5dip"/>
-		      <Button android:id="@+id/btn_delete"
-		          android:layout_width="60dip"
-		          android:layout_height="35dip"
-		          android:text="删除"
-		          android:layout_alignParentRight="true"
-		          android:layout_marginRight="5dip"
-		          android:layout_marginTop="5dip"/>
-    	</RelativeLayout>
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@id/btn_profile_find"
+        android:layout_toRightOf="@id/rl_profile_middle_bar" >
 
+        <!-- 时间 -->
+
+        <RelativeLayout
+            android:id="@+id/rl_profile_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" >
+
+            <TextView
+                android:id="@+id/tv_profile_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dateBlue"
+                android:textSize="13sp"
+                android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/tv_profile_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toRightOf="@id/tv_profile_start_date"
+                android:text="@string/txtTo"
+                android:textColor="@color/dateBlue"
+                android:textSize="13sp"
+                android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/tv_profile_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_profile_to"
+                android:textColor="@color/dateBlue"
+                android:textSize="13sp"
+                android:typeface="sans" />
+        </RelativeLayout>
+        <!-- 学校或单位 -->
+
+        <LinearLayout
+            android:id="@+id/ll_profile_inner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_profile_date"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/rl_profile_school"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/tv_profile_org"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="school"
+                    android:textColor="@color/fontGrey"
+                    android:textSize="13sp"
+                    android:typeface="sans" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <!-- 地址 -->
+
+        <RelativeLayout
+            android:id="@+id/rl_profile_localposition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_profile_inner_container" >
+
+            <TextView
+                android:id="@+id/tv_profile_localposition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:singleLine="false"
+                android:textColor="@color/fontGrey"
+                android:textSize="13sp"
+                android:typeface="sans" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_profile_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_profile_localposition" >
+
+            <Button
+                android:id="@+id/btn_modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dip"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/img_group_participant_button"
+                android:text="修改"
+                android:textColor="@color/dateBlue" />
+
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dip"
+                android:layout_marginTop="5dip"
+                android:background="@drawable/img_group_participant_button"
+                android:text="删除"
+                android:textColor="@color/dateBlue" />
+        </RelativeLayout>
     </RelativeLayout>
 
-    
 </RelativeLayout>

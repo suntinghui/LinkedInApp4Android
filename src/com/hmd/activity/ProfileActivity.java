@@ -5,12 +5,8 @@ import java.util.HashMap;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -26,19 +22,18 @@ import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 
-public class ProfileActivity extends AbsSubActivity implements OnTouchListener {
+public class ProfileActivity extends AbsSubActivity {
 
 	private NameCardMainRelativeLayout profileInfoLayout = null;
 	private ProfileTimelineLinearLayout timelineLayout = null;
 	private SwitchableScrollViewer friendLayout = null;
 	private SwitchableScrollViewer fansLayout = null;
 
-	private GestureDetector mDector = null;
 	private ProfileModel profileModel = null;
 	private LinearLayout mLlContainer = null;
 	private String mIdentity = "me";// 个人还是他人
 
-	private Button profileButton = null;
+	private Button backButton = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,40 +41,34 @@ public class ProfileActivity extends AbsSubActivity implements OnTouchListener {
 
 		setContentView(R.layout.activity_profile);
 
+		backButton = (Button) this.findViewById(R.id.backButton);
+		backButton.setOnClickListener(listener);
+
 		Intent intent = this.getIntent();
 
 		mIdentity = intent.getStringExtra("IDENTITY");
 		if (null == mIdentity) {
 			mIdentity = "me";
+			backButton.setVisibility(View.GONE);
+		} else {
+			backButton.setVisibility(View.VISIBLE);
 		}
 
 		profileModel = (ProfileModel) intent.getSerializableExtra("PROFILE");
-		profileButton = (Button) this.findViewById(R.id.profileButton);
-		profileButton.setOnClickListener(listener);
+
 		this.init();
 	}
 
 	private OnClickListener listener = new OnClickListener() {
-
 		@Override
 		public void onClick(View arg0) {
 			goback();
-
 		}
 	};
 
 	private void init() {
 
 		this.mLlContainer = (LinearLayout) this.findViewById(R.id.ll_profile_container);
-		this.mLlContainer.setOnTouchListener(this);
-
-		this.mDector = new GestureDetector(this, new GestureListener());
-
-		// LinearLayout llTopbar =
-		// (LinearLayout)this.findViewById(R.id.ll_profile_topbar);
-		// TopbarRelativeLayout topbar = new TopbarRelativeLayout(this,
-		// this.onNavigation, R.drawable.img_btn_topbar_left_arrow);
-		// llTopbar.addView(topbar);
 
 		profileInfoLayout = (NameCardMainRelativeLayout) this.findViewById(R.id.profileInfoLayout);
 		profileInfoLayout.mIdentity = mIdentity;
@@ -137,7 +126,6 @@ public class ProfileActivity extends AbsSubActivity implements OnTouchListener {
 
 		return request;
 	}
-
 
 	// 查看我关注的人
 	private LKHttpRequest getMyAttentionsRequest() {
@@ -204,56 +192,6 @@ public class ProfileActivity extends AbsSubActivity implements OnTouchListener {
 	@Override
 	public void onBackPressed() {
 		this.TransformToMainScreen();
-	}
-
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		return this.mDector.onTouchEvent(event);
-	}
-
-	private OnClickListener onNavigation = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			TransformToMainScreen();
-		}
-
-	};
-
-	class GestureListener extends SimpleOnGestureListener {
-		@Override
-		public boolean onDown(MotionEvent e) {
-			return true;
-		}
-
-		@Override
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-
-			if (e1.getX() - e2.getX() < -120) {
-				TransformToMainScreen();
-				return true;
-			}
-
-			return false;
-		}
-
-		@Override
-		public void onLongPress(MotionEvent e) {
-		}
-
-		@Override
-		public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-			return false;
-		}
-
-		@Override
-		public void onShowPress(MotionEvent e) {
-		}
-
-		@Override
-		public boolean onSingleTapUp(MotionEvent e) {
-			return false;
-		}
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

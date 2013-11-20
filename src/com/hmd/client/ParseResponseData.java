@@ -24,7 +24,7 @@ public class ParseResponseData {
 		int errorCode = jsonObject.optInt("ec", ErrorCode.UNKNOWN);
 
 		if (errorCode != ErrorCode.SUCCESS) {
-			throw new ServiceErrorException(getErrorMsg(errorCode) + "[ERROR_CODE:" + errorCode + "]");
+			throw new ServiceErrorException(errorCode, getErrorMsg(errorCode) + "[ERROR_CODE:" + errorCode + "]");
 		}
 
 		// Parse

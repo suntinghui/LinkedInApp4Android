@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
             android:text="@string/txtTimeline"
             android:textColor="@color/topbarBg"
             android:textSize="15sp"
@@ -24,17 +25,20 @@
 
         <Button
             android:id="@+id/btn_add"
-            android:layout_width="60dip"
-            android:layout_height="35dip"
-			android:layout_alignParentRight="true"
-            android:layout_marginTop="5dip"
-            android:text="增加" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/img_group_participant_button"
+            android:text="增加"
+            android:textColor="@color/dateBlue" />
     </RelativeLayout>
-	
-    <LinearLayout android:layout_width="match_parent"
+
+    <LinearLayout
+        android:id="@+id/ll_profile_timeline"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/ll_profile_timeline">
-        
+        android:orientation="vertical" >
     </LinearLayout>
+
 </LinearLayout>

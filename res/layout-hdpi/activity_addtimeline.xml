@@ -21,19 +21,22 @@
 
         <TextView
             android:id="@+id/titleView"
+            style="@style/white_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="新增个人履历"
-            style="@style/white_20"/>
+            android:text="新增个人履历" />
 
         <Button
             android:id="@+id/btn_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:text="确 定"
+            android:layout_centerVertical="true"
             android:layout_marginRight="15dip"
-            android:background="@drawable/img_login_completed" />
+            android:background="@drawable/btn_create_group"
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <ScrollView

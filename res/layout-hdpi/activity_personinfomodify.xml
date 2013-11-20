@@ -251,7 +251,7 @@
                             android:layout_marginRight="10dip"
                             android:contentDescription="@string/app_name"
                             android:focusable="false"
-                            android:src="@drawable/img_login_arrows" />
+                            android:src="@drawable/img_down_arrows" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -302,7 +302,7 @@
                             android:layout_marginRight="10dip"
                             android:contentDescription="@string/app_name"
                             android:focusable="false"
-                            android:src="@drawable/img_login_arrows" />
+                            android:src="@drawable/img_down_arrows" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
