@@ -1,7 +1,10 @@
 package com.hmd.client;
 
+import android.app.AlertDialog;
 import android.app.Application;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -68,6 +71,28 @@ public class ApplicationEnvironment {
 				.getLaunchIntentForPackage(getApplication().getBaseContext().getPackageName());
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		getApplication().startActivity(intent);
+	}
+	
+	public void exitApp(){
+		AlertDialog.Builder builder = new Builder(BaseActivity.getTopActivity());
+		builder.setMessage("\n您确定要退出完美支付吗？");
+		builder.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				
+				for (BaseActivity act : BaseActivity.getAllActiveActivity()){
+					act.finish();
+				}
+			}
+		});
+
+		builder.setNegativeButton("取消", new android.content.DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		
+		builder.show();
 	}
 
 }

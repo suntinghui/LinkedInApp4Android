@@ -14,6 +14,7 @@ import com.hmd.R;
 import com.hmd.activity.component.NameCardMainRelativeLayout;
 import com.hmd.activity.component.ProfileTimelineLinearLayout;
 import com.hmd.activity.component.SwitchableScrollViewer;
+import com.hmd.client.ApplicationEnvironment;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.TimelineModel;
@@ -185,13 +186,9 @@ public class ProfileActivity extends AbsSubActivity {
 		return request;
 	}
 
-	private void TransformToMainScreen() {
-		this.goback();
-	}
-
 	@Override
 	public void onBackPressed() {
-		this.TransformToMainScreen();
+		ApplicationEnvironment.getInstance().exitApp();
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

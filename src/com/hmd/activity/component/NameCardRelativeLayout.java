@@ -1,10 +1,7 @@
 package com.hmd.activity.component;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +12,8 @@ import android.widget.TextView;
 import com.hmd.R;
 import com.hmd.activity.BaseActivity;
 import com.hmd.activity.ProfileActivity;
-import com.hmd.activity.SchoolActivity;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.ProfileModel;
-import com.hmd.model.TimelineModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;

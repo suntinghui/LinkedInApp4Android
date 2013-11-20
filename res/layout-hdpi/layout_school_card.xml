@@ -28,7 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true" >
+            android:layout_centerVertical="true"
+            android:visibility="gone" >
 
             <ImageButton
                 android:id="@+id/btn_school_card_apply"
@@ -52,14 +53,15 @@
         android:id="@+id/rl_school_card_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_school_card_top" 
-        android:orientation="horizontal">
+        android:layout_below="@id/rl_school_card_top"
+        android:orientation="horizontal" >
 
         <ImageView
             android:id="@+id/iv_school_card_front"
             android:layout_width="wrap_content"
             android:layout_height="150dip"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             android:src="@drawable/img_school_card_front" />
 
         <ImageView
@@ -67,7 +69,16 @@
             android:layout_height="150dip"
             android:layout_marginLeft="10dip"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             android:src="@drawable/img_school_card_back" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_school_card_content"
+        android:layout_marginTop="10dip"
+        android:text="欲了解校友龙卡相关信息或申请校友龙卡，请移步校友汇官方网站"
+        android:textColor="@color/fontGrey" />
 
 </RelativeLayout>
