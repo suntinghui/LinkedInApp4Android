@@ -11,8 +11,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -35,7 +33,6 @@ import com.hmd.util.WeiboUtil;
 
 public class SchoolActivity extends AbsSubActivity {
 
-	private Button profileButton;
 	private SchoolInfoCardRelativeLayout rlSchoolInfo = null; // 学校信息
 	private SchoolNoticeRelativeLayout rlSchoolNotice = null; // 官方公告
 	private SchoolEventRelativeLayout rlSchoolEvent = null; // 官方活动
@@ -58,9 +55,6 @@ public class SchoolActivity extends AbsSubActivity {
 	private void init() {
 		//RelativeLayout rlMain = (RelativeLayout) this.findViewById(R.id.rl_main);
 		LinearLayout llSchoolContainer = (LinearLayout) this.findViewById(R.id.ll_main_school_container);
-
-		profileButton = (Button) this.findViewById(R.id.profileButton);
-		profileButton.setOnClickListener(this.onNavigation);
 
 		// 学校信息
 		rlSchoolInfo = new SchoolInfoCardRelativeLayout(this);
@@ -238,22 +232,6 @@ public class SchoolActivity extends AbsSubActivity {
 		if (requestCode == 100 && resultCode == RESULT_OK) {
 			getSchoolWeibo();
 		}
-	}
-
-	// 最上面的TopBar的左边的按纽的点击事件
-	private OnClickListener onNavigation = new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			TransformToProfileScreen();
-		}
-	};
-
-	// 显示个人信息
-	private void TransformToProfileScreen() {
-
-		Intent intent = new Intent(SchoolActivity.this, ProfileActivity.class);
-		intent.putExtra("IDENTITY", "me");
-		startActivity(intent);
 	}
 
 	// 程序退出

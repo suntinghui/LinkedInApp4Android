@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="10dp"
     android:background="@drawable/img_weibo_con_border" >
 
     <RelativeLayout
@@ -23,11 +23,12 @@
     <ImageView
         android:id="@+id/rl_profile_middle_bar"
         android:layout_width="wrap_content"
-        android:layout_height="80dip"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
         android:layout_toRightOf="@id/rl_profile_photo"
-        android:src="@drawable/img_card_node_pressed" />
+        android:src="@drawable/img_card_node_pressed_down"
+        android:visibility="gone" />
 
     <ImageButton
         android:id="@+id/btn_profile_find"
@@ -41,8 +42,8 @@
         android:id="@+id/rl_profile_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_toLeftOf="@id/btn_profile_find"
         android:layout_toRightOf="@id/rl_profile_middle_bar" >
 
