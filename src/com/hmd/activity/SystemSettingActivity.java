@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.client.ApplicationEnvironment;
 import com.hmd.view.LKAlertDialog;
 
 public class SystemSettingActivity extends AbsSubActivity {
@@ -134,4 +135,7 @@ public class SystemSettingActivity extends AbsSubActivity {
 		}
 	}
 
+	public void backAction() {
+		ApplicationEnvironment.getInstance().exitApp();
+	}
 }

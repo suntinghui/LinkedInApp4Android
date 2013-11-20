@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hmd.R;
 import com.hmd.activity.component.NameCardMainRelativeLayout;
@@ -36,6 +37,8 @@ public class ProfileActivity extends AbsSubActivity {
 	private String mIdentity = "me";// 个人还是他人
 
 	private Button backButton = null;
+	
+	private TextView titleView = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,26 +65,29 @@ public class ProfileActivity extends AbsSubActivity {
 	private OnClickListener listener = new OnClickListener() {
 		@Override
 		public void onClick(View arg0) {
-			//goback();
-			Intent intent = new Intent(BaseActivity.getTopActivity(), ProfileActivity.class);
-			BaseActivity.getTopActivity().startActivity(intent);
+			back();
 		}
 	};
 
 	private void init(Intent intent) {
 		backButton = (Button) this.findViewById(R.id.backButton);
 		backButton.setOnClickListener(listener);
+		
+		titleView = (TextView) this.findViewById(R.id.titleView);
 
 		mIdentity = intent.getStringExtra("IDENTITY");
 		if (null == mIdentity) {
 			mIdentity = "me";
 			backButton.setVisibility(View.GONE);
+			titleView.setText("个人信息");
 		} else {
 			backButton.setVisibility(View.VISIBLE);
 		}
 
 		profileModel = (ProfileModel) intent.getSerializableExtra("PROFILE");
-		
+		if (profileModel != null){
+			titleView.setText(profileModel.getName()+"的信息");
+		}
 
 		this.mLlContainer = (LinearLayout) this.findViewById(R.id.ll_profile_container);
 
@@ -200,9 +206,20 @@ public class ProfileActivity extends AbsSubActivity {
 		return request;
 	}
 
-	@Override
-	public void onBackPressed() {
-		ApplicationEnvironment.getInstance().exitApp();
+	public void backAction() {
+		if (!mIdentity.equals("me")) {
+			ApplicationEnvironment.getInstance().exitApp();
+		} else {
+			back();
+		}
+	}
+	
+	private void back(){
+		//goback();
+		BaseActivity.popActivity();
+		
+		Intent intent = new Intent(BaseActivity.getTopActivity(), ProfileActivity.class);
+		BaseActivity.getTopActivity().startActivity(intent);
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

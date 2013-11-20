@@ -98,5 +98,8 @@ public abstract class AbsSubActivity extends BaseActivity {
 		}
 	}
 
+	public void backAction(){
+		this.goback();
+	}
 	
 }

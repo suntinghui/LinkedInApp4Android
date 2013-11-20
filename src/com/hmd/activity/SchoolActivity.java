@@ -20,6 +20,7 @@ import com.hmd.activity.component.SchoolEventRelativeLayout;
 import com.hmd.activity.component.SchoolInfoCardRelativeLayout;
 import com.hmd.activity.component.SchoolNoticeRelativeLayout;
 import com.hmd.activity.component.SchoolWeiboRelativeLayout;
+import com.hmd.client.ApplicationEnvironment;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.ActiveModel;
@@ -233,26 +234,10 @@ public class SchoolActivity extends AbsSubActivity {
 			getSchoolWeibo();
 		}
 	}
-
-	// 程序退出
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-			if ((System.currentTimeMillis() - exitTimeMillis) > 2000) {
-				Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-				exitTimeMillis = System.currentTimeMillis();
-			} else {
-				ArrayList<BaseActivity> list = BaseActivity.getAllActiveActivity();
-				for (BaseActivity activity : list) {
-					activity.finish();
-				}
-
-				System.exit(0);
-			}
-
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
+	
+	public void backAction() {
+		ApplicationEnvironment.getInstance().exitApp();
 	}
+
 
 }

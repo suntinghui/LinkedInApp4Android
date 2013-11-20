@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.client.ApplicationEnvironment;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.GroupModel;
@@ -350,6 +351,10 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 			break;
 		}
 
+	}
+	
+	public void backAction() {
+		ApplicationEnvironment.getInstance().exitApp();
 	}
 
 }
