@@ -73,9 +73,9 @@ public class NameCardRelativeLayout extends RelativeLayout {
 		public void onClick(View arg0) {
 			switch (arg0.getId()) {
 			case R.id.iv_name_card_photo:
-				LKHttpRequestQueue queue = new LKHttpRequestQueue();
-				queue.addHttpRequest(getProfileRequest());
-				queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());
+//				LKHttpRequestQueue queue = new LKHttpRequestQueue();
+//				queue.addHttpRequest(getProfileRequest());
+//				queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());
 				break;
 			case R.id.btn_name_card_attention:
 				if(NameCardRelativeLayout.this.data.getFlag().equals("0")){

@@ -123,12 +123,10 @@ public abstract class AbsActivityGroup extends ActivityGroup{
 	
 	/** ActivityGroup加载新的子Activity的方法(创建新的) */ 
 	public void launchNewActivity(Intent intent) {
-		intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-		
 		container.removeAllViews();
 		View view = getLocalActivityManager().startActivity(
 				intent.getComponent().getShortClassName() + this.selectedImageWithTextViewId,
-				intent).getDecorView();
+				intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)).getDecorView();
 		
 		/*
 		Animation fadeInAnimation = AnimationUtils.loadAnimation(this,
