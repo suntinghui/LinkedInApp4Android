@@ -1,10 +1,7 @@
 package com.hmd.activity.component;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +12,8 @@ import android.widget.TextView;
 import com.hmd.R;
 import com.hmd.activity.BaseActivity;
 import com.hmd.activity.ProfileActivity;
-import com.hmd.activity.SchoolActivity;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.ProfileModel;
-import com.hmd.model.TimelineModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
@@ -73,9 +68,9 @@ public class NameCardRelativeLayout extends RelativeLayout {
 		public void onClick(View arg0) {
 			switch (arg0.getId()) {
 			case R.id.iv_name_card_photo:
-//				LKHttpRequestQueue queue = new LKHttpRequestQueue();
-//				queue.addHttpRequest(getProfileRequest());
-//				queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());
+				LKHttpRequestQueue queue = new LKHttpRequestQueue();
+				queue.addHttpRequest(getProfileRequest());
+				queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());
 				break;
 			case R.id.btn_name_card_attention:
 				if(NameCardRelativeLayout.this.data.getFlag().equals("0")){
