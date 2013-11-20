@@ -63,7 +63,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="20dip"
                 android:layout_marginRight="5dip"
-                android:background="@drawable/btn_reply"
+                android:background="@drawable/img_group_participant_button"
                 android:text="回复"
                 android:textColor="@color/dateBlue"
                 android:textSize="14sp" />

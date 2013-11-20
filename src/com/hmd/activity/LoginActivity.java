@@ -53,7 +53,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View view) {
 		switch(view.getId()){
 		case R.id.registrationButton:
-			Intent intent = new Intent(this, RegistrationActivity.class);
+			Intent intent = new Intent(this, SubmitProfileActivity.class);
 			this.startActivity(intent);
 			
 			break;
@@ -101,7 +101,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 						LoginActivity.this.startActivity(intent);
 						
 					} else if (statusCode == -1) { // 尚未填写基本信息
-						Intent intent = new Intent(LoginActivity.this, SubmitProfileActivity.class);
+						Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
 						LoginActivity.this.startActivity(intent);
 						
 					} else if (statusCode == -2) { // 等待审核
