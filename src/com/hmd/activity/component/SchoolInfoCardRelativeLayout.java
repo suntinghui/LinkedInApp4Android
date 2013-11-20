@@ -43,6 +43,9 @@ public class SchoolInfoCardRelativeLayout extends RelativeLayout {
 		infoMoreButton = (ImageButton) this.findViewById(R.id.btn_school_info_more);
 		infoMoreButton.setOnClickListener(new InfoMoreListener());
 		
+		RelativeLayout rl_school_info_container = (RelativeLayout)this.findViewById(R.id.rl_school_info_container);
+		rl_school_info_container.setOnClickListener(new InfoMoreListener());
+		
 	}
 	
 	public void refresh(SchoolModel school){
@@ -67,9 +70,9 @@ public class SchoolInfoCardRelativeLayout extends RelativeLayout {
 			BaseActivity.getTopActivity().startActivity(intent);
 			*/
 			
-			Intent intent = new Intent(BaseActivity.getTopActivity(), SchoolInfoActivity.class);
+			Intent intent = new Intent(SchoolInfoCardRelativeLayout.this.getContext(), SchoolInfoActivity.class);
 			intent.putExtra("school", school);
-			BaseActivity.getTopActivity().startActivity(intent);
+			SchoolInfoCardRelativeLayout.this.getContext().startActivity(intent);
 		}
 		
 	}
