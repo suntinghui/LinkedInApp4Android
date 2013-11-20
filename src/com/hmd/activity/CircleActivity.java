@@ -27,6 +27,7 @@ import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
+import com.hmd.util.ActivityUtil;
 
 public class CircleActivity extends AbsSubActivity implements OnClickListener {
 
@@ -73,6 +74,8 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 		
 		adapter = new GroupAdapter(this);
 		listView.setAdapter(adapter);
+		// 设置空页面
+		ActivityUtil.setEmptyView(listView);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

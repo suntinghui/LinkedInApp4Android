@@ -26,6 +26,7 @@ import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
+import com.hmd.util.ActivityUtil;
 import com.hmd.util.ImageUtil;
 
 public class GroupDetailActivity extends AbsSubActivity implements OnClickListener {
@@ -105,6 +106,8 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 		commentListView = (ListView) this.findViewById(R.id.commentListView);
 		adapter = new CommentAdapter(this);
 		commentListView.setAdapter(adapter);
+		// 设置空页面
+		ActivityUtil.setEmptyView(commentListView);
 		refreshCommentList();
 	}
 

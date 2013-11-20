@@ -30,6 +30,7 @@ import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
+import com.hmd.util.ActivityUtil;
 import com.hmd.util.ImageUtil;
 
 public class MeberOfGroupActivity extends AbsSubActivity implements OnClickListener {
@@ -57,6 +58,8 @@ public class MeberOfGroupActivity extends AbsSubActivity implements OnClickListe
 		array = new ArrayList<ProfileModel>();
 		adapter = new MemberAdapter(this);
 		listView.setAdapter(adapter);
+		// 设置空页面
+		ActivityUtil.setEmptyView(listView);
 		listView.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
