@@ -3,6 +3,7 @@ package com.hmd.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 
 /** 继承该类即可实现子Activity的功能 */
@@ -60,10 +61,13 @@ public abstract class AbsSubActivity extends BaseActivity {
 	/** 调用此方法来返回上一个界面 */
 	// TODO 跟finish的区别？有销毁吗？
 	public void goback() {
+		Log.i("goback ", "进入");
 		Class<?> clazz = null;
 		try {
 			clazz = Class.forName(getIntent().getStringExtra("fromSubActivity"));
+			Log.i("goback ", "出来");
 		} catch (ClassNotFoundException e) {
+			Log.i("goback ", "抛异常");
 			e.printStackTrace();
 		}
 		Intent intent = new Intent(this, clazz);

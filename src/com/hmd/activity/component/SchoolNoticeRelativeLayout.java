@@ -85,10 +85,10 @@ public class SchoolNoticeRelativeLayout extends RelativeLayout {
 			public void successAction(Object obj) {
 				HashMap<String, Object> map = (HashMap<String, Object>)obj;
 				
-				Intent intent = new Intent(BaseActivity.getTopActivity(), AnnouncementListActivity.class);
+				Intent intent = new Intent(SchoolNoticeRelativeLayout.this.getContext(), AnnouncementListActivity.class);
 				intent.putExtra("TOTAL", (Integer)map.get("total"));
 				intent.putExtra("LIST", (ArrayList<AnnouncementModel>)map.get("list"));
-				BaseActivity.getTopActivity().startActivity(intent);
+				SchoolNoticeRelativeLayout.this.getContext().startActivity(intent);
 			}
 		});
 		

@@ -73,9 +73,9 @@ public class NameCardRelativeLayout extends RelativeLayout {
 		public void onClick(View arg0) {
 			switch (arg0.getId()) {
 			case R.id.iv_name_card_photo:
-				LKHttpRequestQueue queue = new LKHttpRequestQueue();
-				queue.addHttpRequest(getProfileRequest());
-				queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());
+//				LKHttpRequestQueue queue = new LKHttpRequestQueue();
+//				queue.addHttpRequest(getProfileRequest());
+//				queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());
 				break;
 			case R.id.btn_name_card_attention:
 				if(NameCardRelativeLayout.this.data.getFlag().equals("0")){
@@ -109,11 +109,10 @@ public class NameCardRelativeLayout extends RelativeLayout {
 	
 	// 显示个人信息
 	private void TransformToProfileScreen(){
-		
-		Intent intent = new Intent(this.context, ProfileActivity.class);  
+		Intent intent = new Intent(NameCardRelativeLayout.this.context, ProfileActivity.class);  
 		intent.putExtra("PROFILE", detailModel);
 		intent.putExtra("IDENTITY", "he");
-		this.context.startActivity(intent);  
+		NameCardRelativeLayout.this.context.startActivity(intent);  
 	}
 		
 	//加关注
