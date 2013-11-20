@@ -99,6 +99,9 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
 		case 0:
+			array.clear();
+			currentPage = 0;
+			totalPage = 0;
 			refresh();
 			break;
 
@@ -139,6 +142,8 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 					totalPage = (count + Constants.PAGESIZE - 1) / Constants.PAGESIZE;
 					adapter.notifyDataSetChanged();
 				} else {
+					array.clear();
+					adapter.notifyDataSetChanged();
 				}
 
 			}
@@ -166,6 +171,8 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 					totalPage = (count + Constants.PAGESIZE - 1) / Constants.PAGESIZE;
 					adapter.notifyDataSetChanged();
 				} else {
+					array.clear();
+					adapter.notifyDataSetChanged();
 				}
 
 			}
@@ -193,6 +200,8 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 					totalPage = (count + Constants.PAGESIZE - 1) / Constants.PAGESIZE;
 					adapter.notifyDataSetChanged();
 				} else {
+					array.clear();
+					adapter.notifyDataSetChanged();
 				}
 
 			}
@@ -332,7 +341,7 @@ public class CircleActivity extends AbsSubActivity implements OnClickListener {
 			break;
 		case R.id.btn_create:
 			Intent intent_create = new Intent(CircleActivity.this, CreateCircleActivity.class);
-			CircleActivity.this.startActivity(intent_create);
+			CircleActivity.this.startActivityForResult(intent_create, 0);
 			break;
 		default:
 			break;

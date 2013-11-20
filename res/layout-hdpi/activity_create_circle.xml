@@ -20,11 +20,11 @@
 
         <TextView
             android:id="@+id/titleView"
+            style="@style/white_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="创建圈子"
-            style="@style/white_20"/>
+            android:text="创建圈子" />
     </RelativeLayout>
 
     <LinearLayout
@@ -32,24 +32,18 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/topLayout"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
         android:layout_marginTop="15dip"
         android:orientation="horizontal" >
-
-        <TextView
-            style="@style/black_15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="圈子名称：" />
 
         <EditText
             android:id="@+id/et_circle_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dip"
-            android:background="@drawable/boder2"
+            android:paddingLeft="5dip"
+            style="@style/black_15"
+            android:background="@drawable/input_group"
             android:hint="请输入圈子名称" />
     </LinearLayout>
 
@@ -57,51 +51,39 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_1"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
         android:layout_marginTop="15dip"
+        android:background="@drawable/input_group"
         android:orientation="horizontal" >
 
-        <TextView
-            style="@style/black_15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="圈子内容：" />
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/et_circle_content"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dip"
-            android:layout_marginRight="10dip"
-            android:layout_weight="1"
-            android:background="@drawable/boder"
-            android:orientation="vertical" >
-
-            <EditText
-                android:id="@+id/et_circle_content"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:gravity="top"
-                android:inputType="text|textMultiLine|textAutoCorrect"
-                android:minLines="5"
-                android:paddingBottom="5dip"
-                android:paddingLeft="5dip"
-                android:paddingRight="5dip"
-                android:paddingTop="5dip" />
-        </LinearLayout>
+            android:background="@null"
+            android:gravity="top"
+            android:inputType="text|textMultiLine|textAutoCorrect"
+            android:minLines="5"
+            android:hint="请输入圈子内容"
+            android:paddingBottom="5dip"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:paddingTop="5dip" 
+            style="@style/black_15"/>
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_create"
-        style="@style/black_17"
+        style="@style/white_18"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:background="@drawable/btn_boder"
-        android:text="创建" />
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:background="@drawable/img_orange_button"
+        android:text="创建"
+        />
 
 </RelativeLayout>

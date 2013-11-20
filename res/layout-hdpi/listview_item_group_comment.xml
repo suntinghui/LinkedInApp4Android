@@ -62,7 +62,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="20dip"
-                android:layout_marginLeft="5dip"
                 android:layout_marginRight="5dip"
                 android:background="@drawable/img_group_participant_button"
                 android:text="回复"
