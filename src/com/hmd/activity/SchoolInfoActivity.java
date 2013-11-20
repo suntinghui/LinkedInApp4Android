@@ -26,7 +26,7 @@ public class SchoolInfoActivity extends AbsSubActivity implements OnClickListene
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_scholl_info);
+		setContentView(R.layout.activity_school_info);
 
 		SchoolModel school = (SchoolModel) this.getIntent().getSerializableExtra("school");
 

@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -41,11 +42,33 @@ public class ProfileActivity extends AbsSubActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_profile);
+		
+		Log.e("--", "------");
 
+		this.init(getIntent());
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		
+		BaseActivity.pushActivity(this);
+		
+		Log.e("==", "======");
+		
+		this.init(intent);
+	}
+
+	private OnClickListener listener = new OnClickListener() {
+		@Override
+		public void onClick(View arg0) {
+			goback();
+		}
+	};
+
+	private void init(Intent intent) {
 		backButton = (Button) this.findViewById(R.id.backButton);
 		backButton.setOnClickListener(listener);
-
-		Intent intent = this.getIntent();
 
 		mIdentity = intent.getStringExtra("IDENTITY");
 		if (null == mIdentity) {
@@ -56,18 +79,7 @@ public class ProfileActivity extends AbsSubActivity {
 		}
 
 		profileModel = (ProfileModel) intent.getSerializableExtra("PROFILE");
-
-		this.init();
-	}
-
-	private OnClickListener listener = new OnClickListener() {
-		@Override
-		public void onClick(View arg0) {
-			goback();
-		}
-	};
-
-	private void init() {
+		
 
 		this.mLlContainer = (LinearLayout) this.findViewById(R.id.ll_profile_container);
 

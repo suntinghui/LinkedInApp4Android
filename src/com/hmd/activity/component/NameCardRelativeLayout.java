@@ -100,21 +100,12 @@ public class NameCardRelativeLayout extends RelativeLayout {
 				intent.putExtra("PROFILE", detailModel);
 				intent.putExtra("IDENTITY", "he");
 				NameCardRelativeLayout.this.context.startActivity(intent);
-				TransformToProfileScreen();
 			}
 		}, data.getId());
 		
 		return request;
 	}
 	
-	// 显示个人信息
-	private void TransformToProfileScreen(){
-//		Intent intent = new Intent(NameCardRelativeLayout.this.context, ProfileActivity.class);  
-//		intent.putExtra("PROFILE", detailModel);
-//		intent.putExtra("IDENTITY", "he");
-//		NameCardRelativeLayout.this.context.startActivity(intent);  
-	}
-		
 	//加关注
 	private void refreshAddAttentionData(){
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();

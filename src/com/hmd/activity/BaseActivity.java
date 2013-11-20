@@ -132,6 +132,15 @@ public class BaseActivity extends Activity {
 		return list;
 	}
 	
+	public static void pushActivity(BaseActivity act){
+		try{
+			stack.push(act);
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public static void popActivity(){
 		try{
 			stack.pop();

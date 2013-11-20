@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.activity.AnnouncementDetailActivity;
 import com.hmd.activity.AnnouncementListActivity;
 import com.hmd.activity.BaseActivity;
 import com.hmd.client.Constants;
@@ -27,9 +29,12 @@ public class SchoolNoticeRelativeLayout extends RelativeLayout {
 	
 	private ImageButton noticeMoreButton = null;
 	
+	private LinearLayout contentLayout = null;
 	private TextView tvNoticeTitle = null;
 	private TextView tvNoticePreview = null;
 	private TextView tvNoticeTime = null;
+	
+	private AnnouncementModel model = null;
 
 	public SchoolNoticeRelativeLayout(Context context) {
 		super(context);
@@ -40,6 +45,9 @@ public class SchoolNoticeRelativeLayout extends RelativeLayout {
 	}
 
 	private void init(){
+		contentLayout = (LinearLayout) this.findViewById(R.id.rl_school_notice_content);
+		contentLayout.setOnClickListener(new QueryAnnouncementDetailListener());
+		
 		tvNoticeTitle = (TextView)this.findViewById(R.id.tv_notice_title);
 		tvNoticePreview = (TextView) this.findViewById(R.id.tv_notice_preview);
 		tvNoticeTime = (TextView) this.findViewById(R.id.tv_notice_time);
@@ -49,6 +57,8 @@ public class SchoolNoticeRelativeLayout extends RelativeLayout {
 	}
 	
 	public void refresh(AnnouncementModel model){
+		this.model = model;
+		
 		this.setVisibility(View.VISIBLE);
 		
 		tvNoticeTitle.setText("    "+model.getTitle());
@@ -61,6 +71,16 @@ public class SchoolNoticeRelativeLayout extends RelativeLayout {
 		@Override
 		public void onClick(View arg0) {
 			getAnnouncementList();
+		}
+	}
+	
+	class QueryAnnouncementDetailListener implements OnClickListener{
+
+		@Override
+		public void onClick(View arg0) {
+			Intent intent = new Intent(SchoolNoticeRelativeLayout.this.getContext(), AnnouncementDetailActivity.class);
+			intent.putExtra("MODEL", model);
+			SchoolNoticeRelativeLayout.this.getContext().startActivity(intent);
 		}
 		
 	}

@@ -78,13 +78,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_school_notice_top"
         android:layout_marginTop="5dip"
-        android:background="@drawable/img_weibo_con_grey"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/tv_notice_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/dateBlue"
             android:textStyle="bold" />
 
         <TextView

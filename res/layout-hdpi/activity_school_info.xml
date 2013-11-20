@@ -21,11 +21,11 @@
 
         <TextView
             android:id="@+id/titleTV"
+            style="@style/white_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="学校信息"
-            style="@style/white_20"/>
+            android:text="学校信息" />
     </RelativeLayout>
 
     <ScrollView
@@ -60,6 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
                 android:layout_marginTop="5dip"
+                android:maxHeight="120dip"
+                android:maxWidth="120dip"
                 android:scaleType="fitCenter"
                 android:src="@drawable/img_weibo_item_pic_loading" />
 
