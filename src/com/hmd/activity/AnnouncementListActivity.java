@@ -26,6 +26,7 @@ import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
+import com.hmd.util.ActivityUtil;
 
 public class AnnouncementListActivity extends AbsSubActivity implements OnClickListener, OnItemClickListener {
 	
@@ -59,7 +60,9 @@ public class AnnouncementListActivity extends AbsSubActivity implements OnClickL
 		listView = (ListView) this.findViewById(R.id.transList);
         adapter = new AnnouncementAdapter(this);
        
-        listView.setAdapter(adapter); 
+        listView.setAdapter(adapter);
+        // 设置空页面
+     	ActivityUtil.setEmptyView(listView);
         listView.setOnItemClickListener(this);
 	}
 	

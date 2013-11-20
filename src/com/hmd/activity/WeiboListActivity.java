@@ -20,6 +20,7 @@ import android.widget.ListView;
 import com.hmd.R;
 import com.hmd.client.Constants;
 import com.hmd.model.WeiboItemModel;
+import com.hmd.util.ActivityUtil;
 import com.hmd.util.ListViewUtil;
 import com.hmd.util.WeiboUtil;
 import com.hmd.view.TimelineAdapter;
@@ -58,6 +59,8 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 		moreButton.setOnClickListener(this);
 		
 		timelineListView = (ListView) this.findViewById(R.id.lv_timeline);
+		// 设置空页面
+		ActivityUtil.setEmptyView(timelineListView);
 		timelineListView.setOnItemClickListener(this);
 		
 		timelineList = new ArrayList<Status>();

@@ -1,11 +1,12 @@
 package com.hmd.activity;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,7 +25,7 @@ import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 
-public class ProfileActivity extends AbsSubActivity {
+public class ProfileHeActivity extends AbsSubActivity {
 
 	private NameCardMainRelativeLayout profileInfoLayout = null;
 	private ProfileTimelineLinearLayout timelineLayout = null;
@@ -42,35 +43,11 @@ public class ProfileActivity extends AbsSubActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_profile);
-		
-		Log.e("--", "------");
 
-		this.init(getIntent());
-	}
-	
-	@Override
-	protected void onNewIntent(Intent intent) {
-		super.onNewIntent(intent);
-		
-		BaseActivity.pushActivity(this);
-		
-		Log.e("==", "======");
-		
-		this.init(intent);
-	}
-
-	private OnClickListener listener = new OnClickListener() {
-		@Override
-		public void onClick(View arg0) {
-			//goback();
-			Intent intent = new Intent(BaseActivity.getTopActivity(), ProfileActivity.class);
-			BaseActivity.getTopActivity().startActivity(intent);
-		}
-	};
-
-	private void init(Intent intent) {
 		backButton = (Button) this.findViewById(R.id.backButton);
 		backButton.setOnClickListener(listener);
+
+		Intent intent = this.getIntent();
 
 		mIdentity = intent.getStringExtra("IDENTITY");
 		if (null == mIdentity) {
@@ -81,7 +58,18 @@ public class ProfileActivity extends AbsSubActivity {
 		}
 
 		profileModel = (ProfileModel) intent.getSerializableExtra("PROFILE");
-		
+
+		this.init();
+	}
+
+	private OnClickListener listener = new OnClickListener() {
+		@Override
+		public void onClick(View arg0) {
+			goback();
+		}
+	};
+
+	private void init() {
 
 		this.mLlContainer = (LinearLayout) this.findViewById(R.id.ll_profile_container);
 

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.hmd.R;
 import com.hmd.activity.BaseActivity;
 import com.hmd.activity.ProfileActivity;
+import com.hmd.activity.ProfileHeActivity;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.ProfileModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;

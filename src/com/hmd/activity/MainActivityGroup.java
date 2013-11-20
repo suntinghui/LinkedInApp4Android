@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import com.hmd.R;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -58,7 +59,6 @@ public class MainActivityGroup extends AbsActivityGroup {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
 			return true;
 
 		}
