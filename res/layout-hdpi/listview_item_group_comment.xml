@@ -62,9 +62,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="20dip"
-                android:layout_marginLeft="5dip"
                 android:layout_marginRight="5dip"
-                android:background="@drawable/boder2"
+                android:background="@drawable/btn_reply"
                 android:text="回复"
                 android:textColor="@color/dateBlue"
                 android:textSize="14sp" />
