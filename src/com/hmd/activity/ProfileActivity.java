@@ -207,7 +207,7 @@ public class ProfileActivity extends AbsSubActivity {
 	}
 
 	public void backAction() {
-		if (!mIdentity.equals("me")) {
+		if (mIdentity.equals("me")) {
 			ApplicationEnvironment.getInstance().exitApp();
 		} else {
 			back();
