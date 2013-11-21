@@ -43,9 +43,8 @@
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:text="@string/noNetTips"
-                android:textColor="@color/topbarBg"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:textColor="@color/dateBlue"
+                android:textSize="14sp"
                 android:typeface="sans" />
 
             <TextView

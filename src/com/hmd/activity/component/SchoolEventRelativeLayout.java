@@ -12,40 +12,37 @@ import com.hmd.R;
 import com.hmd.model.ActiveModel;
 
 public class SchoolEventRelativeLayout extends RelativeLayout {
-	
+
 	private LinearLayout bodyLayout;
 	private Context context;
 
 	public SchoolEventRelativeLayout(Context context) {
 		super(context);
 		this.context = context;
-		
-        this.init();
+
+		this.init();
 	}
 
-	private void init(){
+	private void init() {
 		LayoutInflater.from(context).inflate(R.layout.layout_school_event, this, true);
 		bodyLayout = (LinearLayout) this.findViewById(R.id.bodyLayout);
 	}
-	
-	public void refresh(ArrayList<ActiveModel> list){
+
+	public void refresh(ArrayList<ActiveModel> list) {
 		this.setVisibility(View.VISIBLE);
-		
-		for(int i = 0; i < list.size(); i++){
+
+		for (int i = 0; i < list.size(); i++) {
 
 			ActiveItemLinearLayout layout = new ActiveItemLinearLayout(this.context, list.get(i));
-			
+
 			// 最后一项隐藏分隔线
-			if (i == list.size()-1){
+			if (i == list.size() - 1) {
 				layout.hideDivider();
 			}
-			
+
 			layout.setPadding(0, 0, 0, 0);
-			
-			bodyLayout.addView(layout,
-					new LinearLayout.LayoutParams(
-							LinearLayout.LayoutParams.WRAP_CONTENT, 
-							LinearLayout.LayoutParams.WRAP_CONTENT));	
+
+			bodyLayout.addView(layout, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
 		}
 	}
