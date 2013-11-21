@@ -59,7 +59,7 @@
         <ImageView
             android:id="@+id/iv_school_card_front"
             android:layout_width="wrap_content"
-            android:layout_height="150dip"
+            android:layout_height="130dip"
             android:layout_weight="1"
             android:scaleType="fitCenter"
             android:src="@drawable/img_school_card_front" />
@@ -77,8 +77,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_school_card_content"
-        android:layout_marginTop="10dip"
         android:text="欲了解校友龙卡相关信息或申请校友龙卡，请移步校友汇官方网站查询办理。"
-        android:textColor="@color/fontGrey" />
+        android:textColor="#aaaaaa"
+        android:textStyle="italic" />
 
 </RelativeLayout>

@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="5dip"
+            android:layout_marginRight="10dip"
             android:background="@drawable/img_navbar_button"
             android:text="加入圈子"
             android:textColor="@color/white" />
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="2"
-                    android:text="圈内圈" />
+                    android:text="圈子圈外" />
             </LinearLayout>
 
             <LinearLayout

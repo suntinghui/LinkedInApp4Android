@@ -54,7 +54,7 @@
         android:layout_below="@id/rl_weibo_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dip"
-        android:background="@drawable/img_login_btn"
+        android:background="@drawable/img_group_participant_button"
         android:text="@string/txtLoginSinaWeibo"
         android:visibility="gone" />
 

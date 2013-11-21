@@ -3,14 +3,15 @@
     xmlns:hmd="http://schemas.android.com/apk/res/com.hmd"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:gravity="center"
+    android:background="@drawable/img_backdrop"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/topLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/img_topbar_backdrop" >
+        android:background="@drawable/img_topbar_backdrop"
+        android:visibility="gone" >
 
         <Button
             android:id="@+id/backButton"
@@ -22,17 +23,23 @@
 
         <TextView
             android:id="@+id/titleView"
+            style="@style/white_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="登 录"
-            style="@style/white_20" />
+            android:text="登 录" />
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="matrix"
+        android:src="@drawable/img_login_top" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/img_backdrop"
+        android:layout_marginTop="10dip"
         android:orientation="vertical"
         android:paddingLeft="10dip"
         android:paddingRight="10dip" >
@@ -65,22 +72,22 @@
 
             <Button
                 android:id="@+id/registrationButton"
+                style="@style/white_18"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/img_blue_button"
-                android:text="注  册"
-                style="@style/white_18" />
+                android:text="注  册" />
 
             <Button
                 android:id="@+id/completedButton"
+                style="@style/white_18"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dip"
                 android:layout_weight="1"
                 android:background="@drawable/img_orange_button"
-                android:text="登  录"
-                android:layout_marginLeft="20dip"
-                style="@style/white_18" />
+                android:text="登  录" />
         </LinearLayout>
     </LinearLayout>
 

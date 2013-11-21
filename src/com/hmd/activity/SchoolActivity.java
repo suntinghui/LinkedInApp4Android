@@ -9,10 +9,8 @@ import weibo4j.model.StatusWapper;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.hmd.R;
 import com.hmd.activity.component.SchoolCardRelativeLayout;

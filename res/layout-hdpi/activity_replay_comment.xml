@@ -28,6 +28,7 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/inputLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/topLayout"
@@ -44,6 +45,7 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:gravity="top"
+            android:maxLength="150"
             android:hint="请输入回复内容"
             android:inputType="text|textMultiLine|textAutoCorrect"
             android:minLines="5"
@@ -58,12 +60,11 @@
         style="@style/white_18"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dip"
+        android:layout_below="@id/inputLayout"
         android:layout_marginLeft="15dip"
         android:layout_marginRight="15dip"
+        android:layout_marginTop="20dip"
         android:background="@drawable/img_orange_button"
-        android:text="发表" 
-        />
+        android:text="发表" />
 
 </RelativeLayout>

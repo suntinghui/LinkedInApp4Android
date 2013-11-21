@@ -78,9 +78,13 @@ public class SchoolNoticeRelativeLayout extends RelativeLayout {
 
 		@Override
 		public void onClick(View arg0) {
+			/*
 			Intent intent = new Intent(SchoolNoticeRelativeLayout.this.getContext(), AnnouncementDetailActivity.class);
 			intent.putExtra("MODEL", model);
 			SchoolNoticeRelativeLayout.this.getContext().startActivity(intent);
+			**/
+			
+			getAnnouncementList();
 		}
 		
 	}

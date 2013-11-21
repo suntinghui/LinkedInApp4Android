@@ -1,11 +1,14 @@
 package com.hmd.activity;
 
+import java.util.Random;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.hmd.R;
 import com.hmd.client.ApplicationEnvironment;
@@ -13,56 +16,70 @@ import com.hmd.view.LKAlertDialog;
 
 public class SplashActivity extends BaseActivity {
 
+	private ImageView backdropImageView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); //设置全屏
-        
-        setContentView(R.layout.activity_splash);
-        
-        new SplashTask().execute();
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN); // 设置全屏
+
+		setContentView(R.layout.activity_splash);
+
+		backdropImageView = (ImageView) this.findViewById(R.id.backdropImageView);
+		backdropImageView.setImageResource(getIconId(getRandomNum()));
+		;
+
+		new SplashTask().execute();
 	}
-	
-	class SplashTask extends AsyncTask<Object, Object, Object>{
+
+	public int getRandomNum() {
+		return Math.abs(new Random().nextInt()) % 9;
+	}
+
+	private int getIconId(int iconId) {
+		String resourceName = "img_splash_" + iconId;
+		int resourceId = getResources().getIdentifier(resourceName, "drawable", getPackageName());
+		if (resourceId == 0)
+			resourceId = R.drawable.img_splash_1;
+
+		return resourceId;
+	}
+
+	class SplashTask extends AsyncTask<Object, Object, Object> {
 
 		@Override
 		protected Object doInBackground(Object... arg0) {
-			try{
+			try {
 				/***
-				// 利用闪屏界面初始化系统
-				long startTime = System.currentTimeMillis();
-				//ApplicationEnvironment.getInstance().initialize(SplashActivity.this.getApplication());
-				long endTime = System.currentTimeMillis();
-				long cashTime = endTime - startTime;
-				Log.e("Splash Time", String.valueOf(cashTime));
-				
-				// 从效果上保证最少要保持闪屏界面不少于1500ms
-				// 因为现在有取地址会占用一些时间，所以就不加额外等待时间了。
-				if (cashTime < 1500){
-					Thread.sleep(1500 - cashTime);
-				}
-				
-				****/
-				
+				 * // 利用闪屏界面初始化系统 long startTime = System.currentTimeMillis();
+				 * //ApplicationEnvironment.getInstance().initialize(
+				 * SplashActivity.this.getApplication()); long endTime =
+				 * System.currentTimeMillis(); long cashTime = endTime -
+				 * startTime; Log.e("Splash Time", String.valueOf(cashTime));
+				 * 
+				 * // 从效果上保证最少要保持闪屏界面不少于1500ms // 因为现在有取地址会占用一些时间，所以就不加额外等待时间了。
+				 * if (cashTime < 1500){ Thread.sleep(1500 - cashTime); }
+				 ****/
+
 				Thread.sleep(1500);
-				
+
 				return null;
-				
-			}catch(Exception e){
+
+			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
 			}
-			
+
 		}
 
 		@Override
 		protected void onPostExecute(Object result) {
-			if (ApplicationEnvironment.getInstance().checkNetworkAvailable()){
+			if (ApplicationEnvironment.getInstance().checkNetworkAvailable()) {
 				Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
 				SplashActivity.this.startActivity(intent);
 				SplashActivity.this.finish();
-				
-			} else{
+
+			} else {
 				LKAlertDialog dialog = new LKAlertDialog(BaseActivity.getTopActivity());
 				dialog.setTitle("提示");
 				dialog.setCancelable(false);
@@ -71,7 +88,7 @@ public class SplashActivity extends BaseActivity {
 					public void onClick(DialogInterface dialog, int which) {
 						Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
 						startActivity(intent);
-						
+
 						finish();
 					}
 				});
@@ -81,11 +98,11 @@ public class SplashActivity extends BaseActivity {
 						finish();
 					}
 				});
-				
+
 				dialog.create().show();
 			}
 		}
-		
+
 	}
-	
+
 }

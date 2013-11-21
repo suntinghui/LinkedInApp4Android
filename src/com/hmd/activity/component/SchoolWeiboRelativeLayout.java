@@ -53,6 +53,7 @@ public class SchoolWeiboRelativeLayout extends RelativeLayout implements OnClick
 		
 		weiboMoreButton = (ImageButton) this.findViewById(R.id.rl_school_weibo_more);
 		weiboMoreButton.setOnClickListener(new WeiboMoreListener());
+		weiboMoreButton.setVisibility(WeiboUtil.hasAuth()? View.VISIBLE : View.GONE);
 		
 		weiboList = new ArrayList<Status>();
 		weiboAdapter = new TimelineAdapter(weiboList);
