@@ -30,7 +30,7 @@ public class SchoolWeiboRelativeLayout extends RelativeLayout implements OnClick
 	
 	private Button loginSinaWeiboButton = null;
 	private ListView weiboListView = null;
-	private ImageButton weiboMoreButton = null;
+	private Button weiboMoreButton = null;
 	
 	private List<Status> weiboList = null;
 	private TimelineAdapter weiboAdapter = null;
@@ -51,7 +51,7 @@ public class SchoolWeiboRelativeLayout extends RelativeLayout implements OnClick
 		weiboListView = (ListView) this.findViewById(R.id.lv_timeline);
 		weiboListView.setOnItemClickListener(new WeiBoItemClickListener());
 		
-		weiboMoreButton = (ImageButton) this.findViewById(R.id.rl_school_weibo_more);
+		weiboMoreButton = (Button) this.findViewById(R.id.rl_school_weibo_more);
 		weiboMoreButton.setOnClickListener(new WeiboMoreListener());
 		weiboMoreButton.setVisibility(WeiboUtil.hasAuth()? View.VISIBLE : View.GONE);
 		
