@@ -8,7 +8,7 @@ import android.widget.Button;
 import com.hmd.R;
 
 public class AboutActivity extends AbsSubActivity implements OnClickListener {
-	
+
 	private Button backButton;
 
 	@Override
@@ -16,7 +16,7 @@ public class AboutActivity extends AbsSubActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_about);
-		
+
 		backButton = (Button) this.findViewById(R.id.backButton);
 		backButton.setOnClickListener(this);
 
@@ -24,7 +24,7 @@ public class AboutActivity extends AbsSubActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View view) {
-		switch(view.getId()){
+		switch (view.getId()) {
 		case R.id.backButton:
 			this.goback();
 			break;
