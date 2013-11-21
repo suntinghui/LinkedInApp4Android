@@ -77,15 +77,13 @@
                     android:id="@+id/rl_school_weibo_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/img_btn_school_notice"
-                    android:focusable="false" />
+                    android:background="@drawable/img_btn_school_notice" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:focusable="false"
                     android:text="查看微博"
                     android:textColor="@color/cardMainBg"
                     android:textSize="13sp"

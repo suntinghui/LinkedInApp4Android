@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ public class SchoolInfoActivity extends AbsSubActivity implements OnClickListene
 	private TextView titleView = null;
 	private ImageView imageView = null;
 	private RelativeLayout weiboLayout = null;
+	private ImageButton weiboButton = null;
 	private TextView contentView = null;
 
 	@Override
@@ -42,7 +44,9 @@ public class SchoolInfoActivity extends AbsSubActivity implements OnClickListene
 		weiboLayout = (RelativeLayout) this.findViewById(R.id.weiboLayout);
 		// 如果没有登录微博则不显示此按纽。
 		weiboLayout.setVisibility(WeiboUtil.hasAuth() ? View.VISIBLE : View.GONE);
-		weiboLayout.setOnClickListener(this);
+		
+		weiboButton = (ImageButton) this.findViewById(R.id.rl_school_weibo_more);
+		weiboButton.setOnClickListener(this);
 
 		contentView = (TextView) this.findViewById(R.id.content);
 		contentView.setText(school.getmDesc());
@@ -56,7 +60,7 @@ public class SchoolInfoActivity extends AbsSubActivity implements OnClickListene
 			this.goback();
 			break;
 
-		case R.id.weiboLayout:
+		case R.id.rl_school_weibo_more:
 			Intent intent = new Intent(this, WeiboListActivity.class);
 			this.startActivity(intent);
 

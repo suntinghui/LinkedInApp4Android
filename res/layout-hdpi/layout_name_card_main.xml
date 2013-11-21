@@ -28,9 +28,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/rl_name_card_main_photo"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/img_weibo_con_bottom_border"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         >
         <RelativeLayout 
             android:id="@+id/rl_name_card_main_name"

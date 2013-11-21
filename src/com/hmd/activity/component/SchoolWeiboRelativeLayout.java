@@ -92,7 +92,7 @@ public class SchoolWeiboRelativeLayout extends RelativeLayout implements OnClick
 			
 			Intent intent = new Intent(BaseActivity.getTopActivity(), WeiboDetailActivity.class);
 			intent.putExtra("status", new WeiboItemModel(status));
-			BaseActivity.getTopActivity().startActivity(intent);
+			BaseActivity.getTopActivity().startActivityForResult(intent, 100);
 		}
 	}
 	
@@ -100,7 +100,7 @@ public class SchoolWeiboRelativeLayout extends RelativeLayout implements OnClick
 		@Override
 		public void onClick(View arg0) {
 			Intent intent = new Intent(BaseActivity.getTopActivity(), WeiboListActivity.class);
-			BaseActivity.getTopActivity().startActivity(intent);
+			BaseActivity.getTopActivity().startActivityForResult(intent, 100);
 		}
 		
 	}

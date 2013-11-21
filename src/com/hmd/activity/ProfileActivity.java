@@ -37,7 +37,7 @@ public class ProfileActivity extends AbsSubActivity {
 	private String mIdentity = "me";// 个人还是他人
 
 	private Button backButton = null;
-	
+
 	private TextView titleView = null;
 
 	@Override
@@ -45,20 +45,20 @@ public class ProfileActivity extends AbsSubActivity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_profile);
-		
+
 		Log.e("--", "------");
 
 		this.init(getIntent());
 	}
-	
+
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
-		
+
 		BaseActivity.pushActivity(this);
-		
+
 		Log.e("==", "======");
-		
+
 		this.init(intent);
 	}
 
@@ -72,21 +72,21 @@ public class ProfileActivity extends AbsSubActivity {
 	private void init(Intent intent) {
 		backButton = (Button) this.findViewById(R.id.backButton);
 		backButton.setOnClickListener(listener);
-		
+
 		titleView = (TextView) this.findViewById(R.id.titleView);
 
 		mIdentity = intent.getStringExtra("IDENTITY");
 		if (null == mIdentity) {
 			mIdentity = "me";
 			backButton.setVisibility(View.GONE);
-			titleView.setText("个人信息");
+			titleView.setText("我的信息");
 		} else {
 			backButton.setVisibility(View.VISIBLE);
 		}
 
 		profileModel = (ProfileModel) intent.getSerializableExtra("PROFILE");
-		if (profileModel != null){
-			titleView.setText(profileModel.getName()+"的信息");
+		if (profileModel != null) {
+			titleView.setText(profileModel.getName() + "的信息");
 		}
 
 		this.mLlContainer = (LinearLayout) this.findViewById(R.id.ll_profile_container);
@@ -213,11 +213,11 @@ public class ProfileActivity extends AbsSubActivity {
 			back();
 		}
 	}
-	
-	private void back(){
-		//goback();
+
+	private void back() {
+		// goback();
 		BaseActivity.popActivity();
-		
+
 		Intent intent = new Intent(BaseActivity.getTopActivity(), ProfileActivity.class);
 		BaseActivity.getTopActivity().startActivity(intent);
 	}
@@ -228,5 +228,5 @@ public class ProfileActivity extends AbsSubActivity {
 			refreshData();
 		}
 	}
-	
+
 }
