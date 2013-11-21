@@ -322,6 +322,9 @@ public class GroupDetailActivity extends AbsSubActivity implements OnClickListen
 		
 		switch (resultCode) {
 		case RESULT_OK:
+			commentList.clear();
+			currentPage = 0;
+			totalPage = 0;
 			refreshCommentList();
 			break;
 
