@@ -66,6 +66,7 @@ public class SchoolWeiboRelativeLayout extends RelativeLayout implements OnClick
 		
 		if (weiboList.size() > 0){
 			this.setVisibility(View.VISIBLE);
+			weiboMoreButton.setVisibility(View.VISIBLE);
 			weiboAdapter.setList(weiboList);
 			weiboAdapter.notifyDataSetChanged();
 			ListViewUtil.setListViewHeightBasedOnChildren(weiboListView);
