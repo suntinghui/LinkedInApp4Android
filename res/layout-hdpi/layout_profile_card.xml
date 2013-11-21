@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relayout_whole"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
-    android:id="@+id/relayout_whole"
     android:background="@drawable/img_weibo_con_border" >
 
     <RelativeLayout
@@ -137,16 +137,6 @@
             android:layout_below="@id/rl_profile_localposition" >
 
             <Button
-                android:id="@+id/btn_modify"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dip"
-                android:layout_marginTop="5dip"
-                android:background="@drawable/img_group_participant_button"
-                android:text="修改"
-                android:textColor="@color/dateBlue" />
-
-            <Button
                 android:id="@+id/btn_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -155,6 +145,17 @@
                 android:layout_marginTop="5dip"
                 android:background="@drawable/img_group_participant_button"
                 android:text="删除"
+                android:textColor="@color/dateBlue" />
+
+            <Button
+                android:id="@+id/btn_modify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dip"
+                android:layout_marginTop="5dip"
+                android:layout_toLeftOf="@id/btn_delete"
+                android:background="@drawable/img_group_participant_button"
+                android:text="修改"
                 android:textColor="@color/dateBlue" />
         </RelativeLayout>
     </RelativeLayout>
