@@ -41,6 +41,8 @@ public class NameCardRelativeLayout extends RelativeLayout {
 	private void init(){
 		if(this.data == null) return;
 		
+		RelativeLayout relayout_whole = (RelativeLayout)this.findViewById(R.id.rl_name_card);
+		relayout_whole.setOnClickListener(listener);
 		TextView tvName = (TextView)this.findViewById(R.id.tv_name_card_name);
 		TextView tvGender = (TextView)this.findViewById(R.id.tv_name_card_gender);
 		TextView tvProvince = (TextView)this.findViewById(R.id.tv_name_card_province);
@@ -68,7 +70,7 @@ public class NameCardRelativeLayout extends RelativeLayout {
 		@Override
 		public void onClick(View arg0) {
 			switch (arg0.getId()) {
-			case R.id.iv_name_card_photo:
+			case R.id.rl_name_card:
 				LKHttpRequestQueue queue = new LKHttpRequestQueue();
 				queue.addHttpRequest(getProfileRequest());
 				queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());

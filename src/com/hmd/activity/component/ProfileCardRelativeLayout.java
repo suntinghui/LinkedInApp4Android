@@ -56,6 +56,9 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 	}
 	
 	private void init(){
+		
+		RelativeLayout relayout_whole = (RelativeLayout)this.findViewById(R.id.relayout_whole);
+		relayout_whole.setOnClickListener(this.onFindClicked);
 		TextView tvStartDate = (TextView)this.findViewById(R.id.tv_profile_start_date);
 		TextView tvEndDate = (TextView)this.findViewById(R.id.tv_profile_end_date);
 		TextView tvLocalPosition = (TextView)this.findViewById(R.id.tv_profile_localposition);
@@ -72,7 +75,6 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 		ImageUtil.loadImage(R.drawable.img_card_head_portrait, this.data.getImgUrl(), photoImageView);
 		
 		ImageButton btnFind = (ImageButton)this.findViewById(R.id.btn_profile_find);
-		btnFind.setOnClickListener(this.onFindClicked);
 		
 		Button btn_modify = (Button)this.findViewById(R.id.btn_modify);
 		btn_modify.setOnClickListener(this.onFindClicked);
@@ -91,7 +93,7 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.btn_profile_find:
+			case R.id.relayout_whole:
 				findRelatedProfile();				
 				break;
 			case R.id.btn_modify:
@@ -170,7 +172,8 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 			@Override
 			public void successAction(Object obj) {
 				if(obj == null){
-					BaseActivity.getTopActivity().showToast("没有相关推荐人！");
+					BaseActivity.getTopActivity().showDialog(BaseActivity.MODAL_DIALOG, "没有相关推荐人！");
+
 					
 				}else{
 					int count = Integer.valueOf((String)(((HashMap<String, Object>)obj).get("total")));

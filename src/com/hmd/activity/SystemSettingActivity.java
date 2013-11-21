@@ -43,14 +43,14 @@ public class SystemSettingActivity extends AbsSubActivity {
 				case 0:// 修改密码
 				{
 					Intent intent = new Intent(SystemSettingActivity.this, ModifyPwdActivity.class);
-					SystemSettingActivity.this.startActivity(intent);
+					SystemSettingActivity.this.startActivityForResult(intent,0);
 				}	
 					break;
 
 				case 1:// 关于
 				{
 					Intent intent = new Intent(SystemSettingActivity.this, AboutActivity.class);
-					SystemSettingActivity.this.startActivity(intent);
+					SystemSettingActivity.this.startActivityForResult(intent,0);
 				}
 					break;
 
