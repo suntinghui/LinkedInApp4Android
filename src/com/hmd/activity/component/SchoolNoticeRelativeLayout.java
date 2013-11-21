@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -27,7 +28,7 @@ import com.hmd.network.LKHttpRequestQueueDone;
 
 public class SchoolNoticeRelativeLayout extends RelativeLayout {
 	
-	private ImageButton noticeMoreButton = null;
+	private Button noticeMoreButton = null;
 	
 	private LinearLayout contentLayout = null;
 	private TextView tvNoticeTitle = null;
@@ -52,7 +53,7 @@ public class SchoolNoticeRelativeLayout extends RelativeLayout {
 		tvNoticePreview = (TextView) this.findViewById(R.id.tv_notice_preview);
 		tvNoticeTime = (TextView) this.findViewById(R.id.tv_notice_time);
 		
-		noticeMoreButton = (ImageButton) this.findViewById(R.id.btn_school_notice_more);
+		noticeMoreButton = (Button) this.findViewById(R.id.btn_school_notice_more);
 		noticeMoreButton.setOnClickListener(new NoticeMoreListener());
 	}
 	

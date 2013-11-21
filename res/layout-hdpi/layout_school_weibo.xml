@@ -28,21 +28,12 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true" >
 
-            <ImageButton
+            <Button
                 android:id="@+id/rl_school_weibo_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/img_btn_school_notice" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="@string/txtMore"
-                android:textColor="@color/cardMainBg"
-                android:textSize="13sp"
-                android:typeface="sans" />
+                android:text="查看更多"
+                android:background="@drawable/btn_reply" />
         </RelativeLayout>
     </RelativeLayout>
 
