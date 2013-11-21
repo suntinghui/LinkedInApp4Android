@@ -391,6 +391,7 @@ public class ParseResponseData {
 				model.setProvince(obj.optString("province"));
 				model.setName(obj.optString("name", ""));
 				model.setGender(obj.optInt("gender", 1));
+				model.setPic(obj.optString("pic", ""));
 
 				modelList.add(model);
 			}
