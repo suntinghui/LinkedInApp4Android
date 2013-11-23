@@ -102,7 +102,7 @@ public class NameCardRelativeLayout extends RelativeLayout {
 				Intent intent = new Intent(NameCardRelativeLayout.this.context, ProfileActivity.class);  
 				intent.putExtra("PROFILE", detailModel);
 				intent.putExtra("IDENTITY", "he");
-				NameCardRelativeLayout.this.context.startActivity(intent);
+				((BaseActivity)NameCardRelativeLayout.this.context).startActivityForResult(intent, 100);
 			}
 		}, data.getId());
 		

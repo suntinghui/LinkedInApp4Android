@@ -10,8 +10,7 @@
     <RelativeLayout
         android:id="@+id/rl_profile_timeline_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/img_weibo_con_bottom_border" >
+        android:layout_height="wrap_content" >
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,8 +28,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_marginRight="5dip"
             android:background="@drawable/img_group_participant_button"
-            android:text="增加"
+            android:text="增加履历"
             android:textColor="@color/dateBlue" />
     </RelativeLayout>
 
