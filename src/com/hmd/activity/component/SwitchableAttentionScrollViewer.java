@@ -69,8 +69,7 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 	
 	private void init(){
 		LayoutInflater.from(this.mContext).inflate(R.layout.layout_switchable_attention_scrollview, this, true);
-		
-		tv_friend_title		
+				
 		mBtn_more = (Button)this.findViewById(R.id.btn_more);
 		mBtn_more.setOnClickListener(onSwitchView);
 		
