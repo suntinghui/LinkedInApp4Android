@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:padding="5dp"
+    android:layout_margin="5dip"
     android:background="@drawable/img_weibo_con_border"
     android:paddingBottom="5dip" >
 
