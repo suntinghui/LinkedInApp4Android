@@ -39,7 +39,12 @@ public class LKHttpRequestQueue {
 		}
 		
 		if (null != prompt) {
-			BaseActivity.getTopActivity().showDialog(BaseActivity.PROGRESS_HUD, prompt);
+			try{
+				BaseActivity.getTopActivity().showDialog(BaseActivity.PROGRESS_HUD, prompt);
+			} catch(Exception e){
+				e.printStackTrace();
+			}
+			
 		}
 		
 		this.queueDone = queueDone;

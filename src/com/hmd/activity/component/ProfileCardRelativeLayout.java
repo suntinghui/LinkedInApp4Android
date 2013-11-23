@@ -186,7 +186,7 @@ public class ProfileCardRelativeLayout extends RelativeLayout {
 						intent.putExtra("ID", data.getid());
 						intent.putExtra("TITLE", "相关推荐");
 						intent.putExtra("TOTAL", count);
-						ProfileCardRelativeLayout.this.mContext.startActivity(intent);
+						((BaseActivity)ProfileCardRelativeLayout.this.mContext).startActivityForResult(intent, 100);
 					}
 				}
 				

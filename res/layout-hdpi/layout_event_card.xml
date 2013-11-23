@@ -165,7 +165,7 @@
     <ImageView
         android:id="@+id/iv_event_divider"
         android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:src="@drawable/img_listview_divider" />
+        android:layout_height="wrap_content"
+        android:src="@drawable/line_divide" />
 
 </LinearLayout>

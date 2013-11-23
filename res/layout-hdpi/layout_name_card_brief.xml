@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/iv_name_card_brief_photo"
-            android:layout_width="100dip"
-            android:layout_height="100dip"
+            android:layout_width="98dip"
+            android:layout_height="98dip"
             android:src="@drawable/img_card_head_portrait_small" />
     </RelativeLayout>
 

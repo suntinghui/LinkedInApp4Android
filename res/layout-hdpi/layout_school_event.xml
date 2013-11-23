@@ -6,11 +6,15 @@
     android:background="@drawable/img_weibo_con_border" >
 
     <RelativeLayout
-        android:id="@+id/rl_school_event_top"
-        android:layout_width="match_parent"
+        android:id="@+id/topLayout"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@drawable/img_weibo_con_bottom_border" >
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
+        android:background="@drawable/img_weibo_con_bottom_border"
+        android:gravity="center"
+         >
 
         <TextView
             android:id="@+id/tv_school_event_title"
@@ -20,14 +24,23 @@
             android:text="@string/txtEvent"
             android:textColor="@color/topbarBg"
             android:textSize="15sp"
+            android:gravity="center"
             android:typeface="sans" />
+
+        <Button
+            android:id="@+id/btn_school_event_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_reply"
+            android:text="查看更多" />
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/bodyLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_school_event_top"
+        android:layout_below="@id/topLayout"
         android:orientation="vertical" >
     </LinearLayout>
 

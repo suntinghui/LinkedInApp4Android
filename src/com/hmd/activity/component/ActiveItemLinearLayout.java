@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.activity.BaseActivity;
 import com.hmd.activity.SchoolEventActivity;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
@@ -120,7 +121,7 @@ public class ActiveItemLinearLayout extends LinearLayout implements OnClickListe
 				Intent intent = new Intent(ActiveItemLinearLayout.this.context, SchoolEventActivity.class);
 				intent.putExtra("MODEL", active2);
 				intent.putExtra("LIST", profileList);
-				ActiveItemLinearLayout.this.context.startActivity(intent);
+				((BaseActivity)ActiveItemLinearLayout.this.context).startActivityForResult(intent, 100);
 			}
 		});
 	}

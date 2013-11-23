@@ -26,66 +26,66 @@ public class ProfileTimelineLinearLayout extends LinearLayout {
 	private Button btn_add = null;
 	private ArrayList<TimelineModel> modelArray = null;
 	public String mIdentity = "me";
+
 	public ProfileTimelineLinearLayout(Context context) {
 		super(context);
 		this.mContext = context;
-		
-        this.init();
-	}
-	
-	public ProfileTimelineLinearLayout(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		this.mContext = context;
-		
+
 		this.init();
 	}
 
-	private void init(){
-		LayoutInflater.from(this.mContext).inflate(R.layout.layout_profile_timeline, this, true);
-		llTimelineLayout = (LinearLayout)this.findViewById(R.id.ll_profile_timeline);
-		btn_add = (Button)this.findViewById(R.id.btn_add);
-		btn_add.setOnClickListener(listener);
-		
+	public ProfileTimelineLinearLayout(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		this.mContext = context;
+
+		this.init();
 	}
-	
-	public void refresh(ArrayList<TimelineModel> timelineList){
+
+	private void init() {
+		LayoutInflater.from(this.mContext).inflate(R.layout.layout_profile_timeline, this, true);
+		llTimelineLayout = (LinearLayout) this.findViewById(R.id.ll_profile_timeline);
+		btn_add = (Button) this.findViewById(R.id.btn_add);
+		btn_add.setOnClickListener(listener);
+
+	}
+
+	public void refresh(ArrayList<TimelineModel> timelineList) {
 		this.setVisibility(View.VISIBLE);
 		modelArray = timelineList;
 
-		if(!(mIdentity.equals("me"))){
+		if (!(mIdentity.equals("me"))) {
 			btn_add.setVisibility(View.GONE);
 		}
 		llTimelineLayout.removeAllViews();
-		for(int i = 0; i < timelineList.size(); i ++){
+		for (int i = 0; i < timelineList.size(); i++) {
 
-			ProfileCardRelativeLayout profile = new ProfileCardRelativeLayout(this.mContext, timelineList.get(i), mIdentity.equals("me")?true:false);
+			ProfileCardRelativeLayout profile = new ProfileCardRelativeLayout(this.mContext, timelineList.get(i), mIdentity.equals("me") ? true : false);
 			profile.setPadding(0, 0, 0, 0);
-			
-			llTimelineLayout.addView(profile,
-					new LinearLayout.LayoutParams(
-							LinearLayout.LayoutParams.WRAP_CONTENT, 
-							LinearLayout.LayoutParams.WRAP_CONTENT));	
+
+			LinearLayout.LayoutParams params =  new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+			params.setMargins(0, 0, 0, 10);
+			llTimelineLayout.addView(profile, params);
 
 		}
 	}
-	
+
 	private OnClickListener listener = new OnClickListener() {
-		
+
 		@Override
 		public void onClick(View arg0) {
 			switch (arg0.getId()) {
 			case R.id.btn_add:
 				Intent intent = new Intent(ProfileTimelineLinearLayout.this.mContext, AddTimelineActivity.class);
-				String afterId =((TimelineModel)(modelArray.get(modelArray.size()-1))).getid();
-				intent.putExtra("AFTERID", afterId == null ? "null":afterId);
-				((BaseActivity) ProfileTimelineLinearLayout.this.mContext).startActivityForResult(intent,5);
+				String afterId = ((TimelineModel) (modelArray.get(modelArray.size() - 1))).getid();
+				intent.putExtra("AFTERID", afterId == null ? "null" : afterId);
+				((BaseActivity) ProfileTimelineLinearLayout.this.mContext).startActivityForResult(intent, 5);
 				break;
 
 			default:
 				break;
 			}
-			
+
 		}
 	};
-	
+
 }
