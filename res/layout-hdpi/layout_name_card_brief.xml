@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="125dip"
+    android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:padding="5dp"
-    android:layout_margin="5dip"
-    android:background="@drawable/img_weibo_con_border"
-    android:paddingBottom="5dip" >
+    android:layout_marginLeft="5dip"
+    android:layout_marginRight="5dip"
+    android:background="@drawable/img_weibo_con_border" >
 
     <RelativeLayout
         android:id="@+id/rl_name_card_brief_photo"
@@ -17,8 +16,8 @@
 
         <ImageView
             android:id="@+id/iv_name_card_brief_photo"
-            android:layout_width="85dip"
-            android:layout_height="85dip"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
             android:src="@drawable/img_card_head_portrait_small" />
     </RelativeLayout>
 
@@ -27,8 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_name_card_brief_photo"
-        android:text="test"
         android:layout_centerHorizontal="true"
+        android:text="test"
         android:textColor="@color/topbarBg"
         android:textSize="15sp" />
     <!--

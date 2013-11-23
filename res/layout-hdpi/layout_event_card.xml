@@ -44,7 +44,8 @@
                 android:maxLines="3"
                 android:text="@string/noNetTips"
                 android:textColor="@color/dateBlue"
-                android:textSize="14sp"
+                android:textSize="15sp"
+                android:textStyle="bold"
                 android:typeface="sans" />
 
             <TextView
