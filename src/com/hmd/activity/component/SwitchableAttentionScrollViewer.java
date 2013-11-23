@@ -90,7 +90,7 @@ public class SwitchableAttentionScrollViewer extends ScrollView {
 	}
 	
 	private void refreshContent(){
-		if(this.mTitle != null){
+		if(this.mTitle != null && tvTitle != null){
 			tvTitle.setText(this.mTitle);
 		}
 		

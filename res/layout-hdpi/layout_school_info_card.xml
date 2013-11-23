@@ -52,7 +52,7 @@
             android:typeface ="sans"
             android:maxLines="7"
             android:ellipsize="end"
-            android:textSize="12sp"
+            android:textSize="13sp"
 			android:layout_marginLeft="5dp"
 			android:layout_below="@id/tv_school_info_name"
             />
