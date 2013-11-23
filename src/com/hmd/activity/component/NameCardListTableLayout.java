@@ -3,11 +3,14 @@ package com.hmd.activity.component;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
 import com.hmd.R;
+import com.hmd.activity.ProfileActivity;
 import com.hmd.model.ProfileModel;
 
 public class NameCardListTableLayout extends TableLayout {

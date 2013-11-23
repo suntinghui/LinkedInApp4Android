@@ -1,12 +1,15 @@
 package com.hmd.activity.component;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.activity.ProfileActivity;
 import com.hmd.model.ProfileModel;
 import com.hmd.util.ImageUtil;
 
@@ -14,7 +17,7 @@ public class NameCardBriefRelativeLayout extends RelativeLayout {
 
 	private ProfileModel data = null;
 	
-	public NameCardBriefRelativeLayout(Context context, ProfileModel d) {
+	public NameCardBriefRelativeLayout(final Context context, ProfileModel d) {
 		super(context);
 		
 		this.data = d;
@@ -22,6 +25,18 @@ public class NameCardBriefRelativeLayout extends RelativeLayout {
         LayoutInflater.from(context).inflate(R.layout.layout_name_card_brief, this, true); 
         
         this.init();
+        
+//        this.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				
+//				Intent intent = new Intent(context, ProfileActivity.class);
+//				intent.putExtra("IDENTITY", "he");
+//				intent.putExtra("PROFILE", data);
+//				context.startActivity(intent);
+//			}
+//		});
 	}
 
 	private void init(){

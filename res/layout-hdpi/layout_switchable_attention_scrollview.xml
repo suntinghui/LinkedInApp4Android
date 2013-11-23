@@ -50,6 +50,6 @@
         android:layout_width="fill_parent"
         android:layout_height="40dip"
         android:layout_marginTop="10dip"
-        android:text="更多..."
+        android:text="查看更多"
         android:layout_below="@id/sv_container"/>
 </RelativeLayout>
