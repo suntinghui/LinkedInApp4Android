@@ -55,8 +55,6 @@ public class ProfileOtherActivity extends AbsSubActivity {
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
 
-		BaseActivity.pushActivity(this);
-
 		Log.e("==", "======");
 
 		this.init(intent);
@@ -215,11 +213,12 @@ public class ProfileOtherActivity extends AbsSubActivity {
 	}
 
 	private void back() {
-		// goback();
-		BaseActivity.popActivity();
+		 goback();
 
+		 /*
 		Intent intent = new Intent(BaseActivity.getTopActivity(), ProfileOtherActivity.class);
 		BaseActivity.getTopActivity().startActivity(intent);
+		*/
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
