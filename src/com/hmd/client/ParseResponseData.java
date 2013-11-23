@@ -343,6 +343,7 @@ public class ParseResponseData {
 		model.setSponsor(jsonObject.optString("sponsor", ""));
 		model.setPreview(jsonObject.optString("preview", ""));
 		model.setContent(jsonObject.optString("content", ""));
+		model.setPosterImage(jsonObject.optString("pic", ""));
 
 		return model;
 	}
@@ -362,6 +363,12 @@ public class ParseResponseData {
 				ProfileModel model = new ProfileModel();
 				model.setId(obj.optString("id", ""));
 				model.setName(obj.optString("name", ""));
+				model.setGender(obj.optInt("gender", 0));
+				model.setProvince(obj.optString("province", ""));
+				model.setCity(obj.optString("city", ""));
+				model.setOrg(obj.optString("org", ""));
+				model.setTitle(obj.optString("title", ""));
+				model.setPic(obj.optString("pic", ""));
 
 				modelList.add(model);
 			}
