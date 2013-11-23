@@ -39,8 +39,6 @@ public class ProfileActivity extends AbsSubActivity {
 	private Button backButton = null;
 
 	private TextView titleView = null;
-	
-	private ArrayList<Intent> intentList = new ArrayList<Intent>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +70,6 @@ public class ProfileActivity extends AbsSubActivity {
 	};
 
 	private void init(Intent intent) {
-		//intentList.add(intent);
-		
-		
 		backButton = (Button) this.findViewById(R.id.backButton);
 		backButton.setOnClickListener(listener);
 
