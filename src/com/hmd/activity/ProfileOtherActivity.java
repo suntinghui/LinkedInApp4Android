@@ -1,16 +1,16 @@
 package com.hmd.activity;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.hmd.R;
 import com.hmd.activity.component.NameCardMainRelativeLayout;
@@ -25,7 +25,7 @@ import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 
-public class ProfileHeActivity extends AbsSubActivity {
+public class ProfileOtherActivity extends AbsSubActivity {
 
 	private NameCardMainRelativeLayout profileInfoLayout = null;
 	private ProfileTimelineLinearLayout timelineLayout = null;
@@ -38,38 +38,56 @@ public class ProfileHeActivity extends AbsSubActivity {
 
 	private Button backButton = null;
 
+	private TextView titleView = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_profile);
 
-		backButton = (Button) this.findViewById(R.id.backButton);
-		backButton.setOnClickListener(listener);
+		Log.e("--", "------");
 
-		Intent intent = this.getIntent();
+		this.init(getIntent());
+	}
 
-		mIdentity = intent.getStringExtra("IDENTITY");
-		if (null == mIdentity) {
-			mIdentity = "me";
-			backButton.setVisibility(View.GONE);
-		} else {
-			backButton.setVisibility(View.VISIBLE);
-		}
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
 
-		profileModel = (ProfileModel) intent.getSerializableExtra("PROFILE");
+		BaseActivity.pushActivity(this);
 
-		this.init();
+		Log.e("==", "======");
+
+		this.init(intent);
 	}
 
 	private OnClickListener listener = new OnClickListener() {
 		@Override
 		public void onClick(View arg0) {
-			goback();
+			back();
 		}
 	};
 
-	private void init() {
+	private void init(Intent intent) {
+		backButton = (Button) this.findViewById(R.id.backButton);
+		backButton.setOnClickListener(listener);
+
+		titleView = (TextView) this.findViewById(R.id.titleView);
+
+		mIdentity = intent.getStringExtra("IDENTITY");
+		if (null == mIdentity) {
+			mIdentity = "me";
+			backButton.setVisibility(View.GONE);
+			titleView.setText("我的信息");
+		} else {
+			backButton.setVisibility(View.VISIBLE);
+		}
+
+		profileModel = (ProfileModel) intent.getSerializableExtra("PROFILE");
+		if (profileModel != null) {
+			titleView.setText(profileModel.getName() + "的信息");
+		}
 
 		this.mLlContainer = (LinearLayout) this.findViewById(R.id.ll_profile_container);
 
@@ -188,9 +206,20 @@ public class ProfileHeActivity extends AbsSubActivity {
 		return request;
 	}
 
-	@Override
-	public void onBackPressed() {
-		ApplicationEnvironment.getInstance().exitApp();
+	public void backAction() {
+		if (mIdentity.equals("me")) {
+			ApplicationEnvironment.getInstance().exitApp();
+		} else {
+			back();
+		}
+	}
+
+	private void back() {
+		// goback();
+		BaseActivity.popActivity();
+
+		Intent intent = new Intent(BaseActivity.getTopActivity(), ProfileOtherActivity.class);
+		BaseActivity.getTopActivity().startActivity(intent);
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -199,5 +228,5 @@ public class ProfileHeActivity extends AbsSubActivity {
 			refreshData();
 		}
 	}
-	
+
 }
