@@ -34,7 +34,6 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_toRightOf="@id/rl_name_card_main_photo"
-            android:background="@drawable/img_weibo_con_bottom_border"
             android:orientation="vertical" >
 
             <LinearLayout

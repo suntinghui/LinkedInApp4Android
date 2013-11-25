@@ -89,6 +89,12 @@ public class SearchPeopleActivity extends AbsSubActivity implements OnClickListe
 			break;
 		
 		case R.id.btn_search:
+			currentPage = 0;
+			totalPage = 0;
+			array.clear();
+			refresh();
+			break;
+		case R.id.moreButton:
 			refresh();
 			break;
 		}
