@@ -108,7 +108,9 @@ public class ParseResponseData {
 
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_PARTICIPANT_LIST)) {
 			return getParticipantList(jsonObject);
-
+		}else if (type.equalsIgnoreCase(HttpRequestType.HTTP_FRIENDS_SEARCH)) {
+			return getSearchList(jsonObject);
+			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_LIST)) {
 			return getAllGroupList(jsonObject);
 
@@ -604,9 +606,9 @@ public class ParseResponseData {
 		return null;
 	}
 	
-	//查看圈子成员
+	//找人
 	
-	private static Object getParticipantList(JSONObject jsonObject){
+	private static Object getSearchList(JSONObject jsonObject){
 		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -637,6 +639,39 @@ public class ParseResponseData {
 
 		return null;
 	}
+	//查看圈子成员
+	
+		private static Object getParticipantList(JSONObject jsonObject){
+			ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
+
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			String total = jsonObject.optString("total", "0");
+			map.put("total", total);
+			map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
+			JSONArray jsonArray = jsonObject.optJSONArray("list");
+			if (jsonArray != null && jsonArray.length() > 0) {
+				for (int i = 0; i < jsonArray.length(); i++) {
+					ProfileModel model = new ProfileModel();
+
+					JSONObject obj = (JSONObject) jsonArray.opt(i);
+					model.setFlag("2");
+					model.setId(obj.optString("id", ""));
+					model.setName(obj.optString("name", ""));
+					model.setGender(obj.optInt("gender", 1));
+					model.setProvince(obj.optString("province"));
+					model.setCity(obj.optString("city"));
+					model.setOrg(obj.optString("org", ""));
+					model.setTitle(obj.optString("title", ""));
+					model.setPic(obj.optString("pic", ""));
+					modelList.add(model);
+				}
+				map.put("list", modelList);
+				return map;
+
+			}
+
+			return null;
+		}
 
 	// 加入圈子
 	private static int getGroupJoin(JSONObject jsonObject) {

@@ -356,5 +356,13 @@
         <contentType>application/json</contentType>
     </request>
     
+    <!-- 找人 -->
+    <request>
+        <requestId>FRIENDS_SEARCH</requestId>
+        <url>/friends/search</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
     
 </root>

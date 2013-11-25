@@ -53,5 +53,6 @@ public interface HttpRequestType {
 	public static final String HTTP_GROUP_CREATE						= "GROUP_CREATE";
 	public static final String HTTP_GROUP_DELETE						= "GROUP_DELETE";
 	public static final String HTTP_PUBLISH_COMMENT						= "PUBLISH_COMMENT";
+	public static final String HTTP_FRIENDS_SEARCH						= "FRIENDS_SEARCH";
 	
 }
