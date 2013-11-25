@@ -37,6 +37,7 @@ public class ProfileActivity extends AbsSubActivity {
 	private String mIdentity = "me";// 个人还是他人
 
 	private Button backButton = null;
+	private Button searchButton = null;
 
 	private TextView titleView = null;
 
@@ -60,17 +61,29 @@ public class ProfileActivity extends AbsSubActivity {
 		this.init(intent);
 	}
 
-	private OnClickListener listener = new OnClickListener() {
+	private OnClickListener backListener = new OnClickListener() {
 		@Override
 		public void onClick(View arg0) {
 			back();
 		}
 	};
+	
+	private OnClickListener searchListener = new OnClickListener(){
+		@Override
+		public void onClick(View arg0) {
+			Intent intent = new Intent(ProfileActivity.this, SearchPeopleActivity.class);
+			ProfileActivity.this.startActivityForResult(intent, 100);
+		}
+	};
 
 	private void init(Intent intent) {
 		backButton = (Button) this.findViewById(R.id.backButton);
-		backButton.setOnClickListener(listener);
+		backButton.setOnClickListener(backListener);
 
+		searchButton = (Button) this.findViewById(R.id.btn_search);
+		searchButton.setOnClickListener(searchListener);
+		searchButton.setVisibility(View.VISIBLE);
+		
 		titleView = (TextView) this.findViewById(R.id.titleView);
 
 		mIdentity = intent.getStringExtra("IDENTITY");
