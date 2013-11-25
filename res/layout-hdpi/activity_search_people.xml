@@ -31,35 +31,35 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" 
-        android:layout_gravity="center_vertical"
-        android:paddingLeft="3dip"
-        android:paddingRight="3dip">
+        android:layout_marginLeft="2dip"
+        android:layout_marginRight="2dip"
+        android:layout_marginTop="3dip"
+        android:background="@drawable/img_weibo_con_border"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
 
         <com.hmd.view.EditTextWithClearView
             android:id="@+id/keyText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            hmd:hint="请输入姓名"
-            hmd:inputType="text" 
-            android:layout_weight="1">
-            
+            android:layout_weight="1"
+            hmd:hint="人名/行业/公司"
+            hmd:inputType="text" >
         </com.hmd.view.EditTextWithClearView>
-        
+
         <Button
             android:id="@+id/btn_search"
             style="@style/white_15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dip"
-            android:background="@drawable/img_search_button"
-            />
+            android:background="@drawable/img_search_button" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/listView"
-       android:layout_height="fill_parent"
         android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_marginBottom="10dip"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5dip"
@@ -68,6 +68,7 @@
         android:cacheColorHint="#00000000"
         android:descendantFocusability="blocksDescendants"
         android:divider="@null"
+        android:dividerHeight="10dip"
         android:fadingEdge="none"
         android:listSelector="@android:color/transparent" />
 

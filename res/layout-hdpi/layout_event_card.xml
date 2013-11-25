@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootLayout"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="5dip"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/tv_event_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:text="@string/noNetTips"
+        android:textColor="@color/dateBlue"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
     <LinearLayout
-        android:id="@+id/rootLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
         android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
@@ -35,18 +47,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/tv_event_title"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:text="@string/noNetTips"
-                android:textColor="@color/dateBlue"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:typeface="sans" />
 
             <TextView
                 android:id="@+id/tv_event_preview"
