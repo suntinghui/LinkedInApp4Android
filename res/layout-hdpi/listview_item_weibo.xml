@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/iv_weiboitem_head"
             android:padding="10dp"
-            android:text="Name"
+            android:text="首都师范大学校友会"
+            android:maxLength="9"
             android:textColor="#000" />
 
         <LinearLayout
