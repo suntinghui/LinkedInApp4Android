@@ -15,7 +15,7 @@ public class Constants {
 	
 	
 	// 测试数据
-	public static final String WEIBO_TIMELINE_SCREENNAME		= "首都师范大学招生";
+	public static final String WEIBO_TIMELINE_SCREENNAME		= "首都师范大学校友会-教育基金会";
 	public static final String URL_CNU_EDU 						= "http://www.cnu.edu.cn/pages/info_details.jsp?seq=2379&classcode=70101&boardid=70101";
 	
 	public static final int PAGESIZE							= 5;

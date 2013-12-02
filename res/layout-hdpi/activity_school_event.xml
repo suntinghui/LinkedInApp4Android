@@ -25,6 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginLeft="10dip"
+            android:layout_marginRight="10dip"
             android:text="@string/txtEventDetail" />
     </RelativeLayout>
 
@@ -33,19 +35,32 @@
         android:layout_height="wrap_content" >
 
         <LinearLayout
+            android:id="@+id/rootLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
             android:orientation="vertical" >
 
+            <TextView
+                android:id="@+id/tv_event_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="@string/noNetTips"
+                android:textColor="@color/topbarBg"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:typeface="sans" />
+
             <LinearLayout
-                android:id="@+id/rootLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dip"
                 android:layout_marginRight="5dip"
-                android:layout_marginTop="5dp"
                 android:baselineAligned="false"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
@@ -71,18 +86,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical" >
-
-                    <TextView
-                        android:id="@+id/tv_event_title"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="3"
-                        android:text="@string/noNetTips"
-                        android:textColor="@color/topbarBg"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:typeface="sans" />
 
                     <TextView
                         android:id="@+id/tv_event_preview"
