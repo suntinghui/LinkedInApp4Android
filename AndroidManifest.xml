@@ -74,6 +74,8 @@
         <activity android:name=".activity.ReplyCommentActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.ProfileHeActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.ProfileOtherActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+        <activity android:name=".activity.NewsActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+        <activity android:name=".activity.TopicNews" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         
         
         <!-- BaiduMobAd STAT -->
