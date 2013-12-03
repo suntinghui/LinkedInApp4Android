@@ -7,12 +7,12 @@
     <com.hmd.view.ScrollViewExtend
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="fill_parent" >
 
         <LinearLayout
             android:id="@+id/linearlayout_news_main"
             android:layout_width="fill_parent"
-            android:layout_height="164dp"
+            android:layout_height="fill_parent"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -104,25 +104,36 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
+            <ListView
+                android:id="@+id/lv_news"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="#00000000"
+                android:divider="#eee"
+                android:layout_below="@id/scrollView"
+                android:dividerHeight="1dp"
+                android:scrollbars="none" >
+            </ListView>
+
+            <!-- <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@id/scrollView"
+                android:background="@android:color/white"
+                android:orientation="vertical" >
+
+                <ListView
+                    android:id="@+id/lv_news"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:cacheColorHint="#00000000"
+                    android:divider="#eee"
+                    android:dividerHeight="1dp"
+                    android:scrollbars="none" >
+                </ListView>
+            </LinearLayout> -->
         </LinearLayout>
     </com.hmd.view.ScrollViewExtend>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@id/scrollView"
-        android:background="@android:color/white"
-        android:orientation="vertical" >
-
-        <ListView
-            android:id="@+id/lv_news"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:cacheColorHint="#00000000"
-            android:divider="#eee"
-            android:dividerHeight="1dp"
-            android:scrollbars="none" >
-        </ListView>
-    </LinearLayout>
 
 </RelativeLayout>
