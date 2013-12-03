@@ -30,16 +30,10 @@
             android:text="新闻" />
     </RelativeLayout>
 
-    <ScrollView
+    <RelativeLayout
+        android:id="@+id/layout_news_main"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-         >
-
-        <RelativeLayout
-            android:id="@+id/layout_news_main"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-        </RelativeLayout>
-    </ScrollView>
+        android:layout_height="fill_parent" >
+    </RelativeLayout>
 
 </LinearLayout>
