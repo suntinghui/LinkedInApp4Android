@@ -4,6 +4,7 @@ import com.hmd.R;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -32,7 +33,8 @@ public class EditTextWithClearView extends RelativeLayout implements OnClickList
 		clearImage.setOnClickListener(this);
 		leftImage = (ImageView) layout.findViewById(R.id.leftImage);
 		
-		TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EditTextWithClearView);  
+		TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EditTextWithClearView); 
+		
 		CharSequence hint = typedArray.getText(R.styleable.EditTextWithClearView_hint);
 		if (null != hint){
 			editText.setHint(hint);
@@ -43,6 +45,10 @@ public class EditTextWithClearView extends RelativeLayout implements OnClickList
 			editText.setInputType(InputType.TYPE_CLASS_TEXT);
 		} else if (inputType == 1){
 			editText.setInputType(InputType.TYPE_CLASS_TEXT |InputType.TYPE_TEXT_VARIATION_PASSWORD);
+		} else if (inputType == 2){
+			editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+		} else if (inputType == 3){
+			editText.setInputType(InputType.TYPE_CLASS_PHONE);
 		}
 		
 		int imageType = typedArray.getInteger(R.styleable.EditTextWithClearView_leftImage, 0);
@@ -56,6 +62,12 @@ public class EditTextWithClearView extends RelativeLayout implements OnClickList
 			leftImage.setImageResource(R.drawable.img_edittext_pwd);
 		} else {
 			leftImage.setVisibility(View.GONE);
+		}
+		
+		CharSequence maxLength = typedArray.getText(R.styleable.EditTextWithClearView_maxLength);
+		if (null != maxLength){
+			InputFilter[] filters = new InputFilter[]{new InputFilter.LengthFilter(Integer.parseInt(maxLength.toString()))}; 
+			editText.setFilters(filters);
 		}
 		
 		typedArray.recycle();

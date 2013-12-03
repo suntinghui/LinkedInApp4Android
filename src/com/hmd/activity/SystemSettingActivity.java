@@ -22,8 +22,8 @@ public class SystemSettingActivity extends AbsSubActivity {
 	private ListView listView;
 	private BusinessAdapter adapter;
 
-	private Integer[] icons = { R.drawable.img_sys_modify_pwd, R.drawable.img_sys_about, R.drawable.img_sys_exit };
-	private String[] title = { "修改密码", "关于", "退出" };
+	private Integer[] icons = { R.drawable.img_sys_modify_pwd, R.drawable.img_sys_update, R.drawable.img_sys_about, R.drawable.img_sys_exit };
+	private String[] title = { "修改密码", "检查更新", "关于", "退出" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,18 +43,24 @@ public class SystemSettingActivity extends AbsSubActivity {
 				case 0:// 修改密码
 				{
 					Intent intent = new Intent(SystemSettingActivity.this, ModifyPwdActivity.class);
-					SystemSettingActivity.this.startActivityForResult(intent,0);
-				}	
-					break;
-
-				case 1:// 关于
-				{
-					Intent intent = new Intent(SystemSettingActivity.this, AboutActivity.class);
-					SystemSettingActivity.this.startActivityForResult(intent,0);
+					SystemSettingActivity.this.startActivityForResult(intent, 0);
 				}
 					break;
 
-				case 2:// 退出
+				case 1: // 检查更新
+				{
+					checkUpdate();
+				}
+					break;
+
+				case 2:// 关于
+				{
+					Intent intent = new Intent(SystemSettingActivity.this, AboutActivity.class);
+					SystemSettingActivity.this.startActivityForResult(intent, 0);
+				}
+					break;
+
+				case 3:// 退出
 					logout();
 					break;
 
@@ -67,7 +73,11 @@ public class SystemSettingActivity extends AbsSubActivity {
 
 	}
 	
-	public void logout(){
+	private void checkUpdate(){
+		
+	}
+
+	public void logout() {
 		LKAlertDialog dialog = new LKAlertDialog(this);
 		dialog.setTitle("提示");
 		dialog.setMessage("您确定要注销登录吗？");
@@ -77,11 +87,11 @@ public class SystemSettingActivity extends AbsSubActivity {
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
 				arg0.dismiss();
-				
-				while (!(BaseActivity.getTopActivity() instanceof LoginActivity)){
+
+				while (!(BaseActivity.getTopActivity() instanceof LoginActivity)) {
 					BaseActivity.getTopActivity().finish();
 				}
-				
+
 			}
 		});
 		dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {

@@ -51,6 +51,7 @@
         <activity android:name=".activity.SchoolActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.SchoolInfoActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.SchoolEventListActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
+        <activity android:name=".activity.SchoolCardApplyActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.SinaOAuthActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.WeiboListActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>
         <activity android:name=".activity.WeiboDetailActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustPan"></activity>

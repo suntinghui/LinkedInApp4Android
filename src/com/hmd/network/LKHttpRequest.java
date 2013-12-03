@@ -123,7 +123,7 @@ public class LKHttpRequest {
 		}
 		requestURL.deleteCharAt(requestURL.length()-1);
 		
-		Log.e("request body:", requestURL.toString());
+		Log.d("request body:", requestURL.toString());
 		
 		return requestURL.toString();
 	}
@@ -135,7 +135,7 @@ public class LKHttpRequest {
 				jsonObject.put(key, map.get(key));
 			}
 			
-			Log.e("request body:", jsonObject.toString());
+			Log.d("request body:", jsonObject.toString());
 			return new StringEntity(jsonObject.toString(),HTTP.UTF_8);
 			
 		} catch(JSONException e){
@@ -163,7 +163,7 @@ public class LKHttpRequest {
 			e.printStackTrace();
 		}
 		
-		//Log.e("request body:", params.getEntity().toString());
+		//Log.d("request body:", params.getEntity().toString());
 		
 		return params;
 	}

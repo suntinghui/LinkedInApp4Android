@@ -18,10 +18,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="5dip"
             android:text="@string/txtCard"
             android:textColor="@color/topbarBg"
             android:textSize="15sp"
             android:typeface="sans" />
+
+        <Button
+            android:id="@+id/btn_schoolcard_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dip"
+            android:background="@drawable/btn_reply"
+            android:text="我要申请" />
 
         <RelativeLayout
             android:id="@+id/rl_school_card_apply"
@@ -79,6 +89,7 @@
         android:layout_below="@id/rl_school_card_content"
         android:text="欲了解校友龙卡相关信息或申请校友龙卡，请移步校友汇官方网站查询办理。"
         android:textColor="#aaaaaa"
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        android:visibility="gone" />
 
 </RelativeLayout>
