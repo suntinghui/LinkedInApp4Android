@@ -1,5 +1,7 @@
 package com.hmd.activity;
 
+import java.util.Random;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.client.TestMedia;
 import com.hmd.model.MediaModel;
 import com.hmd.util.ImageUtil;
 
@@ -26,7 +29,8 @@ public class NewsDetailActivity extends AbsSubActivity implements OnClickListene
 		
 		layout_images = (LinearLayout)this.findViewById(R.id.layout_images);
 		MediaModel model = new MediaModel();
-		model = model.getTestMedia();
+		
+		model = TestMedia.getList().get(getRandomNum());
 		
 		TextView tv_title = (TextView)this.findViewById(R.id.tv_title);
 		tv_title.setText(model.getTitle());
@@ -46,6 +50,9 @@ public class NewsDetailActivity extends AbsSubActivity implements OnClickListene
 		
 	}
 
+	public int getRandomNum() {
+		return (Math.abs(new Random().nextInt()) % 7);
+	}
 	
 	@Override
 	public void onClick(View view) {
