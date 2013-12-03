@@ -60,7 +60,7 @@
             android:layout_below="@id/mailText"
             android:layout_marginTop="20dip"
             hmd:hint="请输入手机号"
-            hmd:inputType="text"
+            hmd:inputType="phone"
             hmd:maxLength="11" />
 
         <Button

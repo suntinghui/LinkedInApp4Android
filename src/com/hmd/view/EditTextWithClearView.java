@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.view.View.OnClickListener;
 
 public class EditTextWithClearView extends RelativeLayout implements OnClickListener {
-	
+
 	private EditText editText = null;
 	private ImageView clearImage = null;
 	private ImageView leftImage = null;
@@ -23,78 +23,76 @@ public class EditTextWithClearView extends RelativeLayout implements OnClickList
 	public EditTextWithClearView(Context context) {
 		super(context);
 	}
-	
+
 	public EditTextWithClearView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		
+
 		RelativeLayout layout = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.layout_edittext_clear, this, true);
 		editText = (EditText) layout.findViewById(R.id.editText);
 		clearImage = (ImageView) layout.findViewById(R.id.clearImage);
 		clearImage.setOnClickListener(this);
 		leftImage = (ImageView) layout.findViewById(R.id.leftImage);
-		
-		TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EditTextWithClearView); 
-		
+
+		TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EditTextWithClearView);
+
 		CharSequence hint = typedArray.getText(R.styleable.EditTextWithClearView_hint);
-		if (null != hint){
+		if (null != hint) {
 			editText.setHint(hint);
 		}
-		
+
 		int inputType = typedArray.getInteger(R.styleable.EditTextWithClearView_inputType, 0);
-		if (inputType == 0){
+		if (inputType == 0) {
 			editText.setInputType(InputType.TYPE_CLASS_TEXT);
-		} else if (inputType == 1){
-			editText.setInputType(InputType.TYPE_CLASS_TEXT |InputType.TYPE_TEXT_VARIATION_PASSWORD);
-		} else if (inputType == 2){
+		} else if (inputType == 1) {
+			editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+		} else if (inputType == 2) {
 			editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-		} else if (inputType == 3){
+		} else if (inputType == 3) {
 			editText.setInputType(InputType.TYPE_CLASS_PHONE);
 		}
-		
+
 		int imageType = typedArray.getInteger(R.styleable.EditTextWithClearView_leftImage, 0);
-		if (imageType == 0){
+		if (imageType == 0) {
 			leftImage.setVisibility(View.GONE);
 		} else if (imageType == 1) {
 			leftImage.setVisibility(View.VISIBLE);
 			leftImage.setImageResource(R.drawable.img_edittext_user);
-		} else if (imageType == 2){
+		} else if (imageType == 2) {
 			leftImage.setVisibility(View.VISIBLE);
 			leftImage.setImageResource(R.drawable.img_edittext_pwd);
 		} else {
 			leftImage.setVisibility(View.GONE);
 		}
-		
+
 		CharSequence maxLength = typedArray.getText(R.styleable.EditTextWithClearView_maxLength);
-		if (null != maxLength){
-			InputFilter[] filters = new InputFilter[]{new InputFilter.LengthFilter(Integer.parseInt(maxLength.toString()))}; 
+		if (null != maxLength) {
+			InputFilter[] filters = new InputFilter[] { new InputFilter.LengthFilter(Integer.parseInt(maxLength.toString())) };
 			editText.setFilters(filters);
 		}
-		
+
 		typedArray.recycle();
 	}
-	
-	public void setText(String str){
+
+	public void setText(String str) {
 		this.editText.setText(null == str ? "" : str);
 	}
-	
-	public String getText(){
+
+	public String getText() {
 		return this.editText.getText().toString();
 	}
-	
-	public void setHint(String hint){
+
+	public void setHint(String hint) {
 		this.editText.setHint(hint);
 	}
 
 	@Override
 	public void onClick(View v) {
-		switch(v.getId()){
+		switch (v.getId()) {
 		case R.id.clearImage:
 			editText.setText("");
 			break;
 		}
-		
-	}
 
-	
+	}
 
 }

@@ -1,5 +1,6 @@
 package com.hmd.activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 import com.hmd.R;
 import com.hmd.util.PatternUtil;
 import com.hmd.view.EditTextWithClearView;
+import com.hmd.view.LKAlertDialog;
 
 public class SchoolCardApplyActivity extends AbsSubActivity implements OnClickListener {
 
@@ -65,7 +67,22 @@ public class SchoolCardApplyActivity extends AbsSubActivity implements OnClickLi
 			break;
 
 		case R.id.okButton:
+			if (checkValue()){
+				LKAlertDialog dialog = new LKAlertDialog(this);
+				dialog.setTitle("提示");
+				dialog.setMessage("信息提交成功，管理员会与您联系，请耐心等待。");
+				dialog.setCancelable(false);
+				dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						arg0.dismiss();
+						
+						goback();
+					}
+				});
+				dialog.create().show();
+			}
 			break;
 		}
 	}

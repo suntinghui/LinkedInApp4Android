@@ -14,7 +14,7 @@ import com.hmd.activity.SchoolCardApplyActivity;
 
 public class SchoolCardRelativeLayout extends RelativeLayout {
 	
-	private ImageButton applyButton;
+	private Button applyButton;
 	private BaseActivity context;
 
 	public SchoolCardRelativeLayout(Context context) {
@@ -23,8 +23,8 @@ public class SchoolCardRelativeLayout extends RelativeLayout {
 
 		LayoutInflater.from(context).inflate(R.layout.layout_school_card, this, true); 
         
-        applyButton = (ImageButton) this.findViewById(R.id.btn_school_card_apply);
-        applyButton.setOnClickListener(new OnClickListener() {
+		applyButton = (Button) this.findViewById(R.id.btn_schoolcard_apply);
+		applyButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View view) {

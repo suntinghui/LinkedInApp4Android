@@ -1,61 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" 
-    android:background="@drawable/img_weibo_con_border"
-    android:layout_margin="5dp"
-    >
-    
-    <ImageView
-        android:id="@+id/img_school_logo"
-        android:layout_width="120dip"
-        android:layout_height="120dip"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/img_weibo_item_pic_loading"
-        />
-    
-    <ImageButton
-        android:id="@+id/btn_school_info_more"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/img_btn_profile_arrow"
-        />
-    
+    android:layout_height="wrap_content"
+    android:layout_margin="2dip"
+    android:background="@drawable/img_weibo_con_bottom_border"
+    android:orientation="vertical" >
+
     <RelativeLayout
-        android:id="@+id/rl_school_info_container"
-        android:layout_width="match_parent"
+        android:id="@+id/topLayout"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/img_school_logo"
-        android:layout_toLeftOf="@id/btn_school_info_more"
-        >
-        <TextView 
-            android:id="@+id/tv_school_info_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/txtUnkownSchoolDesc"
-            android:textColor="@color/titleGreen"
-            android:typeface ="sans"
-            android:textSize="16sp"
-            android:singleLine="true"
-            android:ellipsize="end"
-			android:layout_marginLeft="5dp"
-            />
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
+        android:background="@drawable/img_weibo_con_bottom_border" >
+
         <TextView
-            android:id="@+id/tv_school_info_desc"
-            android:layout_width="match_parent"
+            android:id="@+id/tv_school_event_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/txtUnkownSchoolDesc"
-            android:typeface ="sans"
-            android:maxLines="7"
-            android:ellipsize="end"
-            android:textSize="13sp"
-			android:layout_marginLeft="5dp"
-			android:layout_below="@id/tv_school_info_name"
-            />
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dip"
+            android:gravity="left"
+            android:text="数据母校"
+            android:textColor="@color/topbarBg"
+            android:textSize="15sp"
+            android:typeface="sans" />
+
+        <Button
+            android:id="@+id/btn_school_event_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_reply"
+            android:text="查看更多"
+            android:visibility="gone" />
     </RelativeLayout>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp" >
+
+        <ImageView
+            android:id="@+id/img_school_logo"
+            android:layout_width="120dip"
+            android:layout_height="120dip"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_weibo_item_pic_loading" />
+
+        <ImageButton
+            android:id="@+id/btn_school_info_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/img_btn_profile_arrow" />
+
+        <RelativeLayout
+            android:id="@+id/rl_school_info_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/btn_school_info_more"
+            android:layout_toRightOf="@id/img_school_logo" >
+
+            <TextView
+                android:id="@+id/tv_school_info_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="@string/txtUnkownSchoolDesc"
+                android:textColor="@color/titleGreen"
+                android:textSize="16sp"
+                android:typeface="sans" />
+
+            <TextView
+                android:id="@+id/tv_school_info_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_school_info_name"
+                android:layout_marginLeft="5dp"
+                android:ellipsize="end"
+                android:maxLines="7"
+                android:text="@string/txtUnkownSchoolDesc"
+                android:textSize="13sp"
+                android:typeface="sans" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

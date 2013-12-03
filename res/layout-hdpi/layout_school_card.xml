@@ -33,30 +33,6 @@
             android:background="@drawable/btn_reply"
             android:text="我要申请" />
 
-        <RelativeLayout
-            android:id="@+id/rl_school_card_apply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:visibility="gone" >
-
-            <ImageButton
-                android:id="@+id/btn_school_card_apply"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/img_btn_school_card_apply" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:text="@string/txtApply"
-                android:textColor="@color/cardMainBg"
-                android:textSize="13sp"
-                android:typeface="sans" />
-        </RelativeLayout>
     </RelativeLayout>
 
     <LinearLayout
