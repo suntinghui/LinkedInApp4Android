@@ -1,36 +1,18 @@
 package com.hmd.activity;
 
-import java.util.HashMap;
-
 import android.app.ActivityGroup;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.Display;
-import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.TextView;
 
 import com.hmd.R;
-import com.hmd.client.Constants;
-import com.hmd.client.HttpRequestType;
-import com.hmd.enums.LoginCode;
-import com.hmd.network.LKAsyncHttpResponseHandler;
-import com.hmd.network.LKHttpRequest;
-import com.hmd.network.LKHttpRequestQueue;
-import com.hmd.network.LKHttpRequestQueueDone;
-import com.hmd.util.ImageAnimation;
-import com.hmd.util.PatternUtil;
-import com.hmd.view.EditTextWithClearView;
 
 public class NewsActivity extends ActivityGroup implements OnClickListener{
 	private RelativeLayout mNewsMainLayout = null;

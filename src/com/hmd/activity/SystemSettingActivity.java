@@ -49,7 +49,7 @@ public class SystemSettingActivity extends AbsSubActivity {
 
 				case 1: // 检查更新
 				{
-
+					checkUpdate();
 				}
 					break;
 
@@ -71,6 +71,10 @@ public class SystemSettingActivity extends AbsSubActivity {
 
 		});
 
+	}
+	
+	private void checkUpdate(){
+		
 	}
 
 	public void logout() {
