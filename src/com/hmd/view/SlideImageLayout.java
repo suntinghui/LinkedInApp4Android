@@ -134,8 +134,8 @@ public class SlideImageLayout {
 //			Toast.makeText(mContext, mParser.getSlideTitles()[pageIndex], Toast.LENGTH_SHORT).show();
 //			Toast.makeText(mContext, mParser.getSlideUrls()[pageIndex], Toast.LENGTH_SHORT).show();
 			
-			Intent intent = new Intent((BaseActivity)mContext, NewsDetailActivity.class);
-			((BaseActivity)mContext).startActivityForResult(intent, 100);
+			Intent intent = new Intent((BaseActivity)SlideImageLayout.this.mContext, NewsDetailActivity.class);
+			((BaseActivity)SlideImageLayout.this.mContext).startActivityForResult(intent, 100);
 		}
 	}
 }

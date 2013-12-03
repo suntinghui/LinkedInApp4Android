@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.model.MediaModel;
 import com.hmd.util.ListViewUtil;
 import com.hmd.view.NewsXmlParser;
 import com.hmd.view.SlideImageLayout;
@@ -51,7 +52,7 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 
 	private ListView lv_news = null;
 	private NewsAdapter adapter_news = null;
-	private ArrayList<String> list = new ArrayList<String>();
+	private ArrayList<MediaModel> list = new ArrayList<MediaModel>();
 	private int totalPage;
 	private int currentPage;
 
@@ -104,22 +105,7 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 		mViewPager.setAdapter(new SlideImageAdapter());
 		mViewPager.setOnPageChangeListener(new ImagePageChangeListener());
 
-		list.add("one");
-		list.add("two");
-		list.add("three");
-		list.add("four");
-		list.add("one");
-		list.add("two");
-		list.add("three");
-		list.add("four");
-		list.add("one");
-		list.add("two");
-		list.add("three");
-		list.add("four");
-		list.add("one");
-		list.add("two");
-		list.add("three");
-		list.add("four");
+		list = getTestList();
 		lv_news = (ListView) this.findViewById(R.id.lv_news);
 		adapter_news = new NewsAdapter(this);
 		lv_news.setAdapter(adapter_news);
@@ -212,9 +198,11 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 	public final class NewsViewHolder {
 		public RelativeLayout contentLayout;
 		public RelativeLayout moreLayout;
-
-		public TextView tv_name;
-
+		
+		public TextView titleView;
+		public TextView contentView;
+		public TextView tv_time;
+		public ImageView imageView;
 		public Button moreButton;
 	}
 
@@ -246,12 +234,14 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 			if (null == convertView) {
 				holder = new NewsViewHolder();
 
-				convertView = mInflater.inflate(R.layout.listview_item_news, null);
+				convertView = mInflater.inflate(R.layout.listview_item_news_ex, null);
 
 				holder.contentLayout = (RelativeLayout) convertView.findViewById(R.id.contentLayout);
 				holder.moreLayout = (RelativeLayout) convertView.findViewById(R.id.moreLayout);
 
-				holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
+				holder.titleView = (TextView) convertView.findViewById(R.id.titleView);
+				holder.contentView = (TextView) convertView.findViewById(R.id.contentView);
+				holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
 				holder.moreButton = (Button) convertView.findViewById(R.id.moreButton);
 				holder.moreButton.setOnClickListener(TopicNewsActivity.this);
 
@@ -268,13 +258,17 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 					holder.contentLayout.setVisibility(View.VISIBLE);
 					holder.moreLayout.setVisibility(View.GONE);
 
-					holder.tv_name.setText(list.get(position));
+					holder.titleView.setText(list.get(position).getTitle());
+					holder.contentView.setText(list.get(position).getContent());
+					holder.tv_time.setText(list.get(position).getTime());
 				}
 			} else {
 				holder.contentLayout.setVisibility(View.VISIBLE);
 				holder.moreLayout.setVisibility(View.GONE);
 
-				holder.tv_name.setText(list.get(position));
+				holder.titleView.setText(list.get(position).getTitle());
+				holder.contentView.setText(list.get(position).getContent());
+				holder.tv_time.setText(list.get(position).getTime());
 			}
 
 			return convertView;
@@ -288,5 +282,27 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 			this.goback();
 			break;
 		}
+	}
+	
+	public ArrayList<MediaModel> getTestList() {
+		ArrayList<MediaModel> list = new ArrayList<MediaModel>();
+
+		MediaModel model = new MediaModel();
+		model.setType(1);
+		model.setTitle("罗马尼亚基督教大学代表团来我校访问");
+		model.setContent("    10月9日，罗马尼亚基督教大学校长、副校长一行4人来我校正式访问，这是我校第一次接待来自罗马尼亚的代表团。我校党委书记张雪、外国语学院院长封一函、教育学院党委书记方平、国际文化学院党总支书记兼副院长韩梅、国际文化学院副院长张静、政法学院副院长吴高臣、管理学院蒋景媛会见了来访客人。" + "\n    张雪书记和罗马尼亚基督教大学校长介绍了各自学校的概况，并畅谈了促进两校国际化发展的良好期望。中外双方院系负责人分别介绍了各自院系及专业情况。张雪书记指出，两校可以多种方式进行合作，如3+1、2+2、学生交换、对外汉语专业学生实习、教师交换、合作研究等等。罗马尼亚基督教大学3年前开设了中文专业，中文师资奇缺，希望我校每年能派中文教师及对外汉语教学实习生教授中文课程，并帮助其培养本校师资。" + "\n    这次访问为两校进一步合作与交流奠定了良好的基础，两校将尽快签署合作协议，启动合作项目。");
+		model.setTime("2013-11-12 10:30");
+		model.setPics(new String[] { "http://www.cnu.edu.cn/download.jsp?attachSeq=15161&filename=20131011171639480.jpg", "http://www.cnu.edu.cn/download.jsp?attachSeq=15157&filename=20131011170853141.jpg" });
+
+		list.add(model);
+		list.add(model);
+		list.add(model);
+		list.add(model);
+		list.add(model);
+		list.add(model);
+		list.add(model);
+		list.add(model);
+
+		return list;
 	}
 }
