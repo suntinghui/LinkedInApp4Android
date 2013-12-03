@@ -1,27 +1,16 @@
 package com.hmd.activity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
-import com.hmd.client.Constants;
-import com.hmd.client.HttpRequestType;
-import com.hmd.model.GroupModel;
 import com.hmd.model.MediaModel;
-import com.hmd.network.LKAsyncHttpResponseHandler;
-import com.hmd.network.LKHttpRequest;
-import com.hmd.network.LKHttpRequestQueue;
-import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.ImageUtil;
 
 public class NewsDetailActivity extends AbsSubActivity implements OnClickListener {
@@ -50,6 +39,7 @@ public class NewsDetailActivity extends AbsSubActivity implements OnClickListene
 		for(int i = 0; i<picUrl.length; i++){
 			ImageView imageView = new ImageView(this);
 			LinearLayout.LayoutParams iv_params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			iv_params.setMargins(0, 5, 0, 0);
 			layout_images.addView(imageView, iv_params);
 			ImageUtil.loadImage(R.drawable.image01, picUrl[i], imageView);
 		}
