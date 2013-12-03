@@ -28,7 +28,7 @@ import com.hmd.util.ListViewUtil;
 import com.hmd.view.NewsXmlParser;
 import com.hmd.view.SlideImageLayout;
 
-public class TopicNewsActivity extends Activity implements OnClickListener {
+public class TopicNewsActivity extends BaseActivity implements OnClickListener {
 	// 滑动图片的集合
 	private ArrayList<View> mImagePageViewList = null;
 	private ViewGroup mMainView = null;
@@ -81,6 +81,8 @@ public class TopicNewsActivity extends Activity implements OnClickListener {
 			mImagePageViewList.add(mSlideLayout.getSlideImageLayout(mParser.getSlideImages()[i]));
 			mImageCircleViews[i] = mSlideLayout.getCircleImageLayout(i);
 			mImageCircleView.addView(mSlideLayout.getLinearLayout(mImageCircleViews[i], 10, 10));
+			mSlideLayout.getSlideImageLayout(mParser.getSlideImages()[i]).setTag(1000+i);
+			mSlideLayout.getSlideImageLayout(mParser.getSlideImages()[i]).setOnClickListener(this);
 		}
 
 		// 设置默认的滑动标题
@@ -194,8 +196,6 @@ public class TopicNewsActivity extends Activity implements OnClickListener {
 					mImageCircleViews[i].setBackgroundResource(R.drawable.dot_none);
 				}
 				
-				Intent intent = new Intent(TopicNewsActivity.this, NewsDetailActivity.class);
-				TopicNewsActivity.this.startActivity(intent);
 			}
 		}
 	}

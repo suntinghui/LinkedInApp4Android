@@ -51,7 +51,7 @@ public class NewsDetailActivity extends AbsSubActivity implements OnClickListene
 			ImageView imageView = new ImageView(this);
 			LinearLayout.LayoutParams iv_params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			layout_images.addView(imageView, iv_params);
-			ImageUtil.loadImage(R.drawable.img_weibo_userinfo_male_1, picUrl[i], imageView);
+			ImageUtil.loadImage(R.drawable.image01, picUrl[i], imageView);
 		}
 		
 	}

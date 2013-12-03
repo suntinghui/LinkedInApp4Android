@@ -3,8 +3,10 @@ package com.hmd.view;
 import java.util.ArrayList;
 
 import com.hmd.R;
+import com.hmd.activity.NewsDetailActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -128,8 +130,11 @@ public class SlideImageLayout {
 	private class ImageOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			Toast.makeText(mContext, mParser.getSlideTitles()[pageIndex], Toast.LENGTH_SHORT).show();
-			Toast.makeText(mContext, mParser.getSlideUrls()[pageIndex], Toast.LENGTH_SHORT).show();
+//			Toast.makeText(mContext, mParser.getSlideTitles()[pageIndex], Toast.LENGTH_SHORT).show();
+//			Toast.makeText(mContext, mParser.getSlideUrls()[pageIndex], Toast.LENGTH_SHORT).show();
+			
+			Intent intent = new Intent(mContext, NewsDetailActivity.class);
+			mContext.startActivity(intent);
 		}
 	}
 }
