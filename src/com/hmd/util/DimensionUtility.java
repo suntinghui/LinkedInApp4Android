@@ -3,8 +3,8 @@ package com.hmd.util;
 import android.content.Context;
 
 /**
- * ��λ֮���ת����
- * @Description: ��λ֮���ת����
+ * 单位之间的转换类
+ * @Description: 单位之间的转换类
 
  * @File: DimensionUtility.java
 
@@ -12,13 +12,13 @@ import android.content.Context;
 
  * @Author Hanyonglu
 
- * @Date 2012-6-18 ����07:59:22
+ * @Date 2012-6-18 上午07:59:22
 
  * @Version V1.0
  */
 public class DimensionUtility {
 	/**
-	 * ����ֻ�ķֱ��ʴ� dp�ĵ�λת��Ϊ px(����)
+	 * 根据手机的分辨率从 dp的单位转成为 px(像素)
 	 * @param context
 	 * @param dpValue
 	 * @return
@@ -29,7 +29,7 @@ public class DimensionUtility {
 	}
 
 	/**
-	 * ����ֻ�ķֱ��ʴ� px(����)�ĵ�λת��Ϊ dp
+	 * 根据手机的分辨率从 px(像素)的单位转成为 dp
 	 * @param context
 	 * @param pxValue
 	 * @return

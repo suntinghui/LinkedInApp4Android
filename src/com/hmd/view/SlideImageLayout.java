@@ -14,8 +14,8 @@ import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
 
 /**
- * ��ɻ���ͼƬ���򲼾�
- * @Description: ��ɻ���ͼƬ���򲼾�
+ * 生成滑动图片区域布局
+ * @Description: 生成滑动图片区域布局
 
  * @File: SlideImageLayout.java
 
@@ -23,19 +23,19 @@ import android.widget.ImageView.ScaleType;
 
  * @Author Hanyonglu
 
- * @Date 2012-6-18 ����09:04:14
+ * @Date 2012-6-18 上午09:04:14
 
  * @Version V1.0
  */
 public class SlideImageLayout {
-	// ��ͼƬ��ArrayList
+	// 包含图片的ArrayList
 	private ArrayList<ImageView> mImageList = null;
 	private Context mContext = null;
-	// Բ��ͼƬ����
+	// 圆点图片集合
 	private ImageView[] mImageViews = null; 
 	private ImageView mImageView = null;
 	private NewsXmlParser mParser = null;
-	// ��ʾ��ǰ����ͼƬ������
+	// 表示当前滑动图片的索引
 	private int pageIndex = 0;
 	
 	public SlideImageLayout(Context context) {
@@ -45,12 +45,12 @@ public class SlideImageLayout {
 	}
 	
 	/**
-	 * ��ɻ���ͼƬ���򲼾�
+	 * 生成滑动图片区域布局
 	 * @param id
 	 * @return
 	 */
 	public View getSlideImageLayout(int id){
-		// ��TextView��LinearLayout
+		// 包含TextView的LinearLayout
 		LinearLayout imageLinerLayout = new LinearLayout(mContext);
 		LinearLayout.LayoutParams imageLinerLayoutParames = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.WRAP_CONTENT, 
@@ -67,7 +67,7 @@ public class SlideImageLayout {
 	}
 	
 	/**
-	 * ��ȡLinearLayout
+	 * 获取LinearLayout
 	 * @param view
 	 * @param width
 	 * @param height
@@ -79,7 +79,7 @@ public class SlideImageLayout {
 				width, 
 				height,
 				1);
-		// �������Ҳ�Զ������ã�����Ȥ���Լ����á�
+		// 这里最好也自定义设置，有兴趣的自己设置。
 		linerLayout.setPadding(10, 0, 10, 0);
 		linerLayout.addView(view, linerLayoutParames);
 		
@@ -87,7 +87,7 @@ public class SlideImageLayout {
 	}
 	
 	/**
-	 * ����Բ�����
+	 * 设置圆点个数
 	 * @param size
 	 */
 	public void setCircleImageLayout(int size){
@@ -95,7 +95,7 @@ public class SlideImageLayout {
 	}
 	
 	/**
-	 * ���Բ��ͼƬ���򲼾ֶ���
+	 * 生成圆点图片区域布局对象
 	 * @param index
 	 * @return
 	 */
@@ -107,7 +107,7 @@ public class SlideImageLayout {
         mImageViews[index] = mImageView;
          
         if (index == 0) {  
-            //Ĭ��ѡ�е�һ��ͼƬ
+            //默认选中第一张图片
             mImageViews[index].setBackgroundResource(R.drawable.dot_selected);  
         } else {  
             mImageViews[index].setBackgroundResource(R.drawable.dot_none);  
@@ -117,14 +117,14 @@ public class SlideImageLayout {
 	}
 	
 	/**
-	 * ���õ�ǰ����ͼƬ������
+	 * 设置当前滑动图片的索引
 	 * @param index
 	 */
 	public void setPageIndex(int index){
 		pageIndex = index;
 	}
 	
-	// ����ҳ�����¼�������
+	// 滑动页面点击事件监听器
     private class ImageOnClickListener implements OnClickListener{
     	@Override
     	public void onClick(View v) {

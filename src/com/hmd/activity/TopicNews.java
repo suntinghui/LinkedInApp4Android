@@ -31,8 +31,8 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 /**
- * ͷ������Activity
- * @Description: ͷ������Activity
+ * 头条新闻Activity
+ * @Description: 头条新闻Activity
 
  * @File: TopicNews.java
 
@@ -40,28 +40,28 @@ import android.widget.AdapterView.OnItemClickListener;
 
  * @Author Hanyonglu
 
- * @Date 2012-6-18 ����08:24:36
+ * @Date 2012-6-18 上午08:24:36
 
  * @Version V1.0
  */
 public class TopicNews extends Activity implements OnClickListener{
-	// ����ͼƬ�ļ���
-	private ArrayList<View> mImagePageViewList = null;
-	private ViewGroup mMainView = null;
-	private ViewPager mViewPager = null;
-	// ��ǰViewPager����
-//	private int pageIndex = 0; 
+	// 滑动图片的集合
+		private ArrayList<View> mImagePageViewList = null;
+		private ViewGroup mMainView = null;
+		private ViewPager mViewPager = null;
+		// 当前ViewPager索引
+//		private int pageIndex = 0; 
 	
-	// ��Բ��ͼƬ��View
+	// 包含圆点图片的View
 	private ViewGroup mImageCircleView = null;
 	private ImageView[] mImageCircleViews = null; 
 	
-	// ��������
+	// 滑动标题
 	private TextView mSlideTitle = null;
 	
-	// ����������
+	// 布局设置类
 	private SlideImageLayout mSlideLayout = null;
-	// ��ݽ�����
+	// 数据解析类
 	private NewsXmlParser mParser = null; 
 	
 	private ListView lv_news = null;
@@ -73,21 +73,17 @@ public class TopicNews extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setTheme(android.R.style.Theme_Translucent_NoTitleBar);		
-		// ��ʼ��
 		initeViews();
 	}
 	
-	/**
-	 * ��ʼ��
-	 */
 	private void initeViews(){
-		// ����ͼƬ����
+		// 滑动图片区域
 		mImagePageViewList = new ArrayList<View>();
 		LayoutInflater inflater = getLayoutInflater();  
 		mMainView = (ViewGroup)inflater.inflate(R.layout.page_topic_news, null);
 		mViewPager = (ViewPager) mMainView.findViewById(R.id.image_slide_page);  
 		
-		// Բ��ͼƬ����
+		// 圆点图片区域
 		mParser = new NewsXmlParser();
 		int length = mParser.getSlideImages().length;
 		mImageCircleViews = new ImageView[length];
@@ -101,13 +97,13 @@ public class TopicNews extends Activity implements OnClickListener{
 			mImageCircleView.addView(mSlideLayout.getLinearLayout(mImageCircleViews[i], 10, 10));
 		}
 		
-		// ����Ĭ�ϵĻ�������
+		// 设置默认的滑动标题
 		mSlideTitle = (TextView) mMainView.findViewById(R.id.tvSlideTitle);
 		mSlideTitle.setText(mParser.getSlideTitles()[0]);
 		
 		setContentView(mMainView);
 		
-		// ����ViewPager
+		// 设置ViewPager
         mViewPager.setAdapter(new SlideImageAdapter());  
         mViewPager.setOnPageChangeListener(new ImagePageChangeListener());
         
@@ -134,7 +130,7 @@ public class TopicNews extends Activity implements OnClickListener{
 		});
 	}
 	
-	// ����ͼƬ���������
+	// 滑动图片数据适配器
     private class SlideImageAdapter extends PagerAdapter {  
         @Override  
         public int getCount() { 
@@ -182,7 +178,7 @@ public class TopicNews extends Activity implements OnClickListener{
         }  
     }
     
-    // ����ҳ�����¼�������
+    // 滑动页面更改事件监听器
     private class ImagePageChangeListener implements OnPageChangeListener {
         @Override  
         public void onPageScrollStateChanged(int arg0) {  
