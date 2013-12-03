@@ -145,11 +145,13 @@
                 android:layout_marginTop="5dip"
                 android:background="@drawable/img_group_participant_button"
                 android:text="删除"
-                android:textColor="@color/dateBlue" />
+                android:textColor="@color/dateBlue"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_modify"
                 android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dip"
                 android:layout_marginTop="5dip"

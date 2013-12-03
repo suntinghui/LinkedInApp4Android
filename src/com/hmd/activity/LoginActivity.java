@@ -53,15 +53,16 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View view) {
 		switch(view.getId()){
 		case R.id.registrationButton:
-			Intent intent = new Intent(this, RegistrationActivity.class);
-			this.startActivity(intent);
+//			Intent intent = new Intent(this, RegistrationActivity.class);
+//			this.startActivity(intent);
+			
+			Intent intent0 = new Intent(LoginActivity.this, NewsActivity.class);
+			LoginActivity.this.startActivity(intent0);
 			
 			break;
 			
 		case R.id.completedButton:
-//			this.doLogin();
-			Intent intent0 = new Intent(LoginActivity.this, NewsActivity.class);
-			LoginActivity.this.startActivity(intent0);
+			this.doLogin();
 			
 			break;
 		}

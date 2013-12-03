@@ -72,9 +72,21 @@ public class SystemSettingActivity extends AbsSubActivity {
 		});
 
 	}
-	
-	private void checkUpdate(){
-		
+
+	private void checkUpdate() {
+		LKAlertDialog dialog = new LKAlertDialog(this);
+		dialog.setTitle("提示");
+		dialog.setMessage("已经是最新版本，不需要更新。");
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				arg0.dismiss();
+
+			}
+		});
+		dialog.create().show();
 	}
 
 	public void logout() {
