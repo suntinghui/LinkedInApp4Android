@@ -157,7 +157,7 @@ public class SubmitProfileActivity extends BaseActivity implements OnClickListen
 				int code = (Integer) obj;
 				
 				if (code == 1){ // 匹配成功 
-					Intent intent = new Intent(SubmitProfileActivity.this, SchoolActivity.class);
+					Intent intent = new Intent(SubmitProfileActivity.this, SchoolExActivity.class);
 					SubmitProfileActivity.this.startActivity(intent);
 					SubmitProfileActivity.this.finish();
 					

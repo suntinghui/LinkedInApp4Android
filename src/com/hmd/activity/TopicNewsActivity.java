@@ -100,9 +100,18 @@ public class TopicNewsActivity extends Activity implements OnClickListener {
 		list.add("two");
 		list.add("three");
 		list.add("four");
+		list.add("one");
+		list.add("two");
+		list.add("three");
+		list.add("four");
+		list.add("one");
+		list.add("two");
+		list.add("three");
+		list.add("four");
 		lv_news = (ListView) this.findViewById(R.id.lv_news);
 		adapter_news = new NewsAdapter(this);
 		lv_news.setAdapter(adapter_news);
+		ListViewUtil.setListViewHeightBasedOnChildren(lv_news);
 		lv_news.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

@@ -5,31 +5,25 @@ import java.util.HashMap;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
-import com.hmd.activity.AllGroupActivity;
 import com.hmd.activity.BaseActivity;
 import com.hmd.activity.MyAttentionsActivity;
 import com.hmd.activity.ProfileActivity;
-import com.hmd.activity.SchoolActivity;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.GroupModel;
 import com.hmd.model.ProfileModel;
-import com.hmd.model.TimelineModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
-import com.hmd.util.ImageUtil;
 
 public class NameCardGroupRelativeLayout extends RelativeLayout {
 
