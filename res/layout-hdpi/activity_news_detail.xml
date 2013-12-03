@@ -55,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dip"
                 android:gravity="right"
+                android:textColor="@color/dateBlue"
                 android:text="时间" />
 
             <LinearLayout

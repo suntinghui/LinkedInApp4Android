@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.hmd.R;
 import com.hmd.model.MediaModel;
+import com.hmd.util.ImageUtil;
 import com.hmd.util.ListViewUtil;
 import com.hmd.view.NewsXmlParser;
 import com.hmd.view.SlideImageLayout;
@@ -242,6 +243,7 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 				holder.titleView = (TextView) convertView.findViewById(R.id.titleView);
 				holder.contentView = (TextView) convertView.findViewById(R.id.contentView);
 				holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
+				holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
 				holder.moreButton = (Button) convertView.findViewById(R.id.moreButton);
 				holder.moreButton.setOnClickListener(TopicNewsActivity.this);
 
@@ -261,6 +263,7 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 					holder.titleView.setText(list.get(position).getTitle());
 					holder.contentView.setText(list.get(position).getContent());
 					holder.tv_time.setText(list.get(position).getTime());
+					ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, list.get(position).getPics()[0], holder.imageView);
 				}
 			} else {
 				holder.contentLayout.setVisibility(View.VISIBLE);
@@ -269,6 +272,7 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 				holder.titleView.setText(list.get(position).getTitle());
 				holder.contentView.setText(list.get(position).getContent());
 				holder.tv_time.setText(list.get(position).getTime());
+				ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, list.get(position).getPics()[0], holder.imageView);
 			}
 
 			return convertView;
