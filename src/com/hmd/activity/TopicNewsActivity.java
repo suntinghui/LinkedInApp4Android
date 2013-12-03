@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
@@ -192,6 +193,9 @@ public class TopicNewsActivity extends Activity implements OnClickListener {
 				if (index != i) {
 					mImageCircleViews[i].setBackgroundResource(R.drawable.dot_none);
 				}
+				
+				Intent intent = new Intent(TopicNewsActivity.this, NewsDetailActivity.class);
+				TopicNewsActivity.this.startActivity(intent);
 			}
 		}
 	}
