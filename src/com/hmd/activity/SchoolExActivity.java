@@ -112,7 +112,7 @@ public class SchoolExActivity extends AbsSubActivity {
 	class MoreListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			Intent intent = new Intent(SchoolExActivity.this, NewsActivity.class);
+			Intent intent = new Intent(SchoolExActivity.this, TopicNewsActivity.class);
 			SchoolExActivity.this.startActivity(intent);
 		}
 	}

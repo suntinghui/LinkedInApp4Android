@@ -55,6 +55,9 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 	private int totalPage;
 	private int currentPage;
 
+	private TextView titleView = null;
+	private Button backButton = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,11 +66,17 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 	}
 
 	private void initeViews() {
+
 		// 滑动图片区域
 		mImagePageViewList = new ArrayList<View>();
 		LayoutInflater inflater = getLayoutInflater();
 		mMainView = (ViewGroup) inflater.inflate(R.layout.page_topic_news, null);
 		mViewPager = (ViewPager) mMainView.findViewById(R.id.image_slide_page);
+
+		titleView = (TextView) mMainView.findViewById(R.id.titleView);
+
+		backButton = (Button) mMainView.findViewById(R.id.backButton);
+		backButton.setOnClickListener(this);
 
 		// 圆点图片区域
 		mParser = new NewsXmlParser();
@@ -273,7 +282,11 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 	}
 
 	@Override
-	public void onClick(View arg0) {
-
+	public void onClick(View view) {
+		switch (view.getId()) {
+		case R.id.backButton:
+			this.goback();
+			break;
+		}
 	}
 }
