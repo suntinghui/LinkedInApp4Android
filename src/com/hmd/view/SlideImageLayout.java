@@ -3,6 +3,7 @@ package com.hmd.view;
 import java.util.ArrayList;
 
 import com.hmd.R;
+import com.hmd.activity.BaseActivity;
 import com.hmd.activity.NewsDetailActivity;
 
 import android.content.Context;
@@ -133,8 +134,8 @@ public class SlideImageLayout {
 //			Toast.makeText(mContext, mParser.getSlideTitles()[pageIndex], Toast.LENGTH_SHORT).show();
 //			Toast.makeText(mContext, mParser.getSlideUrls()[pageIndex], Toast.LENGTH_SHORT).show();
 			
-			Intent intent = new Intent(mContext, NewsDetailActivity.class);
-			mContext.startActivity(intent);
+			Intent intent = new Intent((BaseActivity)mContext, NewsDetailActivity.class);
+			((BaseActivity)mContext).startActivityForResult(intent, 100);
 		}
 	}
 }

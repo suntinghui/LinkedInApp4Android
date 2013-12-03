@@ -28,7 +28,7 @@ import com.hmd.util.ListViewUtil;
 import com.hmd.view.NewsXmlParser;
 import com.hmd.view.SlideImageLayout;
 
-public class TopicNewsActivity extends BaseActivity implements OnClickListener {
+public class TopicNewsActivity extends AbsSubActivity implements OnClickListener {
 	// 滑动图片的集合
 	private ArrayList<View> mImagePageViewList = null;
 	private ViewGroup mMainView = null;
@@ -45,7 +45,7 @@ public class TopicNewsActivity extends BaseActivity implements OnClickListener {
 
 	// 布局设置类
 	private SlideImageLayout mSlideLayout = null;
-	
+
 	// 数据解析类
 	private NewsXmlParser mParser = null;
 
@@ -81,7 +81,7 @@ public class TopicNewsActivity extends BaseActivity implements OnClickListener {
 			mImagePageViewList.add(mSlideLayout.getSlideImageLayout(mParser.getSlideImages()[i]));
 			mImageCircleViews[i] = mSlideLayout.getCircleImageLayout(i);
 			mImageCircleView.addView(mSlideLayout.getLinearLayout(mImageCircleViews[i], 10, 10));
-			mSlideLayout.getSlideImageLayout(mParser.getSlideImages()[i]).setTag(1000+i);
+			mSlideLayout.getSlideImageLayout(mParser.getSlideImages()[i]).setTag(1000 + i);
 			mSlideLayout.getSlideImageLayout(mParser.getSlideImages()[i]).setOnClickListener(this);
 		}
 
@@ -195,7 +195,7 @@ public class TopicNewsActivity extends BaseActivity implements OnClickListener {
 				if (index != i) {
 					mImageCircleViews[i].setBackgroundResource(R.drawable.dot_none);
 				}
-				
+
 			}
 		}
 	}
