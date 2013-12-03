@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="10dip"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingTop="10dip" >
+
+    <RelativeLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_item_bg"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    style="@style/black_14"
+                    android:layout_width="80dip"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="新闻：" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:text="未知"
+                    android:textColor="@color/dateBlue"
+                    android:textSize="16sp"
+                    android:typeface="sans" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/moreLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="10dip"
+        android:visibility="gone" >
+
+        <Button
+            android:id="@+id/moreButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:focusable="false"
+            android:background="@drawable/more_button"
+            android:text="点击查看更多" />
+    </RelativeLayout>
+
+</LinearLayout>

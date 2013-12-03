@@ -59,7 +59,9 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 			break;
 			
 		case R.id.completedButton:
-			this.doLogin();
+//			this.doLogin();
+			Intent intent0 = new Intent(LoginActivity.this, NewsActivity.class);
+			LoginActivity.this.startActivity(intent0);
 			
 			break;
 		}
