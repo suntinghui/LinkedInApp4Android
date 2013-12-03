@@ -2,25 +2,31 @@ package com.hmd.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import weibo4j.Timeline;
 import weibo4j.model.Paging;
 import weibo4j.model.Status;
 import weibo4j.model.StatusWapper;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
-
+import android.widget.ScrollView;
+import android.widget.TextView;
 import com.hmd.R;
 import com.hmd.client.Constants;
+import com.hmd.client.HttpsUtil;
 import com.hmd.model.WeiboItemModel;
-import com.hmd.util.ActivityUtil;
 import com.hmd.util.ListViewUtil;
 import com.hmd.util.WeiboUtil;
 import com.hmd.view.TimelineAdapter;
@@ -35,8 +41,11 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 	private long totalPage = 0L;
 	private int currentPage = 1;
 
-	private Button backButton = null;
 	private Button moreButton = null;
+
+	private ScrollView weiboScrollView = null;
+	private WebView oauthWebview = null;
+	private TextView titleView = null;
 
 	private ListView timelineListView = null;
 	private List<Status> timelineList = null;
@@ -51,12 +60,14 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 		this.init();
 	}
 
+	@SuppressLint("SetJavaScriptEnabled")
 	private void init() {
-		backButton = (Button) this.findViewById(R.id.btn_back);
-		backButton.setOnClickListener(this);
-
 		moreButton = (Button) this.findViewById(R.id.moreButton);
 		moreButton.setOnClickListener(this);
+
+		weiboScrollView = (ScrollView) this.findViewById(R.id.weiboLayout);
+		oauthWebview = (WebView) this.findViewById(R.id.oauth_webview);
+		titleView = (TextView) this.findViewById(R.id.tv_title);
 
 		timelineListView = (ListView) this.findViewById(R.id.lv_timeline);
 		timelineListView.setOnItemClickListener(this);
@@ -65,7 +76,85 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 		timelineAdapter = new TimelineAdapter(timelineList);
 		timelineListView.setAdapter(timelineAdapter);
 
-		new LoadTimelineTask().execute();
+		if (WeiboUtil.hasAuth()) {
+			oauthWebview.setVisibility(View.GONE);
+			weiboScrollView.setVisibility(View.VISIBLE);
+			titleView.setText("官方微博");
+			
+			new LoadTimelineTask().execute();
+
+		} else {
+			oauthWebview.setVisibility(View.VISIBLE);
+			weiboScrollView.setVisibility(View.GONE);
+			titleView.setText("用户登录");
+
+			oauthWebview.getSettings().setJavaScriptEnabled(true);
+			oauthWebview.setFocusable(true);
+			oauthWebview.loadUrl(Constants.SINA_OAUTH);
+
+			oauthWebview.setWebViewClient(new WebViewClient() {
+
+				@Override
+				public void onPageStarted(WebView view, String url, Bitmap favicon) {
+					WeiboListActivity.this.showDialog(BaseActivity.PROGRESS_HUD, "正在加载...");
+
+					if (url.startsWith(Constants.SINA_WEIBO_CALLBACK_URL)) {
+						// 取消授权后的界面
+						view.cancelLongPress();
+						view.stopLoading();
+
+						// 获取Code
+						Uri uri = Uri.parse(url);
+						String code = uri.getQueryParameter("code");
+
+						String result = "";
+						if (code != null) {
+							result = HttpsUtil.HttpsPost(Constants.SINA_ACCESS_TOKEN + code, "");
+						}
+
+						if (result.startsWith("{\"access_token\":")) {
+							int i = result.indexOf(":");
+							int j = result.indexOf(",");
+							String accessToken = result.substring(i + 2, j - 1);
+							Log.e("ACCESS_TOKEN", accessToken);
+
+							if (accessToken == null || accessToken.trim().equals("")) {
+								//WeiboListActivity.this.setResult(RESULT_CANCELED);
+
+							} else {
+								WeiboListActivity.this.showToast("微博认证成功");
+
+								// 保存Access Token的值
+								WeiboUtil.setToken(accessToken);
+
+								//WeiboListActivity.this.setResult(RESULT_OK);
+							}
+
+							//gobackWithResult(RESULT_OK, getIntent());
+							Intent intent = new Intent(WeiboListActivity.this, WeiboListActivity.class);
+							WeiboListActivity.this.startActivityForResult(intent, 100);
+						}
+					}
+
+					super.onPageStarted(view, url, favicon);
+				}
+
+				@Override
+				public void onPageFinished(WebView view, String url) {
+					super.onPageFinished(view, url);
+
+					WeiboListActivity.this.hideDialog(BaseActivity.PROGRESS_HUD);
+				}
+
+				@Override
+				public boolean shouldOverrideUrlLoading(WebView view, String url) {
+					oauthWebview.loadUrl(url);
+
+					return super.shouldOverrideUrlLoading(view, url);
+				}
+
+			});
+		}
 	}
 
 	class LoadTimelineTask extends AsyncTask<Object, Object, Object> {

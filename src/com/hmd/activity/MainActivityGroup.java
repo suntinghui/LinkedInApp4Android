@@ -35,14 +35,14 @@ public class MainActivityGroup extends AbsActivityGroup {
 	// 第三个需要实现的方法，上面一个方法中的radioButton对应的图标，注意图标的尺寸要自己调整到合适大小
 	@Override
 	protected int[] getImageWithTextViewImageIds() {
-		return new int[] { R.drawable.img_group_school, R.drawable.img_group_profile, R.drawable.img_group_group, R.drawable.img_group_setting };
+		return new int[] { R.drawable.img_group_school, R.drawable.img_group_profile, R.drawable.img_group_weibo, R.drawable.img_group_setting };
 	}
 
 	// 第五个需要实现的方法，返回每个选项卡对应的第一个子Activity（注意要继承自AbsSubActivity）
 	@SuppressWarnings("unchecked")
 	@Override
 	public Class<? extends Activity>[] getClasses() {
-		Class<? extends Activity>[] classes = new Class[] { SchoolActivity.class, ProfileActivity.class, CircleActivity.class, SystemSettingActivity.class };
+		Class<? extends Activity>[] classes = new Class[] { SchoolActivity.class, ProfileActivity.class, WeiboListActivity.class, SystemSettingActivity.class };
 		return classes;
 	}
 
