@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.hmd.R;
 import com.hmd.activity.component.SchoolCardRelativeLayout;
+import com.hmd.activity.component.SchoolFeedbackRelativeLayout;
 import com.hmd.activity.component.SchoolInfoCardRelativeLayout;
 import com.hmd.activity.component.SchoolMediaRelativeLayout;
 import com.hmd.client.ApplicationEnvironment;
@@ -28,6 +29,7 @@ public class SchoolExActivity extends AbsSubActivity {
 	private SchoolMediaRelativeLayout rlSchoolNotice = null; // 通知公告
 	private SchoolMediaRelativeLayout rlSchoolEvent = null; // 校友活动
 	private SchoolCardRelativeLayout rlSchoolCard = null; // 校友卡
+	private SchoolFeedbackRelativeLayout rlSchoolFeedback = null; // 校友捐赠
 	private SchoolInfoCardRelativeLayout rlSchoolInfo = null; // 数据母校
 
 	private SchoolModel schoolModel = null;
@@ -70,6 +72,10 @@ public class SchoolExActivity extends AbsSubActivity {
 		// 校友卡
 		rlSchoolCard = new SchoolCardRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolCard);
+		
+		// 校友捐赠
+		rlSchoolFeedback = new SchoolFeedbackRelativeLayout(this);
+		llSchoolContainer.addView(rlSchoolFeedback);
 
 		// 学校信息
 		rlSchoolInfo = new SchoolInfoCardRelativeLayout(this);

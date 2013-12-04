@@ -237,7 +237,7 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 			if (null == convertView) {
 				holder = new NewsViewHolder();
 
-				convertView = mInflater.inflate(R.layout.listview_item_news_ex, null);
+				convertView = mInflater.inflate(R.layout.listview_item_news, null);
 
 				holder.contentLayout = (RelativeLayout) convertView.findViewById(R.id.contentLayout);
 				holder.moreLayout = (RelativeLayout) convertView.findViewById(R.id.moreLayout);

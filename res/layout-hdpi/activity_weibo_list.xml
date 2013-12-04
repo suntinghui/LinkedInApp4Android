@@ -38,6 +38,7 @@
         android:id="@+id/weiboLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:background="@drawable/img_backdrop"
         android:fillViewport="true" >
 
         <LinearLayout
