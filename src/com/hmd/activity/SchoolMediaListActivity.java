@@ -104,10 +104,9 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 		mSlideLayout.setCircleImageLayout(this.slideImages.size());
 
 		for (int i = 0; i < this.slideImages.size(); i++) {
-			mImagePageViewList.add(mSlideLayout.getSlideImageLayout(this.slideImages.get(i)));
+			mImagePageViewList.add(mSlideLayout.getSlideImageLayout(this.topMediaList.get(i)));
 			mImageCircleViews[i] = mSlideLayout.getCircleImageLayout(i);
 			mImageCircleView.addView(mSlideLayout.getLinearLayout(mImageCircleViews[i], 10, 10));
-			mSlideLayout.getSlideImageLayout(this.slideImages.get(i)).setOnClickListener(new TopMediaClickListener(topMediaList.get(i)));
 		}
 
 		// 设置默认的滑动标题

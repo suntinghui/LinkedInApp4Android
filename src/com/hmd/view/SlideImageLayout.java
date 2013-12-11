@@ -1,6 +1,7 @@
 package com.hmd.view;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -9,6 +10,7 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
 import com.hmd.R;
+import com.hmd.model.MediaModel;
 import com.hmd.util.ImageUtil;
 
 public class SlideImageLayout {
@@ -16,12 +18,16 @@ public class SlideImageLayout {
 	// 圆点图片集合
 	private ImageView[] mImageViews = null;
 	private ImageView mImageView = null;
+	
+	private MediaModel model;
 
 	public SlideImageLayout(Context context) {
 		this.mContext = context;
 	}
 
-	public View getSlideImageLayout(String url) {
+	public View getSlideImageLayout(MediaModel model) {
+		this.model = model;
+		
 		// 包含TextView的LinearLayout
 		LinearLayout imageLinerLayout = new LinearLayout(mContext);
 		LinearLayout.LayoutParams imageLinerLayoutParames = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
@@ -31,7 +37,7 @@ public class SlideImageLayout {
 		iv.setOnClickListener(new ImageOnClickListener());
 		imageLinerLayout.addView(iv, imageLinerLayoutParames);
 		
-		ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, url, iv);
+		ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, model.getPics().get(0), iv);
 
 		return imageLinerLayout;
 	}
@@ -90,7 +96,7 @@ public class SlideImageLayout {
 	private class ImageOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			
+			Log.e("==", model.getId());
 		}
 	}
 }
