@@ -105,7 +105,7 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 		mSlideLayout.setCircleImageLayout(this.slideImages.size());
 
 		for (int i = 0; i < this.slideImages.size(); i++) {
-			mImagePageViewList.add(mSlideLayout.getSlideImageLayout(this.topMediaList.get(i)));
+			mImagePageViewList.add(mSlideLayout.getSlideImageLayout(this.topMediaList.get(i), this.topMediaList, i));
 			mImageCircleViews[i] = mSlideLayout.getCircleImageLayout(i);
 			mImageCircleView.addView(mSlideLayout.getLinearLayout(mImageCircleViews[i], 10, 10));
 		}
