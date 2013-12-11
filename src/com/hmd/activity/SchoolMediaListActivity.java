@@ -327,18 +327,4 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 		};
 	}
 
-	class TopMediaClickListener implements OnClickListener {
-		private MediaModel media;
-		
-		public TopMediaClickListener(MediaModel model){
-			media = model;
-		}
-
-		@Override
-		public void onClick(View v) {
-			getMediaDetail(media);
-		}
-
-	}
-
 }

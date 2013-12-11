@@ -23,7 +23,6 @@ public class ImageUtil {
 		"http://www.cnu.edu.cn/download.jsp?attachSeq=15823&filename=20131210130505295.jpg",
 		"http://www.cnu.edu.cn/download.jsp?attachSeq=15362&filename=20131031155715804.jpg",
 		"http://www.cnu.edu.cn/download.jsp?attachSeq=15368&filename=20131101090654481.jpg",
-		"http://www.cnu.edu.cn/download.jsp?attachSeq=15364&filename=20131031155743934.jpg",
 		"http://www.cnu.edu.cn/download.jsp?attachSeq=15257&filename=20131021165222134.jpg"
 		};
 	
