@@ -51,7 +51,8 @@
             android:layout_marginTop="15dip"
             hmd:hint="请输入用户名"
             hmd:inputType="text"
-            hmd:leftImage="user" >
+            hmd:leftImage="user"
+            >
         </com.hmd.view.EditTextWithClearView>
 
         <com.hmd.view.EditTextWithClearView
