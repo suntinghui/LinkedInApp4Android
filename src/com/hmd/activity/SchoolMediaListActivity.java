@@ -9,6 +9,7 @@ import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -134,6 +135,8 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 		});
 	}
 
+	
+	
 	// 滑动图片数据适配器
 	private class SlideImageAdapter extends PagerAdapter {
 		@Override

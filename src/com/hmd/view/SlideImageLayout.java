@@ -1,6 +1,7 @@
 package com.hmd.view;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -30,7 +31,7 @@ public class SlideImageLayout {
 		iv.setBackgroundResource(R.drawable.img_weibo_item_pic_loading);
 		iv.setOnClickListener(new ImageOnClickListener());
 		imageLinerLayout.addView(iv, imageLinerLayoutParames);
-		
+
 		ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, url, iv);
 
 		return imageLinerLayout;
@@ -90,7 +91,7 @@ public class SlideImageLayout {
 	private class ImageOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			
+			Log.i("tag", "tag");
 		}
 	}
 }
