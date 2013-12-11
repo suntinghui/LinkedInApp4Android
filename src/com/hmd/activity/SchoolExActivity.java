@@ -14,6 +14,7 @@ import com.hmd.activity.component.SchoolCardRelativeLayout;
 import com.hmd.activity.component.SchoolFeedbackRelativeLayout;
 import com.hmd.activity.component.SchoolInfoCardRelativeLayout;
 import com.hmd.activity.component.SchoolMediaRelativeLayout;
+import com.hmd.activity.component.SchoolPhotoWallRelativeLayout;
 import com.hmd.client.ApplicationEnvironment;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
@@ -31,6 +32,7 @@ public class SchoolExActivity extends AbsSubActivity {
 	private SchoolMediaRelativeLayout rlSchoolEvent = null; // 校友活动
 	private SchoolCardRelativeLayout rlSchoolCard = null; // 校友卡
 	private SchoolFeedbackRelativeLayout rlSchoolFeedback = null; // 校友捐赠
+	private SchoolPhotoWallRelativeLayout rlSchoolPhotoWall = null; // 印象首师
 	private SchoolInfoCardRelativeLayout rlSchoolInfo = null; // 数据母校
 
 	private SchoolModel schoolModel = null;
@@ -70,7 +72,11 @@ public class SchoolExActivity extends AbsSubActivity {
 		rlSchoolFeedback = new SchoolFeedbackRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolFeedback);
 
-		// 学校信息
+		//印象首师
+		rlSchoolPhotoWall = new SchoolPhotoWallRelativeLayout(this);
+		llSchoolContainer.addView(rlSchoolPhotoWall);
+
+		// 学校信息 rlSchoolPhotoWall
 		rlSchoolInfo = new SchoolInfoCardRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolInfo);
 
@@ -151,7 +157,7 @@ public class SchoolExActivity extends AbsSubActivity {
 	class MoreMediaListener implements OnClickListener {
 
 		private int type;
-		
+
 		private ArrayList<MediaModel> topList = null;
 		private ArrayList<MediaModel> list = null;
 		private int total = 0;
