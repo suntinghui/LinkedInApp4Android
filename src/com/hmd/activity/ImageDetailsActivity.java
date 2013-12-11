@@ -164,7 +164,7 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 			// creating missing parent directories if necessary
 			f.mkdirs();
 		}
-		f.createNewFile();
+//		f.createNewFile();
 		FileOutputStream fOut = null;
 		try {
 			fOut = new FileOutputStream(f);
