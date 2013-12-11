@@ -17,22 +17,27 @@ import android.widget.ImageView;
 
 public class ImageUtil {
 	
-	private static String imageURL[] = new String[]{"http://www.news.cn/ziliao/leaders/xijinping_201302040101.jpg",
-		"http://www.news.cn/ziliao/leaders/likeqiang_201302060114.jpg",
-		"http://www.news.cn/ziliao/leaders/zhanggaoli_201302060350.jpg",
-		"http://www.news.cn/ziliao/leaders/wangqishan_201302071038.jpg",
-		"http://www.news.cn/ziliao/leaders/liuyunshan_201302071028.jpg",
-		"http://www.news.cn/ziliao/leaders/zhangdejiang_201302060418.jpg",
-		"http://news.xinhuanet.com/ziliao/2012-11/05/123913396_41n.jpg",
-		"http://t0.gstatic.com/images?q=tbn:ANd9GcSAQCknJ8zdzkCmKFglp_stiG9L9qXBK2h5gembMbeIDsMK8MHBhQ",
-		"http://t2.gstatic.com/images?q=tbn:ANd9GcSRXWN-PDegy1odMgt0ZvRi4p_1xhYNKVbTvV3g18XRplXAzt3m",
-		"http://t3.gstatic.com/images?q=tbn:ANd9GcQcOxMY1I4u4QVizg3V1WlygnY2kA_ZVTgTu_4mbTbvNDQFe6EfOw",
-		"http://t3.gstatic.com/images?q=tbn:ANd9GcQp_3pM2_hRkWXqRSvIVqJ1YdK26DVlRjnMARlpW8X3GAj_LUruaQ"};
+	private static String imageURL[] = new String[]{
+		"http://www.cnu.edu.cn/download.jsp?attachSeq=15815&filename=20131209144643404.jpg",
+		"http://www.cnu.edu.cn/download.jsp?attachSeq=15820&filename=20131209145251129.jpg",
+		"http://www.cnu.edu.cn/download.jsp?attachSeq=15823&filename=20131210130505295.jpg",
+		"http://www.cnu.edu.cn/download.jsp?attachSeq=15362&filename=20131031155715804.jpg",
+		"http://www.cnu.edu.cn/download.jsp?attachSeq=15368&filename=20131101090654481.jpg",
+		"http://www.cnu.edu.cn/download.jsp?attachSeq=15364&filename=20131031155743934.jpg",
+		"http://www.cnu.edu.cn/download.jsp?attachSeq=15257&filename=20131021165222134.jpg"
+		};
 	
 	// 取测试数据
-	public static String getTestImageURL(){
-		int random = (int)(Math.random() * imageURL.length);
-		return imageURL[random];
+	public static String[] getTestImageURL(){
+		int random1 = (int)(Math.random() * imageURL.length);
+		int random2 = (int)(Math.random() * imageURL.length);
+		return new String[]{imageURL[random1], imageURL[random2]};
+	}
+	
+	public static String[] getTopMediaImageList(){
+		return new String[]{"http://www.cnu.edu.cn/download.jsp?attachSeq=15820&filename=20131209145251129.jpg",
+				"http://www.cnu.edu.cn/download.jsp?attachSeq=15781&filename=20131205161653892.jpg", 
+				"http://www.cnu.edu.cn/download.jsp?attachSeq=15780&filename=20131205161646324.jpg"};
 	}
 	
 	// http://my.oschina.net/u/143926/blog/137637
