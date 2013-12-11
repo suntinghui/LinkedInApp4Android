@@ -44,4 +44,8 @@
     <string name="title3">罗马尼亚基督教大学代表团来我校访问</string>
     <string name="title4">学校聘请首届党风廉政监督员</string>
     <string name="title5">我校举行60周年校庆倒计时一周年启动仪式</string>
+    
+    <string name="border_top">Border Top</string>
+    <string name="border_bottom">Border Bottom</string>
+    <string name="image_url">Image Url</string>
 </resources>

@@ -36,7 +36,6 @@ public class SlideImageLayout {
 		iv.setBackgroundResource(R.drawable.img_weibo_item_pic_loading);
 		iv.setOnClickListener(new ImageOnClickListener());
 		imageLinerLayout.addView(iv, imageLinerLayoutParames);
-		
 		ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, model.getPics().get(0), iv);
 
 		return imageLinerLayout;
@@ -97,6 +96,7 @@ public class SlideImageLayout {
 		@Override
 		public void onClick(View v) {
 			Log.e("==", model.getId());
+			Log.i("tag", "tag");
 		}
 	}
 }
