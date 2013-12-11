@@ -2,6 +2,7 @@ package com.hmd.activity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import weibo4j.Timeline;
 import weibo4j.model.Paging;
 import weibo4j.model.Status;
@@ -23,7 +24,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
 import com.hmd.R;
+import com.hmd.client.ApplicationEnvironment;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpsUtil;
 import com.hmd.model.WeiboItemModel;
@@ -80,7 +83,7 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 			oauthWebview.setVisibility(View.GONE);
 			weiboScrollView.setVisibility(View.VISIBLE);
 			titleView.setText("官方微博");
-			
+
 			new LoadTimelineTask().execute();
 
 		} else {
@@ -119,7 +122,7 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 							Log.e("ACCESS_TOKEN", accessToken);
 
 							if (accessToken == null || accessToken.trim().equals("")) {
-								//WeiboListActivity.this.setResult(RESULT_CANCELED);
+								// WeiboListActivity.this.setResult(RESULT_CANCELED);
 
 							} else {
 								WeiboListActivity.this.showToast("微博认证成功");
@@ -127,10 +130,10 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 								// 保存Access Token的值
 								WeiboUtil.setToken(accessToken);
 
-								//WeiboListActivity.this.setResult(RESULT_OK);
+								// WeiboListActivity.this.setResult(RESULT_OK);
 							}
 
-							//gobackWithResult(RESULT_OK, getIntent());
+							// gobackWithResult(RESULT_OK, getIntent());
 							Intent intent = new Intent(WeiboListActivity.this, WeiboListActivity.class);
 							WeiboListActivity.this.startActivityForResult(intent, 100);
 						}
@@ -244,4 +247,7 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 
 	}
 
+	public void backAction() {
+		ApplicationEnvironment.getInstance().exitApp();
+	}
 }

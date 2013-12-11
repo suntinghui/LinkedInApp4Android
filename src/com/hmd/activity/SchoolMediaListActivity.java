@@ -2,7 +2,6 @@ package com.hmd.activity;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,56 +21,73 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hmd.R;
-import com.hmd.client.TestMedia;
+import com.hmd.client.Constants;
+import com.hmd.client.HttpRequestType;
 import com.hmd.model.MediaModel;
+import com.hmd.network.LKAsyncHttpResponseHandler;
+import com.hmd.network.LKHttpRequest;
+import com.hmd.network.LKHttpRequestQueue;
+import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.ImageUtil;
 import com.hmd.util.ListViewUtil;
-import com.hmd.view.NewsXmlParser;
 import com.hmd.view.SlideImageLayout;
 
-public class TopicNewsActivity extends AbsSubActivity implements OnClickListener {
+public class SchoolMediaListActivity extends AbsSubActivity implements OnClickListener {
 	// 滑动图片的集合
-	private ArrayList<View> mImagePageViewList = null;
+	private ArrayList<View> mImagePageViewList = new ArrayList<View>();
 	private ViewGroup mMainView = null;
 	private ViewPager mViewPager = null;
-	// 当前ViewPager索引
-	// private int pageIndex = 0;
 
 	// 包含圆点图片的View
 	private ViewGroup mImageCircleView = null;
 	private ImageView[] mImageCircleViews = null;
-
 	// 滑动标题
 	private TextView mSlideTitle = null;
 
 	// 布局设置类
 	private SlideImageLayout mSlideLayout = null;
 
-	// 数据解析类
-	private NewsXmlParser mParser = null;
-
-	private ListView lv_news = null;
-	private NewsAdapter adapter_news = null;
-	private ArrayList<MediaModel> list = new ArrayList<MediaModel>();
-	private int totalPage;
-	private int currentPage;
+	private ListView mediaListView = null;
+	private MediaAdapter mediaAdapter = null;
 
 	private TextView titleView = null;
 	private Button backButton = null;
 
+	private int totalPage = 1;
+	private int currentPage = 1;
+
+	private int totalCount = 0;
+	private ArrayList<MediaModel> topMediaList = new ArrayList<MediaModel>();
+	private ArrayList<MediaModel> mediaList = new ArrayList<MediaModel>();
+
+	private ArrayList<String> slideImages = new ArrayList<String>();
+	private ArrayList<String> slideTitles = new ArrayList<String>();
+
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		Intent intent = this.getIntent();
+		totalCount = intent.getIntExtra("TOTAL", 0);
+		totalPage = (totalCount + Constants.PAGESIZE - 1) / Constants.PAGESIZE;
+
+		topMediaList = (ArrayList<MediaModel>) intent.getSerializableExtra("TOPLIST");
+		mediaList = (ArrayList<MediaModel>) intent.getSerializableExtra("LIST");
+
+		for (MediaModel model : this.topMediaList) {
+			slideImages.add(model.getPics().get(0));
+			slideTitles.add(model.getTitle());
+		}
 
 		initeViews();
 	}
 
 	private void initeViews() {
-
 		// 滑动图片区域
-		mImagePageViewList = new ArrayList<View>();
 		LayoutInflater inflater = getLayoutInflater();
 		mMainView = (ViewGroup) inflater.inflate(R.layout.activity_topic_news, null);
 		mViewPager = (ViewPager) mMainView.findViewById(R.id.image_slide_page);
@@ -82,24 +98,21 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 		backButton.setOnClickListener(this);
 
 		// 圆点图片区域
-		mParser = new NewsXmlParser();
-		int length = mParser.getSlideImages().length;
-		mImageCircleViews = new ImageView[length];
+		mImageCircleViews = new ImageView[this.slideImages.size()];
 		mImageCircleView = (ViewGroup) mMainView.findViewById(R.id.layout_circle_images);
-		mSlideLayout = new SlideImageLayout(TopicNewsActivity.this);
-		mSlideLayout.setCircleImageLayout(length);
+		mSlideLayout = new SlideImageLayout(SchoolMediaListActivity.this);
+		mSlideLayout.setCircleImageLayout(this.slideImages.size());
 
-		for (int i = 0; i < length; i++) {
-			mImagePageViewList.add(mSlideLayout.getSlideImageLayout(mParser.getSlideImages()[i]));
+		for (int i = 0; i < this.slideImages.size(); i++) {
+			mImagePageViewList.add(mSlideLayout.getSlideImageLayout(this.slideImages.get(i)));
 			mImageCircleViews[i] = mSlideLayout.getCircleImageLayout(i);
 			mImageCircleView.addView(mSlideLayout.getLinearLayout(mImageCircleViews[i], 10, 10));
-			mSlideLayout.getSlideImageLayout(mParser.getSlideImages()[i]).setTag(1000 + i);
-			mSlideLayout.getSlideImageLayout(mParser.getSlideImages()[i]).setOnClickListener(this);
+			mSlideLayout.getSlideImageLayout(this.slideImages.get(i)).setOnClickListener(new TopMediaClickListener(topMediaList.get(i)));
 		}
 
 		// 设置默认的滑动标题
 		mSlideTitle = (TextView) mMainView.findViewById(R.id.tvSlideTitle);
-		mSlideTitle.setText(mParser.getSlideTitles()[0]);
+		mSlideTitle.setText(this.slideTitles.get(0));
 
 		setContentView(mMainView);
 
@@ -107,17 +120,15 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 		mViewPager.setAdapter(new SlideImageAdapter());
 		mViewPager.setOnPageChangeListener(new ImagePageChangeListener());
 
-		list = TestMedia.getList();
-		lv_news = (ListView) this.findViewById(R.id.lv_news);
-		adapter_news = new NewsAdapter(this);
-		lv_news.setAdapter(adapter_news);
-		ListViewUtil.setListViewHeightBasedOnChildren(lv_news);
-		lv_news.setOnItemClickListener(new OnItemClickListener() {
+		mediaListView = (ListView) this.findViewById(R.id.lv_news);
+		mediaAdapter = new MediaAdapter(this);
+		mediaListView.setAdapter(mediaAdapter);
+		ListViewUtil.setListViewHeightBasedOnChildren(mediaListView);
+		mediaListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				Intent intent = new Intent(TopicNewsActivity.this, NewsDetailActivity.class);
-				TopicNewsActivity.this.startActivityForResult(intent, 100);
+				getMediaDetail(mediaList.get(arg2));
 			}
 
 		});
@@ -183,9 +194,7 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 
 		@Override
 		public void onPageSelected(int index) {
-			// pageIndex = index;
-			mSlideLayout.setPageIndex(index);
-			mSlideTitle.setText(mParser.getSlideTitles()[index]);
+			mSlideTitle.setText(SchoolMediaListActivity.this.slideTitles.get(index));
 
 			for (int i = 0; i < mImageCircleViews.length; i++) {
 				mImageCircleViews[index].setBackgroundResource(R.drawable.dot_selected);
@@ -198,10 +207,11 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 		}
 	}
 
-	public final class NewsViewHolder {
+	// 普通新闻列表Adapter
+	public final class MediaViewHolder {
 		public RelativeLayout contentLayout;
 		public RelativeLayout moreLayout;
-		
+
 		public TextView titleView;
 		public TextView contentView;
 		public TextView tv_time;
@@ -209,23 +219,23 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 		public Button moreButton;
 	}
 
-	public class NewsAdapter extends BaseAdapter {
+	public class MediaAdapter extends BaseAdapter {
 		private LayoutInflater mInflater;
 
-		public NewsAdapter(Context context) {
+		public MediaAdapter(Context context) {
 			this.mInflater = LayoutInflater.from(context);
 		}
 
 		public int getCount() {
-			if (currentPage + 1 < totalPage) {
-				return list.size() + 1;
+			if (currentPage < totalPage) {
+				return mediaList.size() + 1;
 			} else {
-				return list.size();
+				return mediaList.size();
 			}
 		}
 
 		public Object getItem(int arg0) {
-			return list.get(arg0);
+			return mediaList.get(arg0);
 		}
 
 		public long getItemId(int arg0) {
@@ -233,11 +243,11 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 		}
 
 		public View getView(int position, View convertView, ViewGroup parent) {
-			NewsViewHolder holder = null;
+			MediaViewHolder holder = null;
 			if (null == convertView) {
-				holder = new NewsViewHolder();
+				holder = new MediaViewHolder();
 
-				convertView = mInflater.inflate(R.layout.listview_item_news, null);
+				convertView = mInflater.inflate(R.layout.listview_item_media, null);
 
 				holder.contentLayout = (RelativeLayout) convertView.findViewById(R.id.contentLayout);
 				holder.moreLayout = (RelativeLayout) convertView.findViewById(R.id.moreLayout);
@@ -247,34 +257,34 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 				holder.tv_time = (TextView) convertView.findViewById(R.id.tv_time);
 				holder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
 				holder.moreButton = (Button) convertView.findViewById(R.id.moreButton);
-				holder.moreButton.setOnClickListener(TopicNewsActivity.this);
+				holder.moreButton.setOnClickListener(SchoolMediaListActivity.this);
 
 				convertView.setTag(holder);
 			} else {
-				holder = (NewsViewHolder) convertView.getTag();
+				holder = (MediaViewHolder) convertView.getTag();
 			}
 
-			if (currentPage + 1 < totalPage) {
-				if (position == list.size()) {
+			if (currentPage < totalPage) {
+				if (position == mediaList.size()) {
 					holder.contentLayout.setVisibility(View.GONE);
 					holder.moreLayout.setVisibility(View.VISIBLE);
 				} else {
 					holder.contentLayout.setVisibility(View.VISIBLE);
 					holder.moreLayout.setVisibility(View.GONE);
 
-					holder.titleView.setText(list.get(position).getTitle());
-					holder.contentView.setText(list.get(position).getContent());
-					holder.tv_time.setText(list.get(position).getTime());
-					ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, list.get(position).getPics()[0], holder.imageView);
+					holder.titleView.setText(mediaList.get(position).getTitle());
+					holder.contentView.setText(mediaList.get(position).getContent());
+					holder.tv_time.setText(mediaList.get(position).getTime());
+					ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, mediaList.get(position).getPics().get(0), holder.imageView);
 				}
 			} else {
 				holder.contentLayout.setVisibility(View.VISIBLE);
 				holder.moreLayout.setVisibility(View.GONE);
 
-				holder.titleView.setText(list.get(position).getTitle());
-				holder.contentView.setText(list.get(position).getContent());
-				holder.tv_time.setText(list.get(position).getTime());
-				ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, list.get(position).getPics()[0], holder.imageView);
+				holder.titleView.setText(mediaList.get(position).getTitle());
+				holder.contentView.setText(mediaList.get(position).getContent());
+				holder.tv_time.setText(mediaList.get(position).getTime());
+				ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, mediaList.get(position).getPics().get(0), holder.imageView);
 			}
 
 			return convertView;
@@ -287,7 +297,45 @@ public class TopicNewsActivity extends AbsSubActivity implements OnClickListener
 		case R.id.backButton:
 			this.goback();
 			break;
+
+		case R.id.moreButton:
+			Toast.makeText(this, "----", Toast.LENGTH_SHORT).show();
+			break;
 		}
 	}
-	
+
+	private void getMediaDetail(MediaModel media) {
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getMediaDetailRequest(media));
+		queue.executeQueue("正在查询请稍候...", new LKHttpRequestQueueDone());
+	}
+
+	private LKHttpRequest getMediaDetailRequest(MediaModel media) {
+		return new LKHttpRequest(HttpRequestType.HTTP_MEDIA_DETAIL, null, new LKAsyncHttpResponseHandler() {
+
+			@Override
+			public void successAction(Object obj) {
+				Intent intent = new Intent(SchoolMediaListActivity.this, SchoolMediaDetailActivity.class);
+				intent.putExtra("MODEL", (MediaModel) obj);
+				SchoolMediaListActivity.this.startActivityForResult(intent, 100);
+			}
+		}, media.getId()) {
+
+		};
+	}
+
+	class TopMediaClickListener implements OnClickListener {
+		private MediaModel media;
+		
+		public TopMediaClickListener(MediaModel model){
+			media = model;
+		}
+
+		@Override
+		public void onClick(View v) {
+			getMediaDetail(media);
+		}
+
+	}
+
 }

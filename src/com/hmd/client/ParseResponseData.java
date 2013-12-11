@@ -14,6 +14,7 @@ import com.hmd.model.ActiveModel;
 import com.hmd.model.AnnouncementModel;
 import com.hmd.model.CommentModel;
 import com.hmd.model.GroupModel;
+import com.hmd.model.MediaModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.SchoolModel;
 import com.hmd.model.TimelineModel;
@@ -70,6 +71,12 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_EVENT_PARTICIPANT_LIST)) {
 			return getEventParticipantList(jsonObject);
 
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_CARD_APPLY)) {
+			return collegeCardApply(jsonObject);
+
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_FEEDBACK_APPLY)) {
+			return collegeFeedbackApply(jsonObject);
+
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_TIMELINE_LIST)) {
 			return getTimelineList(jsonObject);
 
@@ -108,9 +115,10 @@ public class ParseResponseData {
 
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_PARTICIPANT_LIST)) {
 			return getParticipantList(jsonObject);
-		}else if (type.equalsIgnoreCase(HttpRequestType.HTTP_FRIENDS_SEARCH)) {
+
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_FRIENDS_SEARCH)) {
 			return getSearchList(jsonObject);
-			
+
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_LIST)) {
 			return getAllGroupList(jsonObject);
 
@@ -125,12 +133,22 @@ public class ParseResponseData {
 
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_CREATE)) {
 			return getCreateCircle(jsonObject);
-			
+
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GROUP_COMMENT_LIST)) {
 			return getCommentList(jsonObject);
-			
+
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PUBLISH_COMMENT)) {
 			return getPublishComment(jsonObject);
+
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_MEDIA_TOPLIST)) {
+			return getMediaTopList(jsonObject);
+
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_MEDIA_LIST)) {
+			return getMediaList(jsonObject);
+
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_MEDIA_DETAIL)) {
+			return getMediaDetail(jsonObject);
+
 		}
 
 		return null;
@@ -381,6 +399,16 @@ public class ParseResponseData {
 		return map;
 	}
 
+	private static Object collegeCardApply(JSONObject jsonObject) {
+		int errorCode = jsonObject.optInt("rc", 0);
+		return errorCode;
+	}
+
+	private static Object collegeFeedbackApply(JSONObject jsonObject) {
+		int errorCode = jsonObject.optInt("rc", 0);
+		return errorCode;
+	}
+
 	// 根据选中履历推荐好友列表
 	private static Object getSuggestPeopleList(JSONObject jsonObject) {
 		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
@@ -574,20 +602,20 @@ public class ParseResponseData {
 
 		return null;
 	}
-	
-	//获取圈子发言列表
-	private static Object getCommentList(JSONObject jsonObject){
+
+	// 获取圈子发言列表
+	private static Object getCommentList(JSONObject jsonObject) {
 		ArrayList<CommentModel> modelList = new ArrayList<CommentModel>();
-		
+
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		String total = jsonObject.optString("total", "0");
 		map.put("total", total);
 		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
 		JSONArray jsonArray = jsonObject.optJSONArray("list");
-		if (jsonArray != null && jsonArray.length() > 0){
-			for (int i=0; i<jsonArray.length(); i++){
+		if (jsonArray != null && jsonArray.length() > 0) {
+			for (int i = 0; i < jsonArray.length(); i++) {
 				CommentModel model = new CommentModel();
-				
+
 				JSONObject obj = (JSONObject) jsonArray.opt(i);
 				model.setId(obj.optString("id", ""));
 				model.setContent(obj.optString("content", ""));
@@ -595,20 +623,19 @@ public class ParseResponseData {
 				model.setAuthorPic(obj.optString("authorPic", ""));
 				model.setAuthorName(obj.optString("authorName", ""));
 				model.setTime(obj.optString("time", ""));
-				
+
 				modelList.add(model);
 			}
 			map.put("list", modelList);
 			return map;
-			
+
 		}
-		
+
 		return null;
 	}
-	
-	//找人
-	
-	private static Object getSearchList(JSONObject jsonObject){
+
+	// 找人
+	private static Object getSearchList(JSONObject jsonObject) {
 		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
 
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -639,39 +666,40 @@ public class ParseResponseData {
 
 		return null;
 	}
-	//查看圈子成员
-	
-		private static Object getParticipantList(JSONObject jsonObject){
-			ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
 
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			String total = jsonObject.optString("total", "0");
-			map.put("total", total);
-			map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
-			JSONArray jsonArray = jsonObject.optJSONArray("list");
-			if (jsonArray != null && jsonArray.length() > 0) {
-				for (int i = 0; i < jsonArray.length(); i++) {
-					ProfileModel model = new ProfileModel();
+	// 查看圈子成员
 
-					JSONObject obj = (JSONObject) jsonArray.opt(i);
-					model.setFlag("2");
-					model.setId(obj.optString("id", ""));
-					model.setName(obj.optString("name", ""));
-					model.setGender(obj.optInt("gender", 1));
-					model.setProvince(obj.optString("province"));
-					model.setCity(obj.optString("city"));
-					model.setOrg(obj.optString("org", ""));
-					model.setTitle(obj.optString("title", ""));
-					model.setPic(obj.optString("pic", ""));
-					modelList.add(model);
-				}
-				map.put("list", modelList);
-				return map;
+	private static Object getParticipantList(JSONObject jsonObject) {
+		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
 
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String total = jsonObject.optString("total", "0");
+		map.put("total", total);
+		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0) {
+			for (int i = 0; i < jsonArray.length(); i++) {
+				ProfileModel model = new ProfileModel();
+
+				JSONObject obj = (JSONObject) jsonArray.opt(i);
+				model.setFlag("2");
+				model.setId(obj.optString("id", ""));
+				model.setName(obj.optString("name", ""));
+				model.setGender(obj.optInt("gender", 1));
+				model.setProvince(obj.optString("province"));
+				model.setCity(obj.optString("city"));
+				model.setOrg(obj.optString("org", ""));
+				model.setTitle(obj.optString("title", ""));
+				model.setPic(obj.optString("pic", ""));
+				modelList.add(model);
 			}
+			map.put("list", modelList);
+			return map;
 
-			return null;
 		}
+
+		return null;
+	}
 
 	// 加入圈子
 	private static int getGroupJoin(JSONObject jsonObject) {
@@ -700,15 +728,15 @@ public class ParseResponseData {
 
 		return errorCode;
 	}
-	
+
 	// 退出圈子
-	private static int getPublishComment(JSONObject jsonObject){
+	private static int getPublishComment(JSONObject jsonObject) {
 		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
-		
+
 		return errorCode;
 	}
-	
-	private static Object getTimelineList(JSONObject jsonObject){
+
+	private static Object getTimelineList(JSONObject jsonObject) {
 		ArrayList<TimelineModel> modelList = new ArrayList<TimelineModel>();
 
 		JSONArray jsonArray = jsonObject.optJSONArray("list");
@@ -764,6 +792,78 @@ public class ParseResponseData {
 		school.setmWeiboScreenName(jsonObject.optString("sinaWeibo", ""));
 
 		return school;
+	}
+
+	private static Object getMediaTopList(JSONObject jsonObject) {
+		ArrayList<MediaModel> mediaList = new ArrayList<MediaModel>();
+
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0) {
+			for (int i = 0; i < jsonArray.length(); i++) {
+				MediaModel media = new MediaModel();
+
+				JSONObject mediaObj = (JSONObject) jsonArray.opt(i);
+				media.setId(mediaObj.optString("id", ""));
+				media.setTitle(mediaObj.optString("title", ""));
+				media.setTime(mediaObj.optString("time", ""));
+				media.setPics(new String[] { mediaObj.optString("pic", "") });
+
+				mediaList.add(media);
+			}
+
+		}
+		
+		return mediaList;
+	}
+
+	private static Object getMediaList(JSONObject jsonObject) {
+		ArrayList<MediaModel> mediaList = new ArrayList<MediaModel>();
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String total = jsonObject.optString("total", "0");
+		map.put("total", total);
+		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
+
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0) {
+			for (int i = 0; i < jsonArray.length(); i++) {
+				MediaModel media = new MediaModel();
+
+				JSONObject mediaObj = (JSONObject) jsonArray.opt(i);
+				media.setId(mediaObj.optString("id", ""));
+				media.setTitle(mediaObj.optString("title", ""));
+				media.setTime(mediaObj.optString("time", ""));
+				media.setPreview(mediaObj.optString("preview", ""));
+				media.setPics(new String[] { mediaObj.optString("pic", "") });
+
+				mediaList.add(media);
+			}
+
+		}
+		
+		map.put("list", mediaList);
+
+		return map;
+	}
+
+	private static Object getMediaDetail(JSONObject jsonObject) {
+		MediaModel media = new MediaModel();
+		media.setType(jsonObject.optInt("type", 1));
+		media.setTitle(jsonObject.optString("title", ""));
+		media.setTime(jsonObject.optString("time", ""));
+		media.setContent(jsonObject.optString("content", ""));
+
+		ArrayList<String> picList = new ArrayList<String>();
+		JSONArray jsonArray = jsonObject.optJSONArray("pics");
+		if (jsonArray != null && jsonArray.length() > 0) {
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject picsObj = (JSONObject) jsonArray.opt(i);
+				picList.add(picsObj.optString("url", ""));
+			}
+			media.setPics(picList);
+		}
+
+		return media;
 	}
 
 	// ////////////////////////////////////////////////////////////////////////////

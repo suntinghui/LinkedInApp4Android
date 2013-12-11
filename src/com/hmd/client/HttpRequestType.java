@@ -34,8 +34,9 @@ public interface HttpRequestType {
 	
 	public static final String HTTP_COLLEGE_FEEDBACK_LIST				= "COLLEGE_FEEDBACK_LIST";
 	public static final String HTTP_COLLEGE_FEEDBACK_CREATE				= "COLLEGE_FEEDBACK_CREATE";
-	public static final String HTTP_COLLEGE_ALUCARD_APPLY				= "COLLEGE_ALUCARD_APPLY";
-	public static final String HTTP_COLLEGE_ALUCARD_STATUS				= "COLLEGE_ALUCARD_STATUS";
+	public static final String HTTP_COLLEGE_CARD_APPLY					= "COLLEGE_CARD_APPLY";
+	public static final String HTTP_COLLEGE_FEEDBACK_APPLY				= "COLLEGE_FEEDBACK_APPLY";
+	
 	
 	public static final String HTTP_FRIENDS_LIST						= "FRIENDS_LIST";
 	public static final String HTTP_FRIENDS_FUNS_LIST					= "FRIENDS_FUNS_LIST";
@@ -54,5 +55,9 @@ public interface HttpRequestType {
 	public static final String HTTP_GROUP_DELETE						= "GROUP_DELETE";
 	public static final String HTTP_PUBLISH_COMMENT						= "PUBLISH_COMMENT";
 	public static final String HTTP_FRIENDS_SEARCH						= "FRIENDS_SEARCH";
+	
+	public static final String HTTP_MEDIA_TOPLIST						= "MEDIA_TOPLIST";
+	public static final String HTTP_MEDIA_LIST							= "MEDIA_LIST";
+	public static final String HTTP_MEDIA_DETAIL						= "MEDIA_DETAIL";
 	
 }

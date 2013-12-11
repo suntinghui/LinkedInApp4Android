@@ -1,12 +1,27 @@
 package com.hmd.model;
 
-public class MediaModel {
+import java.io.Serializable;
+import java.util.ArrayList;
 
-	public int type; // 类型：1动态；2公告；3活动；4捐赠信息
-	public String title;
-	public String time;
-	public String content;
-	public String[] pics;
+public class MediaModel implements Serializable {
+
+	private static final long serialVersionUID = 614234352745638089L;
+
+	public String id = "";
+	public int type = 1; // 类型：1动态；2公告；3活动；4捐赠信息
+	public String title = "";
+	public String time = "";
+	public String preview = "";
+	public String content = "";
+	public ArrayList<String> pics = new ArrayList<String>();
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public int getType() {
 		return type;
@@ -32,6 +47,14 @@ public class MediaModel {
 		this.time = time;
 	}
 
+	public String getPreview() {
+		return preview;
+	}
+
+	public void setPreview(String preview) {
+		this.preview = preview;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -40,12 +63,18 @@ public class MediaModel {
 		this.content = content;
 	}
 
-	public String[] getPics() {
+	public ArrayList<String> getPics() {
 		return pics;
 	}
 
-	public void setPics(String[] pics) {
+	public void setPics(ArrayList<String> pics) {
 		this.pics = pics;
+	}
+
+	public void setPics(String[] pic) {
+		for (int i = 0; i < pic.length; i++) {
+			this.pics.add(pic[i]);
+		}
 	}
 
 	public String toString() {

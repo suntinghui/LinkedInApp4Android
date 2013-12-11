@@ -2,7 +2,6 @@ package com.hmd.activity.component;
 
 import java.util.ArrayList;
 
-import android.content.Context;
 import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -15,8 +14,13 @@ import android.widget.TextView;
 
 import com.hmd.R;
 import com.hmd.activity.BaseActivity;
-import com.hmd.activity.NewsDetailActivity;
+import com.hmd.activity.SchoolMediaDetailActivity;
+import com.hmd.client.HttpRequestType;
 import com.hmd.model.MediaModel;
+import com.hmd.network.LKAsyncHttpResponseHandler;
+import com.hmd.network.LKHttpRequest;
+import com.hmd.network.LKHttpRequestQueue;
+import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.ImageUtil;
 
 public class SchoolMediaRelativeLayout extends RelativeLayout {
@@ -29,14 +33,12 @@ public class SchoolMediaRelativeLayout extends RelativeLayout {
 	private BaseActivity context;
 	private String title;
 	private OnClickListener moreListener;
-	private ArrayList<MediaModel> mediaList;
 
-	public SchoolMediaRelativeLayout(BaseActivity context, String title, OnClickListener moreListener, ArrayList<MediaModel> list) {
+	public SchoolMediaRelativeLayout(BaseActivity context, String title, OnClickListener moreListener) {
 		super(context);
 		this.context = context;
 		this.title = title;
 		this.moreListener = moreListener;
-		this.mediaList = list;
 
 		this.init();
 	}
@@ -50,16 +52,14 @@ public class SchoolMediaRelativeLayout extends RelativeLayout {
 
 		moreButton = (Button) this.findViewById(R.id.moreButton);
 		moreButton.setOnClickListener(moreListener);
-
-		this.refresh();
 	}
 
-	public void refresh() {
+	public void refresh(ArrayList<MediaModel> mediaList) {
 		this.setVisibility(View.VISIBLE);
 
-		for (int i = 0; i < this.mediaList.size(); i++) {
+		for (int i = 0; i < mediaList.size(); i++) {
 
-			MediaLayout layout = new MediaLayout(this.context, this.mediaList.get(i));
+			MediaLayout layout = new MediaLayout(this.context, mediaList.get(i));
 
 			layout.setPadding(0, 0, 0, 0);
 
@@ -110,7 +110,9 @@ class MediaLayout extends LinearLayout implements View.OnClickListener {
 		rootLayout.setOnClickListener(this);
 
 		imageView = (ImageView) this.findViewById(R.id.imageView);
-		ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, media.getPics()[0], imageView);
+		if (media.getPics().size() > 0) {
+			ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, media.getPics().get(0), imageView);
+		}
 
 		titleView = (TextView) this.findViewById(R.id.titleView);
 		titleView.setText(media.getTitle());
@@ -122,8 +124,22 @@ class MediaLayout extends LinearLayout implements View.OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		 Intent intent = new Intent(this.context, NewsDetailActivity.class);
-		 this.context.startActivityForResult(intent, 100);
-		 
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getMediaDetailRequest());
+		queue.executeQueue("正在查询请稍候...", new LKHttpRequestQueueDone());
+	}
+
+	private LKHttpRequest getMediaDetailRequest() {
+		return new LKHttpRequest(HttpRequestType.HTTP_MEDIA_DETAIL, null, new LKAsyncHttpResponseHandler() {
+
+			@Override
+			public void successAction(Object obj) {
+				Intent intent = new Intent(MediaLayout.this.context, SchoolMediaDetailActivity.class);
+				intent.putExtra("MODEL", (MediaModel) obj);
+				MediaLayout.this.context.startActivityForResult(intent, 100);
+			}
+		}, media.getId()) {
+
+		};
 	}
 }
