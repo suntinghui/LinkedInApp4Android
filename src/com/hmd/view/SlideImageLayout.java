@@ -1,69 +1,37 @@
 package com.hmd.view;
 
-import java.util.ArrayList;
-
-import com.hmd.R;
-import com.hmd.activity.BaseActivity;
-import com.hmd.activity.NewsDetailActivity;
-
 import android.content.Context;
-import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
 
-/**
- * 生成滑动图片区域布局
- * 
- * @Description: 生成滑动图片区域布局
- * 
- * @File: SlideImageLayout.java
- * 
- * @Package com.image.indicator.layout
- * 
- * @Author Hanyonglu
- * 
- * @Date 2012-6-18 上午09:04:14
- * 
- * @Version V1.0
- */
+import com.hmd.R;
+import com.hmd.util.ImageUtil;
+
 public class SlideImageLayout {
-	// 包含图片的ArrayList
-	private ArrayList<ImageView> mImageList = null;
 	private Context mContext = null;
 	// 圆点图片集合
 	private ImageView[] mImageViews = null;
 	private ImageView mImageView = null;
-	private NewsXmlParser mParser = null;
-	// 表示当前滑动图片的索引
-	private int pageIndex = 0;
 
 	public SlideImageLayout(Context context) {
 		this.mContext = context;
-		mImageList = new ArrayList<ImageView>();
-		mParser = new NewsXmlParser();
 	}
 
-	/**
-	 * 生成滑动图片区域布局
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public View getSlideImageLayout(int id) {
+	public View getSlideImageLayout(String url) {
 		// 包含TextView的LinearLayout
 		LinearLayout imageLinerLayout = new LinearLayout(mContext);
 		LinearLayout.LayoutParams imageLinerLayoutParames = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
 
 		ImageView iv = new ImageView(mContext);
-		iv.setBackgroundResource(id);
+		iv.setBackgroundResource(R.drawable.img_weibo_item_pic_loading);
 		iv.setOnClickListener(new ImageOnClickListener());
 		imageLinerLayout.addView(iv, imageLinerLayoutParames);
-		mImageList.add(iv);
+		
+		ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, url, iv);
 
 		return imageLinerLayout;
 	}
@@ -118,24 +86,11 @@ public class SlideImageLayout {
 		return mImageViews[index];
 	}
 
-	/**
-	 * 设置当前滑动图片的索引
-	 * 
-	 * @param index
-	 */
-	public void setPageIndex(int index) {
-		pageIndex = index;
-	}
-
 	// 滑动页面点击事件监听器
 	private class ImageOnClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-//			Toast.makeText(mContext, mParser.getSlideTitles()[pageIndex], Toast.LENGTH_SHORT).show();
-//			Toast.makeText(mContext, mParser.getSlideUrls()[pageIndex], Toast.LENGTH_SHORT).show();
 			
-			Intent intent = new Intent((BaseActivity)SlideImageLayout.this.mContext, NewsDetailActivity.class);
-			((BaseActivity)SlideImageLayout.this.mContext).startActivityForResult(intent, 100);
 		}
 	}
 }
