@@ -37,7 +37,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
             android:background="@drawable/btn_create_group"
-            android:text="找人" 
+            android:text=" 找同学 " 
             android:visibility="gone"/>
     </RelativeLayout>
 

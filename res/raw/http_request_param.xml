@@ -364,7 +364,7 @@
         <contentType>application/json</contentType>
     </request>
     
-    <!-- 找人 -->
+    <!-- 找同学 -->
     <request>
         <requestId>FRIENDS_SEARCH</requestId>
         <url>/friends/search</url>

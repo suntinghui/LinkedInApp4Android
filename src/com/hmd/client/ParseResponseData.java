@@ -634,7 +634,7 @@ public class ParseResponseData {
 		return null;
 	}
 
-	// 找人
+	// 找同学
 	private static Object getSearchList(JSONObject jsonObject) {
 		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
 
@@ -836,7 +836,11 @@ public class ParseResponseData {
 				media.setPreview(mediaObj.optString("preview", ""));
 				media.setPics(new String[] { mediaObj.optString("pic", "") });
 
-				mediaList.add(media);
+				// 如果没有图片，则忽略掉该消息。
+				if (media.getPics().size() != 0){
+					mediaList.add(media);
+				}
+				
 			}
 
 		}

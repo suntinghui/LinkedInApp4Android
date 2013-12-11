@@ -130,7 +130,7 @@ public class SearchPeopleActivity extends AbsSubActivity implements OnClickListe
 		return request;
 	}
 
-	// 找人
+	// 找同学
 	private LKHttpRequest getSerchRequest() {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("page", ++currentPage + "");
