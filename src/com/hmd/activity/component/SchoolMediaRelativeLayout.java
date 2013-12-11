@@ -67,79 +67,80 @@ public class SchoolMediaRelativeLayout extends RelativeLayout {
 
 		}
 	}
+	
+	class MediaLayout extends LinearLayout implements View.OnClickListener {
 
-}
+		public BaseActivity context;
 
-class MediaLayout extends LinearLayout implements View.OnClickListener {
+		private LinearLayout rootLayout;
+		private ImageView imageView;
+		private TextView titleView;
+		private TextView contentView;
 
-	public BaseActivity context;
+		private MediaModel media;
 
-	private LinearLayout rootLayout;
-	private ImageView imageView;
-	private TextView titleView;
-	private TextView contentView;
+		public MediaLayout(BaseActivity context) {
+			super(context);
+			this.context = context;
 
-	private MediaModel media;
-
-	public MediaLayout(BaseActivity context) {
-		super(context);
-		this.context = context;
-
-		this.init();
-	}
-
-	public MediaLayout(BaseActivity context, AttributeSet attrs) {
-		super(context, attrs);
-		this.context = context;
-
-		this.init();
-	}
-
-	public MediaLayout(BaseActivity context, MediaModel media) {
-		super(context);
-		this.context = context;
-		this.media = media;
-
-		this.init();
-	}
-
-	private void init() {
-		LayoutInflater.from(this.context).inflate(R.layout.layout_media_card, this, true);
-
-		rootLayout = (LinearLayout) this.findViewById(R.id.rootLayout);
-		rootLayout.setOnClickListener(this);
-
-		imageView = (ImageView) this.findViewById(R.id.imageView);
-		if (media.getPics().size() > 0) {
-			ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, media.getPics().get(0), imageView);
+			this.init();
 		}
 
-		titleView = (TextView) this.findViewById(R.id.titleView);
-		titleView.setText(media.getTitle());
+		public MediaLayout(BaseActivity context, AttributeSet attrs) {
+			super(context, attrs);
+			this.context = context;
 
-		contentView = (TextView) this.findViewById(R.id.contentView);
-		contentView.setText(media.getContent());
+			this.init();
+		}
 
-	}
+		public MediaLayout(BaseActivity context, MediaModel media) {
+			super(context);
+			this.context = context;
+			this.media = media;
 
-	@Override
-	public void onClick(View v) {
-		LKHttpRequestQueue queue = new LKHttpRequestQueue();
-		queue.addHttpRequest(getMediaDetailRequest());
-		queue.executeQueue("正在查询请稍候...", new LKHttpRequestQueueDone());
-	}
+			this.init();
+		}
 
-	private LKHttpRequest getMediaDetailRequest() {
-		return new LKHttpRequest(HttpRequestType.HTTP_MEDIA_DETAIL, null, new LKAsyncHttpResponseHandler() {
+		private void init() {
+			LayoutInflater.from(this.context).inflate(R.layout.layout_media_card, this, true);
 
-			@Override
-			public void successAction(Object obj) {
-				Intent intent = new Intent(MediaLayout.this.context, SchoolMediaDetailActivity.class);
-				intent.putExtra("MODEL", (MediaModel) obj);
-				MediaLayout.this.context.startActivityForResult(intent, 100);
+			rootLayout = (LinearLayout) this.findViewById(R.id.rootLayout);
+			rootLayout.setOnClickListener(this);
+
+			imageView = (ImageView) this.findViewById(R.id.imageView);
+			if (media.getPics().size() > 0) {
+				ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, media.getPics().get(0), imageView);
 			}
-		}, media.getId()) {
 
-		};
+			titleView = (TextView) this.findViewById(R.id.titleView);
+			titleView.setText(media.getTitle());
+
+			contentView = (TextView) this.findViewById(R.id.contentView);
+			contentView.setText(media.getContent());
+
+		}
+
+		@Override
+		public void onClick(View v) {
+			LKHttpRequestQueue queue = new LKHttpRequestQueue();
+			queue.addHttpRequest(getMediaDetailRequest());
+			queue.executeQueue("正在查询请稍候...", new LKHttpRequestQueueDone());
+		}
+
+		private LKHttpRequest getMediaDetailRequest() {
+			return new LKHttpRequest(HttpRequestType.HTTP_MEDIA_DETAIL, null, new LKAsyncHttpResponseHandler() {
+
+				@Override
+				public void successAction(Object obj) {
+					Intent intent = new Intent(MediaLayout.this.context, SchoolMediaDetailActivity.class);
+					intent.putExtra("MODEL", (MediaModel) obj);
+					intent.putExtra("TITLE", title);
+					MediaLayout.this.context.startActivityForResult(intent, 100);
+				}
+			}, media.getId()) {
+
+			};
+		}
 	}
+
 }

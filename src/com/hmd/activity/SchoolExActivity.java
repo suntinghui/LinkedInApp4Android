@@ -10,7 +10,6 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 
 import com.hmd.R;
-import com.hmd.activity.component.SchoolCardRelativeLayout;
 import com.hmd.activity.component.SchoolFeedbackRelativeLayout;
 import com.hmd.activity.component.SchoolInfoCardRelativeLayout;
 import com.hmd.activity.component.SchoolMediaRelativeLayout;
@@ -28,9 +27,6 @@ import com.hmd.network.LKHttpRequestQueueDone;
 public class SchoolExActivity extends AbsSubActivity {
 
 	private SchoolMediaRelativeLayout rlSchoolDynamic = null; // 母校动态
-	private SchoolMediaRelativeLayout rlSchoolNotice = null; // 通知公告
-	private SchoolMediaRelativeLayout rlSchoolEvent = null; // 校友活动
-	private SchoolCardRelativeLayout rlSchoolCard = null; // 校友卡
 	private SchoolFeedbackRelativeLayout rlSchoolFeedback = null; // 校友捐赠
 	private SchoolPhotoWallRelativeLayout rlSchoolPhotoWall = null; // 印象首师
 	private SchoolInfoCardRelativeLayout rlSchoolInfo = null; // 数据母校
@@ -50,31 +46,17 @@ public class SchoolExActivity extends AbsSubActivity {
 		LinearLayout llSchoolContainer = (LinearLayout) this.findViewById(R.id.ll_main_school_container);
 
 		// 母校动态
-		rlSchoolDynamic = new SchoolMediaRelativeLayout(this, "母校动态", new MoreMediaListener(1));
+		rlSchoolDynamic = new SchoolMediaRelativeLayout(this, "母校动态", new MoreMediaListener(3));
 		llSchoolContainer.addView(rlSchoolDynamic);
 		rlSchoolDynamic.setVisibility(View.GONE);
 
-		// 通知公告
-		rlSchoolNotice = new SchoolMediaRelativeLayout(this, "通知公告", new MoreMediaListener(2));
-		llSchoolContainer.addView(rlSchoolNotice);
-		rlSchoolNotice.setVisibility(View.GONE);
-
-		// 校友活动
-		rlSchoolEvent = new SchoolMediaRelativeLayout(this, "校友活动", new MoreMediaListener(3));
-		llSchoolContainer.addView(rlSchoolEvent);
-		rlSchoolEvent.setVisibility(View.GONE);
-
-		// 校友卡
-		rlSchoolCard = new SchoolCardRelativeLayout(this);
-		llSchoolContainer.addView(rlSchoolCard);
+		// 印象首师
+		rlSchoolPhotoWall = new SchoolPhotoWallRelativeLayout(this);
+		llSchoolContainer.addView(rlSchoolPhotoWall);
 
 		// 校友捐赠
 		rlSchoolFeedback = new SchoolFeedbackRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolFeedback);
-
-		//印象首师
-		rlSchoolPhotoWall = new SchoolPhotoWallRelativeLayout(this);
-		llSchoolContainer.addView(rlSchoolPhotoWall);
 
 		// 学校信息 rlSchoolPhotoWall
 		rlSchoolInfo = new SchoolInfoCardRelativeLayout(this);
@@ -89,9 +71,7 @@ public class SchoolExActivity extends AbsSubActivity {
 
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getCollegeInfoRequest());
-		queue.addHttpRequest(getSchoolMediaRequest(1)); // 母校动态
-		queue.addHttpRequest(getSchoolMediaRequest(2)); // 通知公告
-		queue.addHttpRequest(getSchoolMediaRequest(3)); // 校友活动
+		queue.addHttpRequest(getSchoolMediaRequest(3)); // 母校动态
 		queue.executeQueue("正在刷新数据...", new LKHttpRequestQueueDone());
 	}
 
@@ -123,24 +103,14 @@ public class SchoolExActivity extends AbsSubActivity {
 				HashMap<String, Object> map = (HashMap<String, Object>) obj;
 				int total = Integer.parseInt((String) map.get("total"));
 				if (total == 0) {
-					if (type == 1) {
+					if (type == 3) {
 						rlSchoolDynamic.setVisibility(View.GONE);
-					} else if (type == 2) {
-						rlSchoolNotice.setVisibility(View.GONE);
-					} else if (type == 3) {
-						rlSchoolEvent.setVisibility(View.GONE);
 					}
 
 				} else {
-					if (type == 1) {
+					if (type == 3) {
 						rlSchoolDynamic.setVisibility(View.VISIBLE);
 						rlSchoolDynamic.refresh((ArrayList<MediaModel>) map.get("list"));
-					} else if (type == 2) {
-						rlSchoolNotice.setVisibility(View.VISIBLE);
-						rlSchoolNotice.refresh((ArrayList<MediaModel>) map.get("list"));
-					} else if (type == 3) {
-						rlSchoolEvent.setVisibility(View.VISIBLE);
-						rlSchoolEvent.refresh((ArrayList<MediaModel>) map.get("list"));
 					}
 				}
 
