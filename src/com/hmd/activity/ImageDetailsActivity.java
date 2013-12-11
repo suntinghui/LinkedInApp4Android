@@ -14,12 +14,14 @@ import com.hmd.view.ZoomImageView;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
@@ -30,6 +32,7 @@ import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 /**
  * 查看大图的Activity界面。
@@ -158,38 +161,53 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 
 	public void saveMyBitmap(String bitName) throws IOException {
 
-		File f = new File(Environment.getExternalStorageDirectory()+ "/LinkedApp/Images/" + bitName + ".png");
-		if (!f.exists()) {
-			// file.mkdir();
-			// creating missing parent directories if necessary
-			f.mkdirs();
-		}
-//		f.createNewFile();
-		FileOutputStream fOut = null;
-		try {
-			fOut = new FileOutputStream(f);
-		} catch (FileNotFoundException e) {
+		 try {
 
-			e.printStackTrace();
-		}
+			 ContentResolver cr = this.getContentResolver();
 
-		bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+			 String    url  = MediaStore.Images.Media.insertImage(cr, bitName, "filnale", "");
 
-		try {
-			fOut.flush();
+			 Toast.makeText(this, "保存成功!", Toast.LENGTH_SHORT).show();
 
-		} catch (IOException e) {
+			 }catch(Exception e){
 
-			e.printStackTrace();
-		}
+			 e.printStackTrace();
 
-		try {
-			fOut.close();
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
+			 }
+		 
+//		
+//		File f = new File(Environment.getExternalStorageDirectory()+ "/LinkedApp/Images/" + bitName + ".png");
+//		if (!f.exists()) {
+//			// file.mkdir();
+//			// creating missing parent directories if necessary
+//			f.mkdirs();
+//		}
+////		f.createNewFile();
+//		FileOutputStream fOut = null;
+//		try {
+//			fOut = new FileOutputStream(f);
+//		} catch (FileNotFoundException e) {
+//
+//			e.printStackTrace();
+//		}
+//
+//		bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+//
+//		try {
+//			fOut.flush();
+//
+//		} catch (IOException e) {
+//
+//			e.printStackTrace();
+//		}
+//
+//		try {
+//			fOut.close();
+//
+//		} catch (IOException e) {
+//
+//			e.printStackTrace();
+//		}
 
 	}
 

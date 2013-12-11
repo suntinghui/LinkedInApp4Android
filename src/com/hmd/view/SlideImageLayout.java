@@ -13,6 +13,7 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
 import com.hmd.R;
+import com.hmd.activity.BaseActivity;
 import com.hmd.activity.SchoolMediaDetailActivity;
 import com.hmd.model.MediaModel;
 import com.hmd.util.ImageUtil;
@@ -103,9 +104,9 @@ public class SlideImageLayout {
 		@Override
 		public void onClick(View v) {
 			int index = (Integer) v.getTag() - 1000;
-			Intent intent = new Intent(mContext, SchoolMediaDetailActivity.class);
+			Intent intent = new Intent(BaseActivity.getTopActivity(), SchoolMediaDetailActivity.class);
 			intent.putExtra("MODEL", modelList.get(index));
-			mContext.startActivity(intent);
+			BaseActivity.getTopActivity().startActivityForResult(intent, 0);
 		}
 	}
 }
