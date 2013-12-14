@@ -26,7 +26,7 @@ public class FriendActivity extends AbsSubActivity {
 
 	private SchoolMediaRelativeLayout rlSchoolDynamic = null; // 校友动态
 	private SchoolMediaRelativeLayout rlSchoolNotice = null; // 通知公告
-	private SchoolCardRelativeLayout rlSchoolCard = null; // 校友卡
+	private SchoolCardRelativeLayout rlSchoolCard = null; // 校友龙卡
 
 	private SchoolModel schoolModel = null;
 
@@ -52,7 +52,7 @@ public class FriendActivity extends AbsSubActivity {
 		llSchoolContainer.addView(rlSchoolNotice);
 		rlSchoolNotice.setVisibility(View.GONE);
 
-		// 校友卡
+		// 校友龙卡
 		rlSchoolCard = new SchoolCardRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolCard);
 

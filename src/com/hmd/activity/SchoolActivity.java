@@ -35,12 +35,10 @@ public class SchoolActivity extends AbsSubActivity {
 	private SchoolInfoCardRelativeLayout rlSchoolInfo = null; // 学校信息
 	private SchoolNoticeRelativeLayout rlSchoolNotice = null; // 官方公告
 	private SchoolEventRelativeLayout rlSchoolEvent = null; // 官方活动
-	private SchoolCardRelativeLayout rlSchoolCard = null; // 校友卡
+	private SchoolCardRelativeLayout rlSchoolCard = null; // 校友龙卡
 	private SchoolWeiboRelativeLayout rlSchoolWeibo = null; // 官方微博
 
 	private SchoolModel schoolModel = null;
-
-	private long exitTimeMillis = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +67,7 @@ public class SchoolActivity extends AbsSubActivity {
 		llSchoolContainer.addView(rlSchoolEvent);
 		rlSchoolEvent.setVisibility(View.GONE);
 
-		// 校友卡
+		// 校友龙卡
 		rlSchoolCard = new SchoolCardRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolCard);
 
