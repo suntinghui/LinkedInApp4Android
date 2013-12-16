@@ -77,13 +77,16 @@ public class NameCardMainRelativeLayout extends RelativeLayout {
 		tvName.setText(this.data.getName());
 		tvGender.setText(this.data.getGender() == 1? "男":"女");
 		
-		if(this.data.isSchool()){
-			tvBrief1.setText(this.data.getSchool());
-			tvBrief2.setText(this.data.getMajor());
-		}else{
-			tvBrief1.setText(this.data.getCompany());
-			tvBrief2.setText(this.data.getPosition());
-		}
+//		if(this.data.isSchool()){
+//			tvBrief1.setText(this.data.getSchool());
+//			tvBrief2.setText(this.data.getMajor());
+//		}else{
+//			tvBrief1.setText(this.data.getCompany());
+//			tvBrief2.setText(this.data.getPosition());
+//		}
+		
+		tvBrief1.setText(this.data.getOrg());
+		tvBrief2.setText(this.data.getTitle());
 		
 		ImageUtil.loadImage(R.drawable.img_card_head_portrait, this.data.getPic(), photoImageView);
 	}

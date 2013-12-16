@@ -118,14 +118,14 @@ public class SearchPeopleActivity extends AbsSubActivity implements OnClickListe
 			@Override
 			public void successAction(Object obj) {
 				ProfileModel tmpModel = (ProfileModel) obj;
-				tmpModel.setId(selectProfileModel.getId());
+				tmpModel.setmId(selectProfileModel.getmId());
 
 				Intent intent = new Intent(SearchPeopleActivity.this, ProfileOtherActivity.class);
 				intent.putExtra("PROFILE", tmpModel);
 				intent.putExtra("IDENTITY", "he");
 				SearchPeopleActivity.this.startActivityForResult(intent, 100);
 			}
-		}, selectProfileModel.getId());
+		}, selectProfileModel.getmId());
 
 		return request;
 	}
