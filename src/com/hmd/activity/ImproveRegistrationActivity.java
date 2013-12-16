@@ -3,6 +3,7 @@ package com.hmd.activity;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -31,6 +32,8 @@ import android.widget.Spinner;
 
 import com.hmd.R;
 import com.hmd.client.HttpRequestType;
+import com.hmd.enums.LoginCode;
+import com.hmd.model.DeptModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
@@ -209,7 +212,13 @@ public class ImproveRegistrationActivity extends BaseActivity implements OnClick
 		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_CONFIG_DEPT_LIST, null, new LKAsyncHttpResponseHandler() {
 			@Override
 			public void successAction(Object obj) {
-				Log.i("test", "te");
+				@SuppressWarnings("unchecked")
+				HashMap<String, Object> map = (HashMap<String, Object>) obj;
+				int returnCode = (Integer) map.get("rc");
+				if (returnCode == LoginCode.SUCCESS){
+					ArrayList<DeptModel> deptModelList = (ArrayList<DeptModel>) map.get("list");
+				}
+				
 //				model = (ProfileModel) obj;
 //				et_name.setText(model.getName());
 //				et_major.setText(model.getMajor());

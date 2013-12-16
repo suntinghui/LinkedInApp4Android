@@ -132,7 +132,9 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "该邮箱已被注册");
 					
 				} else if(returnCode == 2){
-					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "该邮箱已被注册");
+					Constants.SESSION_ID = respMap.get("sid");
+					Intent intent = new Intent (RegistrationActivity.this, ImproveRegistrationActivity.class);
+					RegistrationActivity.this.startActivity(intent);
 				}
 			}
 			 
@@ -157,7 +159,7 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 		} else if (et_idcard.getText().trim().equals("")) {
 			this.showToast("请输入身份证号码");
 			return false;
-		} else if (PatternUtil.isValidIDNum(et_idcard.getText())) {
+		} else if (!PatternUtil.isValidIDNum(et_idcard.getText())) {
 			this.showToast("身份证号码不合法");
 			return false;
 		}

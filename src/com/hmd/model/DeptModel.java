@@ -22,6 +22,7 @@ public class DeptModel {
     public DeptModel() {
         super();
     }
+    
     public DeptModel(String name, int code) {
         super();
         this.name = name;
@@ -78,7 +79,7 @@ public class DeptModel {
      * 
      * @return the majors
      */
-    public List<MajorModel> getCities() {
+    public List<MajorModel> getMajors() {
         return majors;
     }
 
@@ -88,7 +89,7 @@ public class DeptModel {
      * @param majors
      *            the majors to set
      */
-    public void setCities(List<MajorModel> majors) {
+    public void setMajors(List<MajorModel> majors) {
         this.majors = majors;
     }
 

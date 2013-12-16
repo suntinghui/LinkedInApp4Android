@@ -17,6 +17,11 @@ public class MajorModel {
      */
     private int code;
 
+    
+    public MajorModel() {
+        super();
+    }
+    
     public MajorModel(String name, int major_code, int code) {
         super();
         this.name = name;

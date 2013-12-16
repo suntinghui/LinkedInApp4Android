@@ -260,7 +260,8 @@
                     android:id="@+id/layout_stu"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:orientation="vertical"
+                    android:visibility="gone" >
 
                     <LinearLayout
                         android:layout_width="fill_parent"
@@ -418,6 +419,128 @@
                                 android:src="@drawable/img_down_arrows" />
                         </RelativeLayout>
                     </LinearLayout>
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:id="@+id/layout_teach"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="10dip"
+                        android:layout_marginTop="10dip"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="70dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="right"
+                            android:text="一级单位" />
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="30dip"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="35dip"
+                            android:background="@drawable/edittext_bg" >
+
+                            <Spinner
+                                android:id="@+id/org1Spinner"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dip"
+                                android:background="@null" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dip"
+                                android:contentDescription="@string/app_name"
+                                android:focusable="false"
+                                android:src="@drawable/img_down_arrows" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="10dip"
+                        android:layout_marginTop="10dip"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="70dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="right"
+                            android:text="二级单位" />
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="30dip"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="35dip"
+                            android:background="@drawable/edittext_bg" >
+
+                            <Spinner
+                                android:id="@+id/org2Spinner"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dip"
+                                android:background="@null" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dip"
+                                android:contentDescription="@string/app_name"
+                                android:focusable="false"
+                                android:src="@drawable/img_down_arrows" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="10dip"
+                        android:layout_marginTop="10dip"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="70dip"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="职工编号" />
+
+                        <EditText
+                            android:id="@+id/et_empNo"
+                            style="@style/black_15"
+                            android:layout_width="fill_parent"
+                            android:layout_height="30dip"
+                            android:layout_marginLeft="35dip"
+                            android:background="@drawable/edittext_bg"
+                            android:hint="请输入职工编号"
+                            android:paddingBottom="3dip"
+                            android:paddingLeft="3dip"
+                            android:paddingTop="3dip" />
+                    </LinearLayout>
+
                 </LinearLayout>
                 
                 <View

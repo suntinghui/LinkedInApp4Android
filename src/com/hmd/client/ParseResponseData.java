@@ -3,6 +3,7 @@ package com.hmd.client;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,6 +16,7 @@ import com.hmd.model.AnnouncementModel;
 import com.hmd.model.CommentModel;
 import com.hmd.model.DeptModel;
 import com.hmd.model.GroupModel;
+import com.hmd.model.MajorModel;
 import com.hmd.model.MediaModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.SchoolModel;
@@ -859,30 +861,33 @@ public class ParseResponseData {
 		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
 
 		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		ArrayList<DeptModel> deptList = new ArrayList<DeptModel>();
 		if (jsonArray != null && jsonArray.length() > 0) {
 			for (int i = 0; i < jsonArray.length(); i++) {
-				DeptModel model = new DeptModel();
+				DeptModel deptModel = new DeptModel();
 
 				JSONObject deptObj = (JSONObject) jsonArray.opt(i);
-				model.setCode(Integer.valueOf(deptObj.optString("id", "")));
-				model.setName(deptObj.optString("display", ""));
+				deptModel.setCode(Integer.valueOf(deptObj.optString("id", "")));
+				deptModel.setName(deptObj.optString("display", ""));
 				
 				JSONArray majorArray = deptObj.optJSONArray("list");
+				ArrayList<MajorModel> majorList = new ArrayList<MajorModel>();
+				for (int j = 0; j < majorArray.length(); j++) {
+					MajorModel majorModel = new MajorModel();
+					JSONObject majorObj = (JSONObject) majorArray.opt(j);
+					majorModel.setCode(Integer.valueOf(majorObj.optString("id", "")));
+					majorModel.setName(majorObj.optString("display", ""));
+					majorList.add(majorModel);
+				}
+				deptModel.setMajors(majorList);
+				deptList.add(deptModel);
 				
-//				media.setPreview(deptObj.optString("preview", ""));
-//				//media.setPics(new String[] { mediaObj.optString("pic", "") });
-//				media.setPics(ImageUtil.getTestImageURL());
-//
-//				// 如果没有图片，则忽略掉该消息。
-//				if (media.getPics().size() != 0){
-//					mediaList.add(media);
-//				}
 				
 			}
 
 		}
 		
-//		map.put("list", mediaList);
+		map.put("list", deptList);
 
 		return map;
 	}

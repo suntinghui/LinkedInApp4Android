@@ -62,7 +62,7 @@ public class LKHttpRequest {
 		hostStringBuffer.append("v=").append(Constants.VERSION);
 		hostStringBuffer.append("&").append("cid=").append(Constants.CLIENT_ID);
 		hostStringBuffer.append("&").append("sid=").append(Constants.SESSION_ID);
-		
+		Log.i("url:", hostStringBuffer.toString());
 		return hostStringBuffer.toString();
 		
 	}
