@@ -46,7 +46,7 @@ public class ParseResponseData {
 			return register(jsonObject);
 
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_DETAIL)) {
-			return getProfileBasic(jsonObject);
+			return getProfileDetail(jsonObject);
 
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_MATCH)) {
 			return profileMatch(jsonObject);
@@ -197,20 +197,21 @@ public class ParseResponseData {
 	 *  {"idCardNo":null,"adYear":2009,"pic":"http://115.47.56.228:8080/alumni/pic/391/983/67952e3bda626f2f37a766b8d8fedcd7","type":1,"rc":1,"ec":1,"majorId":null,
 	 *  "email":null,"name":"王之稚","gender":0,"deptId":null,"qq":null,"mobile":null}
 	 */
-	private static Object getProfileBasic(JSONObject jsonObject) {
+	private static Object getProfileDetail(JSONObject jsonObject) {
 		try {
-			JSONTokener parse = new JSONTokener(jsonObject.optString("basic"));
-			JSONObject basicObj = (JSONObject) parse.nextValue();
-
-			if (null != basicObj) {
+			if (null != jsonObject) {
 				ProfileModel model = new ProfileModel();
-				model.setName(basicObj.optString("name", ""));
-				model.setGender(basicObj.optInt("gender"));
-				model.setSchool(basicObj.optString("colg", ""));
-				model.setMajor(basicObj.optString("major", ""));
-				model.setAdYear(basicObj.optString("adYear", ""));
-				model.setGradYear(basicObj.optString("gradYear", ""));
-				model.setPic(basicObj.optString("pic", ""));
+				model.setIdCardNo(jsonObject.optString("idCardNo", ""));
+				model.setName(jsonObject.optString("name", ""));
+				model.setGender(jsonObject.optInt("gender"));
+				model.setMajorId(jsonObject.optString("majorId", ""));
+				model.setAdYear(jsonObject.optString("adYear", ""));
+				model.setPic(jsonObject.optString("pic", ""));
+				model.setType(jsonObject.optInt("type", 1));
+				model.setEmail(jsonObject.optString("email", ""));
+				model.setDeptId(jsonObject.optString("deptId", ""));
+				model.setQq(jsonObject.optString("qq", ""));
+				model.setMobile(jsonObject.optString("mobile", ""));
 
 				return model;
 			}
@@ -222,37 +223,6 @@ public class ParseResponseData {
 		return null;
 	}
 
-	private static Object getProfileAll(JSONObject jsonObject) {
-		try {
-			JSONTokener parse = new JSONTokener(jsonObject.optString("basic"));
-			JSONObject basicObj = (JSONObject) parse.nextValue();
-			JSONTokener parse2 = new JSONTokener(jsonObject.optString("ext"));
-			JSONObject extObj = (JSONObject) parse2.nextValue();
-			ProfileModel model = new ProfileModel();
-			if (null != basicObj) {
-				// TODO 因为返回的数据不全，有些字段不能够多确定，待完善
-
-				model.setName(basicObj.optString("name", ""));
-				model.setGender(basicObj.optInt("gender"));
-				model.setSchool(basicObj.optString("colg", ""));
-				model.setDept(basicObj.optString("dept", ""));
-				model.setMajor(basicObj.optString("major", ""));
-				model.setAdYear(basicObj.optString("adYear", ""));
-				model.setGradYear(basicObj.optString("gradYear", ""));
-
-			}
-			if (null != extObj) {
-				model.setBirthday(extObj.optString("birthday", ""));
-				model.setBirthplace(extObj.optString("birthplace", ""));
-				model.setNation(extObj.optString("nation", ""));
-				model.setDesc(extObj.optString("desc", ""));
-			}
-			return model;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 	private static Object profileMatch(JSONObject jsonObject) {
 		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
@@ -385,7 +355,7 @@ public class ParseResponseData {
 				JSONObject obj = (JSONObject) jsonArray.opt(i);
 
 				ProfileModel model = new ProfileModel();
-				model.setId(obj.optString("id", ""));
+				model.setmId(obj.optString("id", ""));
 				model.setName(obj.optString("name", ""));
 				model.setGender(obj.optInt("gender", 0));
 				model.setProvince(obj.optString("province", ""));
@@ -426,12 +396,14 @@ public class ParseResponseData {
 				ProfileModel model = new ProfileModel();
 
 				JSONObject obj = (JSONObject) jsonArray.opt(i);
-				model.setFlag("2");
-				model.setId(obj.optString("id", ""));
+				model.setmFlag("2");
+				model.setmId(obj.optString("id", ""));
 				model.setCity(obj.optString("city"));
 				model.setProvince(obj.optString("province"));
 				model.setName(obj.optString("name", ""));
 				model.setGender(obj.optInt("gender", 1));
+				model.setOrg(obj.optString("org", ""));
+				model.setTitle(obj.optString("title", ""));
 				model.setPic(obj.optString("pic", ""));
 
 				modelList.add(model);
@@ -457,12 +429,14 @@ public class ParseResponseData {
 				ProfileModel model = new ProfileModel();
 
 				JSONObject obj = (JSONObject) jsonArray.opt(i);
-				model.setFlag("1");
-				model.setId(obj.optString("id", ""));
+				model.setmFlag("1");
+				model.setmId(obj.optString("id", ""));
 				model.setCity(obj.optString("city"));
 				model.setProvince(obj.optString("province"));
 				model.setName(obj.optString("name", ""));
 				model.setGender(obj.optInt("gender", 1));
+				model.setOrg(obj.optString("org", ""));
+				model.setTitle(obj.optString("title", ""));
 				model.setPic(obj.optString("pic", ""));
 
 				modelList.add(model);
@@ -488,12 +462,14 @@ public class ParseResponseData {
 				ProfileModel model = new ProfileModel();
 
 				JSONObject obj = (JSONObject) jsonArray.opt(i);
-				model.setFlag("0");
-				model.setId(obj.optString("id", ""));
+				model.setmFlag("0");
+				model.setmId(obj.optString("id", ""));
 				model.setCity(obj.optString("city"));
 				model.setProvince(obj.optString("province"));
 				model.setName(obj.optString("name", ""));
 				model.setGender(obj.optInt("gender", 1));
+				model.setOrg(obj.optString("org", ""));
+				model.setTitle(obj.optString("title", ""));
 				model.setPic(obj.optString("pic", ""));
 
 				modelList.add(model);
@@ -652,8 +628,8 @@ public class ParseResponseData {
 				ProfileModel model = new ProfileModel();
 
 				JSONObject obj = (JSONObject) jsonArray.opt(i);
-				model.setFlag("2");
-				model.setId(obj.optString("id", ""));
+				model.setmFlag("2");
+				model.setmId(obj.optString("id", ""));
 				model.setName(obj.optString("name", ""));
 				model.setGender(obj.optInt("gender", 1));
 				model.setProvince(obj.optString("province"));
@@ -672,7 +648,6 @@ public class ParseResponseData {
 	}
 
 	// 查看圈子成员
-
 	private static Object getParticipantList(JSONObject jsonObject) {
 		ArrayList<ProfileModel> modelList = new ArrayList<ProfileModel>();
 
@@ -686,8 +661,8 @@ public class ParseResponseData {
 				ProfileModel model = new ProfileModel();
 
 				JSONObject obj = (JSONObject) jsonArray.opt(i);
-				model.setFlag("2");
-				model.setId(obj.optString("id", ""));
+				model.setmFlag("2");
+				model.setmId(obj.optString("id", ""));
 				model.setName(obj.optString("name", ""));
 				model.setGender(obj.optInt("gender", 1));
 				model.setProvince(obj.optString("province"));

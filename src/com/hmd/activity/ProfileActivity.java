@@ -136,7 +136,7 @@ public class ProfileActivity extends AbsSubActivity {
 				profileModel = (ProfileModel) obj;
 				profileInfoLayout.refresh(profileModel);
 			}
-		}, mIdentity.equals("me") ? "me" : profileModel.getId());
+		}, mIdentity.equals("me") ? "me" : profileModel.getmId());
 
 		return request;
 	}
@@ -151,7 +151,7 @@ public class ProfileActivity extends AbsSubActivity {
 					timelineLayout.refresh((ArrayList<TimelineModel>) obj);
 				}
 			}
-		}, mIdentity.equals("me") ? "me" : profileModel.getId());
+		}, mIdentity.equals("me") ? "me" : profileModel.getmId());
 
 		return request;
 	}

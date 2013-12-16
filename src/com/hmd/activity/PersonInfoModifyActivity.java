@@ -131,7 +131,7 @@ public class PersonInfoModifyActivity extends AbsSubActivity {
 		model = (ProfileModel) intent.getSerializableExtra("MODEL");
 		ImageUtil.loadImage(R.drawable.img_card_head_portrait_small, model.getPic(), image_head);
 		et_name.setText(model.getName());
-		et_major.setText(model.getMajor());
+		et_major.setText(model.getMajorId());
 
 		if (model.getGender() == 0) {
 			radioFemale.setChecked(true);
@@ -141,11 +141,11 @@ public class PersonInfoModifyActivity extends AbsSubActivity {
 		int currentYear = Integer.parseInt(DateUtil.getCurrentYear()) + 1;
 		int adYear = adYearValueList.size() - (currentYear - Integer.valueOf(model.getAdYear()));
 		int gradYear = 0;
-		if (model.getGradYear().equals("未知")) {
-			gradYear = currentYear - 1949;
-		} else {
-			gradYear = gradYearValueList.size() - (currentYear - Integer.valueOf(model.getGradYear())) - 1;
-		}
+//		if (model.getGradYear().equals("未知")) {
+//			gradYear = currentYear - 1949;
+//		} else {
+//			gradYear = gradYearValueList.size() - (currentYear - Integer.valueOf(model.getGradYear())) - 1;
+//		}
 		adYearSpinner.setSelection(adYear);
 		gradYearSpinner.setSelection(gradYear);
 	}

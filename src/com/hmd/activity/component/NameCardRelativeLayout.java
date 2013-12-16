@@ -52,10 +52,10 @@ public class NameCardRelativeLayout extends RelativeLayout {
 		photoImageView.setOnClickListener(listener);
 		tvName.setText(this.data.getName()!=null ? this.data.getName():"name");
 		tvGender.setText(this.data.getGender()==0 ? "女":"男");
-		if(this.data.getFlag().equals("2")){
+		if(this.data.getmFlag().equals("2")){
 			btnAttention.setVisibility(View.GONE);
 		}else{
-			btnAttention.setText(this.data.getFlag().equals("0") ? "关注":"取消关注");
+			btnAttention.setText(this.data.getmFlag().equals("0") ? "关注":"取消关注");
 		}
 		
 		String province = this.data.getProvince() != null && this.data.getProvince().length() != 0 && !this.data.getProvince().equalsIgnoreCase("null") ? this.data.getProvince():"未知";
@@ -76,7 +76,7 @@ public class NameCardRelativeLayout extends RelativeLayout {
 				queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());
 				break;
 			case R.id.btn_name_card_attention:
-				if(NameCardRelativeLayout.this.data.getFlag().equals("0")){
+				if(NameCardRelativeLayout.this.data.getmFlag().equals("0")){
 					//加关注
 					refreshAddAttentionData();
 				}else{
@@ -97,14 +97,14 @@ public class NameCardRelativeLayout extends RelativeLayout {
 			@Override
 			public void successAction(Object obj) {
 				detailModel = (ProfileModel) obj;
-				detailModel.setId(data.getId());
+				detailModel.setmId(data.getmId());
 				
 				Intent intent = new Intent(NameCardRelativeLayout.this.context, ProfileOtherActivity.class);  
 				intent.putExtra("PROFILE", detailModel);
 				intent.putExtra("IDENTITY", "he");
 				((BaseActivity)NameCardRelativeLayout.this.context).startActivityForResult(intent, 100);
 			}
-		}, data.getId());
+		}, data.getmId());
 		
 		return request;
 	}
@@ -126,14 +126,14 @@ public class NameCardRelativeLayout extends RelativeLayout {
 				int obj2 = (Integer) obj;
 				if(obj2 == 1){
 					((ProfileActivity)(BaseActivity.getTopActivity())).refreshData();
-					NameCardRelativeLayout.this.data.setFlag("1");
+					NameCardRelativeLayout.this.data.setmFlag("1");
 					btnAttention.setText("取消关注");
 				}else{
 					//失败
 				}
 				
 			}
-		}, NameCardRelativeLayout.this.data.getId());
+		}, NameCardRelativeLayout.this.data.getmId());
 		
 		return request;
 	}
@@ -161,7 +161,7 @@ public class NameCardRelativeLayout extends RelativeLayout {
 				}
 				
 			}
-		}, NameCardRelativeLayout.this.data.getId());
+		}, NameCardRelativeLayout.this.data.getmId());
 		
 		return request;
 	}
