@@ -388,4 +388,12 @@
         <contentType>application/json</contentType>
     </request>
     
+    <!--获取院系专业双级列表-->
+    <request>
+        <requestId>CONFIG_DEPT_LIST</requestId>
+        <url>/config/dept/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
 </root>

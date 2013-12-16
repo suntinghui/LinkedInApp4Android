@@ -28,6 +28,8 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 	private EditTextWithClearView nameView = null;
 	private EditTextWithClearView passwordView = null;
 	private EditTextWithClearView passwordConfirmView = null;
+	private EditTextWithClearView et_idcard = null;
+	private EditTextWithClearView et_stu_num = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 		nameView = (EditTextWithClearView) this.findViewById(R.id.nameText);
 		passwordView = (EditTextWithClearView) this.findViewById(R.id.passwordText);
 		passwordConfirmView = (EditTextWithClearView) this.findViewById(R.id.passwordConfirmText);
+		et_idcard = (EditTextWithClearView) this.findViewById(R.id.et_idcard); 
+		et_stu_num = (EditTextWithClearView) this.findViewById(R.id.et_stu_num); 
 	}
 	
 	@Override
@@ -60,7 +64,9 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 			
 		case R.id.completedButton:
 			this.doRegistration();
-			
+
+//			Intent intent = new Intent (RegistrationActivity.this, ImproveRegistrationActivity.class);
+//			RegistrationActivity.this.startActivity(intent);
 			break;
 		}
 	}
@@ -71,6 +77,10 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("name", nameView.getText());
 		paramMap.put("password", passwordView.getText());
+		paramMap.put("idCardNo", et_idcard.getText());
+		if(!et_stu_num.getText().equals("")){
+			paramMap.put("stuNo", et_stu_num.getText());
+		}
 		
 		LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_REGISTER, paramMap, getRegisterHandler());
 		
@@ -121,7 +131,9 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 				} else if (returnCode == -2) {
 					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "该邮箱已被注册");
 					
-				} 
+				} else if(returnCode == 2){
+					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "该邮箱已被注册");
+				}
 			}
 			 
 		 };
@@ -142,7 +154,13 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 		} else if (!passwordView.getText().trim().equals(passwordConfirmView.getText().trim())) {
 			this.showToast("两次密码输入不一致");
 			return false;
-		} 
+		} else if (et_idcard.getText().trim().equals("")) {
+			this.showToast("请输入身份证号码");
+			return false;
+		} else if (PatternUtil.isValidIDNum(et_idcard.getText())) {
+			this.showToast("身份证号码不合法");
+			return false;
+		}
 		
 		return true;
 	}
