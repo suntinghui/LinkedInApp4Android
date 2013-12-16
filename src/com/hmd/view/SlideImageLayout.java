@@ -15,7 +15,13 @@ import android.widget.LinearLayout;
 import com.hmd.R;
 import com.hmd.activity.BaseActivity;
 import com.hmd.activity.SchoolMediaDetailActivity;
+import com.hmd.activity.SchoolMediaListActivity;
+import com.hmd.client.HttpRequestType;
 import com.hmd.model.MediaModel;
+import com.hmd.network.LKAsyncHttpResponseHandler;
+import com.hmd.network.LKHttpRequest;
+import com.hmd.network.LKHttpRequestQueue;
+import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.ImageUtil;
 
 public class SlideImageLayout {
@@ -24,7 +30,6 @@ public class SlideImageLayout {
 	private ImageView[] mImageViews = null;
 	private ImageView mImageView = null;
 	
-	private MediaModel model;
 	private ArrayList<MediaModel> modelList;
 
 	public SlideImageLayout(Context context) {
@@ -32,7 +37,6 @@ public class SlideImageLayout {
 	}
 
 	public View getSlideImageLayout(MediaModel model, ArrayList<MediaModel> modelList, int i) {
-		this.model = model;
 		this.modelList = modelList;
 		// 包含TextView的LinearLayout
 		LinearLayout imageLinerLayout = new LinearLayout(mContext);
@@ -104,9 +108,27 @@ public class SlideImageLayout {
 		@Override
 		public void onClick(View v) {
 			int index = (Integer) v.getTag() - 1000;
-			Intent intent = new Intent(BaseActivity.getTopActivity(), SchoolMediaDetailActivity.class);
-			intent.putExtra("MODEL", modelList.get(index));
-			BaseActivity.getTopActivity().startActivityForResult(intent, 0);
+			getMediaDetail(modelList.get(index));
 		}
+	}
+	
+	private void getMediaDetail(MediaModel media) {
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getMediaDetailRequest(media));
+		queue.executeQueue("正在查询请稍候...", new LKHttpRequestQueueDone());
+	}
+
+	private LKHttpRequest getMediaDetailRequest(MediaModel media) {
+		return new LKHttpRequest(HttpRequestType.HTTP_MEDIA_DETAIL, null, new LKAsyncHttpResponseHandler() {
+
+			@Override
+			public void successAction(Object obj) {
+				Intent intent = new Intent(mContext, SchoolMediaDetailActivity.class);
+				intent.putExtra("MODEL", (MediaModel) obj);
+				((BaseActivity)mContext).startActivityForResult(intent, 100);
+			}
+		}, media.getId()) {
+
+		};
 	}
 }

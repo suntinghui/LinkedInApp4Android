@@ -244,7 +244,7 @@
         <contentType>application/json</contentType>
     </request>
     
-    <!-- 申请校友卡 -->
+    <!-- 申请校友龙卡 -->
     <request>
         <requestId>COLLEGE_CARD_APPLY</requestId>
         <url>/college/card/apply</url>
@@ -252,7 +252,7 @@
         <contentType>application/json</contentType>
     </request>
     
-    <!-- 查看校友卡申请进度 -->
+    <!-- 查看校友龙卡申请进度 -->
     <request>
         <requestId>COLLEGE_ALUCARD_STATUS</requestId>
         <url>/college/alucard/status</url>

@@ -94,6 +94,7 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 		mViewPager = (ViewPager) mMainView.findViewById(R.id.image_slide_page);
 
 		titleView = (TextView) mMainView.findViewById(R.id.titleView);
+		titleView.setText("信息列表");
 
 		backButton = (Button) mMainView.findViewById(R.id.backButton);
 		backButton.setOnClickListener(this);
@@ -324,20 +325,6 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 		}, media.getId()) {
 
 		};
-	}
-
-	class TopMediaClickListener implements OnClickListener {
-		private MediaModel media;
-		
-		public TopMediaClickListener(MediaModel model){
-			media = model;
-		}
-
-		@Override
-		public void onClick(View v) {
-			getMediaDetail(media);
-		}
-
 	}
 
 }

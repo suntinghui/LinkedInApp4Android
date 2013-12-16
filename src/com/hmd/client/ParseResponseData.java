@@ -18,6 +18,7 @@ import com.hmd.model.MediaModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.SchoolModel;
 import com.hmd.model.TimelineModel;
+import com.hmd.util.ImageUtil;
 
 public class ParseResponseData {
 
@@ -806,7 +807,8 @@ public class ParseResponseData {
 				media.setId(mediaObj.optString("id", ""));
 				media.setTitle(mediaObj.optString("title", ""));
 				media.setTime(mediaObj.optString("time", ""));
-				media.setPics(new String[] { mediaObj.optString("pic", "") });
+				//media.setPics(new String[] { mediaObj.optString("pic", "") });
+				media.setPics(ImageUtil.getTopMediaImageList());
 
 				mediaList.add(media);
 			}
@@ -834,7 +836,8 @@ public class ParseResponseData {
 				media.setTitle(mediaObj.optString("title", ""));
 				media.setTime(mediaObj.optString("time", ""));
 				media.setPreview(mediaObj.optString("preview", ""));
-				media.setPics(new String[] { mediaObj.optString("pic", "") });
+				//media.setPics(new String[] { mediaObj.optString("pic", "") });
+				media.setPics(ImageUtil.getTestImageURL());
 
 				// 如果没有图片，则忽略掉该消息。
 				if (media.getPics().size() != 0){
@@ -857,6 +860,7 @@ public class ParseResponseData {
 		media.setTime(jsonObject.optString("time", ""));
 		media.setContent(jsonObject.optString("content", ""));
 
+		/*
 		ArrayList<String> picList = new ArrayList<String>();
 		JSONArray jsonArray = jsonObject.optJSONArray("pics");
 		if (jsonArray != null && jsonArray.length() > 0) {
@@ -866,6 +870,8 @@ public class ParseResponseData {
 			}
 			media.setPics(picList);
 		}
+		*/
+		media.setPics(ImageUtil.getTestImageURL());
 
 		return media;
 	}
