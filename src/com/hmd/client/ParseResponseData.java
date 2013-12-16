@@ -13,6 +13,7 @@ import com.hmd.exception.ServiceErrorException;
 import com.hmd.model.ActiveModel;
 import com.hmd.model.AnnouncementModel;
 import com.hmd.model.CommentModel;
+import com.hmd.model.DeptModel;
 import com.hmd.model.GroupModel;
 import com.hmd.model.MediaModel;
 import com.hmd.model.ProfileModel;
@@ -149,6 +150,9 @@ public class ParseResponseData {
 
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_MEDIA_DETAIL)) {
 			return getMediaDetail(jsonObject);
+
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_CONFIG_DEPT_LIST)) {
+			return getConfigDeptList(jsonObject);
 
 		}
 
@@ -852,7 +856,40 @@ public class ParseResponseData {
 
 		return map;
 	}
+	
+	private static Object getConfigDeptList(JSONObject jsonObject) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
 
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		if (jsonArray != null && jsonArray.length() > 0) {
+			for (int i = 0; i < jsonArray.length(); i++) {
+				DeptModel model = new DeptModel();
+
+				JSONObject deptObj = (JSONObject) jsonArray.opt(i);
+				model.setCode(Integer.valueOf(deptObj.optString("id", "")));
+				model.setName(deptObj.optString("display", ""));
+				
+				JSONArray majorArray = deptObj.optJSONArray("list");
+				
+//				media.setPreview(deptObj.optString("preview", ""));
+//				//media.setPics(new String[] { mediaObj.optString("pic", "") });
+//				media.setPics(ImageUtil.getTestImageURL());
+//
+//				// 如果没有图片，则忽略掉该消息。
+//				if (media.getPics().size() != 0){
+//					mediaList.add(media);
+//				}
+				
+			}
+
+		}
+		
+//		map.put("list", mediaList);
+
+		return map;
+	}
+	
 	private static Object getMediaDetail(JSONObject jsonObject) {
 		MediaModel media = new MediaModel();
 		media.setType(jsonObject.optInt("type", 1));

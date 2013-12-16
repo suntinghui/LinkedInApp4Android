@@ -59,5 +59,6 @@ public interface HttpRequestType {
 	public static final String HTTP_MEDIA_TOPLIST						= "MEDIA_TOPLIST";
 	public static final String HTTP_MEDIA_LIST							= "MEDIA_LIST";
 	public static final String HTTP_MEDIA_DETAIL						= "MEDIA_DETAIL";
+	public static final String HTTP_CONFIG_DEPT_LIST					= "CONFIG_DEPT_LIST";
 	
 }
