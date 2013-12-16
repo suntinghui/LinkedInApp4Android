@@ -31,6 +31,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="5dip"
             android:background="@drawable/btn_reply"
+            android:textColor="@color/white"
             android:text="我要申请" />
 
     </RelativeLayout>
@@ -63,7 +64,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl_school_card_content"
-        android:text="欲了解校友龙卡相关信息或申请校友龙卡，请移步校友汇官方网站查询办理。"
+        android:text="欲了解校友龙卡相关信息或申请校友龙卡，请移步校友会官方网站查询办理。"
         android:textColor="#aaaaaa"
         android:textStyle="italic"
         android:visibility="gone" />

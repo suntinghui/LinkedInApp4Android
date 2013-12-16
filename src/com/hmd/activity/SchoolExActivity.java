@@ -3,10 +3,25 @@ package com.hmd.activity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.BaseAdapter;
+import android.widget.Gallery;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
 import com.hmd.R;
@@ -23,6 +38,7 @@ import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
+import com.hmd.util.BitmapUtil;
 
 public class SchoolExActivity extends AbsSubActivity {
 
@@ -37,7 +53,7 @@ public class SchoolExActivity extends AbsSubActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_school);
+		setContentView(R.layout.activity_school_ex);
 
 		this.init();
 	}
@@ -73,6 +89,7 @@ public class SchoolExActivity extends AbsSubActivity {
 		queue.addHttpRequest(getCollegeInfoRequest());
 		queue.addHttpRequest(getSchoolMediaRequest(3)); // 母校动态
 		queue.executeQueue("正在刷新数据...", new LKHttpRequestQueueDone());
+
 	}
 
 	// 获取母校信息
@@ -186,4 +203,5 @@ public class SchoolExActivity extends AbsSubActivity {
 			});
 		}
 	}
+
 }

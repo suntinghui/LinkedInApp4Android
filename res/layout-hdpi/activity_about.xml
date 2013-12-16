@@ -161,7 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dip"
-                android:text="北京市海淀区西三环北路105号首都师范大学学校办公室校友汇"
+                android:text="北京市海淀区西三环北路105号首都师范大学学校办公室校友会"
                 android:textColor="@color/fontGrey"
                 android:textSize="14sp" />
         </LinearLayout>

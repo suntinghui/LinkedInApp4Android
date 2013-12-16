@@ -93,7 +93,7 @@ public class NameCardRelativeLayout extends RelativeLayout {
 	
 	// 查看个人基本信息
 	private LKHttpRequest getProfileRequest(){
-		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_PROFILE_BASIC, null, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest( HttpRequestType.HTTP_PROFILE_DETAIL, null, new LKAsyncHttpResponseHandler() {
 			@Override
 			public void successAction(Object obj) {
 				detailModel = (ProfileModel) obj;

@@ -36,18 +36,10 @@
         <contentType>application/json</contentType>
     </request>
     
-    <!-- 查看个人基本信息 -->
+    <!-- 查看个人信息 -->
     <request>
-        <requestId>PROFILE_BASIC</requestId>
-        <url>/profile/${id}/basic</url>
-        <method>GET</method>
-        <contentType>application/json</contentType>
-    </request>
-    
-    <!-- 查看全部个人信息 -->
-    <request>
-        <requestId>PROFILE_ALL</requestId>
-        <url>/profile/${id}/all</url>
+        <requestId>PROFILE_DETAIL</requestId>
+        <url>/profile/${id}/detail</url>
         <method>GET</method>
         <contentType>application/json</contentType>
     </request>

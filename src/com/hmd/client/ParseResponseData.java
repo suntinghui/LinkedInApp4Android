@@ -42,11 +42,8 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_REGISTER)) {
 			return register(jsonObject);
 
-		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_BASIC)) {
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_DETAIL)) {
 			return getProfileBasic(jsonObject);
-
-		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_ALL)) {
-			return getProfileAll(jsonObject);
 
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_MATCH)) {
 			return profileMatch(jsonObject);
@@ -191,8 +188,8 @@ public class ParseResponseData {
 	/*
 	 * 查看个人基本信息
 	 * 
-	 * {"basic":{"adYear":2000,"colg":"首都师范大学","name":"刘斌","gender":0,"dept":"未知"
-	 * ,"gradYear":2004,"major":"小学教育"},"rc":1,"ec":1}
+	 *  {"idCardNo":null,"adYear":2009,"pic":"http://115.47.56.228:8080/alumni/pic/391/983/67952e3bda626f2f37a766b8d8fedcd7","type":1,"rc":1,"ec":1,"majorId":null,
+	 *  "email":null,"name":"王之稚","gender":0,"deptId":null,"qq":null,"mobile":null}
 	 */
 	private static Object getProfileBasic(JSONObject jsonObject) {
 		try {

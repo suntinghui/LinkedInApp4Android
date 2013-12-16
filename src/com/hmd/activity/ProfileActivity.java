@@ -33,7 +33,6 @@ public class ProfileActivity extends AbsSubActivity {
 	private SwitchableScrollViewer fansLayout = null;
 
 	private ProfileModel profileModel = null;
-	private LinearLayout mLlContainer = null;
 	private String mIdentity = "me";// 个人还是他人
 
 	private Button backButton = null;
@@ -100,8 +99,6 @@ public class ProfileActivity extends AbsSubActivity {
 			titleView.setText(profileModel.getName() + "的信息");
 		}
 
-		this.mLlContainer = (LinearLayout) this.findViewById(R.id.ll_profile_container);
-
 		profileInfoLayout = (NameCardMainRelativeLayout) this.findViewById(R.id.profileInfoLayout);
 		profileInfoLayout.mIdentity = mIdentity;
 		timelineLayout = (ProfileTimelineLinearLayout) this.findViewById(R.id.profileTimelineLayout);
@@ -133,7 +130,7 @@ public class ProfileActivity extends AbsSubActivity {
 
 	// 查看个人基本信息
 	private LKHttpRequest getProfileRequest() {
-		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_PROFILE_BASIC, null, new LKAsyncHttpResponseHandler() {
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_PROFILE_DETAIL, null, new LKAsyncHttpResponseHandler() {
 			@Override
 			public void successAction(Object obj) {
 				profileModel = (ProfileModel) obj;

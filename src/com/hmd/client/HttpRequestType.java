@@ -8,8 +8,7 @@ public interface HttpRequestType {
 	public static final String HTTP_LOGOUT								= "LOGOUT";
 	public static final String HTTP_UPDATEPWD							= "UPDATEPWD";
 	
-	public static final String HTTP_PROFILE_BASIC						= "PROFILE_BASIC";
-	public static final String HTTP_PROFILE_ALL							= "PROFILE_ALL";
+	public static final String HTTP_PROFILE_DETAIL						= "PROFILE_DETAIL";
 	public static final String HTTP_PROFILE_MATCH						= "PROFILE_MATCH";
 	public static final String HTTP_PROFILE_UPDATE						= "PROFILE_UPDATE";
 	

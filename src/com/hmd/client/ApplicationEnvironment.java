@@ -75,7 +75,7 @@ public class ApplicationEnvironment {
 	
 	public void exitApp(){
 		AlertDialog.Builder builder = new Builder(BaseActivity.getTopActivity());
-		builder.setMessage("\n您确定要退出校友汇吗？");
+		builder.setMessage("\n您确定要退出校友会吗？");
 		builder.setPositiveButton("确定", new android.content.DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				dialog.dismiss();

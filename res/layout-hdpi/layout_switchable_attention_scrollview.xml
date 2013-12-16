@@ -52,5 +52,6 @@
         android:layout_height="40dip"
         android:layout_marginTop="10dip"
         android:text="查看更多"
+        android:textColor="@color/white"
         android:layout_below="@id/sv_container"/>
 </RelativeLayout>
