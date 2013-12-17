@@ -156,7 +156,7 @@ public class ImproveRegistrationActivity extends BaseActivity implements OnClick
 		this.preparData();
 
 		idCardSpinner = (Spinner) this.findViewById(R.id.idCardTypeSpinner);
-		ArrayAdapter<String> idCardAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, idCardList);
+		ArrayAdapter<String> idCardAdapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_item, idCardList);
 		idCardAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		idCardSpinner.setAdapter(idCardAdapter);
 		idCardSpinner.setPrompt("身份类型");
