@@ -18,6 +18,8 @@ import com.hmd.model.DeptModel;
 import com.hmd.model.GroupModel;
 import com.hmd.model.MajorModel;
 import com.hmd.model.MediaModel;
+import com.hmd.model.OrgOneModel;
+import com.hmd.model.OrgTwoModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.SchoolModel;
 import com.hmd.model.TimelineModel;
@@ -153,8 +155,14 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_CONFIG_DEPT_LIST)) {
 			return getConfigDeptList(jsonObject);
 
-		}
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_CONFIG_ORG_LIST)) {
+			return getConfigOrgList(jsonObject);
 
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_ME_CREATE)) {
+			return getProfileMeCreateList(jsonObject);
+
+		}
+		
 		return null;
 	}
 
@@ -827,6 +835,78 @@ public class ParseResponseData {
 		}
 		
 		map.put("list", mediaList);
+
+		return map;
+	}
+	
+	private static Object getConfigOrgList(JSONObject jsonObject) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
+
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		ArrayList<OrgOneModel> orgOneList = new ArrayList<OrgOneModel>();
+		if (jsonArray != null && jsonArray.length() > 0) {
+			for (int i = 0; i < jsonArray.length(); i++) {
+				OrgOneModel orgOneModel = new OrgOneModel();
+
+				JSONObject deptObj = (JSONObject) jsonArray.opt(i);
+				orgOneModel.setCode(Integer.valueOf(deptObj.optString("id", "")));
+				orgOneModel.setName(deptObj.optString("display", ""));
+				
+				JSONArray majorArray = deptObj.optJSONArray("list");
+				ArrayList<OrgTwoModel> majorList = new ArrayList<OrgTwoModel>();
+				for (int j = 0; j < majorArray.length(); j++) {
+					OrgTwoModel majorModel = new OrgTwoModel();
+					JSONObject majorObj = (JSONObject) majorArray.opt(j);
+					majorModel.setCode(Integer.valueOf(majorObj.optString("id", "")));
+					majorModel.setName(majorObj.optString("display", ""));
+					majorList.add(majorModel);
+				}
+				orgOneModel.setOrgTwoModels(majorList);
+				orgOneList.add(orgOneModel);
+				
+				
+			}
+
+		}
+		
+		map.put("list", orgOneList);
+
+		return map;
+	}
+	
+	private static Object getProfileMeCreateList(JSONObject jsonObject) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
+
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		ArrayList<OrgOneModel> orgOneList = new ArrayList<OrgOneModel>();
+		if (jsonArray != null && jsonArray.length() > 0) {
+			for (int i = 0; i < jsonArray.length(); i++) {
+				OrgOneModel orgOneModel = new OrgOneModel();
+
+				JSONObject deptObj = (JSONObject) jsonArray.opt(i);
+				orgOneModel.setCode(Integer.valueOf(deptObj.optString("id", "")));
+				orgOneModel.setName(deptObj.optString("display", ""));
+				
+				JSONArray majorArray = deptObj.optJSONArray("list");
+				ArrayList<OrgTwoModel> majorList = new ArrayList<OrgTwoModel>();
+				for (int j = 0; j < majorArray.length(); j++) {
+					OrgTwoModel majorModel = new OrgTwoModel();
+					JSONObject majorObj = (JSONObject) majorArray.opt(j);
+					majorModel.setCode(Integer.valueOf(majorObj.optString("id", "")));
+					majorModel.setName(majorObj.optString("display", ""));
+					majorList.add(majorModel);
+				}
+				orgOneModel.setOrgTwoModels(majorList);
+				orgOneList.add(orgOneModel);
+				
+				
+			}
+
+		}
+		
+		map.put("list", orgOneList);
 
 		return map;
 	}

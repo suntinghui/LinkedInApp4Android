@@ -396,4 +396,19 @@
         <contentType>application/json</contentType>
     </request>
     
+    <!--获取部门组织双级列表-->
+    <request>
+        <requestId>CONFIG_ORG_LIST</requestId>
+        <url>/config/org/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!--完善个人信息-等待审核-->
+    <request>
+        <requestId>PROFILE_ME_CREATE</requestId>
+        <url>/profile/me/create</url>
+        <method>POST</method>
+        <contentType>multipart/form-data</contentType>
+    </request>
 </root>

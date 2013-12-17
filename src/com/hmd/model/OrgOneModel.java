@@ -3,7 +3,7 @@ package com.hmd.model;
 import java.util.List;
 
 
-public class DeptModel {
+public class OrgOneModel {
 
     /**
      * province name
@@ -16,25 +16,25 @@ public class DeptModel {
     private int code;
 
     /**
-     * province have majors
+     * province have orgTwoModels
      */
-    private List<MajorModel> majors;
+    private List<OrgTwoModel> orgTwoModels;
 
-    public DeptModel() {
+    public OrgOneModel() {
         super();
     }
     
-    public DeptModel(String name, int code) {
+    public OrgOneModel(String name, int code) {
         super();
         this.name = name;
         this.code = code;
     }
 
-    public DeptModel(String name, int code, List<MajorModel> majors) {
+    public OrgOneModel(String name, int code, List<OrgTwoModel> orgTwoModels) {
         super();
         this.name = name;
         this.code = code;
-        this.majors = majors;
+        this.orgTwoModels = orgTwoModels;
     }
 
     /**
@@ -76,22 +76,22 @@ public class DeptModel {
     }
 
     /**
-     * Getter of majors
+     * Getter of orgTwoModels
      * 
-     * @return the majors
+     * @return the orgTwoModels
      */
-    public List<MajorModel> getMajors() {
-        return majors;
+    public List<OrgTwoModel> getTwos() {
+        return orgTwoModels;
     }
 
     /**
-     * Setter of majors
+     * Setter of orgTwoModels
      * 
-     * @param majors
-     *            the majors to set
+     * @param orgTwoModels
+     *            the orgTwoModels to set
      */
-    public void setMajors(List<MajorModel> majors) {
-        this.majors = majors;
+    public void setOrgTwoModels(List<OrgTwoModel> orgTwoModels) {
+        this.orgTwoModels = orgTwoModels;
     }
 
     /**

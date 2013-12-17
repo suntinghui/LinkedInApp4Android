@@ -170,44 +170,6 @@
                     android:layout_height="2px"
                     android:background="?android:attr/listDivider" />
 
-                <!--
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dip"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="70dip"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="专	业" />
-
-                    <EditText
-                        android:id="@+id/et_major"
-                        style="@style/black_15"
-                        android:layout_width="fill_parent"
-                        android:layout_height="30dip"
-                        android:layout_marginLeft="35dip"
-                        android:background="@drawable/edittext_bg"
-                        android:hint="请输入专业名称"
-                        android:paddingBottom="3dip"
-                        android:paddingLeft="3dip"
-                        android:paddingTop="3dip" />
-                </LinearLayout>
-                -->
-
-
-                <!--
-                     <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2px"
-                    android:background="?android:attr/listDivider" />
-                -->
-
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -261,7 +223,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:visibility="gone" >
+                     >
 
                     <LinearLayout
                         android:layout_width="fill_parent"
@@ -425,7 +387,8 @@
                     android:id="@+id/layout_teach"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:orientation="vertical"
+                    android:visibility="gone" >
 
                     <LinearLayout
                         android:layout_width="fill_parent"

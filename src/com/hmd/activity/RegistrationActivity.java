@@ -48,10 +48,15 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 		completedButton.setOnClickListener(this);
 		
 		nameView = (EditTextWithClearView) this.findViewById(R.id.nameText);
+		nameView.setText("123@qq.com");
 		passwordView = (EditTextWithClearView) this.findViewById(R.id.passwordText);
+		passwordView.setText("1");
 		passwordConfirmView = (EditTextWithClearView) this.findViewById(R.id.passwordConfirmText);
+		passwordConfirmView.setText("1");
 		et_idcard = (EditTextWithClearView) this.findViewById(R.id.et_idcard); 
-		et_stu_num = (EditTextWithClearView) this.findViewById(R.id.et_stu_num); 
+		et_idcard.setText("430181198801291289");
+		et_stu_num = (EditTextWithClearView) this.findViewById(R.id.et_stu_num);
+		et_stu_num.setText("1");
 	}
 	
 	@Override
