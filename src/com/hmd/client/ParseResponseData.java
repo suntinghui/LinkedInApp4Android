@@ -875,40 +875,8 @@ public class ParseResponseData {
 		return map;
 	}
 	
-	private static Object getProfileMeCreateList(JSONObject jsonObject) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
-
-		JSONArray jsonArray = jsonObject.optJSONArray("list");
-		ArrayList<OrgOneModel> orgOneList = new ArrayList<OrgOneModel>();
-		if (jsonArray != null && jsonArray.length() > 0) {
-			for (int i = 0; i < jsonArray.length(); i++) {
-				OrgOneModel orgOneModel = new OrgOneModel();
-
-				JSONObject deptObj = (JSONObject) jsonArray.opt(i);
-				orgOneModel.setCode(Integer.valueOf(deptObj.optString("id", "")));
-				orgOneModel.setName(deptObj.optString("display", ""));
-				
-				JSONArray majorArray = deptObj.optJSONArray("list");
-				ArrayList<OrgTwoModel> majorList = new ArrayList<OrgTwoModel>();
-				for (int j = 0; j < majorArray.length(); j++) {
-					OrgTwoModel majorModel = new OrgTwoModel();
-					JSONObject majorObj = (JSONObject) majorArray.opt(j);
-					majorModel.setCode(Integer.valueOf(majorObj.optString("id", "")));
-					majorModel.setName(majorObj.optString("display", ""));
-					majorList.add(majorModel);
-				}
-				orgOneModel.setOrgTwoModels(majorList);
-				orgOneList.add(orgOneModel);
-				
-				
-			}
-
-		}
-		
-		map.put("list", orgOneList);
-
-		return map;
+	private static int getProfileMeCreateList(JSONObject jsonObject) {
+		return jsonObject.optInt("rc", ErrorCode.UNKNOWN);
 	}
 	
 	private static Object getConfigDeptList(JSONObject jsonObject) {

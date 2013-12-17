@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -46,6 +47,7 @@ import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.DateUtil;
 import com.hmd.util.ImageUtil;
+import com.hmd.view.LKAlertDialog;
 
 public class ImproveRegistrationActivity extends BaseActivity implements OnClickListener {
 
@@ -123,13 +125,13 @@ public class ImproveRegistrationActivity extends BaseActivity implements OnClick
 		et_name.setText("lj");
 
 		et_mobile = (EditText)this.findViewById(R.id.et_mobile);
-		et_mobile.setText("150");
+		et_mobile.setText("15011302909");
 		et_mobile.setInputType(InputType.TYPE_CLASS_NUMBER);
 		et_email = (EditText)this.findViewById(R.id.et_email);
-		et_email.setText("email");
+		et_email.setText("849500998@qq.com");
 		et_email.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 		et_qq = (EditText)this.findViewById(R.id.et_qq);
-		et_qq.setText("1qq");
+		et_qq.setText("838389898");
 		
 		radioGroup = (RadioGroup) this.findViewById(R.id.radioGroup);
 		radioMale = (RadioButton) this.findViewById(R.id.radioMale);
@@ -289,22 +291,36 @@ public class ImproveRegistrationActivity extends BaseActivity implements OnClick
 		paramMap.put("mobile", et_mobile.getText() == null ? "":et_mobile.getText());
 		paramMap.put("email", et_email.getText() == null ? "":et_email.getText());
 		paramMap.put("qq", et_qq.getText() == null ? "":et_qq.getText());
-		paramMap.put("pic", bm == null ? "null" : this.bitmaptoString(bm));
+		paramMap.put("pic", bm == null ? "" : this.bitmaptoString(bm));
 		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_PROFILE_ME_CREATE, paramMap, new LKAsyncHttpResponseHandler() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
 				@SuppressWarnings("unchecked")
-				HashMap<String, Object> map = (HashMap<String, Object>) obj;
-				int returnCode = (Integer) map.get("rc");
+				int returnCode =  (Integer) obj;
 				if (returnCode == LoginCode.SUCCESS) {
-					deptModelList.addAll((ArrayList<DeptModel>) map.get("list"));
+					LKAlertDialog dialog = new LKAlertDialog(ImproveRegistrationActivity.this);
+					dialog.setTitle("提示");
+					dialog.setMessage("操作成功，请等待校方审核");
+					dialog.setCancelable(false);
+					dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							arg0.dismiss();
+							
+							ImproveRegistrationActivity.this.finish();
+						}
+					});
+					
+					dialog.create().show();
+				} else if (returnCode == 0) {
+					ImproveRegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "失败，原因未知");
+					
+				} else if (returnCode == -2) {
+					ImproveRegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "已提交过个人信息");
+					
 				}
-				ArrayAdapter<DeptModel> deptAdapter = new ArrayAdapter<DeptModel>(ImproveRegistrationActivity.this, R.layout.simple_spinner_item, android.R.id.text1, deptModelList);
-				deptSpinner.setAdapter(deptAdapter);
-				deptSpinner.setOnItemSelectedListener(new DeptAdapter());
-				// idCardSpinner.setSelection(adYear);
-				// gradYearSpinner.setSelection(gradYear);
 			}
 		}, "me");
 

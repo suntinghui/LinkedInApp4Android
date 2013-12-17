@@ -409,6 +409,6 @@
         <requestId>PROFILE_ME_CREATE</requestId>
         <url>/profile/me/create</url>
         <method>POST</method>
-        <contentType>multipart/form-data</contentType>
+        <contentType>application/json</contentType>
     </request>
 </root>
