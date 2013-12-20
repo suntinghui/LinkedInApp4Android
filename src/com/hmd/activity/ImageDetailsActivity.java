@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.hmd.R;
+import com.hmd.client.DownloadFileRequest;
 import com.hmd.view.ZoomImageView;
 
 import android.app.Activity;

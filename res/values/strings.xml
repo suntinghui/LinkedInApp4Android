@@ -48,4 +48,6 @@
     <string name="border_top">Border Top</string>
     <string name="border_bottom">Border Bottom</string>
     <string name="image_url">Image Url</string>
+    
+    <string name="title_progressbar">正在下载图片</string>
 </resources>

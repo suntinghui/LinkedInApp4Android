@@ -37,7 +37,7 @@
             android:layout_marginRight="10dip"
             android:background="@drawable/btn_create_group"
             android:text="下载" 
-            android:visibility="gone"/>
+            />
     </RelativeLayout>
 
     <FrameLayout

@@ -24,6 +24,7 @@ public class TimelineModel implements Serializable{
 	private String mEndTime = null;
 
 	private String mDescription = null;
+	private String mIndustry = null;
 	
 	private String mProvince = null;
 	private String mCity = null;
@@ -39,6 +40,14 @@ public class TimelineModel implements Serializable{
 
 	private String mImgUrl = null;
 	
+	
+	public String getIndustry(){
+		return mIndustry;
+	}
+	
+	public void setIndustry(String mIndustry){
+		this.mIndustry = mIndustry;
+	}
 	public String getOrg() {
 		return mOrg;
 	}
