@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.hmd.R;
+import com.hmd.client.DownloadFileRequest;
 import com.hmd.view.ZoomImageView;
 
 import android.app.Activity;
@@ -91,31 +92,34 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 			this.finish();
 			break;
 		case R.id.btn_download:
-			dialog = ProgressDialog.show(this, "", "下载数据，请稍等 …", true, true);
-			// 启动一个后台线程
-			handler.post(new Runnable() {
-				@Override
-				public void run() {
-					// 这里下载数据
-					try {
-						URL url = new URL(params);
-						HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-						conn.setDoInput(true);
-						conn.connect();
-						InputStream inputStream = conn.getInputStream();
-						bitmap = BitmapFactory.decodeStream(inputStream);
-						Message msg = new Message();
-						msg.what = 1;
-						handler.sendMessage(msg);
-
-					} catch (MalformedURLException e1) {
-						e1.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			});
+			DownloadFileRequest.sharedInstance().downloadAndOpen(this,
+					params,
+					"test" + ".jpg");
+//			dialog = ProgressDialog.show(this, "", "下载数据，请稍等 …", true, true);
+//			// 启动一个后台线程
+//			handler.post(new Runnable() {
+//				@Override
+//				public void run() {
+//					// 这里下载数据
+//					try {
+//						URL url = new URL(params);
+//						HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//						conn.setDoInput(true);
+//						conn.connect();
+//						InputStream inputStream = conn.getInputStream();
+//						bitmap = BitmapFactory.decodeStream(inputStream);
+//						Message msg = new Message();
+//						msg.what = 1;
+//						handler.sendMessage(msg);
+//
+//					} catch (MalformedURLException e1) {
+//						e1.printStackTrace();
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+//			});
 			break;
 
 		default:

@@ -122,16 +122,12 @@ public class ImproveRegistrationActivity extends BaseActivity implements OnClick
 		btn_pick = (Button) this.findViewById(R.id.btn_pick);
 		btn_pick.setOnClickListener(listener);
 		et_name = (EditText) this.findViewById(R.id.et_name);
-		et_name.setText("lj");
 
 		et_mobile = (EditText)this.findViewById(R.id.et_mobile);
-		et_mobile.setText("15011302909");
 		et_mobile.setInputType(InputType.TYPE_CLASS_NUMBER);
 		et_email = (EditText)this.findViewById(R.id.et_email);
-		et_email.setText("849500998@qq.com");
 		et_email.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 		et_qq = (EditText)this.findViewById(R.id.et_qq);
-		et_qq.setText("838389898");
 		
 		radioGroup = (RadioGroup) this.findViewById(R.id.radioGroup);
 		radioMale = (RadioButton) this.findViewById(R.id.radioMale);
@@ -196,7 +192,6 @@ public class ImproveRegistrationActivity extends BaseActivity implements OnClick
 		deptSpinner = (Spinner) this.findViewById(R.id.deptSpinner);
 		majorSpinner = (Spinner) this.findViewById(R.id.majorSpinner);
 		et_class = (EditText)this.findViewById(R.id.et_class);
-		et_class.setText("1");
 
 		ArrayAdapter<String> adYearAdapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_item, adYearValueList);
 		adYearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
