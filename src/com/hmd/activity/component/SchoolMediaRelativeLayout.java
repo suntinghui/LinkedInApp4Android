@@ -108,9 +108,7 @@ public class SchoolMediaRelativeLayout extends RelativeLayout {
 			rootLayout.setOnClickListener(this);
 
 			imageView = (ImageView) this.findViewById(R.id.imageView);
-			if (media.getPics().size() > 0) {
-				ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, media.getPics().get(0), imageView);
-			}
+			ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, media.getPic(), imageView);
 
 			titleView = (TextView) this.findViewById(R.id.titleView);
 			titleView.setText(media.getTitle());

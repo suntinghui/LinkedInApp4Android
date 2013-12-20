@@ -67,7 +67,7 @@ public class FriendActivity extends AbsSubActivity {
 
 	private LKHttpRequest getSchoolMediaRequest(final int type) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("type", 3); // TODO type
+		map.put("type", type);
 		map.put("page", "1");
 		map.put("num", "3");
 		map.put("previewLen", "200");
@@ -128,15 +128,14 @@ public class FriendActivity extends AbsSubActivity {
 					intent.putExtra("TOPLIST", topList);
 					intent.putExtra("LIST", list);
 					intent.putExtra("TOTAL", total);
-					FriendActivity.this.startActivity(intent);
+					FriendActivity.this.startActivityForResult(intent, 0);
 				}
 			});
 		}
 
 		private LKHttpRequest getMediaTopListRequest() {
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			//map.put("type", this.type);
-			map.put("type", 3); // TODO
+			map.put("type", this.type);
 
 			return new LKHttpRequest(HttpRequestType.HTTP_MEDIA_TOPLIST, map, new LKAsyncHttpResponseHandler() {
 
@@ -151,7 +150,7 @@ public class FriendActivity extends AbsSubActivity {
 
 		private LKHttpRequest getMediaListRequest() {
 			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("type", 3);// TODO this.type
+			map.put("type", this.type);
 			map.put("page", "1");
 			map.put("num", Constants.PAGESIZE);
 			map.put("previewLen", "200");

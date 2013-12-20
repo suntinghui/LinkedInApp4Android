@@ -791,9 +791,9 @@ public class ParseResponseData {
 				media.setId(mediaObj.optString("id", ""));
 				media.setTitle(mediaObj.optString("title", ""));
 				media.setTime(mediaObj.optString("time", ""));
-				//media.setPics(new String[] { mediaObj.optString("pic", "") });
-				media.setPics(ImageUtil.getTopMediaImageList());
-
+				//media.setPic(ImageUtil.getTestImageURL1());
+				media.setPic(mediaObj.optString("pic", ""));
+				
 				mediaList.add(media);
 			}
 
@@ -820,13 +820,11 @@ public class ParseResponseData {
 				media.setTitle(mediaObj.optString("title", ""));
 				media.setTime(mediaObj.optString("time", ""));
 				media.setPreview(mediaObj.optString("preview", ""));
-				//media.setPics(new String[] { mediaObj.optString("pic", "") });
-				media.setPics(ImageUtil.getTestImageURL());
-
+				//media.setPic(ImageUtil.getTestImageURL1());
+				media.setPic(mediaObj.optString("pic", ""));
+				
 				// 如果没有图片，则忽略掉该消息。
-				if (media.getPics().size() != 0){
-					mediaList.add(media);
-				}
+				mediaList.add(media);
 				
 			}
 
@@ -835,6 +833,30 @@ public class ParseResponseData {
 		map.put("list", mediaList);
 
 		return map;
+	}
+	
+	private static Object getMediaDetail(JSONObject jsonObject) {
+		MediaModel media = new MediaModel();
+		media.setType(jsonObject.optInt("type", 1));
+		media.setTitle(jsonObject.optString("title", ""));
+		media.setTime(jsonObject.optString("time", ""));
+		media.setContent(jsonObject.optString("content", ""));
+
+		
+		ArrayList<String> picList = new ArrayList<String>();
+		JSONArray jsonArray = jsonObject.optJSONArray("pics");
+		if (jsonArray != null && jsonArray.length() > 0) {
+			for (int i = 0; i < jsonArray.length(); i++) {
+				JSONObject picsObj = (JSONObject) jsonArray.opt(i);
+				picList.add(picsObj.optString("url", ""));
+			}
+			media.setPics(picList);
+		}
+		
+		
+		//media.setPics(ImageUtil.getTestImageURL2());
+
+		return media;
 	}
 	
 	private static Object getConfigOrgList(JSONObject jsonObject) {
@@ -913,28 +935,6 @@ public class ParseResponseData {
 		return map;
 	}
 	
-	private static Object getMediaDetail(JSONObject jsonObject) {
-		MediaModel media = new MediaModel();
-		media.setType(jsonObject.optInt("type", 1));
-		media.setTitle(jsonObject.optString("title", ""));
-		media.setTime(jsonObject.optString("time", ""));
-		media.setContent(jsonObject.optString("content", ""));
-
-		/*
-		ArrayList<String> picList = new ArrayList<String>();
-		JSONArray jsonArray = jsonObject.optJSONArray("pics");
-		if (jsonArray != null && jsonArray.length() > 0) {
-			for (int i = 0; i < jsonArray.length(); i++) {
-				JSONObject picsObj = (JSONObject) jsonArray.opt(i);
-				picList.add(picsObj.optString("url", ""));
-			}
-			media.setPics(picList);
-		}
-		*/
-		media.setPics(ImageUtil.getTestImageURL());
-
-		return media;
-	}
 
 	// ////////////////////////////////////////////////////////////////////////////
 

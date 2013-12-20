@@ -80,7 +80,7 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 		mediaList = (ArrayList<MediaModel>) intent.getSerializableExtra("LIST");
 
 		for (MediaModel model : this.topMediaList) {
-			slideImages.add(model.getPics().get(0));
+			slideImages.add(model.getPic());
 			slideTitles.add(model.getTitle());
 		}
 
@@ -114,6 +114,7 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 		// 设置默认的滑动标题
 		mSlideTitle = (TextView) mMainView.findViewById(R.id.tvSlideTitle);
 		mSlideTitle.setText(this.slideTitles.get(0));
+		mSlideTitle.setSingleLine(true);
 
 		setContentView(mMainView);
 
@@ -278,7 +279,7 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 					holder.titleView.setText(mediaList.get(position).getTitle());
 					holder.contentView.setText(mediaList.get(position).getContent());
 					holder.tv_time.setText(mediaList.get(position).getTime());
-					ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, mediaList.get(position).getPics().get(0), holder.imageView);
+					ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, mediaList.get(position).getPic(), holder.imageView);
 				}
 			} else {
 				holder.contentLayout.setVisibility(View.VISIBLE);
@@ -287,8 +288,11 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 				holder.titleView.setText(mediaList.get(position).getTitle());
 				holder.contentView.setText(mediaList.get(position).getContent());
 				holder.tv_time.setText(mediaList.get(position).getTime());
-				ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, mediaList.get(position).getPics().get(0), holder.imageView);
+				ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, mediaList.get(position).getPic(), holder.imageView);
 			}
+			
+			// TODO 不分页
+			holder.moreLayout.setVisibility(View.GONE);
 
 			return convertView;
 		}

@@ -29,7 +29,7 @@ public class SlideImageLayout {
 	// 圆点图片集合
 	private ImageView[] mImageViews = null;
 	private ImageView mImageView = null;
-	
+
 	private ArrayList<MediaModel> modelList;
 
 	public SlideImageLayout(Context context) {
@@ -43,12 +43,14 @@ public class SlideImageLayout {
 		LinearLayout.LayoutParams imageLinerLayoutParames = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
 
 		ImageView iv = new ImageView(mContext);
-		iv.setBackgroundResource(R.drawable.img_weibo_item_pic_loading);
-		iv.setTag(1000+i);
+		// iv.setBackgroundResource(R.drawable.img_weibo_item_pic_loading);
+		iv.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, 0));
+		iv.setScaleType(ScaleType.FIT_XY);
+		iv.setTag(1000 + i);
 		iv.setOnClickListener(new ImageOnClickListener());
-		
+
 		imageLinerLayout.addView(iv, imageLinerLayoutParames);
-		ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, model.getPics().get(0), iv);
+		ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, model.getPic(), iv);
 
 		return imageLinerLayout;
 	}
@@ -111,7 +113,7 @@ public class SlideImageLayout {
 			getMediaDetail(modelList.get(index));
 		}
 	}
-	
+
 	private void getMediaDetail(MediaModel media) {
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getMediaDetailRequest(media));
@@ -125,7 +127,7 @@ public class SlideImageLayout {
 			public void successAction(Object obj) {
 				Intent intent = new Intent(mContext, SchoolMediaDetailActivity.class);
 				intent.putExtra("MODEL", (MediaModel) obj);
-				((BaseActivity)mContext).startActivityForResult(intent, 100);
+				((BaseActivity) mContext).startActivityForResult(intent, 100);
 			}
 		}, media.getId()) {
 

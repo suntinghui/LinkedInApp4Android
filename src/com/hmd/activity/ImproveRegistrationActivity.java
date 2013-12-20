@@ -184,7 +184,6 @@ public class ImproveRegistrationActivity extends BaseActivity implements OnClick
 
 			@Override
 			public void onNothingSelected(AdapterView<?> arg0) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -591,7 +590,6 @@ public class ImproveRegistrationActivity extends BaseActivity implements OnClick
 
 	@Override
 	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
 
 	}
 	

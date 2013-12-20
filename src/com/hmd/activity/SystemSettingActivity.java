@@ -22,8 +22,8 @@ public class SystemSettingActivity extends AbsSubActivity {
 	private ListView listView;
 	private BusinessAdapter adapter;
 
-	private Integer[] icons = { R.drawable.img_sys_modify_pwd, R.drawable.img_sys_update, R.drawable.img_sys_about, R.drawable.img_sys_exit };
-	private String[] title = { "修改密码", "检查更新", "关于", "退出" };
+	private Integer[] icons = { R.drawable.img_sys_weibo, R.drawable.img_sys_modify_pwd, R.drawable.img_sys_update, R.drawable.img_sys_about, R.drawable.img_sys_exit };
+	private String[] title = { "官方微博", "修改密码", "检查更新", "关于", "退出" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,27 +40,34 @@ public class SystemSettingActivity extends AbsSubActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				switch (arg2) {
-				case 0:// 修改密码
+				case 0: // 官方微博 
+				{
+					Intent intent = new Intent(SystemSettingActivity.this, WeiboListActivity.class);
+					SystemSettingActivity.this.startActivityForResult(intent, 0);
+				}
+					break;
+
+				case 1:// 修改密码
 				{
 					Intent intent = new Intent(SystemSettingActivity.this, ModifyPwdActivity.class);
 					SystemSettingActivity.this.startActivityForResult(intent, 0);
 				}
 					break;
 
-				case 1: // 检查更新
+				case 2: // 检查更新
 				{
 					checkUpdate();
 				}
 					break;
 
-				case 2:// 关于
+				case 3:// 关于
 				{
 					Intent intent = new Intent(SystemSettingActivity.this, AboutActivity.class);
 					SystemSettingActivity.this.startActivityForResult(intent, 0);
 				}
 					break;
 
-				case 3:// 退出
+				case 4:// 退出
 					logout();
 					break;
 

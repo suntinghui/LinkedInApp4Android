@@ -111,7 +111,6 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 					} catch (MalformedURLException e1) {
 						e1.printStackTrace();
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -134,7 +133,6 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 				try {
 					ImageDetailsActivity.this.saveMyBitmap("bitmap");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				dialog.dismiss();

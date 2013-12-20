@@ -26,8 +26,13 @@ public class ImageUtil {
 		"http://www.cnu.edu.cn/download.jsp?attachSeq=15257&filename=20131021165222134.jpg"
 		};
 	
+	public static String getTestImageURL1(){
+		int random = (int)(Math.random() * imageURL.length);
+		return imageURL[random];
+	}
+	
 	// 取测试数据
-	public static String[] getTestImageURL(){
+	public static String[] getTestImageURL2(){
 		int random1 = (int)(Math.random() * imageURL.length);
 		int random2 = (int)(Math.random() * imageURL.length);
 		return new String[]{imageURL[random1], imageURL[random2]};

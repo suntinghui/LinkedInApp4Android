@@ -67,7 +67,7 @@ public class SchoolCardIntroductionActivity extends AbsSubActivity implements On
 				+ "\n    官方网站：http://xyh.cnu.edu.cn"
 				+ "\n    官方微博：http://weibo.com/cnuxyh"
 				+ "\n    人人网公共主页：http://www.renren.com/xyhcnu"
-				+ "\n    公共邮箱：cnuxyh@126.com";
+				+ "\n    公共邮箱：cnuxyh@126.com\n\n";
 	}
 
 }

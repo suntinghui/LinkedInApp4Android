@@ -12,12 +12,13 @@
         android:background="@drawable/img_topbar_backdrop" >
 
         <Button
-            android:id="@+id/profileButton"
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="15dip"
-            android:visibility="gone" />
+            android:layout_centerVertical="true"
+            android:background="@drawable/img_btn_topbar_left_arrow"
+            android:onClick="btn_back" />
 
         <TextView
             android:id="@+id/tv_title"

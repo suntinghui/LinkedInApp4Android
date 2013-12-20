@@ -44,6 +44,7 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 	private long totalPage = 0L;
 	private int currentPage = 1;
 
+	private Button backButton = null;
 	private Button moreButton = null;
 
 	private ScrollView weiboScrollView = null;
@@ -65,6 +66,9 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 
 	@SuppressLint("SetJavaScriptEnabled")
 	private void init() {
+		backButton = (Button) this.findViewById(R.id.backButton);
+		backButton.setOnClickListener(this);
+		
 		moreButton = (Button) this.findViewById(R.id.moreButton);
 		moreButton.setOnClickListener(this);
 
@@ -229,7 +233,7 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 	@Override
 	public void onClick(View view) {
 		switch (view.getId()) {
-		case R.id.btn_back:
+		case R.id.backButton:
 			WeiboListActivity.this.goback();
 			break;
 
