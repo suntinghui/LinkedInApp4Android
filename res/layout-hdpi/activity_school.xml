@@ -21,7 +21,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="15dip"
-            android:background="@drawable/img_btn_topbar_right_arrow"
             android:visibility="gone" />
 
         <TextView

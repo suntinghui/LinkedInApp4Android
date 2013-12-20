@@ -33,7 +33,7 @@ public class SplashActivity extends BaseActivity {
 	}
 
 	public int getRandomNum() {
-		return (Math.abs(new Random().nextInt()) % 5) + 1;
+		return (Math.abs(new Random().nextInt()) % 20) + 1;
 	}
 
 	private int getIconId(int iconId) {

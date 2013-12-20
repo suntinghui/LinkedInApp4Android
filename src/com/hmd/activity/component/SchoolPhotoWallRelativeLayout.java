@@ -69,9 +69,9 @@ public class SchoolPhotoWallRelativeLayout extends RelativeLayout {
 	}
 
 	private void generateBitmaps() {
-		int[] ids = { R.drawable.img_splash_1, R.drawable.img_splash_2, R.drawable.img_splash_3, R.drawable.img_splash_4, R.drawable.img_splash_5 };
-
 		/**
+		 * int[] ids = { R.drawable.img_splash_1, R.drawable.img_splash_2, R.drawable.img_splash_3, R.drawable.img_splash_4, R.drawable.img_splash_5 };
+		 * 
 		 * for (int id : ids) { Bitmap bitmap = createReflectedBitmapById(id);
 		 * if (null != bitmap) { BitmapDrawable drawable = new
 		 * BitmapDrawable(bitmap); drawable.setAntiAlias(true);
@@ -79,10 +79,19 @@ public class SchoolPhotoWallRelativeLayout extends RelativeLayout {
 		 **/
 
 		// 无倒影
-		for (int id : ids) {
-			mBitmaps.add((BitmapDrawable) getResources().getDrawable(id));
+		for (int i=1; i<21; i++) {
+			mBitmaps.add((BitmapDrawable) getResources().getDrawable(getIconId(i)));
 		}
 
+	}
+	
+	private int getIconId(int iconId) {
+		String resourceName = "img_splash_" + iconId;
+		int resourceId = getResources().getIdentifier(resourceName, "drawable", SchoolPhotoWallRelativeLayout.this.context.getPackageName());
+		if (resourceId == 0)
+			resourceId = R.drawable.img_splash_1;
+
+		return resourceId;
 	}
 
 	private Bitmap createReflectedBitmapById(int resId) {

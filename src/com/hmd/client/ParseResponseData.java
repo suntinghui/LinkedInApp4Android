@@ -3,11 +3,9 @@ package com.hmd.client;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import com.hmd.enums.ErrorCode;
 import com.hmd.exception.ServiceErrorException;

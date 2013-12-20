@@ -16,7 +16,6 @@ import com.hmd.client.ApplicationEnvironment;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.model.MediaModel;
-import com.hmd.model.SchoolModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
@@ -27,8 +26,6 @@ public class FriendActivity extends AbsSubActivity {
 	private SchoolMediaRelativeLayout rlSchoolDynamic = null; // 校友动态
 	private SchoolMediaRelativeLayout rlSchoolNotice = null; // 通知公告
 	private SchoolCardRelativeLayout rlSchoolCard = null; // 校友龙卡
-
-	private SchoolModel schoolModel = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +58,6 @@ public class FriendActivity extends AbsSubActivity {
 
 	// 刷新数据
 	private void refreshData() {
-		schoolModel = new SchoolModel();
-
 		// type	类型：1校友动态；2通知公告；3母校动态；4回馈母校
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getSchoolMediaRequest(1)); // 校友动态
