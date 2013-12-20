@@ -281,7 +281,7 @@ public class ImproveRegistrationActivity extends BaseActivity implements OnClick
 		if(idCard_select == 0){//学生
 			paramMap.put("deptId", current_dept.getCode());
 			paramMap.put("majorId", current_major.getCode());
-			paramMap.put("class", et_class.getText());
+			paramMap.put("clazz", et_class.getText());
 			paramMap.put("adYear", current_year);
 		}else{//教工
 			paramMap.put("org1Id", current_org1.getCode());
