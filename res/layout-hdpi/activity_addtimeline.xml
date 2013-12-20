@@ -121,6 +121,12 @@
                     android:layout_height="2px"
                     android:background="?android:attr/listDivider" />
 
+                
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2px"
+                    android:background="?android:attr/listDivider" />
+
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -134,19 +140,33 @@
                         android:layout_width="70dip"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="描述" />
+                        android:text="所属行业" />
 
-                    <EditText
-                        android:id="@+id/et_desc"
-                        style="@style/black_15"
+                    <RelativeLayout
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="35dip"
-                        android:background="@drawable/edittext_bg"
-                        android:hint="请输入描述信息"
-                        android:paddingBottom="3dip"
-                        android:paddingLeft="3dip"
-                        android:paddingTop="3dip" />
+                        android:background="@drawable/edittext_bg" >
+
+                        <Spinner
+                            android:id="@+id/industrySpinner"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="10dip"
+                            android:background="@null" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dip"
+                            android:contentDescription="@string/app_name"
+                            android:focusable="false"
+                            android:src="@drawable/img_down_arrows" />
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <View

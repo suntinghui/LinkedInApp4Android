@@ -61,5 +61,6 @@ public interface HttpRequestType {
 	public static final String HTTP_CONFIG_DEPT_LIST					= "CONFIG_DEPT_LIST";
 	public static final String HTTP_CONFIG_ORG_LIST						= "CONFIG_ORG_LIST";
 	public static final String HTTP_PROFILE_ME_CREATE					= "PROFILE_ME_CREATE";
+	public static final String HTTP_CONFIG_INDUSTRY_LIST				= "CONFIG_INDUSTRY_LIST";
 	
 }

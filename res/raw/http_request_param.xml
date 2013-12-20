@@ -411,4 +411,12 @@
         <method>POST</method>
         <contentType>application/json</contentType>
     </request>
+    
+    <!--获取行业列表-->
+    <request>
+        <requestId>CONFIG_INDUSTRY_LIST</requestId>
+        <url>/config/industry/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
 </root>

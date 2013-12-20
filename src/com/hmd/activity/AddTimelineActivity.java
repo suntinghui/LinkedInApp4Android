@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import android.app.AlertDialog;
@@ -26,6 +27,7 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -34,14 +36,18 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.hmd.R;
+import com.hmd.activity.ImproveRegistrationActivity.DeptAdapter;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.enums.RegistrationCode;
+import com.hmd.model.DeptModel;
+import com.hmd.model.IndustryModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.model.TimelineModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
@@ -67,12 +73,15 @@ public class AddTimelineActivity extends AbsSubActivity {
 	private ImageView image_head = null;
 	private Button btn_pick = null;
 	private EditText et_title = null;
-	private EditText et_desc = null;
 	private EditText et_org = null;
 	private EditText et_province = null;
 	private EditText et_city = null;
 	private TextView tv_stime = null;
 	private TextView tv_etime = null;
+	private Spinner industrySpinner = null;
+	
+	private ArrayList<IndustryModel> industryList = null;
+	private String current_industry = null;
 
 	private TimelineModel data = null;
 	private Boolean isModify = false;
@@ -109,7 +118,7 @@ public class AddTimelineActivity extends AbsSubActivity {
 		btn_pick = (Button) this.findViewById(R.id.btn_pick);
 		btn_pick.setOnClickListener(listener);
 		et_title = (EditText) this.findViewById(R.id.et_title);
-		et_desc = (EditText) this.findViewById(R.id.et_desc);
+		industrySpinner = (Spinner) this.findViewById(R.id.industrySpinner);
 		et_org = (EditText) this.findViewById(R.id.et_org);
 		et_province = (EditText) this.findViewById(R.id.et_province);
 		et_city = (EditText) this.findViewById(R.id.et_city);
@@ -121,19 +130,20 @@ public class AddTimelineActivity extends AbsSubActivity {
 		tv_etime.setText(DateUtil.getCurrentYearMonthDay());
 		tv_etime.setOnClickListener(listener);
 
+		
 		if (isModify) {
 			if (data.getImgUrl() != null) {
 				ImageUtil.loadImage(R.drawable.img_card_head_portrait, data.getImgUrl(), image_head);
 			}
 			et_title.setText(data.getTitle());
-			et_desc.setText(data.getDescription());
 			et_org.setText(data.getOrg());
 			et_province.setText(data.getProvince());
 			et_city.setText(data.getCity());
 			tv_stime.setText(data.getStartTime() + "-09");
 			tv_etime.setText(data.getEndTime() + "-06");
+			current_industry = data.getIndustry();
 		}
-
+		getIndustryList();
 	}
 
 	private OnClickListener listener = new OnClickListener() {
@@ -216,7 +226,7 @@ public class AddTimelineActivity extends AbsSubActivity {
 	private void doTimeLineModify() {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("title", et_title.getText().toString());
-		paramMap.put("desc", et_desc.getText().toString());
+		paramMap.put("industryId", current_industry);
 		paramMap.put("org", et_org.getText().toString());
 		paramMap.put("province", et_province.getText().toString());
 		paramMap.put("city", et_city.getText().toString());
@@ -238,6 +248,69 @@ public class AddTimelineActivity extends AbsSubActivity {
 		});
 	}
 
+	// 获取行业列表
+	private void getIndustryList() {
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getIndustryListRequest());
+		queue.executeQueue("正在获取行业信息，请稍候...", new LKHttpRequestQueueDone());
+
+	}
+
+	private LKHttpRequest getIndustryListRequest() {
+
+		LKHttpRequest req = new LKHttpRequest(HttpRequestType.HTTP_CONFIG_INDUSTRY_LIST, null, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				HashMap<String, Object> map = (HashMap<String, Object>) obj;
+				industryList = (ArrayList<IndustryModel>)(map.get("list"));
+				
+				ArrayAdapter<IndustryModel> adapter = new ArrayAdapter<IndustryModel>(AddTimelineActivity.this, R.layout.simple_spinner_item, android.R.id.text1, industryList);
+				industrySpinner.setAdapter(adapter);
+				if(isModify){
+					for (int i = 0; i < industryList.size(); i++) {
+						IndustryModel model = industryList.get(i);
+						if(model.getId().equals(data.getIndustry())){
+							industrySpinner.setSelection(i);
+						}
+					}
+					
+				}
+				industrySpinner.setOnItemSelectedListener(new Adapter());
+			}
+		});
+
+		return req;
+	}
+
+	class Adapter implements OnItemSelectedListener {
+
+		/**
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.AdapterView.OnItemSelectedListener#onItemSelected(android.widget.AdapterView,
+		 *      android.view.View, int, long)
+		 */
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			onChange(position);
+		}
+
+		/**
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.AdapterView.OnItemSelectedListener#onNothingSelected(android.widget.AdapterView)
+		 */
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+
+		}
+
+	}
+	
+	public void onChange(int position) {
+		current_industry = industryList.get(position).getId(); 
+	}
 	// 添加时间轴结点
 	private void doTimeLineAdd() {
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
@@ -249,7 +322,7 @@ public class AddTimelineActivity extends AbsSubActivity {
 	private LKHttpRequest getTimeLineAdd() {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("title", et_title.getText().toString());
-		paramMap.put("desc", et_desc.getText().toString());
+		paramMap.put("industryId", current_industry);
 		paramMap.put("org", et_org.getText().toString());
 		paramMap.put("province", et_province.getText().toString());
 		paramMap.put("city", et_city.getText().toString());
@@ -301,12 +374,6 @@ public class AddTimelineActivity extends AbsSubActivity {
 	private boolean checkValue() {
 		if (et_title.getText().toString().trim().equals("")) {
 			this.showToast("身份不能为空！");
-			return false;
-		} else if (et_desc.getText().toString().trim().equals("")) {
-			this.showToast("描述不能为空！");
-			return false;
-		} else if (et_city.getText().toString().trim().equals("")) {
-			this.showToast("城市不能为空！");
 			return false;
 		} else if (et_org.getText().toString().trim().equals("")) {
 			this.showToast("组织不能为空！");
