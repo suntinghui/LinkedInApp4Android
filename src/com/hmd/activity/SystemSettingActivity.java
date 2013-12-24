@@ -1,5 +1,6 @@
 package com.hmd.activity;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -107,8 +108,13 @@ public class SystemSettingActivity extends AbsSubActivity {
 			public void onClick(DialogInterface arg0, int arg1) {
 				arg0.dismiss();
 
-				while (!(BaseActivity.getTopActivity() instanceof LoginActivity)) {
-					BaseActivity.getTopActivity().finish();
+				try{
+					while (!(BaseActivity.getTopActivity() instanceof LoginActivity)) {
+						BaseActivity.getTopActivity().finish();
+					}
+				} catch(Exception e){
+					ActivityManager activityMgr=(ActivityManager)SystemSettingActivity.this.getSystemService(ACTIVITY_SERVICE);
+				    activityMgr.restartPackage(getPackageName());
 				}
 
 			}

@@ -3,11 +3,13 @@ package com.hmd.network;
 import org.apache.http.client.HttpResponseException;
 import org.json.JSONObject;
 
+import android.app.ActivityManager;
 import android.content.DialogInterface;
 import android.util.Log;
 
 import com.hmd.activity.BaseActivity;
 import com.hmd.activity.LoginActivity;
+import com.hmd.activity.SystemSettingActivity;
 import com.hmd.client.ParseResponseData;
 import com.hmd.enums.ErrorCode;
 import com.hmd.exception.ServiceErrorException;
@@ -74,8 +76,13 @@ public abstract class LKAsyncHttpResponseHandler extends JsonHttpResponseHandler
 					public void onClick(DialogInterface arg0, int arg1) {
 						arg0.dismiss();
 
-						while (!(BaseActivity.getTopActivity() instanceof LoginActivity)) {
-							BaseActivity.getTopActivity().finish();
+						try{
+							while (!(BaseActivity.getTopActivity() instanceof LoginActivity)) {
+								BaseActivity.getTopActivity().finish();
+							}
+							
+						} catch(Exception e){
+							e.printStackTrace();
 						}
 
 					}

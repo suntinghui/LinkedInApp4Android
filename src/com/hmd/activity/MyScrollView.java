@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.hmd.R;
+import com.hmd.util.FileUtil;
 
 import android.content.Context;
 import android.content.Intent;
@@ -130,8 +131,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 			// 如果当前的滚动位置和上次相同，表示已停止滚动
 			if (scrollY == lastScrollY) {
 				// 当滚动的最底部，并且当前没有正在下载的任务时，开始加载下一页的图片
-				if (scrollViewHeight + scrollY >= scrollLayout.getHeight()
-						&& taskCollection.isEmpty()) {
+				if (scrollViewHeight + scrollY >= scrollLayout.getHeight() && taskCollection.isEmpty()) {
 					myScrollView.loadMoreImages();
 				}
 				myScrollView.checkVisibility();
@@ -310,8 +310,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 				downloadImage(imageUrl);
 			}
 			if (imageUrl != null) {
-				Bitmap bitmap = ImageLoader.decodeSampledBitmapFromResource(imageFile.getPath(),
-						columnWidth);
+				Bitmap bitmap = ImageLoader.decodeSampledBitmapFromResource(imageFile.getPath(), columnWidth);
 				if (bitmap != null) {
 					imageLoader.addBitmapToMemoryCache(imageUrl, bitmap);
 					return bitmap;
@@ -331,8 +330,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 		 *            图片的高度
 		 */
 		private void addImage(Bitmap bitmap, int imageWidth, int imageHeight) {
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(imageWidth,
-					imageHeight);
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(imageWidth, imageHeight);
 			if (mImageView != null) {
 				mImageView.setImageBitmap(bitmap);
 			} else {
@@ -440,8 +438,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 				}
 			}
 			if (imageFile != null) {
-				Bitmap bitmap = ImageLoader.decodeSampledBitmapFromResource(imageFile.getPath(),
-						columnWidth);
+				Bitmap bitmap = ImageLoader.decodeSampledBitmapFromResource(imageFile.getPath(), columnWidth);
 				if (bitmap != null) {
 					imageLoader.addBitmapToMemoryCache(imageUrl, bitmap);
 				}
@@ -458,12 +455,8 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 		private String getImagePath(String imageUrl) {
 			int lastSlashIndex = imageUrl.lastIndexOf("/");
 			String imageName = imageUrl.substring(lastSlashIndex + 1);
-			String imageDir = Environment.getExternalStorageDirectory().getPath()
-					+ "/PhotoWallFalls/";
-			File file = new File(imageDir);
-			if (!file.exists()) {
-				file.mkdirs();
-			}
+			String imageDir = FileUtil.getDownloadPath();
+			
 			String imagePath = imageDir + imageName;
 			return imagePath;
 		}

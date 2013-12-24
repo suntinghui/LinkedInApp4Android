@@ -15,7 +15,7 @@ public class FileUtil {
 	public static String getDownloadPath(){
 		// 其它程序无法访问
 		// String path = ApplicationEnvironment.getInstance().getApplication().getFilesDir().getPath()+"/download/";
-		String path = Environment.getExternalStorageDirectory()+"/xiaoyou/images/";
+		String path = Environment.getExternalStorageDirectory()+"/首都师范大学/images/";
 		File file = new File(path);
 		if (!file.exists()){
 			// file.mkdir();

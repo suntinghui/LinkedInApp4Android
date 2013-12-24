@@ -22,6 +22,7 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 
 public class DownloadFileRequest {
@@ -42,21 +43,15 @@ public class DownloadFileRequest {
 		return request;
 	}
 	
-	public void downloadAndOpen(Context context, String fileURL, String fileName){
+	public void download(Context context, String fileURL, String fileName){
 		this.context = context;
 		this.fileURL = fileURL;
 		this.fileName = fileName;
 		
-		if (FileUtil.fileExists(fileName)){
-//			FileUtil.openFile(fileName);
+		if (!ApplicationEnvironment.getInstance().checkNetworkAvailable()){
+			BaseActivity.getTopActivity().showToast("网络连接不可用，请稍候重试");
 		} else {
-			
-			if (!ApplicationEnvironment.getInstance().checkNetworkAvailable()){
-				BaseActivity.getTopActivity().showToast("网络连接不可用，请稍候重试");
-			} else {
-				new DownloadFileTask().execute();
-			}
-			
+			new DownloadFileTask().execute();
 		}
 		
 	}
@@ -200,9 +195,11 @@ public class DownloadFileRequest {
 			dialog.dismiss();
 			
 			if (null == result){
-				Log.e("download", "下载完成，打开文件");
+//				Log.e("download", "下载完成，打开文件");
 				
 //				FileUtil.openFile(fileName);
+				
+				Toast.makeText(BaseActivity.getTopActivity(), "下载完成", Toast.LENGTH_SHORT).show();
 				
 			} else {
 				// 下载失败要删除已创建的缓存文件
