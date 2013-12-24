@@ -150,15 +150,15 @@
 
             <Button
                 android:id="@+id/btn_modify"
-                android:layout_width="wrap_content"
+                android:layout_width="60dip"
                 android:layout_alignParentRight="true"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dip"
                 android:layout_marginTop="5dip"
                 android:layout_toLeftOf="@id/btn_delete"
-                android:background="@drawable/img_group_participant_button"
+                android:background="@drawable/btn_reply"
                 android:text="修改"
-                android:textColor="@color/dateBlue" />
+                android:textColor="@color/white" />
         </RelativeLayout>
     </RelativeLayout>
 
