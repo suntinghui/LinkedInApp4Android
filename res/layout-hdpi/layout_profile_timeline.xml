@@ -29,9 +29,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dip"
-            android:background="@drawable/img_group_participant_button"
+            android:background="@drawable/btn_reply"
             android:text="增加履历"
-            android:textColor="@color/dateBlue" />
+            android:textColor="@color/white" />
     </RelativeLayout>
 
     <LinearLayout
