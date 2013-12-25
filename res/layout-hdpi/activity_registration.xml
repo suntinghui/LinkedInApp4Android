@@ -1,111 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:hmd="http://schemas.android.com/apk/res/com.hmd"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center"
-    android:orientation="vertical" >
-
-    <RelativeLayout
-        android:id="@+id/topLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/img_topbar_backdrop" >
-
-        <Button
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/img_btn_topbar_left_arrow" />
-
-        <TextView
-            android:id="@+id/titleView"
-            style="@style/white_20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="注 册" />
-    </RelativeLayout>
+    android:layout_height="fill_parent" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@drawable/img_backdrop"
-        android:orientation="vertical"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip" >
+        android:gravity="center"
+        android:orientation="vertical" >
 
-        <com.hmd.view.EditTextWithClearView
-            android:id="@+id/nameText"
+        <RelativeLayout
+            android:id="@+id/topLayout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
-            hmd:hint="@string/txtLoginNameHint"
-            />
+            android:background="@drawable/img_topbar_backdrop" >
 
-        <com.hmd.view.EditTextWithClearView
-            android:id="@+id/passwordText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nameText"
-            android:layout_marginTop="15dip"
-            hmd:hint="@string/txtLoginPasswordHint"
-            hmd:inputType="password"
-             />
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/img_btn_topbar_left_arrow" />
 
-        <com.hmd.view.EditTextWithClearView
-            android:id="@+id/passwordConfirmText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/passwordText"
-            android:layout_marginTop="15dip"
-            hmd:hint="@string/txtRegistrPasswordConfirmHint"
-            hmd:inputType="password"
-            />
-
-        <com.hmd.view.EditTextWithClearView
-            android:id="@+id/et_idcard"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
-            hmd:hint="@string/txtCardNoHint"
-           />
+            <TextView
+                android:id="@+id/titleView"
+                style="@style/white_20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="注 册" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="10"
-            android:gravity="center_vertical" >
+            android:layout_height="fill_parent"
+            android:background="@drawable/img_backdrop"
+            android:orientation="vertical"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip" >
+
+            <com.hmd.view.EditTextWithClearView
+                android:id="@+id/nameText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dip"
+                hmd:hint="@string/txtLoginNameHint" />
+
+            <com.hmd.view.EditTextWithClearView
+                android:id="@+id/passwordText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nameText"
+                android:layout_marginTop="15dip"
+                hmd:hint="@string/txtLoginPasswordHint"
+                hmd:inputType="password" />
+
+            <com.hmd.view.EditTextWithClearView
+                android:id="@+id/passwordConfirmText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/passwordText"
+                android:layout_marginTop="15dip"
+                hmd:hint="@string/txtRegistrPasswordConfirmHint"
+                hmd:inputType="password" />
+
+            <com.hmd.view.EditTextWithClearView
+                android:id="@+id/et_idcard"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dip"
+                hmd:hint="@string/txtCardNoHint" />
 
             <com.hmd.view.EditTextWithClearView
                 android:id="@+id/et_stu_num"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dip"
-                hmd:hint="@string/txtStudentIdHint"
-                android:layout_weight="2"/>
-            
-            <TextView android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="可选"
-                style="@style/black_15"
-                android:layout_weight="8"
-                android:layout_marginLeft="10dip"
-                android:layout_gravity="center_vertical"
-                />
-        </LinearLayout>
+                hmd:hint="学号(选填)" />
 
-        <Button
-            android:id="@+id/completedButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dip"
-            android:background="@drawable/img_orange_button"
-            android:text="确   定"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
+            <Button
+                android:id="@+id/completedButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dip"
+                android:background="@drawable/img_orange_button"
+                android:text="确   定"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

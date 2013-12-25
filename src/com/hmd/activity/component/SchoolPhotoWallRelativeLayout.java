@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.Gallery;
@@ -27,7 +26,6 @@ import android.widget.RelativeLayout;
 import com.hmd.R;
 import com.hmd.activity.BaseActivity;
 import com.hmd.activity.PhotoWallActivity;
-import com.hmd.activity.SchoolExActivity;
 import com.hmd.client.ApplicationEnvironment;
 import com.hmd.util.BitmapUtil;
 
@@ -70,7 +68,9 @@ public class SchoolPhotoWallRelativeLayout extends RelativeLayout {
 
 	private void generateBitmaps() {
 		/**
-		 * int[] ids = { R.drawable.img_splash_1, R.drawable.img_splash_2, R.drawable.img_splash_3, R.drawable.img_splash_4, R.drawable.img_splash_5 };
+		 * int[] ids = { R.drawable.img_splash_1, R.drawable.img_splash_2,
+		 * R.drawable.img_splash_3, R.drawable.img_splash_4,
+		 * R.drawable.img_splash_5 };
 		 * 
 		 * for (int id : ids) { Bitmap bitmap = createReflectedBitmapById(id);
 		 * if (null != bitmap) { BitmapDrawable drawable = new
@@ -79,12 +79,12 @@ public class SchoolPhotoWallRelativeLayout extends RelativeLayout {
 		 **/
 
 		// 无倒影
-		for (int i=1; i<21; i++) {
+		for (int i = 1; i < 21; i++) {
 			mBitmaps.add((BitmapDrawable) getResources().getDrawable(getIconId(i)));
 		}
 
 	}
-	
+
 	private int getIconId(int iconId) {
 		String resourceName = "img_splash_" + iconId;
 		int resourceId = getResources().getIdentifier(resourceName, "drawable", SchoolPhotoWallRelativeLayout.this.context.getPackageName());

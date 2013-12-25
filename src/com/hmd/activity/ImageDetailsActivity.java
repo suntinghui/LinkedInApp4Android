@@ -71,6 +71,7 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 
 		Button btn_download = (Button) this.findViewById(R.id.btn_download);
 		btn_download.setOnClickListener(this);
+		btn_download.setVisibility(View.GONE);
 
 		progress = (ProgressBar) this.findViewById(R.id.progress);
 
@@ -92,7 +93,7 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 			this.finish();
 			break;
 		case R.id.btn_download:
-			dialog = ProgressDialog.show(this, "", "下载数据，请稍等 …", true, true);
+			dialog = ProgressDialog.show(this, "", "下载数据，请稍候...", true, true);
 			// 启动一个后台线程
 			handler.post(new Runnable() {
 				@Override
@@ -160,53 +161,54 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 
 	public void saveMyBitmap(String bitName) throws IOException {
 
-		 try {
+		try {
 
-			 ContentResolver cr = this.getContentResolver();
+			ContentResolver cr = this.getContentResolver();
 
-			 String    url  = MediaStore.Images.Media.insertImage(cr, bitName, "filnale", "");
+			String url = MediaStore.Images.Media.insertImage(cr, bitName, "filnale", "");
 
-			 Toast.makeText(this, "保存成功!", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "保存成功!", Toast.LENGTH_SHORT).show();
 
-			 }catch(Exception e){
+		} catch (Exception e) {
 
-			 e.printStackTrace();
+			e.printStackTrace();
 
-			 }
-		 
-//		
-//		File f = new File(Environment.getExternalStorageDirectory()+ "/LinkedApp/Images/" + bitName + ".png");
-//		if (!f.exists()) {
-//			// file.mkdir();
-//			// creating missing parent directories if necessary
-//			f.mkdirs();
-//		}
-////		f.createNewFile();
-//		FileOutputStream fOut = null;
-//		try {
-//			fOut = new FileOutputStream(f);
-//		} catch (FileNotFoundException e) {
-//
-//			e.printStackTrace();
-//		}
-//
-//		bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-//
-//		try {
-//			fOut.flush();
-//
-//		} catch (IOException e) {
-//
-//			e.printStackTrace();
-//		}
-//
-//		try {
-//			fOut.close();
-//
-//		} catch (IOException e) {
-//
-//			e.printStackTrace();
-//		}
+		}
+
+		//
+		// File f = new File(Environment.getExternalStorageDirectory()+
+		// "/LinkedApp/Images/" + bitName + ".png");
+		// if (!f.exists()) {
+		// // file.mkdir();
+		// // creating missing parent directories if necessary
+		// f.mkdirs();
+		// }
+		// // f.createNewFile();
+		// FileOutputStream fOut = null;
+		// try {
+		// fOut = new FileOutputStream(f);
+		// } catch (FileNotFoundException e) {
+		//
+		// e.printStackTrace();
+		// }
+		//
+		// bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+		//
+		// try {
+		// fOut.flush();
+		//
+		// } catch (IOException e) {
+		//
+		// e.printStackTrace();
+		// }
+		//
+		// try {
+		// fOut.close();
+		//
+		// } catch (IOException e) {
+		//
+		// e.printStackTrace();
+		// }
 
 	}
 
