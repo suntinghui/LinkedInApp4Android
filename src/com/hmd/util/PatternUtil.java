@@ -27,6 +27,13 @@ public class PatternUtil {
 		Matcher mat = pattern.matcher(idNum);
 		return mat.matches();
 	}
+	
+	public static boolean isPhoneNum(String idNum){
+		String regex = "^(1(([35][0-9])|(47)|[8][01236789]))\\d{8}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher mat = pattern.matcher(idNum);
+		return mat.matches();
+	}
 
 
 }

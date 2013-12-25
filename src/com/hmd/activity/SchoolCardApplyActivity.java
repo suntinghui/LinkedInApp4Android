@@ -64,6 +64,9 @@ public class SchoolCardApplyActivity extends AbsSubActivity implements OnClickLi
 		} else if ("".equals(phoneText.getText().toString().trim())) {
 			Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
 			return false;
+		} else if (!PatternUtil.isPhoneNum(phoneText.getText().toString())) {
+			Toast.makeText(this, "手机号格式不正确", Toast.LENGTH_SHORT).show();
+			return false;
 		}
 
 		return true;
