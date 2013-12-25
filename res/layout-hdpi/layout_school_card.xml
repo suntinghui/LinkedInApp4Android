@@ -48,12 +48,13 @@
             android:layout_height="130dip"
             android:layout_weight="1"
             android:focusable="false"
+            android:layout_marginRight="5dip"
             android:src="@drawable/img_school_card_front" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="130dip"
-            android:layout_marginLeft="10dip"
+            android:layout_marginLeft="5dip"
             android:layout_weight="1"
             android:focusable="false"
             android:src="@drawable/img_school_card_back" />
