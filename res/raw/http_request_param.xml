@@ -427,4 +427,12 @@
         <method>GET</method>
         <contentType>application/json</contentType>
     </request>
+    
+    <!--根据ID获取照片详情-->
+    <request>
+        <requestId>GALARY_DETAIL</requestId>
+        <url>/galary/${id}/detail</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
 </root>

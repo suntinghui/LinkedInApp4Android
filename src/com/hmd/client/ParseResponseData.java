@@ -167,6 +167,9 @@ public class ParseResponseData {
 		}else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GALARY_LIST)) {
 			return getGalaryList(jsonObject);
 
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GALARY_DETAIL)) {
+			return getGalaryDetail(jsonObject);
+
 		}
 		
 		return null;
@@ -840,6 +843,14 @@ public class ParseResponseData {
 		}
 		
 		map.put("list", mediaList);
+
+		return map;
+	}
+	
+	private static Object getGalaryDetail(JSONObject jsonObject) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("time", jsonObject.optString("time"));
+		map.put("pic", jsonObject.optString("pic"));
 
 		return map;
 	}
