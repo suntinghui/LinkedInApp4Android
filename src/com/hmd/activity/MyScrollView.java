@@ -166,7 +166,6 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 	public MyScrollView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		imageLoader = ImageLoader.getInstance();
-		refreshImage();
 		taskCollection = new HashSet<LoadImageTask>();
 		setOnTouchListener(this);
 	}
@@ -189,6 +188,59 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 		}
 	}
 
+	private void refreshImage(){	
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("page", "1");
+		paramMap.put("num", "50");
+		
+		LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_GALARY_LIST, paramMap, getImagesHandler());
+		
+		new LKHttpRequestQueue().addHttpRequest(req1)
+		.executeQueue("正在获取图片请稍候...", new LKHttpRequestQueueDone(){
+
+			@Override
+			public void onComplete() {
+				super.onComplete();
+			}
+		});	
+	}
+	
+	private LKAsyncHttpResponseHandler getImagesHandler(){
+		 return new LKAsyncHttpResponseHandler(){
+			@Override
+			public void successAction(Object obj) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, Object> respMap = (HashMap<String, Object>) obj;
+				
+				int returnCode = (Integer) respMap.get("rc");
+				if (returnCode == LoginCode.SUCCESS){
+					imageModelList = (ArrayList<ImageModel>)(respMap.get("list"));
+					
+					if (hasSDCard()) {
+						int startIndex = page * PAGE_SIZE;
+						int endIndex = page * PAGE_SIZE + PAGE_SIZE;
+						if (startIndex < imageModelList.size()) {
+							Toast.makeText(getContext(), "正在加载...", Toast.LENGTH_SHORT).show();
+							if (endIndex > imageModelList.size()) {
+								endIndex = imageModelList.size();
+							}
+							for (int i = startIndex; i < endIndex; i++) {
+								LoadImageTask task = new LoadImageTask();
+								taskCollection.add(task);
+								task.execute(((ImageModel)imageModelList.get(i)).getThumbnail());
+							}
+							page++;
+						} else {
+							Toast.makeText(getContext(), "已没有更多图片", Toast.LENGTH_SHORT).show();
+						}
+					} else {
+						Toast.makeText(getContext(), "未发现SD卡", Toast.LENGTH_SHORT).show();
+					}
+				}
+				}
+			 
+		 };
+	}
 	/**
 	 * 监听用户的触屏事件，如果用户手指离开屏幕则开始进行滚动检测。
 	 */
@@ -206,26 +258,8 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 	 * 开始加载下一页的图片，每张图片都会开启一个异步线程去下载。
 	 */
 	public void loadMoreImages() {
-		if (hasSDCard()) {
-			int startIndex = page * PAGE_SIZE;
-			int endIndex = page * PAGE_SIZE + PAGE_SIZE;
-			if (startIndex < Images.imageUrls.length) {
-				Toast.makeText(getContext(), "正在加载...", Toast.LENGTH_SHORT).show();
-				if (endIndex > Images.imageUrls.length) {
-					endIndex = Images.imageUrls.length;
-				}
-				for (int i = startIndex; i < endIndex; i++) {
-					LoadImageTask task = new LoadImageTask();
-					taskCollection.add(task);
-					task.execute(Images.imageUrls[i]);
-				}
-				page++;
-			} else {
-				Toast.makeText(getContext(), "已没有更多图片", Toast.LENGTH_SHORT).show();
-			}
-		} else {
-			Toast.makeText(getContext(), "未发现SD卡", Toast.LENGTH_SHORT).show();
-		}
+		refreshImage();
+		
 	}
 
 	/**
@@ -473,40 +507,6 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 			return imagePath;
 		}
 		
-		
-	private void refreshImage(){	
-		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("page", "1");
-		paramMap.put("num", "50");
-		
-		LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_GALARY_LIST, paramMap, getImagesHandler());
-		
-		new LKHttpRequestQueue().addHttpRequest(req1)
-		.executeQueue("正在获取图片请稍候...", new LKHttpRequestQueueDone(){
-
-			@Override
-			public void onComplete() {
-				super.onComplete();
-			}
-		});	
-	}
-	
-	private LKAsyncHttpResponseHandler getImagesHandler(){
-		 return new LKAsyncHttpResponseHandler(){
-			@Override
-			public void successAction(Object obj) {
-				@SuppressWarnings("unchecked")
-				HashMap<String, Object> respMap = (HashMap<String, Object>) obj;
-				
-				int returnCode = Integer.parseInt((String) respMap.get("rc"));
-				if (returnCode == LoginCode.SUCCESS){
-					imageModelList = (ArrayList<ImageModel>)(respMap.get("list"));
-
-				}
-				}
-			 
-		 };
-	}
 	}
 
 }
