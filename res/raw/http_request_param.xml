@@ -419,4 +419,12 @@
         <method>GET</method>
         <contentType>application/json</contentType>
     </request>
+    
+    <!--获取照片列表-->
+    <request>
+        <requestId>GALARY_LIST</requestId>
+        <url>/galary/list</url>
+        <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
 </root>

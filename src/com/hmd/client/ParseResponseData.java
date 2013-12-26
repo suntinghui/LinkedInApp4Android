@@ -14,6 +14,7 @@ import com.hmd.model.AnnouncementModel;
 import com.hmd.model.CommentModel;
 import com.hmd.model.DeptModel;
 import com.hmd.model.GroupModel;
+import com.hmd.model.ImageModel;
 import com.hmd.model.IndustryModel;
 import com.hmd.model.MajorModel;
 import com.hmd.model.MediaModel;
@@ -78,7 +79,7 @@ public class ParseResponseData {
 
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_FEEDBACK_APPLY)) {
 			return collegeFeedbackApply(jsonObject);
-
+			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_TIMELINE_LIST)) {
 			return getTimelineList(jsonObject);
 
@@ -162,6 +163,9 @@ public class ParseResponseData {
 
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_CONFIG_INDUSTRY_LIST)) {
 			return getConfigIndustryList(jsonObject);
+
+		}else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GALARY_LIST)) {
+			return getGalaryList(jsonObject);
 
 		}
 		
@@ -929,6 +933,37 @@ public class ParseResponseData {
 
 		return map;
 	}
+	
+	private static Object getGalaryList(JSONObject jsonObject) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
+		map.put("total", jsonObject.optString("total", "0"));
+
+		JSONArray jsonArray = jsonObject.optJSONArray("list");
+		ArrayList<ImageModel> list = new ArrayList<ImageModel>();
+		if (jsonArray != null && jsonArray.length() > 0) {
+			for (int i = 0; i < jsonArray.length(); i++) {
+				ImageModel model = new ImageModel();
+
+				JSONObject deptObj = (JSONObject) jsonArray.opt(i);
+				model.setId(deptObj.optString("id", ""));
+				model.setTitle(deptObj.optString("title", ""));
+				model.setTime(deptObj.optString("time", ""));
+				model.setAuthor(deptObj.optString("author", ""));
+				model.setThumbnail(deptObj.optString("thumbnail", ""));
+				
+				list.add(model);
+				
+				
+			}
+
+		}
+		
+		map.put("list", list);
+
+		return map;
+	}
+	
 	private static Object getConfigDeptList(JSONObject jsonObject) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
