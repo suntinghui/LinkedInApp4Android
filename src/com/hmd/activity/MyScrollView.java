@@ -8,11 +8,20 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import com.hmd.R;
+import com.hmd.client.Constants;
+import com.hmd.client.HttpRequestType;
+import com.hmd.enums.LoginCode;
+import com.hmd.model.ImageModel;
+import com.hmd.network.LKAsyncHttpResponseHandler;
+import com.hmd.network.LKHttpRequest;
+import com.hmd.network.LKHttpRequestQueue;
+import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.FileUtil;
 
 import android.content.Context;
@@ -119,6 +128,8 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 	 * 记录所有界面上的图片，用以可以随时控制对图片的释放。
 	 */
 	private List<ImageView> imageViewList = new ArrayList<ImageView>();
+	
+	private ArrayList<ImageModel> imageModelList = null;
 
 	/**
 	 * 在Handler中进行图片可见性检查的判断，以及加载更多图片的操作。
@@ -155,6 +166,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 	public MyScrollView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		imageLoader = ImageLoader.getInstance();
+		refreshImage();
 		taskCollection = new HashSet<LoadImageTask>();
 		setOnTouchListener(this);
 	}
@@ -460,6 +472,41 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 			String imagePath = imageDir + imageName;
 			return imagePath;
 		}
+		
+		
+	private void refreshImage(){	
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("page", "1");
+		paramMap.put("num", "50");
+		
+		LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_GALARY_LIST, paramMap, getImagesHandler());
+		
+		new LKHttpRequestQueue().addHttpRequest(req1)
+		.executeQueue("正在获取图片请稍候...", new LKHttpRequestQueueDone(){
+
+			@Override
+			public void onComplete() {
+				super.onComplete();
+			}
+		});	
+	}
+	
+	private LKAsyncHttpResponseHandler getImagesHandler(){
+		 return new LKAsyncHttpResponseHandler(){
+			@Override
+			public void successAction(Object obj) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, Object> respMap = (HashMap<String, Object>) obj;
+				
+				int returnCode = Integer.parseInt((String) respMap.get("rc"));
+				if (returnCode == LoginCode.SUCCESS){
+					imageModelList = (ArrayList<ImageModel>)(respMap.get("list"));
+
+				}
+				}
+			 
+		 };
+	}
 	}
 
 }
