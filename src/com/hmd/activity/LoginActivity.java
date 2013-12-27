@@ -3,12 +3,14 @@ package com.hmd.activity;
 import java.util.HashMap;
 
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.hmd.R;
+import com.hmd.client.ApplicationEnvironment;
 import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
 import com.hmd.enums.LoginCode;
@@ -47,7 +49,7 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		passwordView = (EditTextWithClearView) this.findViewById(R.id.passwordText);
 		passwordView.setText("123");
 		
-		nameView.setText("");
+		nameView.setText(ApplicationEnvironment.getInstance().getPreferences().getString(Constants.kUSERNAME, ""));
 		passwordView.setText("");
 	}
 	
@@ -73,6 +75,10 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("name", nameView.getText());
 		paramMap.put("password", passwordView.getText());
+		
+		Editor editor = ApplicationEnvironment.getInstance().getPreferences().edit();
+		editor.putString(Constants.kUSERNAME, nameView.getText());
+		editor.commit();
 		
 		LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_LOGIN, paramMap, getLoginHandler());
 		
