@@ -15,9 +15,11 @@ import java.util.Set;
 
 import com.hmd.R;
 import com.hmd.client.Constants;
+import com.hmd.client.DownloadFileRequest;
 import com.hmd.client.HttpRequestType;
 import com.hmd.enums.LoginCode;
 import com.hmd.model.ImageModel;
+import com.hmd.model.MediaModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
@@ -130,6 +132,8 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 	private List<ImageView> imageViewList = new ArrayList<ImageView>();
 	
 	private ArrayList<ImageModel> imageModelList = null;
+	
+	private static int imagePage = 1;
 
 	/**
 	 * 在Handler中进行图片可见性检查的判断，以及加载更多图片的操作。
@@ -188,9 +192,33 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 		}
 	}
 
+	private void getImageDetail(String id) {
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getImageDetailRequest(id));
+		queue.executeQueue("正在获取图片请稍候...", new LKHttpRequestQueueDone());
+	}
+
+	private LKHttpRequest getImageDetailRequest(String id) {
+		return new LKHttpRequest(HttpRequestType.HTTP_GALARY_DETAIL, null, new LKAsyncHttpResponseHandler() {
+
+			@Override
+			public void successAction(Object obj) {
+				String url = ((HashMap<String, String>)obj).get("id");
+				String time = ((HashMap<String, String>)obj).get("time");
+				DownloadFileRequest fileRequest = new DownloadFileRequest();
+				fileRequest.download(BaseActivity.getTopActivity(), url, time);
+//				Intent intent = new Intent(getContext(), ImageDetailsActivity.class);
+//				intent.putExtra("image_path", getImagePath(mImageUrl));
+//				getContext().startActivity(intent);
+			
+			}
+		}, id) {
+
+		};
+	}
 	private void refreshImage(){	
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("page", "1");
+		paramMap.put("page", imagePage++);
 		paramMap.put("num", "50");
 		
 		LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_GALARY_LIST, paramMap, getImagesHandler());
@@ -389,9 +417,13 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 				imageView.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						Intent intent = new Intent(getContext(), ImageDetailsActivity.class);
-						intent.putExtra("image_path", getImagePath(mImageUrl));
-						getContext().startActivity(intent);
+						for(int i = 0; i<imageModelList.size(); i++){
+							ImageModel model = imageModelList.get(i);
+							if(model.getThumbnail().equals(mImageUrl)){
+								getImageDetail(model.getId());
+							}
+						}
+						
 					}
 				});
 				findColumnToAdd(imageView, imageHeight).addView(imageView);
