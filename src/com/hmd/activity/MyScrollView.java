@@ -133,6 +133,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 	
 	private ArrayList<ImageModel> imageModelList = null;
 	
+	
 	private static int imagePage = 1;
 
 	/**
@@ -205,11 +206,17 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 			public void successAction(Object obj) {
 				String url = ((HashMap<String, String>)obj).get("id");
 				String time = ((HashMap<String, String>)obj).get("time");
-				DownloadFileRequest fileRequest = new DownloadFileRequest();
-				fileRequest.download(BaseActivity.getTopActivity(), url, time);
-//				Intent intent = new Intent(getContext(), ImageDetailsActivity.class);
+				String pic = ((HashMap<String, String>)obj).get("pic");
+				String thumbnail = ((HashMap<String, String>)obj).get("thumbnail");
+				
+//				DownloadFileRequest fileRequest = new DownloadFileRequest();
+//				fileRequest.download(BaseActivity.getTopActivity(), url, time);
+				Log.i("url:", "-------");
+				Intent intent = new Intent(getContext(), ImageDetailsActivity.class);
 //				intent.putExtra("image_path", getImagePath(mImageUrl));
-//				getContext().startActivity(intent);
+				intent.putExtra("pic", pic);
+				intent.putExtra("thumbnail", thumbnail);
+				getContext().startActivity(intent);
 			
 			}
 		}, id) {
@@ -243,7 +250,9 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 				int returnCode = (Integer) respMap.get("rc");
 				if (returnCode == LoginCode.SUCCESS){
 					imageModelList = (ArrayList<ImageModel>)(respMap.get("list"));
-					
+					if(imageModelList.size() == 0){
+						imagePage = 1;
+					}
 					if (hasSDCard()) {
 						int startIndex = page * PAGE_SIZE;
 						int endIndex = page * PAGE_SIZE + PAGE_SIZE;
@@ -329,6 +338,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 	 */
 	class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
 
+		
 		/**
 		 * 图片的URL地址
 		 */
@@ -338,7 +348,6 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 		 * 可重复使用的ImageView
 		 */
 		private ImageView mImageView;
-
 		public LoadImageTask() {
 		}
 
@@ -370,7 +379,6 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 			}
 			taskCollection.remove(this);
 		}
-
 		/**
 		 * 根据传入的URL，对图片进行加载。如果这张图片已经存在于SD卡中，则直接从SD卡里读取，否则就从网络上下载。
 		 * 
@@ -420,6 +428,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 						for(int i = 0; i<imageModelList.size(); i++){
 							ImageModel model = imageModelList.get(i);
 							if(model.getThumbnail().equals(mImageUrl)){
+								Log.i("image id:", model.getId());
 								getImageDetail(model.getId());
 							}
 						}
@@ -538,7 +547,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 			String imagePath = imageDir + imageName;
 			return imagePath;
 		}
+}
 		
-	}
 
 }

@@ -1,17 +1,14 @@
 package com.hmd.activity;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import com.hmd.R;
-import com.hmd.client.DownloadFileRequest;
-import com.hmd.view.ZoomImageView;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -24,16 +21,16 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.hmd.R;
+import com.hmd.util.FileUtil;
+import com.hmd.view.ZoomImageView;
 
 /**
  * 查看大图的Activity界面。
@@ -53,6 +50,9 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 	private ProgressBar progress;
 	private ProgressDialog dialog = null;
 	private Bitmap bitmap = null;
+	private ImageLoader imageLoader;
+	private String imagePath;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,10 +62,10 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 		zoomImageView = (ZoomImageView) findViewById(R.id.zoom_image_view);
 		// 取出图片路径，并解析成Bitmap对象，然后在ZoomImageView中显示
 		zoomImageView.content = this;
-		String imagePath = getIntent().getStringExtra("image_path");
-		bitmap = BitmapFactory.decodeFile(imagePath);
-		zoomImageView.setImageBitmap(bitmap);
-
+		imagePath = getIntent().getStringExtra("pic");
+		
+		downloadImage(imagePath);
+		
 		Button btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 
@@ -175,41 +175,103 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 
 		}
 
-		//
-		// File f = new File(Environment.getExternalStorageDirectory()+
-		// "/LinkedApp/Images/" + bitName + ".png");
-		// if (!f.exists()) {
-		// // file.mkdir();
-		// // creating missing parent directories if necessary
-		// f.mkdirs();
-		// }
-		// // f.createNewFile();
-		// FileOutputStream fOut = null;
-		// try {
-		// fOut = new FileOutputStream(f);
-		// } catch (FileNotFoundException e) {
-		//
-		// e.printStackTrace();
-		// }
-		//
-		// bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
-		//
-		// try {
-		// fOut.flush();
-		//
-		// } catch (IOException e) {
-		//
-		// e.printStackTrace();
-		// }
-		//
-		// try {
-		// fOut.close();
-		//
-		// } catch (IOException e) {
-		//
-		// e.printStackTrace();
-		// }
 
+	}
+	
+	/**
+	 * 将图片下载到SD卡缓存起来。
+	 * 
+	 * @param imageUrl
+	 *            图片的URL地址。
+	 */
+	private void downloadImage(String imageUrl) {
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+			Log.d("TAG", "monted sdcard");
+		} else {
+			Log.d("TAG", "has no sdcard");
+		}
+		HttpURLConnection con = null;
+		FileOutputStream fos = null;
+		BufferedOutputStream bos = null;
+		BufferedInputStream bis = null;
+		File imageFile = null;
+		try {
+			URL url = new URL(imageUrl);
+			con = (HttpURLConnection) url.openConnection();
+			con.setConnectTimeout(5 * 1000);
+			con.setReadTimeout(15 * 1000);
+			con.setDoInput(true);
+			con.setDoOutput(true);
+			bis = new BufferedInputStream(con.getInputStream());
+			imageFile = new File(getImagePath(imageUrl));
+			fos = new FileOutputStream(imageFile);
+			bos = new BufferedOutputStream(fos);
+			byte[] b = new byte[1024];
+			int length;
+			while ((length = bis.read(b)) != -1) {
+				bos.write(b, 0, length);
+				bos.flush();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (bis != null) {
+					bis.close();
+				}
+				if (bos != null) {
+					bos.close();
+				}
+				if (con != null) {
+					con.disconnect();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if (imageFile != null) {
+				Bitmap imageBitmap = null;
+				if (imageBitmap == null) {
+					imageBitmap = loadImage(imagePath);
+				}
+				zoomImageView.setImageBitmap(imageBitmap);
+		}
+	}
+
+	/**
+	 * 根据传入的URL，对图片进行加载。如果这张图片已经存在于SD卡中，则直接从SD卡里读取，否则就从网络上下载。
+	 * 
+	 * @param imageUrl
+	 *            图片的URL地址
+	 * @return 加载到内存的图片。
+	 */
+	private Bitmap loadImage(String imageUrl) {
+		File imageFile = new File(getImagePath(imageUrl));
+		if (!imageFile.exists()) {
+			downloadImage(imageUrl);
+		}
+		if (imageUrl != null) {
+			Bitmap bitmap = ImageLoader.decodeSampledBitmapFromResource(imageFile.getPath(), 320);
+			if (bitmap != null) {
+				return bitmap;
+			}
+		}
+		return null;
+	}
+	/**
+	 * 获取图片的本地存储路径。
+	 * 
+	 * @param imageUrl
+	 *            图片的URL地址。
+	 * @return 图片的本地存储路径。
+	 */
+	private String getImagePath(String imageUrl) {
+		int lastSlashIndex = imageUrl.lastIndexOf("/");
+		String imageName = imageUrl.substring(lastSlashIndex + 1)+".jpg";
+		String imageDir = FileUtil.getDownloadPath();
+		
+		String imagePath = imageDir + imageName;
+		return imagePath;
 	}
 
 }

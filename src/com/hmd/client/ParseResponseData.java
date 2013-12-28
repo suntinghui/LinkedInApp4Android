@@ -851,6 +851,7 @@ public class ParseResponseData {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("time", jsonObject.optString("time"));
 		map.put("pic", jsonObject.optString("pic"));
+		map.put("thumbnail", jsonObject.optString("thumbnail"));
 
 		return map;
 	}

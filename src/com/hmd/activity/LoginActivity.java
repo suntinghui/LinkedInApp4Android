@@ -47,8 +47,8 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		passwordView = (EditTextWithClearView) this.findViewById(R.id.passwordText);
 		passwordView.setText("123");
 		
-		nameView.setText("");
-		passwordView.setText("");
+//		nameView.setText("");
+//		passwordView.setText("");
 	}
 	
 	@Override

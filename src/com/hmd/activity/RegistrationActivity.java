@@ -105,25 +105,26 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 				if (returnCode == RegistrationCode.SUCCESS){
 					
 					Constants.SESSION_ID = respMap.get("sid");
+					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "注册成功");
 					
-					LKAlertDialog dialog = new LKAlertDialog(RegistrationActivity.this);
-					dialog.setTitle("提示");
-					dialog.setMessage("注册成功");
-					dialog.setCancelable(false);
-					dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-						@Override
-						public void onClick(DialogInterface arg0, int arg1) {
-							arg0.dismiss();
-							
-							Intent intent = new Intent(RegistrationActivity.this, SubmitProfileActivity.class);
-							RegistrationActivity.this.startActivity(intent);
-							
-							RegistrationActivity.this.finish();
-						}
-					});
-					
-					dialog.create().show();
+//					LKAlertDialog dialog = new LKAlertDialog(RegistrationActivity.this);
+//					dialog.setTitle("提示");
+//					dialog.setMessage("注册成功");
+//					dialog.setCancelable(false);
+//					dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//
+//						@Override
+//						public void onClick(DialogInterface arg0, int arg1) {
+//							arg0.dismiss();
+//							
+//							Intent intent = new Intent(RegistrationActivity.this, SubmitProfileActivity.class);
+//							RegistrationActivity.this.startActivity(intent);
+//							
+//							RegistrationActivity.this.finish();
+//						}
+//					});
+//					
+//					dialog.create().show();
 
 				} else if (returnCode == 0) {
 					RegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "失败，原因未知");
