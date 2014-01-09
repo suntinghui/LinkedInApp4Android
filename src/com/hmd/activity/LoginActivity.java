@@ -45,10 +45,12 @@ public class LoginActivity extends BaseActivity implements OnClickListener {
 		completedButton.setOnClickListener(this);
 		
 		nameView = (EditTextWithClearView) this.findViewById(R.id.nameText);
-		nameView.setText("20131014001@qq.com");
+//		nameView.setText("20131014001@qq.com");
 		passwordView = (EditTextWithClearView) this.findViewById(R.id.passwordText);
-		passwordView.setText("123");
+//		passwordView.setText("123");
 		
+		nameView.setText("");
+		passwordView.setText("");
 		nameView.setText(ApplicationEnvironment.getInstance().getPreferences().getString(Constants.kUSERNAME, ""));
 		passwordView.setText("");
 	}
