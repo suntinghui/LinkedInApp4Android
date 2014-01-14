@@ -43,7 +43,8 @@
                 android:id="@+id/linearlayout_images_slide"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:orientation="vertical" >
+                android:orientation="vertical" 
+                >
 
                 <RelativeLayout
                     android:id="@+id/relativelayout_image_slide"
@@ -98,6 +99,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_middle"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:orientation="vertical" >
