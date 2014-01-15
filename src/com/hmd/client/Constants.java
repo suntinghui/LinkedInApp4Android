@@ -3,7 +3,8 @@ package com.hmd.client;
 public class Constants {
 	
 	public static final String HOSTNAME 						= "http://xy.cnu.edu.cn/service";
-
+//	public static final String HOSTNAME 						= "http://115.47.56.228:8080/alumni/service";
+	
 	// 公共参数
 	public static final	String VERSION 							= "1";
 	public static final String CLIENT_ID						= "2"; //1、网站 2、Android 3、IOS 

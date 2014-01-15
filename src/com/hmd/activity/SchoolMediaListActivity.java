@@ -19,6 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -50,6 +51,8 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 
 	// 布局设置类
 	private SlideImageLayout mSlideLayout = null;
+	private LinearLayout linearlayout_images_slide = null;
+	private LinearLayout layout_middle = null;
 
 	private ListView mediaListView = null;
 	private MediaAdapter mediaAdapter = null;
@@ -93,6 +96,8 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 		mMainView = (ViewGroup) inflater.inflate(R.layout.activity_topic_news, null);
 		mViewPager = (ViewPager) mMainView.findViewById(R.id.image_slide_page);
 
+		linearlayout_images_slide = (LinearLayout)mMainView.findViewById(R.id.linearlayout_images_slide);
+		layout_middle = (LinearLayout)mMainView.findViewById(R.id.layout_middle);
 		titleView = (TextView) mMainView.findViewById(R.id.titleView);
 		titleView.setText("信息列表");
 
@@ -113,9 +118,15 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 
 		// 设置默认的滑动标题
 		mSlideTitle = (TextView) mMainView.findViewById(R.id.tvSlideTitle);
-		mSlideTitle.setText(this.slideTitles.get(0));
+		if (this.slideTitles.size() != 0) {
+			mSlideTitle.setText(this.slideTitles.get(0));	
+		}
 		mSlideTitle.setSingleLine(true);
 
+		if (topMediaList.size() == 0) {
+			layout_middle.setVisibility(View.GONE);
+			linearlayout_images_slide.setVisibility(View.GONE);
+		}
 		setContentView(mMainView);
 
 		// 设置ViewPager
