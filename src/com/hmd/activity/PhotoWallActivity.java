@@ -31,6 +31,10 @@ public class PhotoWallActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
+	
+	public void backAction(){
+		this.finish();
+	}
 
 
 }

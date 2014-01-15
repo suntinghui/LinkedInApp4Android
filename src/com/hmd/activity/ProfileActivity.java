@@ -230,7 +230,7 @@ public class ProfileActivity extends AbsSubActivity {
 		BaseActivity.getTopActivity().startActivity(intent);
 		*/
 	}
-
+	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == 5) {

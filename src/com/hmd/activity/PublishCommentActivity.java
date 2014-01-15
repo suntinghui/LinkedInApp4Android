@@ -1,6 +1,5 @@
 package com.hmd.activity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Intent;
@@ -11,9 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.hmd.R;
-import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
-import com.hmd.model.GroupModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
