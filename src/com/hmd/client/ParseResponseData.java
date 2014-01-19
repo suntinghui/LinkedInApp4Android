@@ -225,6 +225,13 @@ public class ParseResponseData {
 				model.setAdYear(jsonObject.optString("adYear", ""));
 				model.setPic(jsonObject.optString("pic", ""));
 				model.setType(jsonObject.optInt("type", 1));
+				model.setClassName(jsonObject.optString("clazz",""));
+				model.setDeptId(jsonObject.optString("deptId",""));
+				model.setMajorId(jsonObject.optString("majorId",""));
+				
+				model.setOrg1Id(jsonObject.optString("org2Id"));
+				model.setOrg2Id(jsonObject.optString("org2Id",""));
+				model.setEmpNo(jsonObject.optString("empNo",""));
 				model.setEmail(jsonObject.optString("email", ""));
 				model.setDeptId(jsonObject.optString("deptId", ""));
 				model.setQq(jsonObject.optString("qq", ""));

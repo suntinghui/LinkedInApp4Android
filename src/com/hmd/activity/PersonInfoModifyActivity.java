@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -16,20 +17,34 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.util.Base64;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 
 import com.hmd.R;
+import com.hmd.activity.ImproveRegistrationActivity.AdYearAdapter;
+import com.hmd.activity.ImproveRegistrationActivity.DeptAdapter;
+import com.hmd.activity.ImproveRegistrationActivity.MajorAdapter;
+import com.hmd.activity.ImproveRegistrationActivity.OrgOneAdapter;
+import com.hmd.activity.ImproveRegistrationActivity.OrgTwoAdapter;
 import com.hmd.client.HttpRequestType;
+import com.hmd.enums.LoginCode;
+import com.hmd.model.DeptModel;
+import com.hmd.model.MajorModel;
+import com.hmd.model.OrgOneModel;
+import com.hmd.model.OrgTwoModel;
 import com.hmd.model.ProfileModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
@@ -37,9 +52,10 @@ import com.hmd.network.LKHttpRequestQueue;
 import com.hmd.network.LKHttpRequestQueueDone;
 import com.hmd.util.DateUtil;
 import com.hmd.util.ImageUtil;
+import com.hmd.view.LKAlertDialog;
 
-public class PersonInfoModifyActivity extends AbsSubActivity {
-
+public class PersonInfoModifyActivity extends AbsSubActivity implements OnClickListener {
+	private String type = "1";// 1 学生 2 教工
 	private ProfileModel model = null;
 	private final String IMAGE_TYPE = "image/*";
 	private final int IMAGE_CODE = 0; // 这里的IMAGE_CODE是自己任意定义的
@@ -55,15 +71,42 @@ public class PersonInfoModifyActivity extends AbsSubActivity {
 	private RadioGroup radioGroup = null;
 	private RadioButton radioMale = null;
 	private RadioButton radioFemale = null;
-	private EditText et_major = null;
-	private Spinner adYearSpinner = null;
-	private Spinner gradYearSpinner = null;
+	private Spinner idCardSpinner = null;
 
+	private int gender = 1;// 0: 女 1: 男
+	private int idCard_select = 0; // 0:学生 1: 教工
+	// 学生
+	private LinearLayout layout_stu = null;
+	private Spinner deptSpinner = null;
+	private Spinner majorSpinner = null;
+	private EditText et_class = null;
+	private Spinner adYearSpinner = null;
+
+	private List<DeptModel> deptModelList = new ArrayList<DeptModel>();
+	private ArrayList<MajorModel> majorModelList = new ArrayList<MajorModel>();
+	private DeptModel current_dept = null;
+	private MajorModel current_major = null;
+	private String current_year = null;
+
+	// 教工
+	private LinearLayout layout_teach = null;
+	private Spinner org1Spinner = null;
+	private Spinner org2Spinner = null;
+	private EditText et_empno = null;
+
+	private List<OrgOneModel> orgOneModelList = new ArrayList<OrgOneModel>();
+	private ArrayList<OrgTwoModel> orgTwoList = new ArrayList<OrgTwoModel>();
+	private OrgOneModel current_org1 = null;
+	private OrgTwoModel current_org2 = null;
+
+	// 可选信息
+	private EditText et_mobile = null;
+	private EditText et_email = null;
+	private EditText et_qq = null;
+
+	private ArrayList<String> idCardList = new ArrayList<String>();
 	private ArrayList<String> adYearKeyList = new ArrayList<String>();
 	private ArrayList<String> adYearValueList = new ArrayList<String>();
-
-	private ArrayList<String> gradYearKeyList = new ArrayList<String>();
-	private ArrayList<String> gradYearValueList = new ArrayList<String>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +115,14 @@ public class PersonInfoModifyActivity extends AbsSubActivity {
 		setContentView(R.layout.activity_personinfomodify);
 
 		this.init();
-		// refreshPersonInfoAll();
 	}
 
 	private void init() {
 
+		// 填充值
+		Intent intent = this.getIntent();
+		model = (ProfileModel) intent.getSerializableExtra("MODEL");
+		type = model.getType()+"";
 		btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(listener);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
@@ -87,8 +133,16 @@ public class PersonInfoModifyActivity extends AbsSubActivity {
 		btn_pick.setOnClickListener(listener);
 		et_name = (EditText) this.findViewById(R.id.et_name);
 
-		et_major = (EditText) this.findViewById(R.id.et_major);
+		et_mobile = (EditText) this.findViewById(R.id.et_mobile);
+		et_mobile.setInputType(InputType.TYPE_CLASS_NUMBER);
+		et_email = (EditText) this.findViewById(R.id.et_email);
+		et_email.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+		et_qq = (EditText) this.findViewById(R.id.et_qq);
 
+		et_mobile.setText(model.getMobile() != null ? model.getMobile():"");
+		et_email.setText(model.getEmail() != null ? model.getEmail():"");
+		et_qq.setText(model.getQq() != null ? model.getQq():"");
+		
 		radioGroup = (RadioGroup) this.findViewById(R.id.radioGroup);
 		radioMale = (RadioButton) this.findViewById(R.id.radioMale);
 		radioFemale = (RadioButton) this.findViewById(R.id.radioFemale);
@@ -102,101 +156,137 @@ public class PersonInfoModifyActivity extends AbsSubActivity {
 				RadioButton rb = (RadioButton) PersonInfoModifyActivity.this.findViewById(radioButtonId);
 				String text = rb.getText().toString();
 				if (text.equals("男")) {
-					model.setGender(1);
+					gender = 1;
 				} else {
-					model.setGender(0);
+					gender = 0;
 				}
 			}
 		});
-
-		adYearSpinner = (Spinner) this.findViewById(R.id.adYearSpinner);
-		gradYearSpinner = (Spinner) this.findViewById(R.id.gradYearSpinner);
-
-		this.preparData();
-
-		ArrayAdapter<String> adYearAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, adYearValueList);
-		adYearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		adYearSpinner.setAdapter(adYearAdapter);
-		adYearSpinner.setPrompt("入学年份");
-		adYearSpinner.setSelection(adYearValueList.size() - 1);
-
-		ArrayAdapter<String> gradYearAdapter = new ArrayAdapter<String>(this, R.layout.myspinner, gradYearValueList);
-		gradYearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		gradYearSpinner.setAdapter(gradYearAdapter);
-		gradYearSpinner.setPrompt("毕业年份");
-		gradYearSpinner.setSelection(gradYearValueList.size() - 1);
-
-		// 填充值
-		Intent intent = this.getIntent();
-		model = (ProfileModel) intent.getSerializableExtra("MODEL");
-		ImageUtil.loadImage(R.drawable.img_card_head_portrait_small, model.getPic(), image_head);
-		et_name.setText(model.getName());
-		et_major.setText(model.getMajorId());
 
 		if (model.getGender() == 0) {
 			radioFemale.setChecked(true);
 		} else {
 			radioMale.setChecked(true);
 		}
-		int currentYear = Integer.parseInt(DateUtil.getCurrentYear()) + 1;
-		int adYear = adYearValueList.size() - (currentYear - Integer.valueOf(model.getAdYear()));
-		int gradYear = 0;
-//		if (model.getGradYear().equals("未知")) {
-//			gradYear = currentYear - 1949;
-//		} else {
-//			gradYear = gradYearValueList.size() - (currentYear - Integer.valueOf(model.getGradYear())) - 1;
-//		}
-		adYearSpinner.setSelection(adYear);
-		gradYearSpinner.setSelection(gradYear);
+		ImageUtil.loadImage(R.drawable.img_card_head_portrait_small, model.getPic(), image_head);
+		et_name.setText(model.getName());
+		if (model.getGender() == 0) {
+			radioFemale.setChecked(true);
+		} else {
+			radioMale.setChecked(true);
+		}
+
+		this.preparData();
+
+		idCardSpinner = (Spinner) this.findViewById(R.id.idCardTypeSpinner);
+		ArrayAdapter<String> idCardAdapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_item, idCardList);
+		idCardAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		idCardSpinner.setAdapter(idCardAdapter);
+		idCardSpinner.setPrompt("身份类型");
+		idCardSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				idCard_select = arg2;
+				switch (arg2) {
+				case 0:
+					type = "1";
+					layout_stu.setVisibility(View.VISIBLE);
+					layout_teach.setVisibility(View.GONE);
+					refreshConfigDeptist();
+					break;
+				case 1:
+					type = "2";
+					layout_stu.setVisibility(View.GONE);
+					layout_teach.setVisibility(View.VISIBLE);
+					refreshConfigOrgList();
+					break;
+				default:
+					break;
+				}
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+
+			}
+
+		});
+
+		// 学生
+		layout_stu = (LinearLayout) this.findViewById(R.id.layout_stu);
+		adYearSpinner = (Spinner) this.findViewById(R.id.adYearSpinner);
+		deptSpinner = (Spinner) this.findViewById(R.id.deptSpinner);
+		majorSpinner = (Spinner) this.findViewById(R.id.majorSpinner);
+		et_class = (EditText) this.findViewById(R.id.et_class);
+
+		ArrayAdapter<String> adYearAdapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_item, adYearValueList);
+		adYearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		adYearSpinner.setAdapter(adYearAdapter);
+		adYearSpinner.setPrompt("入学年份");
+		adYearSpinner.setSelection(adYearValueList.size() - 1);
+		adYearSpinner.setOnItemSelectedListener(new AdYearAdapter());
+
+		// 教工
+		layout_teach = (LinearLayout) this.findViewById(R.id.layout_teach);
+		org1Spinner = (Spinner) this.findViewById(R.id.org1Spinner);
+		org2Spinner = (Spinner) this.findViewById(R.id.org2Spinner);
+		et_empno = (EditText) this.findViewById(R.id.et_empNo);
+		et_empno.setInputType(InputType.TYPE_CLASS_NUMBER);
+		
+		if(model.getType() == 1){
+			et_class.setText(model.getClassName());
+			layout_stu.setVisibility(View.VISIBLE);
+			layout_teach.setVisibility(View.GONE);
+			refreshConfigDeptist();
+		}else{
+			et_empno.setText(model.getEmpNo());
+			layout_stu.setVisibility(View.GONE);
+			layout_teach.setVisibility(View.VISIBLE);
+			refreshConfigOrgList();
+		}
+
 	}
 
 	private void preparData() {
-
+		idCardList.add("学生校友");
+		idCardList.add("教工校友");
 		for (int i = 1950; i < Integer.parseInt(DateUtil.getCurrentYear()) + 1; i++) {
 			adYearKeyList.add(i + "");
 			adYearValueList.add(i + " 年");
 
-			gradYearKeyList.add(i + "");
-			gradYearValueList.add(i + " 年");
 		}
 
-		gradYearKeyList.add(gradYearKeyList.size(), "null");
-		gradYearValueList.add(gradYearValueList.size(), "尚未毕业");
 	}
-
-	private OnClickListener listener = new OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			switch (v.getId()) {
-			case R.id.btn_pick:
-				Intent getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
-				getAlbum.setType(IMAGE_TYPE);
-				startActivityForResult(getAlbum, IMAGE_CODE);
-				break;
-			case R.id.btn_back:
-				PersonInfoModifyActivity.this.goback();
-				break;
-			case R.id.btn_confirm:
-				doProfileUpdate();
-				break;
-			default:
-				break;
-			}
-
-		}
-	};
 
 	// 更新个人信息
 	private void doProfileUpdate() {
 
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("name", et_name.getText().toString());
-		paramMap.put("gender", model.getGender() + "");
-		paramMap.put("major", et_major.getText().toString());
+		paramMap.put("gender", gender + "");
+		paramMap.put("type", type);
+		if (type.equals("1")) {// 学生
+			paramMap.put("deptId", current_dept.getCode());
+			paramMap.put("majorId", current_major.getCode());
+			paramMap.put("clazz", et_class.getText());
+			paramMap.put("adYear", current_year);
+		} else {// 教工
+			paramMap.put("org1Id", current_org1.getCode());
+			paramMap.put("org2Id", current_org2.getCode());
+			paramMap.put("empNo", et_empno.getText());
+		}
+		paramMap.put("mobile", et_mobile.getText() == null ? "" : et_mobile.getText());
+		paramMap.put("email", et_email.getText() == null ? "" : et_email.getText());
+		paramMap.put("qq", et_qq.getText() == null ? "" : et_qq.getText());
 		paramMap.put("adYear", adYearKeyList.get(adYearSpinner.getSelectedItemPosition()));
-		paramMap.put("gradYear", gradYearKeyList.get(gradYearSpinner.getSelectedItemPosition()));
+
+		if (!image_head.isDrawingCacheEnabled())
+			image_head.setDrawingCacheEnabled(true);
+		bm = image_head.getDrawingCache();
 		paramMap.put("pic", bm == null ? "null" : this.bitmaptoString(bm));
+		image_head.destroyDrawingCache();
 
 		LKHttpRequest req1 = new LKHttpRequest(HttpRequestType.HTTP_PROFILE_UPDATE, paramMap, getUpdateProfileHandler());
 
@@ -232,17 +322,262 @@ public class PersonInfoModifyActivity extends AbsSubActivity {
 		};
 	}
 
-	// private boolean checkValue(){
-	// if(et_name.getText().toString().trim().equals("")){
-	// this.showToast("姓名不能为空！");
-	// return false;
-	// }else if(et_major.getText().toString().trim().equals("")){
-	// this.showToast("专业不能为空！");
-	// return false;
-	// }
-	//
-	// return true;
-	// }
+	private OnClickListener listener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.btn_pick:
+				Intent getAlbum = new Intent(Intent.ACTION_GET_CONTENT);
+				getAlbum.setType(IMAGE_TYPE);
+				startActivityForResult(getAlbum, IMAGE_CODE);
+				break;
+			case R.id.btn_back:
+				PersonInfoModifyActivity.this.finish();
+				break;
+			case R.id.btn_confirm:
+				if (checkValue()) {
+					doProfileUpdate();
+				}
+
+				break;
+			default:
+				break;
+			}
+
+		}
+	};
+
+	// 获取院系专业双级列表
+	private void refreshConfigDeptist() {
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getConfigDeptListRequest());
+		queue.executeQueue("正在刷新数据...", new LKHttpRequestQueueDone());
+	}
+
+	// 获取部门组织双级列表
+	private void refreshConfigOrgList() {
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getConfigOrgListRequest());
+		queue.executeQueue("正在刷新数据...", new LKHttpRequestQueueDone());
+	}
+
+	// 获取院系专业双级列表
+	private LKHttpRequest getConfigDeptListRequest() {
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_CONFIG_DEPT_LIST, null, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, Object> map = (HashMap<String, Object>) obj;
+				int returnCode = (Integer) map.get("rc");
+				if (returnCode == LoginCode.SUCCESS) {
+					deptModelList.addAll((ArrayList<DeptModel>) map.get("list"));
+				}
+				ArrayAdapter<DeptModel> deptAdapter = new ArrayAdapter<DeptModel>(PersonInfoModifyActivity.this, R.layout.simple_spinner_item, android.R.id.text1, deptModelList);
+				deptSpinner.setAdapter(deptAdapter);
+				deptSpinner.setOnItemSelectedListener(new DeptAdapter());
+				for(int i=0; i<deptModelList.size(); i++){
+					if(model.getDeptId().equals(((DeptModel)deptModelList.get(i)).getCode()+"")){
+						deptSpinner.setSelection(i);
+					}
+				}
+				
+			}
+		}, "me");
+
+		return request;
+	}
+
+	// 获取部门组织双级列表
+	private LKHttpRequest getConfigOrgListRequest() {
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_CONFIG_ORG_LIST, null, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, Object> map = (HashMap<String, Object>) obj;
+				int returnCode = (Integer) map.get("rc");
+				if (returnCode == LoginCode.SUCCESS) {
+					orgOneModelList.addAll((ArrayList<OrgOneModel>) map.get("list"));
+				}
+				ArrayAdapter<OrgOneModel> orgOneAdapter = new ArrayAdapter<OrgOneModel>(PersonInfoModifyActivity.this, R.layout.simple_spinner_item, android.R.id.text1, orgOneModelList);
+				org1Spinner.setAdapter(orgOneAdapter);
+				org1Spinner.setOnItemSelectedListener(new OrgOneAdapter());
+				for(int i=0; i<orgOneModelList.size(); i++){
+					if(model.getOrg1Id().equals(((OrgOneModel)orgOneModelList.get(i)).getCode()+"")){
+						org1Spinner.setSelection(i);
+					}
+				}
+			}
+		}, "me");
+
+		return request;
+	}
+
+	class AdYearAdapter implements OnItemSelectedListener {
+
+		/**
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.AdapterView.OnItemSelectedListener#onItemSelected(android.widget.AdapterView,
+		 *      android.view.View, int, long)
+		 */
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			onAdYearChange(position);
+		}
+
+		/**
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.AdapterView.OnItemSelectedListener#onNothingSelected(android.widget.AdapterView)
+		 */
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+
+		}
+
+	}
+
+	class DeptAdapter implements OnItemSelectedListener {
+
+		/**
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.AdapterView.OnItemSelectedListener#onItemSelected(android.widget.AdapterView,
+		 *      android.view.View, int, long)
+		 */
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			onDeptChange(position);
+		}
+
+		/**
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.AdapterView.OnItemSelectedListener#onNothingSelected(android.widget.AdapterView)
+		 */
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+
+		}
+
+	}
+
+	class OrgOneAdapter implements OnItemSelectedListener {
+
+		/**
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.AdapterView.OnItemSelectedListener#onItemSelected(android.widget.AdapterView,
+		 *      android.view.View, int, long)
+		 */
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			onOrgOneChange(position);
+		}
+
+		/**
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.AdapterView.OnItemSelectedListener#onNothingSelected(android.widget.AdapterView)
+		 */
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+
+		}
+
+	}
+
+	public void onAdYearChange(int position) {
+		current_year = adYearKeyList.get(position);
+	}
+
+	public void onDeptChange(int position) {
+		current_dept = deptModelList.get(position);
+		ArrayAdapter<MajorModel> majorAdapter = new ArrayAdapter<MajorModel>(this, R.layout.simple_spinner_item, android.R.id.text1, current_dept.getMajors());
+		majorSpinner.setAdapter(majorAdapter);
+		majorSpinner.setOnItemSelectedListener(new MajorAdapter() {
+		});
+		for(int i=0; i<current_dept.getMajors().size(); i++){
+			if(model.getMajorId().equals(((MajorModel)current_dept.getMajors().get(i)).getCode()+"")){
+				majorSpinner.setSelection(i);
+			}
+		}
+		
+	}
+
+	public void onOrgOneChange(int position) {
+		current_org1 = orgOneModelList.get(position);
+		ArrayAdapter<OrgTwoModel> adapter = new ArrayAdapter<OrgTwoModel>(this, R.layout.simple_spinner_item, android.R.id.text1, current_org1.getTwos());
+		org2Spinner.setAdapter(adapter);
+		org2Spinner.setOnItemSelectedListener(new OrgTwoAdapter() {
+		});
+		for(int i=0; i<current_org1.getTwos().size(); i++){
+			if(model.getOrg2Id().equals(((OrgTwoModel)current_org1.getTwos().get(i)).getCode()+"")){
+				org2Spinner.setSelection(i);
+			}
+		}
+	}
+
+	class MajorAdapter implements OnItemSelectedListener {
+
+		/**
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.AdapterView.OnItemSelectedListener#onItemSelected(android.widget.AdapterView,
+		 *      android.view.View, int, long)
+		 */
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			onMajorChange(position);
+		}
+
+		/**
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.AdapterView.OnItemSelectedListener#onNothingSelected(android.widget.AdapterView)
+		 */
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+
+		}
+
+	}
+
+	class OrgTwoAdapter implements OnItemSelectedListener {
+
+		/**
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.AdapterView.OnItemSelectedListener#onItemSelected(android.widget.AdapterView,
+		 *      android.view.View, int, long)
+		 */
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+			onOrgTwoChange(position);
+		}
+
+		/**
+		 * (non-Javadoc)
+		 * 
+		 * @see android.widget.AdapterView.OnItemSelectedListener#onNothingSelected(android.widget.AdapterView)
+		 */
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+
+		}
+
+	}
+
+	public void onMajorChange(int position) {
+		current_major = current_dept.getMajors().get(position);
+	}
+
+	public void onOrgTwoChange(int position) {
+		current_org2 = current_org1.getTwos().get(position);
+	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -307,5 +642,31 @@ public class PersonInfoModifyActivity extends AbsSubActivity {
 		string = Base64.encodeToString(bytes, Base64.DEFAULT);
 		return string;
 
+	}
+
+	@Override
+	public void onClick(View arg0) {
+
+	}
+
+	private Boolean checkValue() {
+		if (et_name.getText().length() == 0) {
+			this.showToast("姓名不能为空");
+			return false;
+		}
+
+		if (idCard_select == 0) {// 学生
+			if (et_class.getText().length() == 0) {
+				this.showToast("班级不能为空");
+				return false;
+			}
+		} else {
+			if (et_empno.getText().length() == 0) {
+				this.showToast("职工编号不能为空");
+				return false;
+			}
+		}
+
+		return true;
 	}
 }

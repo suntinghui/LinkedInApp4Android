@@ -22,11 +22,11 @@
 
         <TextView
             android:id="@+id/titleView"
+            style="@style/white_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="个人信息"
-            style="@style/white_20"/>
+            android:text="修改个人信息" />
 
         <Button
             android:id="@+id/btn_confirm"
@@ -50,12 +50,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dip"
-                android:text="基本信息" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -188,47 +182,11 @@
                     <TextView
                         android:layout_width="70dip"
                         android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="专	业" />
-
-                    <EditText
-                        android:id="@+id/et_major"
-                        style="@style/black_15"
-                        android:layout_width="fill_parent"
-                        android:layout_height="30dip"
-                        android:layout_marginLeft="35dip"
-                        android:background="@drawable/edittext_bg"
-                        android:hint="请输入专业名称"
-                        android:paddingBottom="3dip"
-                        android:paddingLeft="3dip"
-                        android:paddingTop="3dip" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="2px"
-                    android:background="?android:attr/listDivider" />
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dip"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:layout_width="70dip"
-                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:gravity="right"
-                        android:text="入学时间" />
-
-                    <!-- 入学年份 -->
+                        android:text="身份类型" />
 
                     <RelativeLayout
-                        android:id="@+id/adYearLayout"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_gravity="center_vertical"
@@ -236,7 +194,7 @@
                         android:background="@drawable/edittext_bg" >
 
                         <Spinner
-                            android:id="@+id/adYearSpinner"
+                            android:id="@+id/idCardTypeSpinner"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -261,108 +219,297 @@
                     android:background="?android:attr/listDivider" />
 
                 <LinearLayout
+                    android:id="@+id/layout_stu"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dip"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal" >
+                    android:orientation="vertical"
+                     >
 
-                    <TextView
-                        android:layout_width="70dip"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="right"
-                        android:text="毕业时间" />
-
-                    <!-- 毕业年份 -->
-
-                    <RelativeLayout
-                        android:id="@+id/gradYearLayout"
+                    <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="30dip"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="35dip"
-                        android:background="@drawable/edittext_bg" >
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="10dip"
+                        android:layout_marginTop="10dip"
+                        android:orientation="horizontal" >
 
-                        <Spinner
-                            android:id="@+id/gradYearSpinner"
+                        <TextView
+                            android:layout_width="70dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="right"
+                            android:text="院系" />
+
+                        <RelativeLayout
                             android:layout_width="fill_parent"
+                            android:layout_height="30dip"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="35dip"
+                            android:background="@drawable/edittext_bg" >
+
+                            <Spinner
+                                android:id="@+id/deptSpinner"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dip"
+                                android:background="@null" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dip"
+                                android:contentDescription="@string/app_name"
+                                android:focusable="false"
+                                android:src="@drawable/img_down_arrows" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="10dip"
+                        android:layout_marginTop="10dip"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="70dip"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="10dip"
-                            android:background="@null" />
+                            android:layout_gravity="center_vertical"
+                            android:gravity="right"
+                            android:text="专业" />
 
-                        <ImageView
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="30dip"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="35dip"
+                            android:background="@drawable/edittext_bg" >
+
+                            <Spinner
+                                android:id="@+id/majorSpinner"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dip"
+                                android:background="@null" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dip"
+                                android:contentDescription="@string/app_name"
+                                android:focusable="false"
+                                android:src="@drawable/img_down_arrows" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="10dip"
+                        android:layout_marginTop="10dip"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="70dip"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="10dip"
-                            android:contentDescription="@string/app_name"
-                            android:focusable="false"
-                            android:src="@drawable/img_down_arrows" />
-                    </RelativeLayout>
+                            android:gravity="right"
+                            android:text="班级" />
+
+                        <EditText
+                            android:id="@+id/et_class"
+                            style="@style/black_15"
+                            android:layout_width="fill_parent"
+                            android:layout_height="30dip"
+                            android:layout_marginLeft="35dip"
+                            android:background="@drawable/edittext_bg"
+                            android:hint="请输入班级"
+                            android:paddingBottom="3dip"
+                            android:paddingLeft="3dip"
+                            android:paddingTop="3dip" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="10dip"
+                        android:layout_marginTop="10dip"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="70dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="right"
+                            android:text="入学年份" />
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="30dip"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="35dip"
+                            android:background="@drawable/edittext_bg" >
+
+                            <Spinner
+                                android:id="@+id/adYearSpinner"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dip"
+                                android:background="@null" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dip"
+                                android:contentDescription="@string/app_name"
+                                android:focusable="false"
+                                android:src="@drawable/img_down_arrows" />
+                        </RelativeLayout>
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dip"
-                android:layout_marginLeft="10dip"
-                android:layout_marginRight="10dip"
-                android:layout_marginTop="10dip"
-                android:orientation="horizontal"
-                android:visibility="gone" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="扩展信息" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edittext_bg_s"
-                android:orientation="vertical"
-                android:visibility="gone" >
-
+                
                 <LinearLayout
+                    android:id="@+id/layout_teach"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dip"
-                    android:layout_marginLeft="10dip"
-                    android:layout_marginRight="10dip"
-                    android:layout_marginTop="10dip"
-                    android:orientation="horizontal" >
+                    android:orientation="vertical"
+                    android:visibility="gone" >
 
-                    <TextView
-                        android:layout_width="70dip"
-                        android:layout_height="wrap_content"
-                        android:gravity="right"
-                        android:text="生日" />
-
-                    <TextView
-                        android:id="@+id/tv_birthday"
-                        style="@style/black_15"
+                    <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="30dip"
-                        android:layout_marginLeft="35dip"
-                        android:layout_weight="1"
-                        android:background="@drawable/edittext_bg"
-                        android:paddingBottom="3dip"
-                        android:paddingLeft="3dip"
-                        android:paddingTop="3dip" />
-                </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="10dip"
+                        android:layout_marginTop="10dip"
+                        android:orientation="horizontal" >
 
+                        <TextView
+                            android:layout_width="70dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="right"
+                            android:text="一级单位" />
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="30dip"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="35dip"
+                            android:background="@drawable/edittext_bg" >
+
+                            <Spinner
+                                android:id="@+id/org1Spinner"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dip"
+                                android:background="@null" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dip"
+                                android:contentDescription="@string/app_name"
+                                android:focusable="false"
+                                android:src="@drawable/img_down_arrows" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="10dip"
+                        android:layout_marginTop="10dip"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="70dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="right"
+                            android:text="二级单位" />
+
+                        <RelativeLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="30dip"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="35dip"
+                            android:background="@drawable/edittext_bg" >
+
+                            <Spinner
+                                android:id="@+id/org2Spinner"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="10dip"
+                                android:background="@null" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginRight="10dip"
+                                android:contentDescription="@string/app_name"
+                                android:focusable="false"
+                                android:src="@drawable/img_down_arrows" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dip"
+                        android:layout_marginLeft="10dip"
+                        android:layout_marginRight="10dip"
+                        android:layout_marginTop="10dip"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:layout_width="70dip"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="职工编号" />
+
+                        <EditText
+                            android:id="@+id/et_empNo"
+                            style="@style/black_15"
+                            android:layout_width="fill_parent"
+                            android:layout_height="30dip"
+                            android:layout_marginLeft="35dip"
+                            android:background="@drawable/edittext_bg"
+                            android:hint="请输入职工编号"
+                            android:paddingBottom="3dip"
+                            android:paddingLeft="3dip"
+                            android:paddingTop="3dip" />
+                    </LinearLayout>
+
+                </LinearLayout>
+                
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2px"
                     android:background="?android:attr/listDivider" />
-
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -376,26 +523,25 @@
                         android:layout_width="70dip"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="籍贯" />
+                        android:text="手机号" />
 
                     <EditText
-                        android:id="@+id/et_birthplace"
+                        android:id="@+id/et_mobile"
                         style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
                         android:background="@drawable/edittext_bg"
-                        android:hint="请输入籍贯"
+                        android:hint="请输入手机号"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
                         android:paddingTop="3dip" />
                 </LinearLayout>
-
+                
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2px"
                     android:background="?android:attr/listDivider" />
-
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -409,26 +555,25 @@
                         android:layout_width="70dip"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="民族" />
+                        android:text="邮箱" />
 
                     <EditText
-                        android:id="@+id/et_nation"
+                        android:id="@+id/et_email"
                         style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
                         android:background="@drawable/edittext_bg"
-                        android:hint="请输入民族"
+                        android:hint="请输入邮箱"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
                         android:paddingTop="3dip" />
                 </LinearLayout>
-
+                
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2px"
                     android:background="?android:attr/listDivider" />
-
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -442,21 +587,22 @@
                         android:layout_width="70dip"
                         android:layout_height="wrap_content"
                         android:gravity="right"
-                        android:text="简介" />
+                        android:text="QQ号" />
 
                     <EditText
-                        android:id="@+id/et_desc"
+                        android:id="@+id/et_qq"
                         style="@style/black_15"
                         android:layout_width="fill_parent"
                         android:layout_height="30dip"
                         android:layout_marginLeft="35dip"
                         android:background="@drawable/edittext_bg"
-                        android:hint="请输入简介"
+                        android:hint="请输入QQ号"
                         android:paddingBottom="3dip"
                         android:paddingLeft="3dip"
                         android:paddingTop="3dip" />
                 </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
