@@ -226,6 +226,14 @@ public class PersonInfoModifyActivity extends AbsSubActivity implements OnClickL
 		adYearSpinner.setAdapter(adYearAdapter);
 		adYearSpinner.setPrompt("入学年份");
 		adYearSpinner.setSelection(adYearValueList.size() - 1);
+		if(model.getAdYear() != null){
+			for(int i=0; i<adYearKeyList.size(); i++){
+				if(model.getAdYear().equals(adYearKeyList.get(i)+"")){
+					adYearSpinner.setSelection(i);
+				}
+			}
+			
+		}
 		adYearSpinner.setOnItemSelectedListener(new AdYearAdapter());
 
 		// 教工
@@ -333,7 +341,7 @@ public class PersonInfoModifyActivity extends AbsSubActivity implements OnClickL
 				startActivityForResult(getAlbum, IMAGE_CODE);
 				break;
 			case R.id.btn_back:
-				PersonInfoModifyActivity.this.finish();
+				PersonInfoModifyActivity.this.goback();
 				break;
 			case R.id.btn_confirm:
 				if (checkValue()) {
