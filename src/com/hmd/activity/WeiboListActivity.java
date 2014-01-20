@@ -251,7 +251,4 @@ public class WeiboListActivity extends AbsSubActivity implements OnItemClickList
 
 	}
 
-	public void backAction() {
-		ApplicationEnvironment.getInstance().exitApp();
-	}
 }

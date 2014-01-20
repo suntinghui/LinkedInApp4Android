@@ -70,6 +70,10 @@ public class RegistrationActivity extends BaseActivity implements OnClickListene
 			break;
 		}
 	}
+	
+	public void backAction(){
+		this.finish();
+	}
 
 	private void doRegistration(){
 		if(!this.checkValue()) return;

@@ -228,6 +228,10 @@ public class SubmitProfileActivity extends BaseActivity implements OnClickListen
 			break;
 		}
 	}
+	
+	public void backAction(){
+		this.finish();
+	}
 
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,long arg3) {

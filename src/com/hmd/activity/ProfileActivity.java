@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
@@ -230,7 +229,7 @@ public class ProfileActivity extends AbsSubActivity {
 		BaseActivity.getTopActivity().startActivity(intent);
 		*/
 	}
-
+	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == 5) {
