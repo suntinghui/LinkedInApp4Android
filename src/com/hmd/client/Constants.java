@@ -2,6 +2,7 @@ package com.hmd.client;
 
 public class Constants {
 	
+//	public static final String HOSTNAME 						= "http://xy.cnu.edu.cn/service";
 //	public static final String HOSTNAME 						= "http://115.47.56.228:8080/alumni/service";
 	
 	public static final String HOSTNAME 						= "http://115.47.56.228:8080/alumni/service"; //115.47.57.228

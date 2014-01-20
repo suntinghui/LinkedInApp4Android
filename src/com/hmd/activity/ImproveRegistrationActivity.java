@@ -218,6 +218,10 @@ public class ImproveRegistrationActivity extends BaseActivity implements OnClick
 		}
 
 	}
+	
+	public void backAction() {
+		ImproveRegistrationActivity.this.finish();
+	}
 
 	private OnClickListener listener = new OnClickListener() {
 

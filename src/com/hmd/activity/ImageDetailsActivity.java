@@ -85,6 +85,10 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 			bitmap.recycle();
 		}
 	}
+	
+	public void backAction() {
+		this.finish();
+	}
 
 	@Override
 	public void onClick(View arg0) {
