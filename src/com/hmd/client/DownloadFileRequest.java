@@ -43,7 +43,7 @@ public class DownloadFileRequest {
 		return request;
 	}
 	
-	public void download(Context context, String fileURL, String fileName){
+	public void downloadAndOpen(Context context, String fileURL, String fileName){
 		this.context = context;
 		this.fileURL = fileURL;
 		this.fileName = fileName;
@@ -195,9 +195,9 @@ public class DownloadFileRequest {
 			dialog.dismiss();
 			
 			if (null == result){
-//				Log.e("download", "下载完成，打开文件");
+				Log.e("download", "下载完成，打开文件");
 				
-//				FileUtil.openFile(fileName);
+				FileUtil.openFile(fileName);
 				
 				Toast.makeText(BaseActivity.getTopActivity(), "下载完成", Toast.LENGTH_SHORT).show();
 				

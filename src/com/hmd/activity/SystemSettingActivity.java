@@ -1,10 +1,20 @@
 package com.hmd.activity;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +27,15 @@ import android.widget.TextView;
 
 import com.hmd.R;
 import com.hmd.client.ApplicationEnvironment;
+import com.hmd.client.Constants;
+import com.hmd.client.DownloadFileRequest;
 import com.hmd.view.LKAlertDialog;
 
 public class SystemSettingActivity extends AbsSubActivity {
 	private ListView listView;
 	private BusinessAdapter adapter;
+	
+	private String downloadAPKURL = null;
 
 	private Integer[] icons = { R.drawable.img_sys_weibo, R.drawable.img_sys_modify_pwd, R.drawable.img_sys_update, R.drawable.img_sys_about, R.drawable.img_sys_exit };
 	private String[] title = { "官方微博", "修改密码", "检查更新", "关于", "退出" };
@@ -41,7 +55,7 @@ public class SystemSettingActivity extends AbsSubActivity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				switch (arg2) {
-				case 0: // 官方微博 
+				case 0: // 官方微博
 				{
 					Intent intent = new Intent(SystemSettingActivity.this, WeiboListActivity.class);
 					SystemSettingActivity.this.startActivityForResult(intent, 0);
@@ -82,19 +96,44 @@ public class SystemSettingActivity extends AbsSubActivity {
 	}
 
 	private void checkUpdate() {
-		LKAlertDialog dialog = new LKAlertDialog(this);
-		dialog.setTitle("提示");
-		dialog.setMessage("已经是最新版本，不需要更新。");
-		dialog.setCancelable(false);
-		dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+		try {
+			URL myURL = new URL(Constants.DOWNLOADURL);
+			URLConnection ucon = myURL.openConnection();
+			InputStream is = ucon.getInputStream();
 
-			@Override
-			public void onClick(DialogInterface arg0, int arg1) {
-				arg0.dismiss();
+			XmlPullParser parser = Xml.newPullParser();
+			parser.setInput(is, "UTF-8");
 
+			int event = parser.getEventType();// 产生第一个事件
+			while (event != XmlPullParser.END_DOCUMENT) {
+				switch (event) {
+				case XmlPullParser.START_TAG:
+					if ("version".equals(parser.getName())) {
+						int serviceVersion = Integer.parseInt(parser.nextText());
+						if (serviceVersion > Constants.VERSION) {
+							showUpdateDialog();
+						} else {
+							showNoUpdateDialog();
+						}
+
+					} else if ("apkurl".equals(parser.getName())) {
+						downloadAPKURL = parser.nextText();
+						//downloadAPKURL = "http://cdn.market.hiapk.com/data/upload/2014/01_26/10/com.yek.lafaso_104638.apk";
+					}
+
+					break;
+				}
+
+				event = parser.next();
 			}
-		});
-		dialog.create().show();
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (XmlPullParserException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void logout() {
@@ -108,13 +147,13 @@ public class SystemSettingActivity extends AbsSubActivity {
 			public void onClick(DialogInterface arg0, int arg1) {
 				arg0.dismiss();
 
-				try{
+				try {
 					while (!(BaseActivity.getTopActivity() instanceof LoginActivity)) {
 						BaseActivity.getTopActivity().finish();
 					}
-				} catch(Exception e){
-					ActivityManager activityMgr=(ActivityManager)SystemSettingActivity.this.getSystemService(ACTIVITY_SERVICE);
-				    activityMgr.restartPackage(getPackageName());
+				} catch (Exception e) {
+					ActivityManager activityMgr = (ActivityManager) SystemSettingActivity.this.getSystemService(ACTIVITY_SERVICE);
+					activityMgr.restartPackage(getPackageName());
 				}
 
 			}
@@ -168,6 +207,48 @@ public class SystemSettingActivity extends AbsSubActivity {
 			holder.iv_icon_left.setImageResource(icons[position]);
 			return convertView;
 		}
+	}
+
+	private void showUpdateDialog() {
+		LKAlertDialog dialog = new LKAlertDialog(this);
+		dialog.setTitle("提示");
+		dialog.setMessage("有新版本，是否下载更新？");
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int arg1) {
+				dialog.dismiss();
+				Update();
+			}
+		});
+		dialog.setNegativeButton("暂不更新", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+
+		dialog.create().show();
+	}
+
+	private void showNoUpdateDialog() {
+		LKAlertDialog dialog = new LKAlertDialog(this);
+		dialog.setTitle("提示");
+		dialog.setMessage("当前版本已是最新版本");
+		dialog.setCancelable(false);
+		dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int arg1) {
+				dialog.dismiss();
+			}
+		});
+		dialog.create().show();
+	}
+
+	private void Update() {
+		DownloadFileRequest.sharedInstance().downloadAndOpen(this, downloadAPKURL, "校友会.apk");
 	}
 
 	public void backAction() {
