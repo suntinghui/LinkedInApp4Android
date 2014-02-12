@@ -59,7 +59,7 @@ public class LKHttpRequest {
 		// 添加公共参数
 		StringBuffer hostStringBuffer = new StringBuffer(hostTemp);
 		hostStringBuffer.append("?");
-		hostStringBuffer.append("v=").append(Constants.VERSION);
+		hostStringBuffer.append("v=").append(Constants.VERSION_ID);
 		hostStringBuffer.append("&").append("cid=").append(Constants.CLIENT_ID);
 		hostStringBuffer.append("&").append("sid=").append(Constants.SESSION_ID);
 		Log.i("url:", hostStringBuffer.toString());

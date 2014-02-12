@@ -53,7 +53,7 @@ public class SchoolExActivity extends AbsSubActivity {
 		// 印象首师
 		rlSchoolPhotoWall = new SchoolPhotoWallRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolPhotoWall);
-
+		
 		// 校友捐赠
 		rlSchoolFeedback = new SchoolFeedbackRelativeLayout(this);
 		llSchoolContainer.addView(rlSchoolFeedback);

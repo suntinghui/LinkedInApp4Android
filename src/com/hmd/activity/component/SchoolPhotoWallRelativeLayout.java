@@ -1,15 +1,20 @@
 package com.hmd.activity.component;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +30,16 @@ import android.widget.RelativeLayout;
 
 import com.hmd.R;
 import com.hmd.activity.BaseActivity;
+import com.hmd.activity.ImageDetailsActivity;
 import com.hmd.activity.PhotoWallActivity;
 import com.hmd.client.ApplicationEnvironment;
-import com.hmd.util.BitmapUtil;
+import com.hmd.client.HttpRequestType;
+import com.hmd.enums.LoginCode;
+import com.hmd.model.ImageModel;
+import com.hmd.network.LKAsyncHttpResponseHandler;
+import com.hmd.network.LKHttpRequest;
+import com.hmd.network.LKHttpRequestQueue;
+import com.hmd.network.LKHttpRequestQueueDone;
 
 public class SchoolPhotoWallRelativeLayout extends RelativeLayout {
 
@@ -36,7 +48,7 @@ public class SchoolPhotoWallRelativeLayout extends RelativeLayout {
 
 	private Gallery mGallery = null;
 
-	private ArrayList<BitmapDrawable> mBitmaps = new ArrayList<BitmapDrawable>();
+	private ArrayList<ImageModel> imageModelList = null;
 
 	public SchoolPhotoWallRelativeLayout(Context context) {
 		super(context);
@@ -46,64 +58,12 @@ public class SchoolPhotoWallRelativeLayout extends RelativeLayout {
 
 		applyButton = (Button) this.findViewById(R.id.btn_schoolcard_apply);
 		applyButton.setOnClickListener(new ClickListener());
+		
+		
+		// 开始的时候不显示该控件
+		this.setVisibility(View.GONE);
 
-		// 印象首师图片
-		generateBitmaps();
-
-		mGallery = (Gallery) this.findViewById(R.id.gallery);
-		mGallery.setBackgroundColor(Color.GRAY);
-		mGallery.setSpacing(10);
-		mGallery.setFadingEdgeLength(0);
-		mGallery.setGravity(Gravity.CENTER_VERTICAL);
-		mGallery.setAdapter(new GalleryAdapter());
-		mGallery.setSelection(Integer.MAX_VALUE / 2);
-		mGallery.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-				Intent intent = new Intent(SchoolPhotoWallRelativeLayout.this.context, PhotoWallActivity.class);
-				SchoolPhotoWallRelativeLayout.this.context.startActivityForResult(intent, 100);
-			}
-		});
-	}
-
-	private void generateBitmaps() {
-		/**
-		 * int[] ids = { R.drawable.img_splash_1, R.drawable.img_splash_2,
-		 * R.drawable.img_splash_3, R.drawable.img_splash_4,
-		 * R.drawable.img_splash_5 };
-		 * 
-		 * for (int id : ids) { Bitmap bitmap = createReflectedBitmapById(id);
-		 * if (null != bitmap) { BitmapDrawable drawable = new
-		 * BitmapDrawable(bitmap); drawable.setAntiAlias(true);
-		 * mBitmaps.add(drawable); } }
-		 **/
-
-		// 无倒影
-		for (int i = 1; i < 21; i++) {
-			mBitmaps.add((BitmapDrawable) getResources().getDrawable(getIconId(i)));
-		}
-
-	}
-
-	private int getIconId(int iconId) {
-		String resourceName = "img_splash_" + iconId;
-		int resourceId = getResources().getIdentifier(resourceName, "drawable", SchoolPhotoWallRelativeLayout.this.context.getPackageName());
-		if (resourceId == 0)
-			resourceId = R.drawable.img_splash_1;
-
-		return resourceId;
-	}
-
-	private Bitmap createReflectedBitmapById(int resId) {
-		Drawable drawable = getResources().getDrawable(resId);
-		if (drawable instanceof BitmapDrawable) {
-			Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-			Bitmap reflectedBitmap = BitmapUtil.createReflectedBitmap(bitmap);
-
-			return reflectedBitmap;
-		}
-
-		return null;
+		refreshImage();
 	}
 
 	private class GalleryAdapter extends BaseAdapter {
@@ -131,8 +91,22 @@ public class SchoolPhotoWallRelativeLayout extends RelativeLayout {
 			}
 
 			ImageView imageView = (ImageView) convertView;
-			imageView.setImageDrawable(mBitmaps.get(position % mBitmaps.size()));
 			imageView.setScaleType(ScaleType.FIT_XY);
+
+			URL url = null;
+			try {
+				url = new URL(imageModelList.get(position % imageModelList.size()).getThumbnail());
+				Bitmap bmp = null;
+				try {
+					bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				imageView.setImageBitmap(bmp);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
 
 			return imageView;
 		}
@@ -167,6 +141,79 @@ public class SchoolPhotoWallRelativeLayout extends RelativeLayout {
 
 		}
 
+	}
+
+	private void refreshImage() {
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("page", 1);
+		paramMap.put("num", "6");
+
+		LKHttpRequest req1 = new LKHttpRequest(HttpRequestType.HTTP_GALARY_LIST, paramMap, getImagesHandler());
+
+		new LKHttpRequestQueue().addHttpRequest(req1).executeQueue("正在获取图片请稍候...", new LKHttpRequestQueueDone() {
+
+			@Override
+			public void onComplete() {
+				super.onComplete();
+			}
+		});
+	}
+
+	private LKAsyncHttpResponseHandler getImagesHandler() {
+		return new LKAsyncHttpResponseHandler() {
+			@Override
+			public void successAction(Object obj) {
+				@SuppressWarnings("unchecked")
+				HashMap<String, Object> respMap = (HashMap<String, Object>) obj;
+
+				int returnCode = (Integer) respMap.get("rc");
+				if (returnCode == LoginCode.SUCCESS) {
+					imageModelList = (ArrayList<ImageModel>) (respMap.get("list"));
+
+					mGallery = (Gallery) context.findViewById(R.id.gallery);
+					mGallery.setBackgroundColor(Color.GRAY);
+					mGallery.setSpacing(10);
+					mGallery.setFadingEdgeLength(0);
+					mGallery.setGravity(Gravity.CENTER_VERTICAL);
+					mGallery.setAdapter(new GalleryAdapter());
+					mGallery.setSelection(Integer.MAX_VALUE / 2);
+					mGallery.setOnItemClickListener(new OnItemClickListener() {
+						@Override
+						public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+							getImageDetail(imageModelList.get(arg2%imageModelList.size()).getId());
+						}
+					});
+					
+				// 得到数据后再显示该控件。
+				setVisibility(View.VISIBLE);
+				}
+
+			};
+		};
+	}
+
+	private void getImageDetail(String id) {
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getImageDetailRequest(id));
+		queue.executeQueue("正在加载...", new LKHttpRequestQueueDone());
+	}
+
+	private LKHttpRequest getImageDetailRequest(String id) {
+		return new LKHttpRequest(HttpRequestType.HTTP_GALARY_DETAIL, null, new LKAsyncHttpResponseHandler() {
+
+			@Override
+			public void successAction(Object obj) {
+				@SuppressWarnings("unchecked")
+				String pic = ((HashMap<String, String>) obj).get("pic");
+
+				Intent intent = new Intent(getContext(), ImageDetailsActivity.class);
+				intent.putExtra("pic", pic);
+				getContext().startActivity(intent);
+
+			}
+		}, id) {
+
+		};
 	}
 
 }
