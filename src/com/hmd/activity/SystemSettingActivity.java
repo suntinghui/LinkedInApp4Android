@@ -34,7 +34,7 @@ import com.hmd.view.LKAlertDialog;
 public class SystemSettingActivity extends AbsSubActivity {
 	private ListView listView;
 	private BusinessAdapter adapter;
-	
+
 	private String downloadAPKURL = null;
 
 	private Integer[] icons = { R.drawable.img_sys_weibo, R.drawable.img_sys_modify_pwd, R.drawable.img_sys_update, R.drawable.img_sys_about, R.drawable.img_sys_exit };
@@ -97,6 +97,8 @@ public class SystemSettingActivity extends AbsSubActivity {
 
 	private void checkUpdate() {
 		try {
+			//this.showDialog(BaseActivity.PROGRESS_HUD, "正在检查更新");
+			
 			URL myURL = new URL(Constants.DOWNLOADURL);
 			URLConnection ucon = myURL.openConnection();
 			InputStream is = ucon.getInputStream();
@@ -109,6 +111,8 @@ public class SystemSettingActivity extends AbsSubActivity {
 				switch (event) {
 				case XmlPullParser.START_TAG:
 					if ("version".equals(parser.getName())) {
+						this.hideDialog(BaseActivity.PROGRESS_HUD);
+						
 						int serviceVersion = Integer.parseInt(parser.nextText());
 						if (serviceVersion > Constants.VERSION) {
 							showUpdateDialog();
@@ -118,7 +122,8 @@ public class SystemSettingActivity extends AbsSubActivity {
 
 					} else if ("apkurl".equals(parser.getName())) {
 						downloadAPKURL = parser.nextText();
-						//downloadAPKURL = "http://cdn.market.hiapk.com/data/upload/2014/01_26/10/com.yek.lafaso_104638.apk";
+						// downloadAPKURL =
+						// "http://cdn.market.hiapk.com/data/upload/2014/01_26/10/com.yek.lafaso_104638.apk";
 					}
 
 					break;

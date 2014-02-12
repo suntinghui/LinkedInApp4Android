@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/nameText"
                 android:layout_marginTop="15dip"
-                hmd:hint="@string/txtLoginPasswordHint"
+                hmd:hint="密码"
                 hmd:inputType="password" />
 
             <com.hmd.view.EditTextWithClearView
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/passwordText"
                 android:layout_marginTop="15dip"
-                hmd:hint="@string/txtRegistrPasswordConfirmHint"
+                hmd:hint="确认密码"
                 hmd:inputType="password" />
 
             <com.hmd.view.EditTextWithClearView

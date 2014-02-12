@@ -13,19 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.hmd.R;
-import com.hmd.client.Constants;
-import com.hmd.client.DownloadFileRequest;
-import com.hmd.client.HttpRequestType;
-import com.hmd.enums.LoginCode;
-import com.hmd.model.ImageModel;
-import com.hmd.model.MediaModel;
-import com.hmd.network.LKAsyncHttpResponseHandler;
-import com.hmd.network.LKHttpRequest;
-import com.hmd.network.LKHttpRequestQueue;
-import com.hmd.network.LKHttpRequestQueueDone;
-import com.hmd.util.FileUtil;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -43,6 +30,16 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
+
+import com.hmd.R;
+import com.hmd.client.HttpRequestType;
+import com.hmd.enums.LoginCode;
+import com.hmd.model.ImageModel;
+import com.hmd.network.LKAsyncHttpResponseHandler;
+import com.hmd.network.LKHttpRequest;
+import com.hmd.network.LKHttpRequestQueue;
+import com.hmd.network.LKHttpRequestQueueDone;
+import com.hmd.util.FileUtil;
 
 /**
  * 自定义的ScrollView，在其中动态地对图片进行添加。
@@ -196,7 +193,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 	private void getImageDetail(String id) {
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getImageDetailRequest(id));
-		queue.executeQueue("正在获取图片请稍候...", new LKHttpRequestQueueDone());
+		queue.executeQueue("正在加载...", new LKHttpRequestQueueDone());
 	}
 
 	private LKHttpRequest getImageDetailRequest(String id) {
@@ -204,18 +201,11 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 
 			@Override
 			public void successAction(Object obj) {
-				String url = ((HashMap<String, String>)obj).get("id");
-				String time = ((HashMap<String, String>)obj).get("time");
+				@SuppressWarnings("unchecked")
 				String pic = ((HashMap<String, String>)obj).get("pic");
-				String thumbnail = ((HashMap<String, String>)obj).get("thumbnail");
 				
-//				DownloadFileRequest fileRequest = new DownloadFileRequest();
-//				fileRequest.download(BaseActivity.getTopActivity(), url, time);
-				Log.i("url:", "-------");
 				Intent intent = new Intent(getContext(), ImageDetailsActivity.class);
-//				intent.putExtra("image_path", getImagePath(mImageUrl));
 				intent.putExtra("pic", pic);
-				intent.putExtra("thumbnail", thumbnail);
 				getContext().startActivity(intent);
 			
 			}
@@ -231,7 +221,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 		LKHttpRequest req1 = new LKHttpRequest( HttpRequestType.HTTP_GALARY_LIST, paramMap, getImagesHandler());
 		
 		new LKHttpRequestQueue().addHttpRequest(req1)
-		.executeQueue("正在获取图片请稍候...", new LKHttpRequestQueueDone(){
+		.executeQueue("正在加载...", new LKHttpRequestQueueDone(){
 
 			@Override
 			public void onComplete() {
@@ -242,9 +232,9 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 	
 	private LKAsyncHttpResponseHandler getImagesHandler(){
 		 return new LKAsyncHttpResponseHandler(){
+			@SuppressWarnings("unchecked")
 			@Override
 			public void successAction(Object obj) {
-				@SuppressWarnings("unchecked")
 				HashMap<String, Object> respMap = (HashMap<String, Object>) obj;
 				
 				int returnCode = (Integer) respMap.get("rc");
