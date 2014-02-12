@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import com.hmd.R;
 
-public class PhotoWallActivity extends Activity implements OnClickListener {
+public class PhotoWallActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

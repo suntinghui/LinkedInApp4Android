@@ -255,7 +255,7 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 			downloadImage(imageUrl);
 		}
 		if (imageUrl != null) {
-			Bitmap bitmap = ImageLoader.decodeSampledBitmapFromResource(imageFile.getPath(), 320);
+			Bitmap bitmap = ImageLoader.decodeSampledBitmapFromResource(imageFile.getPath(), 400);
 			if (bitmap != null) {
 				return bitmap;
 			}

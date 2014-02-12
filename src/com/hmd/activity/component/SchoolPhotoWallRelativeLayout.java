@@ -145,7 +145,7 @@ public class SchoolPhotoWallRelativeLayout extends RelativeLayout {
 
 	private void refreshImage() {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("page", 1);
+		paramMap.put("page", "1");
 		paramMap.put("num", "6");
 
 		LKHttpRequest req1 = new LKHttpRequest(HttpRequestType.HTTP_GALARY_LIST, paramMap, getImagesHandler());

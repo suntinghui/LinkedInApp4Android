@@ -131,7 +131,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 	private ArrayList<ImageModel> imageModelList = null;
 	
 	
-	private static int imagePage = 1;
+	private int imagePage = 1;
 
 	/**
 	 * 在Handler中进行图片可见性检查的判断，以及加载更多图片的操作。
@@ -194,6 +194,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getImageDetailRequest(id));
 		queue.executeQueue("正在加载...", new LKHttpRequestQueueDone());
+		
 	}
 
 	private LKHttpRequest getImageDetailRequest(String id) {
