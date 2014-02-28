@@ -8,7 +8,7 @@ public class Constants {
 	public static final String HOSTNAME 						= HOST + "/service";
 	public static final String DOWNLOADURL						= HOST + "/apk/version.xml";
 	
-	public static final int VERSION 							= 1;
+	public static final int VERSION 							= 3;
 	
 	// 公共参数
 	public static final	String VERSION_ID 						= "1";
