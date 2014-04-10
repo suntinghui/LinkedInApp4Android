@@ -96,16 +96,17 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_delete"
+            android:id="@+id/btn_attention"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:background="@drawable/img_group_participant_button"
-            android:text="删除"
+            android:text="关注"
             android:textColor="@color/dateBlue"
-            android:textSize="14sp" />
+            android:textSize="14sp" 
+            />
     </RelativeLayout>
 
     <RelativeLayout

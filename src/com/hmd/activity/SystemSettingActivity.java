@@ -37,8 +37,8 @@ public class SystemSettingActivity extends AbsSubActivity {
 
 	private String downloadAPKURL = null;
 
-	private Integer[] icons = { R.drawable.img_sys_weibo, R.drawable.img_sys_modify_pwd, R.drawable.img_sys_update, R.drawable.img_sys_about, R.drawable.img_sys_exit };
-	private String[] title = { "官方微博", "修改密码", "检查更新", "关于", "退出" };
+	private Integer[] icons = { R.drawable.img_sys_weibo, R.drawable.img_sys_modify_pwd, R.drawable.icon_authority, R.drawable.img_sys_update, R.drawable.img_sys_about, R.drawable.img_sys_exit };
+	private String[] title = { "官方微博", "修改密码", "设置权限", "检查更新", "关于", "退出" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,20 +69,28 @@ public class SystemSettingActivity extends AbsSubActivity {
 				}
 					break;
 
-				case 2: // 检查更新
+				case 2: // 权限设置
+				{
+					Intent intent = new Intent(SystemSettingActivity.this, AuthoritySettingActivity.class);
+					SystemSettingActivity.this.startActivityForResult(intent, 0);
+				}
+					break;
+					
+				case 3: // 检查更新
 				{
 					checkUpdate();
 				}
 					break;
-
-				case 3:// 关于
+					
+				case 4:// 关于
 				{
 					Intent intent = new Intent(SystemSettingActivity.this, AboutActivity.class);
 					SystemSettingActivity.this.startActivityForResult(intent, 0);
+					
 				}
 					break;
 
-				case 4:// 退出
+				case 5:// 退出
 					logout();
 					break;
 

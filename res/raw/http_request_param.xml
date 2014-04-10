@@ -412,6 +412,23 @@
         <contentType>application/json</contentType>
     </request>
     
+    <!--查看权限-->
+    <request>
+        <requestId>PROFILE_ME_CONFIG</requestId>
+        <url>/profile/me/config</url>
+        <method>Get</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!--设置权限-->
+    <request>
+        <requestId>PROFILE_ME_UPDATE</requestId>
+        <url>/profile/me/config/update</url>
+        <method>POST</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    
     <!--获取行业列表-->
     <request>
         <requestId>CONFIG_INDUSTRY_LIST</requestId>
@@ -433,6 +450,14 @@
         <requestId>GALARY_DETAIL</requestId>
         <url>/galary/${id}/detail</url>
         <method>GET</method>
+        <contentType>application/json</contentType>
+    </request>
+    
+    <!--踢人-->
+    <request>
+        <requestId>GOURPKICK</requestId>
+        <url>/group/${id}/kick/${personId}</url>
+        <method>POST</method>
         <contentType>application/json</contentType>
     </request>
 </root>

@@ -35,7 +35,8 @@ import com.hmd.util.ActivityUtil;
 import com.hmd.util.ImageUtil;
 import com.hmd.view.EditTextWithClearView;
 
-public class SearchPeopleActivity extends AbsSubActivity implements OnClickListener {
+public class SearchPeopleActivity extends AbsSubActivity implements
+		OnClickListener {
 
 	private Button backButton = null;
 	private Button searchButton = null;
@@ -47,6 +48,7 @@ public class SearchPeopleActivity extends AbsSubActivity implements OnClickListe
 	private int currentPage = 0;
 	private EditTextWithClearView keyEditView = null;
 	private ProfileModel selectProfileModel = null;
+	private Button btn_attention;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,8 @@ public class SearchPeopleActivity extends AbsSubActivity implements OnClickListe
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
 				selectProfileModel = array.get(arg2);
 				LKHttpRequestQueue queue = new LKHttpRequestQueue();
 				queue.addHttpRequest(getProfileRequest());
@@ -100,6 +103,17 @@ public class SearchPeopleActivity extends AbsSubActivity implements OnClickListe
 		case R.id.moreButton:
 			refresh();
 			break;
+		case R.id.btn_attention:
+			btn_attention = (Button)v;
+			int index = (Integer) v.getTag() - 1000;
+			ProfileModel model = array.get(index);
+			if(btn_attention.getText().equals("关注")){
+				refreshAddAttentionData(model.getmId());
+				
+			}else if(btn_attention.getText().equals("取消关注")){
+				refreshCancelAttentionData(model.getmId());
+			}
+			break;
 		}
 	}
 
@@ -114,18 +128,22 @@ public class SearchPeopleActivity extends AbsSubActivity implements OnClickListe
 
 	// 查看个人基本信息
 	private LKHttpRequest getProfileRequest() {
-		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_PROFILE_DETAIL, null, new LKAsyncHttpResponseHandler() {
-			@Override
-			public void successAction(Object obj) {
-				ProfileModel tmpModel = (ProfileModel) obj;
-				tmpModel.setmId(selectProfileModel.getmId());
+		LKHttpRequest request = new LKHttpRequest(
+				HttpRequestType.HTTP_PROFILE_DETAIL, null,
+				new LKAsyncHttpResponseHandler() {
+					@Override
+					public void successAction(Object obj) {
+						ProfileModel tmpModel = (ProfileModel) obj;
+						tmpModel.setmId(selectProfileModel.getmId());
 
-				Intent intent = new Intent(SearchPeopleActivity.this, ProfileOtherActivity.class);
-				intent.putExtra("PROFILE", tmpModel);
-				intent.putExtra("IDENTITY", "he");
-				SearchPeopleActivity.this.startActivityForResult(intent, 100);
-			}
-		}, selectProfileModel.getmId());
+						Intent intent = new Intent(SearchPeopleActivity.this,
+								ProfileOtherActivity.class);
+						intent.putExtra("PROFILE", tmpModel);
+						intent.putExtra("IDENTITY", "he");
+						SearchPeopleActivity.this.startActivityForResult(
+								intent, 100);
+					}
+				}, selectProfileModel.getmId());
 
 		return request;
 	}
@@ -136,29 +154,35 @@ public class SearchPeopleActivity extends AbsSubActivity implements OnClickListe
 		paramMap.put("page", ++currentPage + "");
 		paramMap.put("num", Constants.PAGESIZE);
 		paramMap.put("keywords", keyEditView.getText());
-		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_FRIENDS_SEARCH, paramMap, new LKAsyncHttpResponseHandler() {
-			@SuppressWarnings("unchecked")
-			@Override
-			public void successAction(Object obj) {
-				if (obj == null) {
-					SearchPeopleActivity.this.showToast("未搜到相关人员！");
-					return;
-				}
-				ArrayList<ProfileModel> tmpList = (ArrayList<ProfileModel>) (((HashMap<String, Object>) obj).get("list"));
+		LKHttpRequest request = new LKHttpRequest(
+				HttpRequestType.HTTP_FRIENDS_SEARCH, paramMap,
+				new LKAsyncHttpResponseHandler() {
+					@SuppressWarnings("unchecked")
+					@Override
+					public void successAction(Object obj) {
+						if (obj == null) {
+							SearchPeopleActivity.this.showToast("未搜到相关人员！");
+							return;
+						}
+						ArrayList<ProfileModel> tmpList = (ArrayList<ProfileModel>) (((HashMap<String, Object>) obj)
+								.get("list"));
 
-				if (tmpList == null || tmpList.size() == 0) {
-					SearchPeopleActivity.this.showToast("未搜到相关人员！");
-				} else {
-					Integer total = Integer.valueOf((String) (((HashMap<String, Object>) obj).get("total")));
-					totalPage = (total + Constants.PAGESIZE - 1) / Constants.PAGESIZE;
-					for (int i = 0; i < tmpList.size(); i++) {
-						array.add(tmpList.get(i));
+						if (tmpList == null || tmpList.size() == 0) {
+							SearchPeopleActivity.this.showToast("未搜到相关人员！");
+						} else {
+							Integer total = Integer
+									.valueOf((String) (((HashMap<String, Object>) obj)
+											.get("total")));
+							totalPage = (total + Constants.PAGESIZE - 1)
+									/ Constants.PAGESIZE;
+							for (int i = 0; i < tmpList.size(); i++) {
+								array.add(tmpList.get(i));
+							}
+							adapter.notifyDataSetChanged();
+
+						}
 					}
-					adapter.notifyDataSetChanged();
-
-				}
-			}
-		});
+				});
 
 		return request;
 	}
@@ -173,6 +197,7 @@ public class SearchPeopleActivity extends AbsSubActivity implements OnClickListe
 		public TextView tv_title;
 		public TextView tv_location;
 
+		public Button btn_attention;
 		public Button moreButton;
 	}
 
@@ -204,17 +229,31 @@ public class SearchPeopleActivity extends AbsSubActivity implements OnClickListe
 			if (null == convertView) {
 				holder = new PeopleViewHolder();
 
-				convertView = mInflater.inflate(R.layout.listview_item_group_member, null);
+				convertView = mInflater.inflate(
+						R.layout.listview_item_search_classmate, null);
 
-				holder.contentLayout = (RelativeLayout) convertView.findViewById(R.id.contentLayout);
-				holder.moreLayout = (RelativeLayout) convertView.findViewById(R.id.moreLayout);
+				holder.contentLayout = (RelativeLayout) convertView
+						.findViewById(R.id.contentLayout);
+				holder.moreLayout = (RelativeLayout) convertView
+						.findViewById(R.id.moreLayout);
 
-				holder.iv_head = (ImageView) convertView.findViewById(R.id.iv_photo);
-				holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
-				holder.tv_gender = (TextView) convertView.findViewById(R.id.tv_gender);
-				holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
-				holder.tv_location = (TextView) convertView.findViewById(R.id.tv_location);
-				holder.moreButton = (Button) convertView.findViewById(R.id.moreButton);
+				holder.iv_head = (ImageView) convertView
+						.findViewById(R.id.iv_photo);
+				holder.tv_name = (TextView) convertView
+						.findViewById(R.id.tv_name);
+				holder.tv_gender = (TextView) convertView
+						.findViewById(R.id.tv_gender);
+				holder.tv_title = (TextView) convertView
+						.findViewById(R.id.tv_title);
+				holder.tv_location = (TextView) convertView
+						.findViewById(R.id.tv_location);
+				holder.btn_attention = (Button) convertView
+						.findViewById(R.id.btn_attention);
+				holder.btn_attention.setTag(1000 + position);
+				holder.btn_attention
+						.setOnClickListener(SearchPeopleActivity.this);
+				holder.moreButton = (Button) convertView
+						.findViewById(R.id.moreButton);
 				holder.moreButton.setOnClickListener(SearchPeopleActivity.this);
 				convertView.setTag(holder);
 			} else {
@@ -229,20 +268,44 @@ public class SearchPeopleActivity extends AbsSubActivity implements OnClickListe
 					holder.contentLayout.setVisibility(View.VISIBLE);
 					holder.moreLayout.setVisibility(View.GONE);
 					holder.tv_name.setText(array.get(position).getName());
-					holder.tv_gender.setText(array.get(position).getGender() == 1 ? "男" : "女");
+					holder.tv_gender
+							.setText(array.get(position).getGender() == 1 ? "男"
+									: "女");
 					holder.tv_title.setText(array.get(position).getTitle());
-					holder.tv_location.setText(array.get(position).getProvince() + "--" + array.get(position).getCity());
-					ImageUtil.loadImage(R.drawable.img_card_head_portrait, SearchPeopleActivity.this.array.get(position).getPic(), holder.iv_head);
+					holder.tv_location.setText(array.get(position)
+							.getProvince()
+							+ "--"
+							+ array.get(position).getCity());
+//					if (array.get(position).getmFlag().equals("2")) {
+//						holder.btn_attention.setVisibility(View.GONE);
+//					} else {
+//						holder.btn_attention.setText(array.get(position)
+//								.getmFlag().equals("0") ? "关注" : "取消关注");
+//					}
+					ImageUtil.loadImage(R.drawable.img_card_head_portrait,
+							SearchPeopleActivity.this.array.get(position)
+									.getPic(), holder.iv_head);
 
 				}
 			} else {
 				holder.contentLayout.setVisibility(View.VISIBLE);
 				holder.moreLayout.setVisibility(View.GONE);
 				holder.tv_name.setText(array.get(position).getName());
-				holder.tv_gender.setText(array.get(position).getGender() == 1 ? "男" : "女");
+				holder.tv_gender
+						.setText(array.get(position).getGender() == 1 ? "男"
+								: "女");
 				holder.tv_title.setText(array.get(position).getTitle());
-				holder.tv_location.setText(array.get(position).getProvince() + "--" + array.get(position).getCity());
-				ImageUtil.loadImage(R.drawable.img_card_head_portrait, SearchPeopleActivity.this.array.get(position).getPic(), holder.iv_head);
+				holder.tv_location.setText(array.get(position).getProvince()
+						+ "--" + array.get(position).getCity());
+//				if (array.get(position).getmFlag().equals("2")) {
+//					holder.btn_attention.setVisibility(View.GONE);
+//				} else {
+//					holder.btn_attention.setText(array.get(position).getmFlag()
+//							.equals("0") ? "关注" : "取消关注");
+//				}
+				ImageUtil.loadImage(R.drawable.img_card_head_portrait,
+						SearchPeopleActivity.this.array.get(position).getPic(),
+						holder.iv_head);
 			}
 
 			return convertView;
@@ -254,5 +317,65 @@ public class SearchPeopleActivity extends AbsSubActivity implements OnClickListe
 		queue.addHttpRequest(getSerchRequest());
 
 		queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());
+	}
+
+	// 加关注
+	private void refreshAddAttentionData(String mId) {
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getAddAttentionRequest(mId));
+		queue.executeQueue("正在关注...", new LKHttpRequestQueueDone());
+
+	}
+
+	private LKHttpRequest getAddAttentionRequest(String mId) {
+		LKHttpRequest request = new LKHttpRequest(
+				HttpRequestType.HTTP_FRIENDS_FOLLOW, null,
+				new LKAsyncHttpResponseHandler() {
+					@SuppressWarnings("unchecked")
+					@Override
+					public void successAction(Object obj) {
+						int obj2 = (Integer) obj;
+						if (obj2 == 1) {
+//							currentPage = 0;
+//							refresh();
+							btn_attention.setText("取消关注");
+						} else if(obj2 == -2){
+							btn_attention.setText("取消关注");
+						}
+
+					}
+				}, mId);
+
+		return request;
+	}
+
+	// 取消关注
+	private void refreshCancelAttentionData(String mId) {
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getCancelAttentionRequest(mId));
+		queue.executeQueue("正在取消关注...", new LKHttpRequestQueueDone());
+
+	}
+
+	private LKHttpRequest getCancelAttentionRequest(String mId) {
+		LKHttpRequest request = new LKHttpRequest(
+				HttpRequestType.HTTP_FRIENDS_UNFOLLOW, null,
+				new LKAsyncHttpResponseHandler() {
+					@SuppressWarnings("unchecked")
+					@Override
+					public void successAction(Object obj) {
+						int obj2 = (Integer) obj;
+						if (obj2 == 1) {
+//							currentPage = 0;
+//							refresh();
+							btn_attention.setText("关注");
+						} else if(obj2 == -2){
+							btn_attention.setText("关注");
+						}
+
+					}
+				}, mId);
+
+		return request;
 	}
 }

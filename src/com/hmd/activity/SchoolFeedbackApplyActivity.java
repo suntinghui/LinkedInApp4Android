@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.hmd.R;
 import com.hmd.client.HttpRequestType;
+import com.hmd.model.ProfileModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
 import com.hmd.network.LKHttpRequestQueue;
@@ -43,6 +44,7 @@ public class SchoolFeedbackApplyActivity extends AbsSubActivity implements OnCli
 
 		okButton = (Button) this.findViewById(R.id.okButton);
 		okButton.setOnClickListener(this);
+		getProfile();
 	}
 
 	private boolean checkValue() {
@@ -137,4 +139,26 @@ public class SchoolFeedbackApplyActivity extends AbsSubActivity implements OnCli
 		};
 	}
 
+	private void getProfile() {
+		LKHttpRequestQueue queue = new LKHttpRequestQueue();
+		queue.addHttpRequest(getProfileRequest());
+		queue.executeQueue("正在请求数据...", new LKHttpRequestQueueDone());
+	}
+
+	// 查看个人基本信息
+	private LKHttpRequest getProfileRequest() {
+		LKHttpRequest request = new LKHttpRequest(
+				HttpRequestType.HTTP_PROFILE_DETAIL, null,
+				new LKAsyncHttpResponseHandler() {
+					@Override
+					public void successAction(Object obj) {
+						ProfileModel detailModel = (ProfileModel) obj;
+						nameText.setText(detailModel.getName().length() ==0 || detailModel.getName().equals("null") ? "":detailModel.getName() );
+						mailText.setText(detailModel.getEmail().length() == 0 || detailModel.getEmail().equals("null") ? "":detailModel.getEmail());
+						phoneText.setText(detailModel.getMobile().length() == 0 || detailModel.getMobile().equals("null") ? "":detailModel.getMobile());
+					}
+				}, "me");
+
+		return request;
+	}
 }

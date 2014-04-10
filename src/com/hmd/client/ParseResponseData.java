@@ -170,6 +170,15 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GALARY_DETAIL)) {
 			return getGalaryDetail(jsonObject);
 
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_ME_CONFIG)) {
+			return getProfileMeConfig(jsonObject);
+
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_PROFILE_ME_UPDATE)) {
+			return getProfileMeUpdate(jsonObject);
+
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GOURPKICK)) {
+			return getDeleteMember(jsonObject);
+
 		}
 		
 		return null;
@@ -861,6 +870,25 @@ public class ParseResponseData {
 		map.put("thumbnail", jsonObject.optString("thumbnail"));
 
 		return map;
+	}
+	
+	private static Object getProfileMeConfig(JSONObject jsonObject) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("email", jsonObject.optString("email"));
+		map.put("qq", jsonObject.optString("qq"));
+		map.put("mobile", jsonObject.optString("mobile"));
+
+		return map;
+	}
+	
+	private static Object getProfileMeUpdate(JSONObject jsonObject) {
+
+		return jsonObject.optString("rc");
+	}
+	
+	private static Object getDeleteMember(JSONObject jsonObject) {
+		
+		return jsonObject.optString("rc");
 	}
 	
 	private static Object getMediaDetail(JSONObject jsonObject) {
