@@ -107,10 +107,7 @@ public class SchoolFeedbackApplyActivity extends AbsSubActivity implements OnCli
 		return new LKAsyncHttpResponseHandler() {
 			@Override
 			public void successAction(Object obj) {
-				@SuppressWarnings("unchecked")
-				HashMap<String, String> respMap = (HashMap<String, String>) obj;
-
-				int returnCode = Integer.parseInt(respMap.get("rc"));
+				int returnCode = (Integer) obj;
 				String message = "";
 				if (returnCode == 1) {
 					message = "信息提交成功，管理员会与您联系，请耐心等待。";
