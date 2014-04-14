@@ -246,8 +246,8 @@
     
     <!-- 查看校友龙卡申请进度 -->
     <request>
-        <requestId>COLLEGE_ALUCARD_STATUS</requestId>
-        <url>/college/alucard/status</url>
+        <requestId>COLLEGE_CARD_STATUS</requestId>
+        <url>/college/card/status</url>
         <method>GET</method>
         <contentType>application/json</contentType>
     </request>

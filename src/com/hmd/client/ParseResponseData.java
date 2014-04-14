@@ -77,9 +77,12 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_CARD_APPLY)) {
 			return collegeCardApply(jsonObject);
 
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_CARD_STATUS)) {
+			return collegeCardStatus(jsonObject);
+			
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_COLLEGE_FEEDBACK_APPLY)) {
 			return collegeFeedbackApply(jsonObject);
-			
+
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_TIMELINE_LIST)) {
 			return getTimelineList(jsonObject);
 
@@ -164,7 +167,7 @@ public class ParseResponseData {
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_CONFIG_INDUSTRY_LIST)) {
 			return getConfigIndustryList(jsonObject);
 
-		}else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GALARY_LIST)) {
+		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GALARY_LIST)) {
 			return getGalaryList(jsonObject);
 
 		} else if (type.equalsIgnoreCase(HttpRequestType.HTTP_GALARY_DETAIL)) {
@@ -180,7 +183,7 @@ public class ParseResponseData {
 			return getDeleteMember(jsonObject);
 
 		}
-		
+
 		return null;
 	}
 
@@ -220,8 +223,7 @@ public class ParseResponseData {
 	/*
 	 * 查看个人基本信息
 	 * 
-	 *  {"idCardNo":null,"adYear":2009,"pic":"http://115.47.56.228:8080/alumni/pic/391/983/67952e3bda626f2f37a766b8d8fedcd7","type":1,"rc":1,"ec":1,"majorId":null,
-	 *  "email":null,"name":"王之稚","gender":0,"deptId":null,"qq":null,"mobile":null}
+	 * {"idCardNo":null,"adYear":2009,"pic":"http://115.47.56.228:8080/alumni/pic/391/983/67952e3bda626f2f37a766b8d8fedcd7","type":1,"rc":1,"ec":1,"majorId":null, "email":null,"name":"王之稚","gender":0,"deptId":null,"qq":null,"mobile":null}
 	 */
 	private static Object getProfileDetail(JSONObject jsonObject) {
 		try {
@@ -234,13 +236,13 @@ public class ParseResponseData {
 				model.setAdYear(jsonObject.optString("adYear", ""));
 				model.setPic(jsonObject.optString("pic", ""));
 				model.setType(jsonObject.optInt("type", 1));
-				model.setClassName(jsonObject.optString("clazz",""));
-				model.setDeptId(jsonObject.optString("deptId",""));
-				model.setMajorId(jsonObject.optString("majorId",""));
-				
+				model.setClassName(jsonObject.optString("clazz", ""));
+				model.setDeptId(jsonObject.optString("deptId", ""));
+				model.setMajorId(jsonObject.optString("majorId", ""));
+
 				model.setOrg1Id(jsonObject.optString("org2Id"));
-				model.setOrg2Id(jsonObject.optString("org2Id",""));
-				model.setEmpNo(jsonObject.optString("empNo",""));
+				model.setOrg2Id(jsonObject.optString("org2Id", ""));
+				model.setEmpNo(jsonObject.optString("empNo", ""));
 				model.setEmail(jsonObject.optString("email", ""));
 				model.setDeptId(jsonObject.optString("deptId", ""));
 				model.setQq(jsonObject.optString("qq", ""));
@@ -255,7 +257,6 @@ public class ParseResponseData {
 
 		return null;
 	}
-
 
 	private static Object profileMatch(JSONObject jsonObject) {
 		int errorCode = jsonObject.optInt("rc", ErrorCode.UNKNOWN);
@@ -409,6 +410,11 @@ public class ParseResponseData {
 	private static Object collegeCardApply(JSONObject jsonObject) {
 		int errorCode = jsonObject.optInt("rc", 0);
 		return errorCode;
+	}
+	
+	private static Object collegeCardStatus(JSONObject jsonObject) {
+		int status = jsonObject.optInt("status", -1);
+		return status;
 	}
 
 	private static Object collegeFeedbackApply(JSONObject jsonObject) {
@@ -819,14 +825,14 @@ public class ParseResponseData {
 				media.setId(mediaObj.optString("id", ""));
 				media.setTitle(mediaObj.optString("title", ""));
 				media.setTime(mediaObj.optString("time", ""));
-				//media.setPic(ImageUtil.getTestImageURL1());
+				// media.setPic(ImageUtil.getTestImageURL1());
 				media.setPic(mediaObj.optString("pic", ""));
-				
+
 				mediaList.add(media);
 			}
 
 		}
-		
+
 		return mediaList;
 	}
 
@@ -848,21 +854,21 @@ public class ParseResponseData {
 				media.setTitle(mediaObj.optString("title", ""));
 				media.setTime(mediaObj.optString("time", ""));
 				media.setPreview(mediaObj.optString("preview", ""));
-				//media.setPic(ImageUtil.getTestImageURL1());
+				// media.setPic(ImageUtil.getTestImageURL1());
 				media.setPic(mediaObj.optString("pic", ""));
-				
+
 				// 如果没有图片，则忽略掉该消息。
 				mediaList.add(media);
-				
+
 			}
 
 		}
-		
+
 		map.put("list", mediaList);
 
 		return map;
 	}
-	
+
 	private static Object getGalaryDetail(JSONObject jsonObject) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("time", jsonObject.optString("time"));
@@ -871,7 +877,7 @@ public class ParseResponseData {
 
 		return map;
 	}
-	
+
 	private static Object getProfileMeConfig(JSONObject jsonObject) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("email", jsonObject.optString("email"));
@@ -880,17 +886,17 @@ public class ParseResponseData {
 
 		return map;
 	}
-	
+
 	private static Object getProfileMeUpdate(JSONObject jsonObject) {
 
 		return jsonObject.optString("rc");
 	}
-	
+
 	private static Object getDeleteMember(JSONObject jsonObject) {
-		
+
 		return jsonObject.optString("rc");
 	}
-	
+
 	private static Object getMediaDetail(JSONObject jsonObject) {
 		MediaModel media = new MediaModel();
 		media.setType(jsonObject.optInt("type", 1));
@@ -898,7 +904,6 @@ public class ParseResponseData {
 		media.setTime(jsonObject.optString("time", ""));
 		media.setContent(jsonObject.optString("content", ""));
 
-		
 		ArrayList<String> picList = new ArrayList<String>();
 		JSONArray jsonArray = jsonObject.optJSONArray("pics");
 		if (jsonArray != null && jsonArray.length() > 0) {
@@ -908,13 +913,12 @@ public class ParseResponseData {
 			}
 			media.setPics(picList);
 		}
-		
-		
-		//media.setPics(ImageUtil.getTestImageURL2());
+
+		// media.setPics(ImageUtil.getTestImageURL2());
 
 		return media;
 	}
-	
+
 	private static Object getConfigOrgList(JSONObject jsonObject) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
@@ -928,7 +932,7 @@ public class ParseResponseData {
 				JSONObject deptObj = (JSONObject) jsonArray.opt(i);
 				orgOneModel.setCode(Integer.valueOf(deptObj.optString("id", "")));
 				orgOneModel.setName(deptObj.optString("display", ""));
-				
+
 				JSONArray majorArray = deptObj.optJSONArray("list");
 				ArrayList<OrgTwoModel> majorList = new ArrayList<OrgTwoModel>();
 				for (int j = 0; j < majorArray.length(); j++) {
@@ -940,21 +944,20 @@ public class ParseResponseData {
 				}
 				orgOneModel.setOrgTwoModels(majorList);
 				orgOneList.add(orgOneModel);
-				
-				
+
 			}
 
 		}
-		
+
 		map.put("list", orgOneList);
 
 		return map;
 	}
-	
+
 	private static int getProfileMeCreateList(JSONObject jsonObject) {
 		return jsonObject.optInt("rc", ErrorCode.UNKNOWN);
 	}
-	
+
 	private static Object getConfigIndustryList(JSONObject jsonObject) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
@@ -968,19 +971,18 @@ public class ParseResponseData {
 				JSONObject deptObj = (JSONObject) jsonArray.opt(i);
 				model.setId(deptObj.optString("id", ""));
 				model.setDisplay(deptObj.optString("display", ""));
-				
+
 				list.add(model);
-				
-				
+
 			}
 
 		}
-		
+
 		map.put("list", list);
 
 		return map;
 	}
-	
+
 	private static Object getGalaryList(JSONObject jsonObject) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
@@ -998,19 +1000,18 @@ public class ParseResponseData {
 				model.setTime(deptObj.optString("time", ""));
 				model.setAuthor(deptObj.optString("author", ""));
 				model.setThumbnail(deptObj.optString("thumbnail", ""));
-				
+
 				list.add(model);
-				
-				
+
 			}
 
 		}
-		
+
 		map.put("list", list);
 
 		return map;
 	}
-	
+
 	private static Object getConfigDeptList(JSONObject jsonObject) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("rc", jsonObject.optInt("rc", ErrorCode.UNKNOWN));
@@ -1024,7 +1025,7 @@ public class ParseResponseData {
 				JSONObject deptObj = (JSONObject) jsonArray.opt(i);
 				deptModel.setCode(Integer.valueOf(deptObj.optString("id", "")));
 				deptModel.setName(deptObj.optString("display", ""));
-				
+
 				JSONArray majorArray = deptObj.optJSONArray("list");
 				ArrayList<MajorModel> majorList = new ArrayList<MajorModel>();
 				for (int j = 0; j < majorArray.length(); j++) {
@@ -1036,17 +1037,15 @@ public class ParseResponseData {
 				}
 				deptModel.setMajors(majorList);
 				deptList.add(deptModel);
-				
-				
+
 			}
 
 		}
-		
+
 		map.put("list", deptList);
 
 		return map;
 	}
-	
 
 	// ////////////////////////////////////////////////////////////////////////////
 

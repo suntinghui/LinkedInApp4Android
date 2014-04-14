@@ -33,6 +33,18 @@
             android:background="@drawable/btn_reply"
             android:text="我要申请"
             android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_school_card_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dip"
+            android:text="审批通过"
+            android:textColor="@color/titleGreen"
+            android:textSize="15sp"
+            android:typeface="sans"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <LinearLayout
@@ -46,9 +58,9 @@
             android:id="@+id/iv_school_card_front"
             android:layout_width="wrap_content"
             android:layout_height="130dip"
+            android:layout_marginRight="5dip"
             android:layout_weight="1"
             android:focusable="false"
-            android:layout_marginRight="5dip"
             android:src="@drawable/img_school_card_front" />
 
         <ImageView

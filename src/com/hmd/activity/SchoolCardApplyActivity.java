@@ -3,7 +3,6 @@ package com.hmd.activity;
 import java.util.HashMap;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,10 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.hmd.R;
-import com.hmd.activity.component.NameCardRelativeLayout;
-import com.hmd.client.Constants;
 import com.hmd.client.HttpRequestType;
-import com.hmd.enums.LoginCode;
 import com.hmd.model.ProfileModel;
 import com.hmd.network.LKAsyncHttpResponseHandler;
 import com.hmd.network.LKHttpRequest;
@@ -124,11 +120,11 @@ public class SchoolCardApplyActivity extends AbsSubActivity implements
 				int returnCode = (Integer) obj;
 				String message = "";
 				if (returnCode == 1) {
-					message = "信息提交成功，管理员会与您联系，请耐心等待。";
+					message = "信息提交成功，管理员会尽快与您联系，请耐心等待。";
 				} else if (returnCode == 0) {
 					message = "信息提交失败。";
 				} else if (returnCode == -2) {
-					message = "您已提交过校友龙卡申请，请耐心等待。";
+					message = "您已提交过校友龙卡申请，请耐心等待审核。";
 				}
 
 				LKAlertDialog dialog = new LKAlertDialog(

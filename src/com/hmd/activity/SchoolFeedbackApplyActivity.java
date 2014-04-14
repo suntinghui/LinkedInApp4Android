@@ -110,7 +110,7 @@ public class SchoolFeedbackApplyActivity extends AbsSubActivity implements OnCli
 				int returnCode = (Integer) obj;
 				String message = "";
 				if (returnCode == 1) {
-					message = "信息提交成功，管理员会与您联系，请耐心等待。";
+					message = "信息提交成功，管理员会尽快与您联系，请耐心等待。";
 				} else if (returnCode == 0) {
 					message = "信息提交失败。";
 				} else if (returnCode == -2) {

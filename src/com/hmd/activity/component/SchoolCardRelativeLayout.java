@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.hmd.R;
 import com.hmd.activity.BaseActivity;
@@ -16,6 +17,7 @@ import com.hmd.activity.SchoolCardIntroductionActivity;
 public class SchoolCardRelativeLayout extends RelativeLayout {
 	
 	private Button applyButton;
+	private TextView statusTextView;
 	private BaseActivity context;
 	private LinearLayout imageLayout;
 
@@ -35,6 +37,9 @@ public class SchoolCardRelativeLayout extends RelativeLayout {
 			}
 		});
         
+		statusTextView = (TextView) this.findViewById(R.id.tv_school_card_status);
+		statusTextView.setVisibility(View.GONE);
+		
 		applyButton = (Button) this.findViewById(R.id.btn_schoolcard_apply);
 		applyButton.setOnClickListener(new OnClickListener() {
 			
@@ -44,6 +49,14 @@ public class SchoolCardRelativeLayout extends RelativeLayout {
 				SchoolCardRelativeLayout.this.context.startActivityForResult(intent, 100);
 			}
 		});
+		
 	}
-
+	
+	public void setCardStatus(String text){
+		statusTextView.setVisibility(View.VISIBLE);
+		applyButton.setVisibility(View.GONE);
+		
+		statusTextView.setText(text);
+	}
+	
 }

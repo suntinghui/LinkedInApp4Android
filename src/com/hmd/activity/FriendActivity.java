@@ -62,6 +62,7 @@ public class FriendActivity extends AbsSubActivity {
 		LKHttpRequestQueue queue = new LKHttpRequestQueue();
 		queue.addHttpRequest(getSchoolMediaRequest(1)); // 校友动态
 		queue.addHttpRequest(getSchoolMediaRequest(2)); // 通知公告
+		queue.addHttpRequest(getSchoolCardStatusRequest()); // 龙卡状态
 		queue.executeQueue("正在刷新数据...", new LKHttpRequestQueueDone());
 	}
 
@@ -98,6 +99,23 @@ public class FriendActivity extends AbsSubActivity {
 			}
 		});
 
+		return request;
+	}
+	
+	private LKHttpRequest getSchoolCardStatusRequest(){
+		LKHttpRequest request = new LKHttpRequest(HttpRequestType.HTTP_COLLEGE_CARD_STATUS, null, new LKAsyncHttpResponseHandler() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				int status = (Integer) obj;
+				if (status == 0){
+					rlSchoolCard.setCardStatus("等待审批");
+				} else if (status == 1){
+					rlSchoolCard.setCardStatus("审批通过");
+				}
+			}
+		});
+		
 		return request;
 	}
 

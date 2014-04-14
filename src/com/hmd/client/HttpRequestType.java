@@ -34,6 +34,7 @@ public interface HttpRequestType {
 	public static final String HTTP_COLLEGE_FEEDBACK_LIST				= "COLLEGE_FEEDBACK_LIST";
 	public static final String HTTP_COLLEGE_FEEDBACK_CREATE				= "COLLEGE_FEEDBACK_CREATE";
 	public static final String HTTP_COLLEGE_CARD_APPLY					= "COLLEGE_CARD_APPLY";
+	public static final String HTTP_COLLEGE_CARD_STATUS					= "COLLEGE_CARD_STATUS";
 	public static final String HTTP_COLLEGE_FEEDBACK_APPLY				= "COLLEGE_FEEDBACK_APPLY";
 	
 	
@@ -66,7 +67,7 @@ public interface HttpRequestType {
 	public static final String HTTP_GALARY_DETAIL						= "GALARY_DETAIL";
 	public static final String HTTP_PROFILE_ME_CONFIG					= "PROFILE_ME_CONFIG";
 	public static final String HTTP_PROFILE_ME_UPDATE					= "PROFILE_ME_UPDATE";
-	public static final String HTTP_GOURPKICK					= "GOURPKICK";
+	public static final String HTTP_GOURPKICK							= "GOURPKICK";
 	
 	
 }
