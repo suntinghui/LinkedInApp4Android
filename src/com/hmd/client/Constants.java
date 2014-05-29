@@ -2,8 +2,8 @@ package com.hmd.client;
 
 public class Constants {
 	
-	public static final String HOST 							= "http://xy.cnu.edu.cn";
-//	public static final String HOST 							= "http://115.47.56.228:8080/alumni";
+//	public static final String HOST 							= "http://xy.cnu.edu.cn";
+	public static final String HOST 							= "http://115.47.56.228:80/alumni";
 	
 	public static final String HOSTNAME 						= HOST + "/service";
 	public static final String DOWNLOADURL						= HOST + "/apk/version.xml";
