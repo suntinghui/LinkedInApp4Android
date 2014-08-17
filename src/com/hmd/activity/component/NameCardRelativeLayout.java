@@ -153,7 +153,14 @@ public class NameCardRelativeLayout extends RelativeLayout {
 			public void successAction(Object obj) {
 				int obj2 = (Integer) obj;
 				if(obj2 == 1){
-					((ProfileActivity)(BaseActivity.getTopActivity())).refreshData();
+					
+					if (context instanceof ProfileActivity) {
+						((ProfileActivity)context).refreshData();
+						
+						
+					}
+					
+					
 //					NameCardRelativeLayout.this.data.setFlag("0");
 //					btnAttention.setText("关注");
 				}else{

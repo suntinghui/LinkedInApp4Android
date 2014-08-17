@@ -67,6 +67,7 @@
             android:id="@+id/rl_name_card_main_brief"
             android:layout_width="match_parent"
         	android:layout_height="wrap_content"
+        	android:visibility="gone"
         	android:layout_below="@id/rl_name_card_main_location"
         	>
             <TextView
@@ -83,6 +84,60 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 				android:layout_below="@id/tv_name_card_main_brief1"
+                android:textColor="@color/fontGrey"
+                android:typeface ="sans"
+                android:textSize="15sp"
+                />
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:id="@+id/rl_name_card_main_email"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:visibility="gone"
+        	android:layout_below="@id/rl_name_card_main_brief"
+        	>
+            <TextView
+                android:id="@+id/tv_name_card_main_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/fontGrey"
+                android:typeface ="sans"
+                android:textSize="15sp"
+                />
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:id="@+id/rl_name_card_main_qq"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:visibility="gone"
+        	android:layout_below="@id/rl_name_card_main_email"
+        	>
+            <TextView
+                android:id="@+id/tv_name_card_main_qq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/fontGrey"
+                android:typeface ="sans"
+                android:textSize="15sp"
+                />
+        </RelativeLayout>
+        
+        <RelativeLayout 
+            android:id="@+id/rl_name_card_main_phone"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:visibility="gone"
+        	android:layout_below="@id/rl_name_card_main_qq"
+        	>
+            <TextView
+                android:id="@+id/tv_name_card_main_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:textColor="@color/fontGrey"
                 android:typeface ="sans"
                 android:textSize="15sp"
