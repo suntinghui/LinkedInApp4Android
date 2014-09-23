@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:hmd="http://schemas.android.com/apk/res/com.hmd"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center"
@@ -28,50 +27,65 @@
             android:text="捐赠母校" />
     </RelativeLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@drawable/img_backdrop"
-        android:orientation="vertical"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip" >
+        android:scrollbarAlwaysDrawVerticalTrack="true" >
 
-        <com.hmd.view.EditTextWithClearView
-            android:id="@+id/nameText"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            hmd:hint="请输入姓名"
-            hmd:inputType="text" />
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:padding="6dip" >
 
-        <com.hmd.view.EditTextWithClearView
-            android:id="@+id/mailText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nameText"
-            android:layout_marginTop="20dip"
-            hmd:hint="请输入邮箱"
-            hmd:inputType="text" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="        首都师范大学教育基金会欢迎所有热心教育的有识之士以不同方式支持首都师范大学和教育事业，包括设立永久性基金，或以现金、支票、汇票、股票、证券、债券、图书、资料、设备、房产、遗产、财产等形式捐赠。捐款可以指定项目和用途，具体捐赠方式如下：\n\n
+        (一)银行转账\n
+        人民币捐赠账户\n
+        开户行：0200 0076 0904 7652 806\n
+        开户名称：首都师范大学教育基金会\n
+        开户地址：中国工商银行北京紫竹院支行\n\n
+        (二)邮局汇款\n
+        地址：北京市海淀区西三环北路105好 首都师范大学 邮政编码：100048\n
+        收款人：首都师范大学教育基金会（请在附言中注明捐赠用途）\n\n
+        (三)现场捐赠\n
+        地址：北京市海淀区首体南路首都师范大学东校区B座206办公室 邮政编码：100048\n
+        联系电话：68902418 68902611\n\n
+        (四)手机支付宝转账\n
+        通过您的支付宝账号向首都师范大学支付宝账号（cnuxyh@126.com）捐赠。若采用此方式，请在下框中苏茹捐赠金额，点击提交按钮，将跳转到手机支付宝页面。"
+                android:textSize="14sp" />
 
-        <com.hmd.view.EditTextWithClearView
-            android:id="@+id/phoneText"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/mailText"
-            android:layout_marginTop="20dip"
-            hmd:hint="请输入手机号"
-            hmd:inputType="phone"
-            hmd:maxLength="11" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/okButton"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dip"
-            android:background="@drawable/img_orange_button"
-            android:text="确   定"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/moneyText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入捐赠金额，谢谢"
+                    android:inputType="numberSigned"
+                    android:maxLength="12"
+                    android:singleLine="true" />
+
+                <Button
+                    android:id="@+id/okButton"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dip"
+                    android:layout_marginTop="20dip"
+                    android:background="@drawable/img_orange_button"
+                    android:gravity="center"
+                    android:text="支付宝立即捐赠"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

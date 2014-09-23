@@ -42,6 +42,14 @@ public class Result {
 		src = src.replace("}", "");
 		return getContent(src, "memo=", ";result");
 	}
+	
+	public String getResultMsg(){
+		String src = mResult.replace("{", "");
+		src = src.replace("}", "");
+		String state = getContent(src, "resultStatus=", ";memo");
+		String msg = sResultStatus.get(state);
+		return msg;
+	}
 
 	public  void parseResult() {
 		
