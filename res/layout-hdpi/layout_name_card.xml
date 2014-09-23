@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/btn_reply"
+                android:textSize="12sp"
                 android:text="@string/cancelAttention"
                 android:textColor="@color/white" />
         </RelativeLayout>

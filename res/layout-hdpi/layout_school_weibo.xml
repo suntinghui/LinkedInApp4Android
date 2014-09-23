@@ -34,6 +34,7 @@
                 android:layout_height="25dip"
                 android:text="查看更多"
                 android:textColor="@color/white"
+                android:textSize="12sp"
                 android:background="@drawable/btn_reply" />
         </RelativeLayout>
     </RelativeLayout>

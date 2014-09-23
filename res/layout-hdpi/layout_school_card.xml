@@ -31,6 +31,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="5dip"
             android:background="@drawable/btn_reply"
+            android:textSize="12sp"
             android:text="我要申请"
             android:textColor="@color/white" />
 
