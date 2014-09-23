@@ -22,23 +22,23 @@
 
         <TextView
             android:id="@+id/titleView"
+            style="@style/white_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="个人信息"
-            style="@style/white_20"/>
-        
+            android:text="个人信息" />
+
         <Button
             android:id="@+id/btn_search"
             style="@style/white_15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="70dip"
+            android:layout_height="30dip"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
             android:background="@drawable/btn_create_group"
-            android:text=" 找同学 " 
-            android:visibility="gone"/>
+            android:text=" 找同学 "
+            android:visibility="gone" />
     </RelativeLayout>
 
     <LinearLayout

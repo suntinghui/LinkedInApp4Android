@@ -56,13 +56,13 @@
 
             <Button
                 android:id="@+id/btn_name_card_attention"
-                android:layout_width="70dip"
-                android:layout_height="wrap_content"
+                android:layout_width="75dip"
+                android:layout_height="25dip"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/btn_reply"
-                android:textSize="12sp"
                 android:text="@string/cancelAttention"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="12sp" />
         </RelativeLayout>
 
         <LinearLayout
