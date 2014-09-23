@@ -29,12 +29,13 @@
 
         <Button
             android:id="@+id/btn_school_event_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dip"
+            android:layout_height="25dip"
             android:layout_alignParentRight="true"
             android:background="@drawable/btn_reply"
-            android:textColor="@color/white"
-            android:text="查看更多" />
+            android:text="查看更多"
+            android:textColor="@color/white" />
+
     </RelativeLayout>
 
     <LinearLayout

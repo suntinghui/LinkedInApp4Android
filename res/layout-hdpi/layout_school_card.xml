@@ -26,8 +26,8 @@
 
         <Button
             android:id="@+id/btn_schoolcard_apply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="75dip"
+            android:layout_height="25dip"
             android:layout_alignParentRight="true"
             android:layout_marginRight="5dip"
             android:background="@drawable/btn_reply"

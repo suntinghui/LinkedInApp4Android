@@ -30,8 +30,8 @@
 
             <Button
                 android:id="@+id/rl_school_weibo_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="75dip"
+                android:layout_height="25dip"
                 android:text="查看更多"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_reply" />

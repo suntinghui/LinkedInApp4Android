@@ -28,8 +28,8 @@
 
         <Button
             android:id="@+id/btn_school_event_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="75dip"
+            android:layout_height="25dip"
             android:layout_alignParentRight="true"
             android:background="@drawable/btn_reply"
             android:text="查看更多"
