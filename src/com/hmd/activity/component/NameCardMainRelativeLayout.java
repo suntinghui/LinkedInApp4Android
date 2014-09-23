@@ -74,19 +74,53 @@ public class NameCardMainRelativeLayout extends RelativeLayout {
 		TextView tvBrief2 = (TextView)this.findViewById(R.id.tv_name_card_main_brief2);
 		ImageView photoImageView = (ImageView) this.findViewById(R.id.iv_name_card_main_photo);
 		
+		TextView tv_name_card_main_email = (TextView)this.findViewById(R.id.tv_name_card_main_email);
+		TextView tv_name_card_main_qq = (TextView)this.findViewById(R.id.tv_name_card_main_qq);
+		TextView tv_name_card_main_phone = (TextView)this.findViewById(R.id.tv_name_card_main_phone);
+		
+		RelativeLayout rl_name_card_main_brief  = (RelativeLayout)this.findViewById(R.id.rl_name_card_main_brief);
+		
+		RelativeLayout rl_name_card_main_email  = (RelativeLayout)this.findViewById(R.id.rl_name_card_main_email);
+		RelativeLayout rl_name_card_main_qq  = (RelativeLayout)this.findViewById(R.id.rl_name_card_main_qq);
+		RelativeLayout rl_name_card_main_phone  = (RelativeLayout)this.findViewById(R.id.rl_name_card_main_phone);
+		
 		tvName.setText(this.data.getName());
 		tvGender.setText(this.data.getGender() == 1? "男":"女");
 		
-//		if(this.data.isSchool()){
-//			tvBrief1.setText(this.data.getSchool());
-//			tvBrief2.setText(this.data.getMajor());
-//		}else{
-//			tvBrief1.setText(this.data.getCompany());
-//			tvBrief2.setText(this.data.getPosition());
-//		}
+		String data_email = this.data.getEmail();
+		String data_qq = this.data.getQq();
+		String data_phone = this.data.getMobile();
+		String data_brief1 = this.data.getOrg();
+		String data_brief2 = this.data.getTitle();
+		if(data_email != null && !data_email.equals("null")){
+			tv_name_card_main_email.setText("邮箱: "+data_email);
+			rl_name_card_main_email.setVisibility(View.VISIBLE);
+		}else{
+			rl_name_card_main_email.setVisibility(View.GONE);
+		}
 		
-		tvBrief1.setText(this.data.getOrg());
-		tvBrief2.setText(this.data.getTitle());
+		if(data_qq != null && !data_qq.equals("null")){
+			tv_name_card_main_qq.setText("QQ: "+data_qq);
+			rl_name_card_main_qq.setVisibility(View.VISIBLE);
+		}else{
+			rl_name_card_main_qq.setVisibility(View.GONE);
+		}
+		
+		if(data_phone != null && !data_phone.equals("null")){
+			tv_name_card_main_phone.setText("电话: "+data_phone);
+			rl_name_card_main_phone.setVisibility(View.VISIBLE);
+		}else{
+			rl_name_card_main_phone.setVisibility(View.GONE);
+		}
+		
+		if((data_brief1 == null || data_brief1.equals("null")) && (data_brief2 == null || data_brief2.equals("null"))){
+			rl_name_card_main_brief.setVisibility(View.GONE);
+		}else{
+			tvBrief1.setText(this.data.getOrg());
+			tvBrief2.setText(this.data.getTitle());
+			rl_name_card_main_brief.setVisibility(View.VISIBLE);
+		}
+		
 		
 		ImageUtil.loadImage(R.drawable.img_card_head_portrait, this.data.getPic(), photoImageView);
 	}

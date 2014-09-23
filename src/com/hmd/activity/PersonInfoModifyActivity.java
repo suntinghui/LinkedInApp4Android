@@ -87,6 +87,7 @@ public class PersonInfoModifyActivity extends AbsSubActivity implements OnClickL
 	private DeptModel current_dept = null;
 	private MajorModel current_major = null;
 	private String current_year = null;
+	private Boolean isFirst = true;
 
 	// 教工
 	private LinearLayout layout_teach = null;
@@ -123,6 +124,8 @@ public class PersonInfoModifyActivity extends AbsSubActivity implements OnClickL
 		Intent intent = this.getIntent();
 		model = (ProfileModel) intent.getSerializableExtra("MODEL");
 		type = model.getType()+"";
+		
+		
 		btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(listener);
 		btn_confirm = (Button) this.findViewById(R.id.btn_confirm);
@@ -181,29 +184,33 @@ public class PersonInfoModifyActivity extends AbsSubActivity implements OnClickL
 		idCardSpinner = (Spinner) this.findViewById(R.id.idCardTypeSpinner);
 		ArrayAdapter<String> idCardAdapter = new ArrayAdapter<String>(this, R.layout.simple_spinner_item, idCardList);
 		idCardAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 		idCardSpinner.setAdapter(idCardAdapter);
 		idCardSpinner.setPrompt("身份类型");
 		idCardSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+				
 				idCard_select = arg2;
-				switch (arg2) {
-				case 0:
-					type = "1";
-					layout_stu.setVisibility(View.VISIBLE);
-					layout_teach.setVisibility(View.GONE);
-					refreshConfigDeptist();
-					break;
-				case 1:
-					type = "2";
-					layout_stu.setVisibility(View.GONE);
-					layout_teach.setVisibility(View.VISIBLE);
-					refreshConfigOrgList();
-					break;
-				default:
-					break;
+				if(isFirst){
+					isFirst = false;
+				}else{
+					switch (arg2) {
+					case 0:
+						type = "1";
+						refreshStu();
+						
+						break;
+					case 1:
+						type = "2";
+						refreshTeacher();
+						break;
+					default:
+						break;
+					}
 				}
+				
 
 			}
 
@@ -213,7 +220,8 @@ public class PersonInfoModifyActivity extends AbsSubActivity implements OnClickL
 			}
 
 		});
-
+		idCardSpinner.setSelection(model.getType()-1);
+		
 		// 学生
 		layout_stu = (LinearLayout) this.findViewById(R.id.layout_stu);
 		adYearSpinner = (Spinner) this.findViewById(R.id.adYearSpinner);
@@ -257,9 +265,21 @@ public class PersonInfoModifyActivity extends AbsSubActivity implements OnClickL
 
 	}
 
+	private void refreshStu() {
+		layout_stu.setVisibility(View.VISIBLE);
+		layout_teach.setVisibility(View.GONE);
+		refreshConfigDeptist();
+	}
+	
+	private void refreshTeacher() {
+		layout_stu.setVisibility(View.GONE);
+		layout_teach.setVisibility(View.VISIBLE);
+		refreshConfigOrgList();
+	}
 	private void preparData() {
 		idCardList.add("学生校友");
 		idCardList.add("教工校友");
+		
 		for (int i = 1950; i < Integer.parseInt(DateUtil.getCurrentYear()) + 1; i++) {
 			adYearKeyList.add(i + "");
 			adYearValueList.add(i + " 年");
