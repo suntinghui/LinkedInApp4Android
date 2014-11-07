@@ -32,8 +32,8 @@ public class SchoolCardRelativeLayout extends RelativeLayout {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(SchoolCardRelativeLayout.this.context, SchoolCardIntroductionActivity.class);
-				SchoolCardRelativeLayout.this.context.startActivityForResult(intent, 100);
+//				Intent intent = new Intent(SchoolCardRelativeLayout.this.context, SchoolCardIntroductionActivity.class);
+//				SchoolCardRelativeLayout.this.context.startActivityForResult(intent, 100);
 			}
 		});
         
