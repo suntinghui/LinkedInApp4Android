@@ -248,7 +248,7 @@ public class MyScrollView extends ScrollView implements OnTouchListener {
 						int startIndex = page * PAGE_SIZE;
 						int endIndex = page * PAGE_SIZE + PAGE_SIZE;
 						if (startIndex < imageModelList.size()) {
-							Toast.makeText(getContext(), "正在加载...", Toast.LENGTH_SHORT).show();
+							Toast.makeText(getContext(), "正在加载...", Toast.LENGTH_SHORT).show(); 
 							if (endIndex > imageModelList.size()) {
 								endIndex = imageModelList.size();
 							}

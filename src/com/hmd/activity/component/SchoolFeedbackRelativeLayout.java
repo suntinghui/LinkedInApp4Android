@@ -38,8 +38,8 @@ public class SchoolFeedbackRelativeLayout extends RelativeLayout {
 		@Override
 		public void onClick(View v) {
 			if (v.getId() == R.id.rl_school_card_content){
-				Intent intent = new Intent(SchoolFeedbackRelativeLayout.this.context, SchoolFeedbackIntroductionActivity.class);
-				SchoolFeedbackRelativeLayout.this.context.startActivityForResult(intent, 100);
+//				Intent intent = new Intent(SchoolFeedbackRelativeLayout.this.context, SchoolFeedbackIntroductionActivity.class);
+//				SchoolFeedbackRelativeLayout.this.context.startActivityForResult(intent, 100);
 			} else {
 				Intent intent = new Intent(SchoolFeedbackRelativeLayout.this.context, SchoolFeedbackApplyActivity.class);
 				SchoolFeedbackRelativeLayout.this.context.startActivityForResult(intent, 100);

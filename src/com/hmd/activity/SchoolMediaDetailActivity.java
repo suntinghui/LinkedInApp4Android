@@ -3,6 +3,7 @@ package com.hmd.activity;
 import java.util.ArrayList;
 import java.util.Random;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +21,7 @@ import com.hmd.util.ImageUtil;
 public class SchoolMediaDetailActivity extends AbsSubActivity implements OnClickListener {
 	
 	private LinearLayout layout_images = null;
+	private ArrayList<String> picUrlList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +45,17 @@ public class SchoolMediaDetailActivity extends AbsSubActivity implements OnClick
 		TextView tv_content = (TextView) this.findViewById(R.id.tv_content);
 		tv_content.setText(model.getContent());
 
-		ArrayList<String> picUrlList = model.getPics();
+		
+		
+		picUrlList = model.getPics();
 		for (int i = 0; i < picUrlList.size(); i++) {
 			ImageView imageView = new ImageView(this);
 			LinearLayout.LayoutParams iv_params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 			iv_params.setMargins(0, 10, 0, 0);
 			layout_images.addView(imageView, iv_params);
+			imageView.setTag(i+1000);
 			ImageUtil.loadImage(R.drawable.img_weibo_item_pic_loading, picUrlList.get(i), imageView);
+			imageView.setOnClickListener(this);
 		}
 
 	}
@@ -61,6 +67,15 @@ public class SchoolMediaDetailActivity extends AbsSubActivity implements OnClick
 			this.goback();
 			break;
 
+		}
+		if(view.getId() == R.id.btn_back){
+			this.goback();
+		}else{
+			Intent intent = new Intent(SchoolMediaDetailActivity.this, ImageDetailsActivity.class);
+			int tag = ((Integer) view .getTag()).intValue()-1000;
+			intent.putExtra("pic", picUrlList.get(tag));
+			intent.putExtra("titleTag", "图片");
+			startActivity(intent);
 		}
 	}
 

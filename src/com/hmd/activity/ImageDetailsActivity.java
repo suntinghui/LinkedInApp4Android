@@ -1,35 +1,31 @@
 package com.hmd.activity;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.MediaStore;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hmd.R;
-import com.hmd.util.FileUtil;
 import com.hmd.view.ZoomImageView;
 
 /**
@@ -64,7 +60,15 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 		zoomImageView.content = this;
 		imagePath = getIntent().getStringExtra("pic");
 		
-		downloadImage(imagePath);
+		TextView titleView = (TextView) findViewById(R.id.titleView); 
+
+		String titleTag = getIntent().getStringExtra("titleTag");
+		if(titleTag != null){
+			titleView.setText(titleTag);
+		}
+		
+		bitmap = getHttpBitmap(imagePath);
+		zoomImageView.setImageBitmap(bitmap);
 		
 		Button btn_back = (Button) this.findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
@@ -77,6 +81,40 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 
 	}
 
+	 /**
+     * 获取网落图片资源 
+     * @param url
+     * @return
+     */
+    public static Bitmap getHttpBitmap(String url){
+    	URL myFileURL;
+    	Bitmap bitmap=null;
+    	try{
+    		myFileURL = new URL(url);
+    		//获得连接
+    		HttpURLConnection conn=(HttpURLConnection)myFileURL.openConnection();
+    		//设置超时时间为6000毫秒，conn.setConnectionTiem(0);表示没有时间限制
+    		conn.setConnectTimeout(6000);
+    		//连接设置获得数据流
+    		conn.setDoInput(true);
+    		//不使用缓存
+    		conn.setUseCaches(false);
+    		//这句可有可无，没有影响
+    		//conn.connect();
+    		//得到数据流
+    		InputStream is = conn.getInputStream();
+    		//解析得到图片
+    		bitmap = BitmapFactory.decodeStream(is);
+    		//关闭数据流
+    		is.close();
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    	
+		return bitmap;
+    	
+    }
+    
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
@@ -96,32 +134,6 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 		case R.id.btn_back:
 			this.finish();
 			break;
-		case R.id.btn_download:
-			dialog = ProgressDialog.show(this, "", "下载数据，请稍候...", true, true);
-			// 启动一个后台线程
-			handler.post(new Runnable() {
-				@Override
-				public void run() {
-					// 这里下载数据
-					try {
-						URL url = new URL(params);
-						HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-						conn.setDoInput(true);
-						conn.connect();
-						InputStream inputStream = conn.getInputStream();
-						bitmap = BitmapFactory.decodeStream(inputStream);
-						Message msg = new Message();
-						msg.what = 1;
-						handler.sendMessage(msg);
-
-					} catch (MalformedURLException e1) {
-						e1.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			});
-			break;
 
 		default:
 			break;
@@ -129,153 +141,32 @@ public class ImageDetailsActivity extends Activity implements OnClickListener {
 
 	}
 
-	/** 这里重写handleMessage方法，接受到子线程数据后更新UI **/
-	private Handler handler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case 1:
-				// 关闭
-				try {
-					ImageDetailsActivity.this.saveMyBitmap("bitmap");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				dialog.dismiss();
-				break;
-			}
-		}
-	};
 
-	// 附件及所有文件都存放在本目录下
-	public static String getDownloadPath() {
-		// 其它程序无法访问
-		// String path =
-		// ApplicationEnvironment.getInstance().getApplication().getFilesDir().getPath()+"/download/";
-		String path = Environment.getExternalStorageDirectory() + "/LinkedApp/Images/";
-		File file = new File(path);
-		if (!file.exists()) {
-			// file.mkdir();
-			// creating missing parent directories if necessary
-			file.mkdirs();
-		}
-
-		return path;
-	}
-
-	public void saveMyBitmap(String bitName) throws IOException {
-
-		try {
-
-			ContentResolver cr = this.getContentResolver();
-
-			String url = MediaStore.Images.Media.insertImage(cr, bitName, "filnale", "");
-
-			Toast.makeText(this, "保存成功!", Toast.LENGTH_SHORT).show();
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-
-		}
-
-
-	}
 	
-	/**
-	 * 将图片下载到SD卡缓存起来。
-	 * 
-	 * @param imageUrl
-	 *            图片的URL地址。
-	 */
-	private void downloadImage(String imageUrl) {
-		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-			Log.d("TAG", "monted sdcard");
-		} else {
-			Log.d("TAG", "has no sdcard");
-		}
-		HttpURLConnection con = null;
-		FileOutputStream fos = null;
-		BufferedOutputStream bos = null;
-		BufferedInputStream bis = null;
-		File imageFile = null;
-		try {
-			URL url = new URL(imageUrl);
-			con = (HttpURLConnection) url.openConnection();
-			con.setConnectTimeout(5 * 1000);
-			con.setReadTimeout(15 * 1000);
-			con.setDoInput(true);
-			con.setDoOutput(true);
-			bis = new BufferedInputStream(con.getInputStream());
-			imageFile = new File(getImagePath(imageUrl));
-			fos = new FileOutputStream(imageFile);
-			bos = new BufferedOutputStream(fos);
-			byte[] b = new byte[1024];
-			int length;
-			while ((length = bis.read(b)) != -1) {
-				bos.write(b, 0, length);
-				bos.flush();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (bis != null) {
-					bis.close();
-				}
-				if (bos != null) {
-					bos.close();
-				}
-				if (con != null) {
-					con.disconnect();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		if (imageFile != null) {
-				Bitmap imageBitmap = null;
-				if (imageBitmap == null) {
-					imageBitmap = loadImage(imagePath);
-				}
-				zoomImageView.setImageBitmap(imageBitmap);
-		}
-	}
-
-	/**
-	 * 根据传入的URL，对图片进行加载。如果这张图片已经存在于SD卡中，则直接从SD卡里读取，否则就从网络上下载。
-	 * 
-	 * @param imageUrl
-	 *            图片的URL地址
-	 * @return 加载到内存的图片。
-	 */
-	private Bitmap loadImage(String imageUrl) {
-		File imageFile = new File(getImagePath(imageUrl));
-		if (!imageFile.exists()) {
-			downloadImage(imageUrl);
-		}
-		if (imageUrl != null) {
-			Bitmap bitmap = ImageLoader.decodeSampledBitmapFromResource(imageFile.getPath(), 400);
-			if (bitmap != null) {
-				return bitmap;
-			}
-		}
-		return null;
-	}
-	/**
-	 * 获取图片的本地存储路径。
-	 * 
-	 * @param imageUrl
-	 *            图片的URL地址。
-	 * @return 图片的本地存储路径。
-	 */
-	private String getImagePath(String imageUrl) {
-		int lastSlashIndex = imageUrl.lastIndexOf("/");
-		String imageName = imageUrl.substring(lastSlashIndex + 1)+".jpg";
-		String imageDir = FileUtil.getDownloadPath();
-		
-		String imagePath = imageDir + imageName;
-		return imagePath;
-	}
-
+    
+    @Override 
+    public boolean onCreateOptionsMenu(Menu menu) { 
+        // TODO Auto-generated method stub  
+           MenuInflater inflater = getMenuInflater(); 
+           inflater.inflate(R.menu.menu0, menu); 
+           return true; 
+    } 
+    
+    @Override 
+    public boolean onOptionsItemSelected(MenuItem item) { 
+        // TODO Auto-generated method stub  
+        int item_id = item.getItemId(); 
+     
+        switch (item_id) { 
+        case R.id.play: 
+        	MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, "", "");
+        	sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://"+ Environment.getExternalStorageDirectory()))); //ACTION_MEDIA_MOUNTED
+        	Toast.makeText(ImageDetailsActivity.this, "图片已保存到相册", Toast.LENGTH_SHORT).show();
+            break; 
+        default: 
+            return false; 
+        } 
+        return true; 
+     
+    } 
 }
