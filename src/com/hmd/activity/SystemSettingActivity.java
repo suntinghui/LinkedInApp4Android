@@ -57,7 +57,7 @@ public class SystemSettingActivity extends AbsSubActivity {
 				switch (arg2) {
 				case 0: // 官方微博
 				{
-					Intent intent = new Intent(SystemSettingActivity.this, WeiboListActivity.class);
+					Intent intent = new Intent(SystemSettingActivity.this, WeiBoActivity.class);
 					SystemSettingActivity.this.startActivityForResult(intent, 0);
 				}
 					break;
