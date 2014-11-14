@@ -30,11 +30,12 @@
         <Button
             android:id="@+id/btn_confirm"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dip"
             android:layout_alignParentRight="true"
             android:text="确 定"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dip"
+            android:textSize="13sp"
             android:background="@drawable/btn_create_group"
             android:textColor="@color/white" />
     </RelativeLayout>
