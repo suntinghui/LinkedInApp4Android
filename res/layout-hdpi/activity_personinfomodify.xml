@@ -37,8 +37,8 @@
             android:layout_marginRight="15dip"
             android:background="@drawable/btn_create_group"
             android:text="完成"
-            android:textSize="13sp"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="13sp" />
     </RelativeLayout>
 
     <ScrollView
@@ -72,17 +72,32 @@
                         android:layout_height="80dip"
                         android:src="@drawable/img_card_head_portrait" />
 
-                    <Button
-                        android:id="@+id/btn_pick"
-                        android:layout_width="120dip"
+                    <LinearLayout
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@id/image_head"
-                        android:layout_marginBottom="5dip"
                         android:layout_marginLeft="20dip"
                         android:layout_toRightOf="@id/image_head"
-                        android:background="@drawable/edittext_bg_s"
-                        android:padding="3dip"
-                        android:text="从相册中选取头像" />
+                        android:orientation="vertical" >
+
+                        <Button
+                            android:id="@+id/btn_pick"
+                            android:layout_width="120dip"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/edittext_bg_s"
+                            android:padding="3dip"
+                            android:text="从相册中选取头像" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dip"
+                            android:text="头像大小最好控制在1M以内"
+                            android:singleLine="true"
+                            android:ellipsize="end"
+                            android:textColor="@color/fontGrey"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </RelativeLayout>
 
                 <View
@@ -223,8 +238,7 @@
                     android:id="@+id/layout_stu"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                     >
+                    android:orientation="vertical" >
 
                     <LinearLayout
                         android:layout_width="fill_parent"
@@ -383,7 +397,7 @@
                         </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>
-                
+
                 <LinearLayout
                     android:id="@+id/layout_teach"
                     android:layout_width="fill_parent"
@@ -504,13 +518,13 @@
                             android:paddingLeft="3dip"
                             android:paddingTop="3dip" />
                     </LinearLayout>
-
                 </LinearLayout>
-                
+
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2px"
                     android:background="?android:attr/listDivider" />
+
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -538,11 +552,12 @@
                         android:paddingLeft="3dip"
                         android:paddingTop="3dip" />
                 </LinearLayout>
-                
+
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2px"
                     android:background="?android:attr/listDivider" />
+
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -570,11 +585,12 @@
                         android:paddingLeft="3dip"
                         android:paddingTop="3dip" />
                 </LinearLayout>
-                
+
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="2px"
                     android:background="?android:attr/listDivider" />
+
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -603,7 +619,6 @@
                         android:paddingTop="3dip" />
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 
