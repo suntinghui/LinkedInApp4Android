@@ -1,6 +1,7 @@
 package com.hmd.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Context;
 import android.content.Intent;
@@ -63,6 +64,8 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 	private int totalPage = 1;
 	private int currentPage = 1;
 
+	private int type = 0;
+
 	private int totalCount = 0;
 	private ArrayList<MediaModel> topMediaList = new ArrayList<MediaModel>();
 	private ArrayList<MediaModel> mediaList = new ArrayList<MediaModel>();
@@ -77,10 +80,15 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 
 		Intent intent = this.getIntent();
 		totalCount = intent.getIntExtra("TOTAL", 0);
+		type = this.getIntent().getIntExtra("TYPE", 0);
+
 		totalPage = (totalCount + Constants.PAGESIZE - 1) / Constants.PAGESIZE;
 
 		topMediaList = (ArrayList<MediaModel>) intent.getSerializableExtra("TOPLIST");
-		mediaList = (ArrayList<MediaModel>) intent.getSerializableExtra("LIST");
+		ArrayList<MediaModel> array = (ArrayList<MediaModel>) intent.getSerializableExtra("LIST"); 
+		for(int i = 0; i< array.size();i++){
+			mediaList.add(array.get(i));
+		}
 
 		for (MediaModel model : this.topMediaList) {
 			slideImages.add(model.getPic());
@@ -225,7 +233,7 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 	// 普通新闻列表Adapter
 	public final class MediaViewHolder {
 		public RelativeLayout contentLayout;
-		public RelativeLayout moreLayout;
+		public LinearLayout moreLayout;
 
 		public TextView titleView;
 		public TextView contentView;
@@ -265,7 +273,7 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 				convertView = mInflater.inflate(R.layout.listview_item_media, null);
 
 				holder.contentLayout = (RelativeLayout) convertView.findViewById(R.id.contentLayout);
-				holder.moreLayout = (RelativeLayout) convertView.findViewById(R.id.moreLayout);
+				holder.moreLayout = (LinearLayout) convertView.findViewById(R.id.moreLayout);
 
 				holder.titleView = (TextView) convertView.findViewById(R.id.titleView);
 				holder.contentView = (TextView) convertView.findViewById(R.id.contentView);
@@ -303,7 +311,7 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 			}
 			
 			// TODO 不分页
-			holder.moreLayout.setVisibility(View.GONE);
+//			holder.moreLayout.setVisibility(View.GONE);
 
 			return convertView;
 		}
@@ -317,7 +325,13 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 			break;
 
 		case R.id.moreButton:
-			Toast.makeText(this, "----", Toast.LENGTH_SHORT).show();
+			LKHttpRequestQueue queue = new LKHttpRequestQueue();
+			queue.addHttpRequest(this.getMediaListRequest());
+			queue.executeQueue("正在查询请稍候...", new LKHttpRequestQueueDone() {
+				public void onComplete() {
+					
+				}
+			});
 			break;
 		}
 	}
@@ -342,4 +356,27 @@ public class SchoolMediaListActivity extends AbsSubActivity implements OnClickLi
 		};
 	}
 
+	private LKHttpRequest getMediaListRequest() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("type", this.type);
+		map.put("page", ++currentPage);
+		map.put("num", Constants.PAGESIZE);
+		map.put("previewLen", "200");
+
+		return new LKHttpRequest(HttpRequestType.HTTP_MEDIA_LIST, map, new LKAsyncHttpResponseHandler() {
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public void successAction(Object obj) {
+				HashMap<String, Object> map = (HashMap<String, Object>) obj;
+				ArrayList<MediaModel> array_t= (ArrayList<MediaModel>) map.get("list");
+				mediaList.addAll(array_t);
+				Log.i("toal", mediaList.size()+"");
+				mediaAdapter.notifyDataSetChanged();
+				ListViewUtil.setListViewHeightBasedOnChildren(mediaListView);
+				
+				
+			}
+		});
+	}
 }
