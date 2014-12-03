@@ -31,13 +31,12 @@
             android:id="@+id/btn_download"
             style="@style/white_15"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dip"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dip"
             android:background="@drawable/btn_create_group"
-            android:text="保存" 
-            />
+            android:text="保存" />
     </RelativeLayout>
 
     <FrameLayout
