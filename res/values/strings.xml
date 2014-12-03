@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
-    <string name="app_name">校友会</string>
+    <string name="app_name">首都师大校友会</string>
     <string name="txtPrompt">提示</string>
     <string name="txtWait">请稍候</string>
     <string name="txtOK">确定</string>
@@ -37,17 +37,14 @@
     <string name="txtLoginSinaWeibo">    登录新浪微博    </string>
     <string name="noNetTips">请您确认已开通手机上网功能，并在手机上设置正确的上网方式</string>
     <string name="cancelAttention">取消关注</string>
-    
     <!-- 滑动区域文字及链接 -->
     <string name="title1">我校成立不来梅孔子学院</string>
     <string name="title2">党的群众路线书记党课</string>
     <string name="title3">罗马尼亚基督教大学代表团来我校访问</string>
     <string name="title4">学校聘请首届党风廉政监督员</string>
     <string name="title5">我校举行60周年校庆倒计时一周年启动仪式</string>
-    
     <string name="border_top">Border Top</string>
     <string name="border_bottom">Border Bottom</string>
     <string name="image_url">Image Url</string>
-    
     <string name="title_progressbar">正在下载图片</string>
 </resources>
