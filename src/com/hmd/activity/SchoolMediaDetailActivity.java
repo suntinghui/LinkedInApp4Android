@@ -1,6 +1,7 @@
 package com.hmd.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import android.content.Intent;
@@ -14,14 +15,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hmd.R;
+import com.hmd.client.Constants;
+import com.hmd.client.HttpRequestType;
 import com.hmd.client.TestMedia;
 import com.hmd.model.MediaModel;
+import com.hmd.network.LKAsyncHttpResponseHandler;
+import com.hmd.network.LKHttpRequest;
 import com.hmd.util.ImageUtil;
 
 public class SchoolMediaDetailActivity extends AbsSubActivity implements OnClickListener {
 	
 	private LinearLayout layout_images = null;
 	private ArrayList<String> picUrlList;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,4 +85,5 @@ public class SchoolMediaDetailActivity extends AbsSubActivity implements OnClick
 		}
 	}
 
+	
 }

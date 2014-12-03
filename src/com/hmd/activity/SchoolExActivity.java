@@ -148,6 +148,7 @@ public class SchoolExActivity extends AbsSubActivity {
 					intent.putExtra("TOPLIST", topList);
 					intent.putExtra("LIST", list);
 					intent.putExtra("TOTAL", total);
+					intent.putExtra("TYPE", type);
 					SchoolExActivity.this.startActivityForResult(intent, 0);
 				}
 			});
