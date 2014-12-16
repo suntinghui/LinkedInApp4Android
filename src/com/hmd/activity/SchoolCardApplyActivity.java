@@ -142,7 +142,7 @@ public class SchoolCardApplyActivity extends AbsSubActivity implements
 								goback();
 							}
 						});
-				dialog.create().show();
+				dialog.createDialog().show();
 			}
 
 		};

@@ -195,7 +195,7 @@ public class BaseActivity extends Activity {
 				progressDialog.create().show();
 			} 
 			***/
-			progressDialog.create().show();
+			progressDialog.createDialog().show();
 			
 		} catch(Exception e){
 			e.printStackTrace();
@@ -217,7 +217,7 @@ public class BaseActivity extends Activity {
 				alertDialog.create().show();
 			} 
 			**/
-			alertDialog.create().show();
+			alertDialog.createDialog().show();
 		} catch(Exception e){
 			e.printStackTrace();
 		}

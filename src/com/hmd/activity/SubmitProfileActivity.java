@@ -188,7 +188,7 @@ public class SubmitProfileActivity extends BaseActivity implements OnClickListen
 				SubmitProfileActivity.this.finish();
 			}
 		});
-		dialog.create().show();
+		dialog.createDialog().show();
 	}
 	
 	private boolean checkValue(){

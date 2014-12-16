@@ -177,7 +177,7 @@ public class SystemSettingActivity extends AbsSubActivity {
 				dialog.dismiss();
 			}
 		});
-		dialog.create().show();
+		dialog.createDialog().show();
 	}
 
 	public final class BusinessHolder {
@@ -242,7 +242,7 @@ public class SystemSettingActivity extends AbsSubActivity {
 			}
 		});
 
-		dialog.create().show();
+		dialog.createDialog().show();
 	}
 
 	private void showNoUpdateDialog() {
@@ -257,7 +257,7 @@ public class SystemSettingActivity extends AbsSubActivity {
 				dialog.dismiss();
 			}
 		});
-		dialog.create().show();
+		dialog.createDialog().show();
 	}
 
 	private void Update() {

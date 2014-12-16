@@ -99,7 +99,7 @@ public class SplashActivity extends BaseActivity {
 					}
 				});
 
-				dialog.create().show();
+				dialog.createDialog().show();
 			}
 		}
 

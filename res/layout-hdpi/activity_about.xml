@@ -68,7 +68,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/maillayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="22dip"

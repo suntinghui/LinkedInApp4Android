@@ -1,5 +1,6 @@
 package com.hmd.view;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,11 +10,10 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.hmd.R;
 
 public class LKProgressDialog extends Dialog {
-	
+
 	private Context context;
 	private String title;
 	private String message;
@@ -33,8 +33,8 @@ public class LKProgressDialog extends Dialog {
 		super(context, theme);
 		this.context = context;
 	}
-	
-	public void setTitle(String title){
+
+	public void setTitle(String title) {
 		this.title = title;
 	}
 
@@ -48,32 +48,28 @@ public class LKProgressDialog extends Dialog {
 	 * @param positiveButtonText
 	 * @return
 	 */
-	public void setPositiveButton(int positiveButtonText,
-			DialogInterface.OnClickListener listener) {
+	public void setPositiveButton(int positiveButtonText, DialogInterface.OnClickListener listener) {
 		this.positiveButtonText = (String) context.getText(positiveButtonText);
 		this.positiveButtonClickListener = listener;
 	}
 
-	public void setPositiveButton(String positiveButtonText,
-			DialogInterface.OnClickListener listener) {
+	public void setPositiveButton(String positiveButtonText, DialogInterface.OnClickListener listener) {
 		this.positiveButtonText = positiveButtonText;
 		this.positiveButtonClickListener = listener;
 	}
 
-	public void setNegativeButton(int negativeButtonText,
-			DialogInterface.OnClickListener listener) {
-		this.negativeButtonText = (String) context
-				.getText(negativeButtonText);
+	public void setNegativeButton(int negativeButtonText, DialogInterface.OnClickListener listener) {
+		this.negativeButtonText = (String) context.getText(negativeButtonText);
 		this.negativeButtonClickListener = listener;
 	}
 
-	public void setNegativeButton(String negativeButtonText,
-			DialogInterface.OnClickListener listener) {
+	public void setNegativeButton(String negativeButtonText, DialogInterface.OnClickListener listener) {
 		this.negativeButtonText = negativeButtonText;
 		this.negativeButtonClickListener = listener;
 	}
-	
-	public LKProgressDialog create() {
+
+	@SuppressLint("WrongViewCast")
+	public LKProgressDialog createDialog() {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View layout = inflater.inflate(R.layout.layout_progress_dialog, null);
 		this.addContentView(layout, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
@@ -85,7 +81,7 @@ public class LKProgressDialog extends Dialog {
 			if (positiveButtonClickListener != null) {
 				((Button) layout.findViewById(R.id.positiveButton)).setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
-						positiveButtonClickListener.onClick(LKProgressDialog.this,DialogInterface.BUTTON_POSITIVE);
+						positiveButtonClickListener.onClick(LKProgressDialog.this, DialogInterface.BUTTON_POSITIVE);
 					}
 				});
 			}
@@ -95,12 +91,11 @@ public class LKProgressDialog extends Dialog {
 		}
 		// set the cancel button
 		if (negativeButtonText != null) {
-			((Button) layout.findViewById(R.id.negativeButton))
-					.setText(negativeButtonText);
+			((Button) layout.findViewById(R.id.negativeButton)).setText(negativeButtonText);
 			if (negativeButtonClickListener != null) {
 				((Button) layout.findViewById(R.id.negativeButton)).setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
-						negativeButtonClickListener.onClick(LKProgressDialog.this,DialogInterface.BUTTON_NEGATIVE);
+						negativeButtonClickListener.onClick(LKProgressDialog.this, DialogInterface.BUTTON_NEGATIVE);
 					}
 				});
 			}
@@ -108,11 +103,11 @@ public class LKProgressDialog extends Dialog {
 			// if no confirm button just set the visibility to GONE
 			layout.findViewById(R.id.negativeButton).setVisibility(View.GONE);
 		}
-		
-		if (null == positiveButtonText && null == negativeButtonText){
+
+		if (null == positiveButtonText && null == negativeButtonText) {
 			layout.findViewById(R.id.bottomLayout).setVisibility(View.GONE);
 		}
-		
+
 		// set the content message
 		if (message != null) {
 			((TextView) layout.findViewById(R.id.message)).setText(message);
@@ -120,13 +115,12 @@ public class LKProgressDialog extends Dialog {
 			// if no message set
 			// add the contentView to the dialog body
 			((LinearLayout) layout.findViewById(R.id.message)).removeAllViews();
-			((LinearLayout) layout.findViewById(R.id.message)).addView(contentView, new LayoutParams(
-							LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
+			((LinearLayout) layout.findViewById(R.id.message)).addView(contentView, new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 		}
 		this.setContentView(layout);
-		
+
 		this.setCancelable(cancelable);
-		
+
 		return this;
 	}
 }

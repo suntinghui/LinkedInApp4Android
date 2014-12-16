@@ -311,7 +311,7 @@ public class ImproveRegistrationActivity extends BaseActivity implements OnClick
 						}
 					});
 					
-					dialog.create().show();
+					dialog.createDialog().show();
 				} else if (returnCode == 0) {
 					ImproveRegistrationActivity.this.showDialog(BaseActivity.MODAL_DIALOG, "失败，原因未知");
 					

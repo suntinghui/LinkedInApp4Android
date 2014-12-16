@@ -146,6 +146,7 @@ public class FriendActivity extends AbsSubActivity {
 					intent.putExtra("TOPLIST", topList);
 					intent.putExtra("LIST", list);
 					intent.putExtra("TOTAL", total);
+					intent.putExtra("TYPE", type);
 					FriendActivity.this.startActivityForResult(intent, 0);
 				}
 			});

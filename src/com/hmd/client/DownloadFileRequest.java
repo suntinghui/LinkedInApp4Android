@@ -89,7 +89,7 @@ public class DownloadFileRequest {
 				
 			});
 			
-			dialog.create().show();
+			dialog.createDialog().show();
 		}
 		
 		@Override
@@ -214,7 +214,7 @@ public class DownloadFileRequest {
 					}
 				});
 				
-				tempDialog.create().show();
+				tempDialog.createDialog().show();
 			}
 		}
 		

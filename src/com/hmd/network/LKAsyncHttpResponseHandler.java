@@ -87,7 +87,7 @@ public abstract class LKAsyncHttpResponseHandler extends JsonHttpResponseHandler
 
 					}
 				});
-				dialog.create().show();
+				dialog.createDialog().show();
 
 			} else {
 				BaseActivity.getTopActivity().hideDialog(BaseActivity.ALL_DIALOG);
@@ -165,7 +165,7 @@ public abstract class LKAsyncHttpResponseHandler extends JsonHttpResponseHandler
 				failureAction(error, errorResponse);
 			}
 		});
-		dialog.create().show();
+		dialog.createDialog().show();
 
 		Log.e("error:", error.toString());
 	}
